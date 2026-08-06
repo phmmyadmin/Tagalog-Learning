@@ -10,6 +10,9 @@ import { saveMistake, removeMistake } from '../utils/mistakesManager';
  * QuizRunner Component - Step-by-step quiz runner with immediate answer evaluation and score report.
  */
 export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
+  const quizTitle = quiz.quiz_metadata?.title || quiz.title || 'Tagalog Quiz';
+  const quizId = quiz.quiz_metadata?.id || quiz.id || 'quiz_default';
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [selectedOption, setSelectedOption] = useState('');
@@ -74,7 +77,7 @@ export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
       // Quiz Finished! Calculate Score
       const totalCorrect = Object.values(userAnswers).filter((a) => a.isCorrect).length;
       onCompleteQuiz({
-        quizId: quiz.id,
+        quizId: quizId,
         score: totalCorrect,
         total: questions.length,
         userAnswers,
@@ -88,7 +91,7 @@ export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
     <div style={{ maxWidth: '640px', margin: '0 auto', width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       {/* Header Navigation & Cancel */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Badge variant="primary">{quiz.title || 'Quiz Session'}</Badge>
+        <Badge variant="primary">{quizTitle}</Badge>
         <Button variant="ghost" size="sm" onClick={onCancel}>
           ✕ Exit Quiz
         </Button>
