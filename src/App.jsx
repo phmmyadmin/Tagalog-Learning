@@ -8,7 +8,7 @@ import VocabularyView from './views/VocabularyView';
 import ActivitiesView from './views/ActivitiesView';
 import QuizzesView from './views/QuizzesView';
 import PptxViewer from './components/PptxViewer';
-import { recordStudyActivity, calculateStreak, getActiveDaysThisWeek } from './utils/streakManager';
+import { recordStudyActivity, calculateStreak } from './utils/streakManager';
 
 export function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -19,11 +19,9 @@ export function App() {
 
   // Real streak state
   const [streakCount, setStreakCount] = useState(calculateStreak());
-  const [daysActiveThisWeek, setDaysActiveThisWeek] = useState(getActiveDaysThisWeek());
 
   const refreshStreak = () => {
     setStreakCount(calculateStreak());
-    setDaysActiveThisWeek(getActiveDaysThisWeek());
   };
 
   useEffect(() => {
@@ -113,7 +111,6 @@ export function App() {
           <DashboardView
             onNavigate={setActiveTab}
             streakCount={streakCount}
-            daysActiveThisWeek={daysActiveThisWeek}
             stats={{
               theoryMastered,
               totalTheory,
