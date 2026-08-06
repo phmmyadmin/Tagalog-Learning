@@ -4,9 +4,11 @@
 
 const STORAGE_KEY = 'tagalog_study_dates_v1';
 
-const getTodayDateString = () => {
-  const today = new Date();
-  return today.toISOString().split('T')[0];
+export const getLocalDateString = (dateObj = new Date()) => {
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 };
 
 export const getStudyDates = () => {
@@ -19,7 +21,7 @@ export const getStudyDates = () => {
 };
 
 export const recordStudyActivity = () => {
-  const today = getTodayDateString();
+  const today = getLocalDateString();
   const dates = getStudyDates();
 
   if (!dates.includes(today)) {
@@ -34,32 +36,30 @@ export const recordStudyActivity = () => {
 };
 
 /**
- * Calculates current consecutive day streak.
+ * Calculates current consecutive day streak in local timezone.
  */
 export const calculateStreak = () => {
   const dates = getStudyDates();
   if (dates.length === 0) return 0;
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
   let streak = 0;
-  let checkDate = new Date(today);
+  const checkDate = new Date();
+  checkDate.setHours(0, 0, 0, 0);
 
   // Check if today was recorded
-  const todayStr = checkDate.toISOString().split('T')[0];
+  const todayStr = getLocalDateString(checkDate);
   if (!dates.includes(todayStr)) {
     // Check if yesterday was recorded
     checkDate.setDate(checkDate.getDate() - 1);
-    const yesterdayStr = checkDate.toISOString().split('T')[0];
+    const yesterdayStr = getLocalDateString(checkDate);
     if (!dates.includes(yesterdayStr)) {
       return 0; // Streak broken
     }
   }
 
-  // Count backwards
+  // Count consecutive days backwards
   while (true) {
-    const dateStr = checkDate.toISOString().split('T')[0];
+    const dateStr = getLocalDateString(checkDate);
     if (dates.includes(dateStr)) {
       streak += 1;
       checkDate.setDate(checkDate.getDate() - 1);
@@ -73,12 +73,12 @@ export const calculateStreak = () => {
 
 /**
  * Generates 16-week matrix for GitHub contribution heatmap view.
- * Returns array of week columns: [ { weekStart, days: [ { date, dateStr, isActive, dayOfWeek } ] } ]
  */
 export const getContributionMatrix = (numWeeks = 16) => {
   const dates = getStudyDates();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const todayStr = getLocalDateString(today);
 
   // Find Sunday ending current week
   const dayOfWeek = today.getDay(); // 0 = Sun, 1 = Mon...
@@ -97,13 +97,14 @@ export const getContributionMatrix = (numWeeks = 16) => {
   for (let w = 0; w < numWeeks; w++) {
     const weekDays = [];
     for (let d = 0; d < 7; d++) {
-      const dateStr = curr.toISOString().split('T')[0];
+      const dateStr = getLocalDateString(curr);
       const isActive = dates.includes(dateStr);
       weekDays.push({
         dateStr,
         dateNum: curr.getDate(),
         monthName: curr.toLocaleString('en-US', { month: 'short' }),
         isActive,
+        isToday: dateStr === todayStr,
         isFuture: curr > today,
       });
       curr.setDate(curr.getDate() + 1);
