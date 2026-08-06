@@ -75,6 +75,37 @@ export function App() {
     setPptxModal({ isOpen: true, lesson: formatted, initialSlide: slide, conceptLabel });
   };
 
+  // Dynamic stats from localStorage
+  const getDynamicStats = () => {
+    let activitiesDone = 0;
+    try {
+      const savedAct = localStorage.getItem('tagalog_activity_results_v1');
+      if (savedAct) {
+        activitiesDone = Object.values(JSON.parse(savedAct)).filter((r) => r && r.isCorrect).length;
+      }
+    } catch (e) {}
+
+    let mistakesCount = 0;
+    try {
+      const savedBank = localStorage.getItem('tagalog_mistakes_bank_v1');
+      if (savedBank) {
+        mistakesCount = JSON.parse(savedBank).length;
+      }
+    } catch (e) {}
+
+    let quizzesCompleted = 0;
+    try {
+      const savedQuiz = localStorage.getItem('tagalog_quiz_history_v1');
+      if (savedQuiz) {
+        quizzesCompleted = JSON.parse(savedQuiz).length;
+      }
+    } catch (e) {}
+
+    return { activitiesDone, mistakesCount, quizzesCompleted };
+  };
+
+  const dynamicStats = getDynamicStats();
+
   return (
     <div className="app-container">
       {/* Accessibility Skip Link */}
@@ -116,12 +147,12 @@ export function App() {
               totalTheory,
               vocabMastered,
               totalVocab,
-              activitiesDone: 0,
+              activitiesDone: dynamicStats.activitiesDone,
               totalActivities,
-              quizzesCompleted: 0,
+              quizzesCompleted: dynamicStats.quizzesCompleted,
               totalQuizzes: 4,
-              dueSrsCount: 12,
-              mistakesCount: 0,
+              dueSrsCount: totalVocab - vocabMastered,
+              mistakesCount: dynamicStats.mistakesCount,
             }}
           />
         </div>
