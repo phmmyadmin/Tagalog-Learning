@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Accessible Input component with integrated label, hints, and error states.
  */
-export const Input = ({
+export const Input = React.forwardRef(({
   id,
   label,
   type = 'text',
@@ -17,7 +17,7 @@ export const Input = ({
   required = false,
   disabled = false,
   ...props
-}) => {
+}, ref) => {
   const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
 
   return (
@@ -51,6 +51,7 @@ export const Input = ({
           </span>
         )}
         <input
+          ref={ref}
           id={inputId}
           type={type}
           value={value}
@@ -88,4 +89,6 @@ export const Input = ({
       )}
     </div>
   );
-};
+});
+
+Input.displayName = 'Input';

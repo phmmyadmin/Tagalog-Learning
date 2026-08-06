@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Eye, EyeOff, RotateCcw } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Badge } from './ui/Badge';
 import { Button } from './ui/Button';
@@ -14,6 +14,7 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onOp
   const [userInput, setUserInput] = useState(savedResult ? savedResult.userInput : '');
   const [status, setStatus] = useState(savedResult ? (savedResult.isCorrect ? 'correct' : 'incorrect') : 'idle');
   const [showSolution, setShowSolution] = useState(false);
+  const inputRef = useRef(null);
 
   const actSlide = activity
     ? slideMap.activities?._keyword_overrides?.[activity.id]?.slide ||
@@ -63,6 +64,17 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onOp
         explanation: activity.explanation,
       });
     }
+  };
+
+  const handleRetry = () => {
+    setStatus('idle');
+    setShowSolution(false);
+    if (onSaveResult) onSaveResult(activity.id, null);
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 50);
   };
 
   const handleReset = () => {
@@ -133,6 +145,7 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onOp
       <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: '240px' }}>
           <Input
+            ref={inputRef}
             placeholder="Type your Tagalog response..."
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
@@ -147,9 +160,21 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onOp
           <Button variant="primary" onClick={handleCheckAnswer} disabled={!userInput.trim()}>
             Check Answer
           </Button>
+        ) : status === 'incorrect' ? (
+          <Button
+            variant="secondary"
+            onClick={handleRetry}
+            icon={<RotateCcw size={16} aria-hidden="true" />}
+          >
+            Retry / Edit
+          </Button>
         ) : (
-          <Button variant="secondary" onClick={handleReset}>
-            Reset / Retry
+          <Button
+            variant="secondary"
+            onClick={handleReset}
+            icon={<RotateCcw size={16} aria-hidden="true" />}
+          >
+            Reset
           </Button>
         )}
       </div>
