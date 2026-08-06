@@ -72,30 +72,44 @@ export const calculateStreak = () => {
 };
 
 /**
- * Gets active day indices for the current week (0 = Monday, 6 = Sunday).
+ * Generates 16-week matrix for GitHub contribution heatmap view.
+ * Returns array of week columns: [ { weekStart, days: [ { date, dateStr, isActive, dayOfWeek } ] } ]
  */
-export const getActiveDaysThisWeek = () => {
+export const getContributionMatrix = (numWeeks = 16) => {
   const dates = getStudyDates();
   const today = new Date();
-  
-  // Calculate Monday of current week
-  const dayOfWeek = today.getDay(); // 0 = Sun, 1 = Mon ...
-  const distanceToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-  
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - distanceToMonday);
-  monday.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
 
-  const activeIndices = [];
+  // Find Sunday ending current week
+  const dayOfWeek = today.getDay(); // 0 = Sun, 1 = Mon...
+  const distanceToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+  const endDate = new Date(today);
+  endDate.setDate(today.getDate() + distanceToSunday);
 
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    const dateStr = d.toISOString().split('T')[0];
-    if (dates.includes(dateStr)) {
-      activeIndices.push(i);
+  // Calculate start date (numWeeks ago from Monday)
+  const totalDays = numWeeks * 7;
+  const startDate = new Date(endDate);
+  startDate.setDate(endDate.getDate() - totalDays + 1);
+
+  const weeks = [];
+  let curr = new Date(startDate);
+
+  for (let w = 0; w < numWeeks; w++) {
+    const weekDays = [];
+    for (let d = 0; d < 7; d++) {
+      const dateStr = curr.toISOString().split('T')[0];
+      const isActive = dates.includes(dateStr);
+      weekDays.push({
+        dateStr,
+        dateNum: curr.getDate(),
+        monthName: curr.toLocaleString('en-US', { month: 'short' }),
+        isActive,
+        isFuture: curr > today,
+      });
+      curr.setDate(curr.getDate() + 1);
     }
+    weeks.push(weekDays);
   }
 
-  return activeIndices;
+  return weeks;
 };
