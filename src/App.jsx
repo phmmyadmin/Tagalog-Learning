@@ -44,7 +44,7 @@ export function App() {
   });
 
   // PPTX Viewer modal state
-  const [pptxModal, setPptxModal] = useState({ isOpen: false, lesson: 'Lesson_02' });
+  const [pptxModal, setPptxModal] = useState({ isOpen: false, lesson: 'Lesson_02', initialSlide: 1, conceptLabel: null });
 
   useEffect(() => {
     try {
@@ -70,9 +70,9 @@ export function App() {
   const vocabMastered = tagalogData.vocabulary.filter((v) => masteredItems.includes(v.id)).length;
   const totalMastered = theoryMastered + vocabMastered;
 
-  const handleOpenSlideViewer = (lessonKey = 'Lesson_02') => {
+  const handleOpenSlideViewer = (lessonKey = 'Lesson_02', slide = 1, slideEnd = 1, conceptLabel = null) => {
     const formatted = lessonKey.includes('Lesson_') ? lessonKey : lessonKey.replace('Lesson ', 'Lesson_');
-    setPptxModal({ isOpen: true, lesson: formatted });
+    setPptxModal({ isOpen: true, lesson: formatted, initialSlide: slide, conceptLabel });
   };
 
   return (
@@ -161,7 +161,9 @@ export function App() {
       {pptxModal.isOpen && (
         <PptxViewer
           lessonKey={pptxModal.lesson}
-          onClose={() => setPptxModal({ isOpen: false, lesson: 'Lesson_02' })}
+          initialSlide={pptxModal.initialSlide}
+          conceptLabel={pptxModal.conceptLabel}
+          onClose={() => setPptxModal({ isOpen: false, lesson: 'Lesson_02', initialSlide: 1, conceptLabel: null })}
         />
       )}
     </div>

@@ -166,17 +166,26 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <h4 style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Grammar & Syntax Rules</h4>
               <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                {topicData.rules.map((rule, idx) => (
-                  <li key={idx} style={{ color: 'var(--text-secondary)', fontSize: '0.925rem' }}>
-                    {typeof rule === 'string' ? (
-                      rule
-                    ) : (
-                      <div>
-                        <strong>{rule.name || rule.title}:</strong> {rule.description || rule.text}
-                      </div>
-                    )}
-                  </li>
-                ))}
+                {topicData.rules.map((rule, idx) => {
+                  if (typeof rule === 'string') {
+                    return <li key={idx} style={{ color: 'var(--text-secondary)', fontSize: '0.925rem' }}>{rule}</li>;
+                  }
+
+                  const title = rule.name || rule.title || rule.article || rule.order_type || rule.rule || rule.ligature || rule.type || rule.tense;
+                  const detail = rule.description || rule.text || rule.target || rule.condition || rule.pattern || rule.singular;
+                  const exTagalog = rule.example_tagalog || rule.example;
+                  const exEnglish = rule.example_english;
+
+                  return (
+                    <li key={idx} style={{ color: 'var(--text-secondary)', fontSize: '0.925rem' }}>
+                      {title && <strong>{title}: </strong>}
+                      {detail && <span>{detail} </span>}
+                      {exTagalog && typeof exTagalog === 'string' && (
+                        <span style={{ fontStyle: 'italic', color: 'var(--accent-primary)' }}>({exTagalog}{exEnglish ? ` - ${exEnglish}` : ''})</span>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
