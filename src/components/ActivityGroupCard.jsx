@@ -14,6 +14,7 @@ export const ActivityGroupCard = ({
   slide,
   activities = [],
   onOpenLesson,
+  savedResults = {},
   completedIds = [],
   onActivityComplete,
 }) => {
@@ -110,6 +111,7 @@ export const ActivityGroupCard = ({
             <ActivityCard
               key={activity.id}
               activity={activity}
+              savedResult={savedResults[activity.id]}
               onOpenLesson={onOpenLesson}
               onComplete={onActivityComplete}
             />

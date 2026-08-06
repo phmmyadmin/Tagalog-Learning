@@ -146,6 +146,7 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
               lesson={group.lesson}
               slide={group.slide}
               activities={group.activities}
+              savedResults={savedResults}
               onOpenLesson={onOpenLesson}
               completedIds={completedIds}
               onActivityComplete={(id, result) => handleSaveResult(id, result)}
