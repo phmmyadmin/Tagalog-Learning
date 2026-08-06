@@ -10,12 +10,43 @@ import QuizzesView from './views/QuizzesView';
 import PptxViewer from './components/PptxViewer';
 import { recordStudyActivity, calculateStreak } from './utils/streakManager';
 
+const VALID_TABS = ['dashboard', 'theory', 'vocabulary', 'activities', 'quizzes'];
+
+const getTabFromHash = () => {
+  if (typeof window === 'undefined') return 'dashboard';
+  const raw = window.location.hash.replace('#', '').split('?')[0].split('-')[0];
+  return VALID_TABS.includes(raw) ? raw : 'dashboard';
+};
+
 export function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTabState] = useState(() => getTabFromHash());
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLesson, setSelectedLesson] = useState('all');
   const [filterMastered, setFilterMastered] = useState('all');
+
+  const setActiveTab = (tab) => {
+    if (VALID_TABS.includes(tab)) {
+      setActiveTabState(tab);
+      if (window.location.hash !== `#${tab}`) {
+        window.history.pushState(null, '', `#${tab}`);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const currentTab = getTabFromHash();
+      setActiveTabState(currentTab);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleHashChange);
+    };
+  }, []);
 
   // Real streak state
   const [streakCount, setStreakCount] = useState(calculateStreak());
