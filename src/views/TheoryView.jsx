@@ -13,9 +13,9 @@ export default function TheoryView({
   onToggleMastered,
   onOpenLesson,
 }) {
-  const [activeCategoryFilter, setActiveCategoryFilter] = useState(selectedCategory);
+  const [activeLessonFilter, setActiveLessonFilter] = useState(selectedLesson);
 
-  const categories = ['all', ...new Set(theoryList.map((item) => item.category || item.id).filter(Boolean))];
+  const lessons = ['all', ...new Set(theoryList.map((item) => item.lesson).filter(Boolean))];
 
   // Filtering logic
   const filteredTheory = theoryList.filter((item) => {
@@ -28,12 +28,12 @@ export default function TheoryView({
       if (!matchTopic && !matchSummary && !matchId) return false;
     }
 
-    // Category filter
-    if (activeCategoryFilter !== 'all' && (item.category || item.id) !== activeCategoryFilter) {
+    // Internal Lesson filter chip
+    if (activeLessonFilter !== 'all' && item.lesson !== activeLessonFilter) {
       return false;
     }
 
-    // Lesson filter
+    // External Lesson filter from drawer
     if (selectedLesson !== 'all' && item.lesson !== selectedLesson) {
       return false;
     }
@@ -64,40 +64,39 @@ export default function TheoryView({
           </div>
         </div>
 
-        {/* Category Chips */}
-        {categories.length > 2 && (
+        {/* Lesson Filter Chips */}
+        {lessons.length > 1 && (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', padding: '0.5rem 0' }}>
-            {categories.map((cat) => (
+            {lessons.map((les) => (
               <FilterChip
-                key={cat}
-                label={cat === 'all' ? 'All Topics' : cat}
-                active={activeCategoryFilter === cat}
-                onClick={() => setActiveCategoryFilter(cat)}
+                key={les}
+                label={les === 'all' ? 'All Lessons' : les.replace('_', ' ')}
+                active={activeLessonFilter === les}
+                onClick={() => setActiveLessonFilter(les)}
               />
             ))}
           </div>
         )}
       </div>
 
-      {/* Topics List */}
+      {/* Topics Grid */}
       {filteredTheory.length > 0 ? (
-        <div>
-          {filteredTheory.map((topic, idx) => (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.25rem' }}>
+          {filteredTheory.map((topicData) => (
             <TheoryCard
-              key={topic.id}
-              topicData={topic}
-              isMastered={masteredIds.includes(topic.id)}
+              key={topicData.id}
+              topicData={topicData}
+              isMastered={masteredIds.includes(topicData.id)}
               onToggleMastered={onToggleMastered}
-              index={idx}
               onOpenLesson={onOpenLesson}
             />
           ))}
         </div>
       ) : (
         <EmptyState
-          icon="📖"
-          title="No grammar topics match your filters"
-          description="Try selecting 'All Lessons' or clearing your search term to see all grammar rules."
+          icon="🔍"
+          title="No theory topics found"
+          description="Try adjusting your search query or lesson filter."
         />
       )}
     </div>
