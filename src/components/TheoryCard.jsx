@@ -88,13 +88,9 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
 
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.2rem' }}>
-              <Badge variant="primary">{topicData.id}</Badge>
-
-              {topicData.lesson && (
-                <Badge variant="default">
-                  {topicData.lesson.replace('_', ' ')}
-                </Badge>
-              )}
+              <Badge variant="primary">
+                {(topicMapping.lesson || topicData.lesson || topicData.id).replace('_', ' ')}
+              </Badge>
 
               {isMastered && (
                 <Badge variant="success">Mastered</Badge>
