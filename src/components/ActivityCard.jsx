@@ -10,7 +10,8 @@ import slideMap from '../data/slideMap.json';
 /**
  * ActivityCard Component - Accessible practice card with immediate validation, solution toggle, and mistake tracking.
  */
-export default function ActivityCard({ activity, savedResult, onSaveResult, onOpenLesson }) {
+export default function ActivityCard({ activity, savedResult, onSaveResult, onComplete, onOpenLesson }) {
+  const saveCallback = onSaveResult || onComplete;
   const [userInput, setUserInput] = useState(savedResult ? savedResult.userInput : '');
   const [status, setStatus] = useState(savedResult ? (savedResult.isCorrect ? 'correct' : 'incorrect') : 'idle');
   const [showSolution, setShowSolution] = useState(false);
@@ -48,11 +49,11 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onOp
     if (isCorrect) {
       setStatus('correct');
       setShowSolution(true);
-      if (onSaveResult) onSaveResult(activity.id, { userInput, isCorrect: true });
+      if (saveCallback) saveCallback(activity.id, { userInput, isCorrect: true });
       removeMistake(activity.id);
     } else {
       setStatus('incorrect');
-      if (onSaveResult) onSaveResult(activity.id, { userInput, isCorrect: false });
+      if (saveCallback) saveCallback(activity.id, { userInput, isCorrect: false });
       saveMistake({
         id: activity.id,
         type: activity.type || 'fill_in_blank',
@@ -69,7 +70,7 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onOp
   const handleRetry = () => {
     setStatus('idle');
     setShowSolution(false);
-    if (onSaveResult) onSaveResult(activity.id, null);
+    if (saveCallback) saveCallback(activity.id, null);
     setTimeout(() => {
       if (inputRef.current) {
         inputRef.current.focus();
@@ -81,7 +82,7 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onOp
     setUserInput('');
     setStatus('idle');
     setShowSolution(false);
-    if (onSaveResult) onSaveResult(activity.id, null);
+    if (saveCallback) saveCallback(activity.id, null);
   };
 
   return (

@@ -149,6 +149,7 @@ export const ActivityGroupCard = ({
               activity={activity}
               savedResult={savedResults[activity.id]}
               onOpenLesson={onOpenLesson}
+              onSaveResult={onActivityComplete}
               onComplete={onActivityComplete}
             />
           ))}
