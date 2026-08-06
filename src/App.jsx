@@ -8,6 +8,7 @@ import VocabularyView from './views/VocabularyView';
 import ActivitiesView from './views/ActivitiesView';
 import QuizzesView from './views/QuizzesView';
 import PptxViewer from './components/PptxViewer';
+import { recordStudyActivity, calculateStreak, getActiveDaysThisWeek } from './utils/streakManager';
 
 export function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -15,6 +16,24 @@ export function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLesson, setSelectedLesson] = useState('all');
   const [filterMastered, setFilterMastered] = useState('all');
+
+  // Real streak state
+  const [streakCount, setStreakCount] = useState(calculateStreak());
+  const [daysActiveThisWeek, setDaysActiveThisWeek] = useState(getActiveDaysThisWeek());
+
+  const refreshStreak = () => {
+    setStreakCount(calculateStreak());
+    setDaysActiveThisWeek(getActiveDaysThisWeek());
+  };
+
+  useEffect(() => {
+    // Record study activity on initial visit
+    recordStudyActivity();
+    refreshStreak();
+
+    window.addEventListener('tagalog_streak_updated', refreshStreak);
+    return () => window.removeEventListener('tagalog_streak_updated', refreshStreak);
+  }, []);
 
   // Mastered state persistence
   const [masteredItems, setMasteredItems] = useState(() => {
@@ -38,6 +57,7 @@ export function App() {
   }, [masteredItems]);
 
   const toggleMastered = (itemId) => {
+    recordStudyActivity();
     setMasteredItems((prev) =>
       prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId]
     );
@@ -92,6 +112,8 @@ export function App() {
         {activeTab === 'dashboard' && (
           <DashboardView
             onNavigate={setActiveTab}
+            streakCount={streakCount}
+            daysActiveThisWeek={daysActiveThisWeek}
             stats={{
               theoryMastered,
               totalTheory,

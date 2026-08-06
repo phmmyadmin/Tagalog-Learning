@@ -9,6 +9,8 @@ import { ProgressCard } from '../components/ProgressCard';
  */
 export const DashboardView = ({
   onNavigate,
+  streakCount = 1,
+  daysActiveThisWeek = [0],
   stats = {
     theoryMastered: 0,
     totalTheory: 0,
@@ -43,7 +45,7 @@ export const DashboardView = ({
 
       {/* Grid: Streak + Quick Actions */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
-        <StreakCalendar streakCount={5} daysActive={[0, 1, 2, 3, 4]} />
+        <StreakCalendar streakCount={streakCount} daysActive={daysActiveThisWeek} />
 
         {/* Quick Action Cards */}
         <Card style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
