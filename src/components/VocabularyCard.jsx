@@ -54,7 +54,7 @@ export default function VocabularyCard({ vocabItem, srsStatus, onSpeak, onOpenLe
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             {vocabItem.lesson && (
               <a
-                href={`#slides?lesson=${vocabItem.lesson}&slide=${vocabSlide}`}
+                href={`#slides-${vocabItem.lesson}-slide-${vocabSlide}`}
                 onClick={handleLessonLinkClick}
                 style={{
                   fontSize: '0.8rem',
