@@ -1,0 +1,221 @@
+{
+  "quiz_metadata": {
+    "id": "QUIZ-VERBS-MASTER",
+    "title": "Tagalog Verbs & Tenses Master Quiz",
+    "topic": "Verbs & Verb Tenses",
+    "total_questions": 20,
+    "created_at": "2026-08-05T21:45:00Z"
+  },
+  "questions": [
+    {
+      "id": "Q-V01",
+      "type": "multiple_choice",
+      "topic": "Verb Vocabulary",
+      "lesson": "Lesson_02",
+      "prompt": "What is the English meaning of the Tagalog verb 'kumakain'?",
+      "options": ["Eating (is eating)", "Cooking (is cooking)", "Playing (is playing)", "Studying (is studying)"],
+      "correct_answer": "Eating (is eating)",
+      "explanation": "'Kumakain' is the ongoing (present) tense form of the verb 'to eat' (root: kain)."
+    },
+    {
+      "id": "Q-V02",
+      "type": "multiple_choice",
+      "topic": "Verb Vocabulary",
+      "lesson": "Lesson_02",
+      "prompt": "What is the Tagalog verb for 'is cooking'?",
+      "options": ["nagluluto", "naglalaro", "nag-aaral", "kumakain"],
+      "correct_answer": "nagluluto",
+      "explanation": "'Nagluluto' comes from the root 'luto' (cook) with the ongoing aspect prefix 'nag-' and duplicated first syllable 'lu-'."
+    },
+    {
+      "id": "Q-V03",
+      "type": "multiple_choice",
+      "topic": "Verb Vocabulary",
+      "lesson": "Lesson_03",
+      "prompt": "What does the Tagalog verb 'naglalaro' mean?",
+      "options": ["Playing (is playing)", "Studying (is studying)", "Eating (is eating)", "Arriving (arrived)"],
+      "correct_answer": "Playing (is playing)",
+      "explanation": "'Naglalaro' is the present/ongoing form of the verb root 'laro' (play)."
+    },
+    {
+      "id": "Q-V04",
+      "type": "multiple_choice",
+      "topic": "Verb Vocabulary",
+      "lesson": "Lesson_03",
+      "prompt": "Which Tagalog verb means 'is studying'?",
+      "options": ["nag-aaral", "nagluluto", "naglalaro", "kumakain"],
+      "correct_answer": "nag-aaral",
+      "explanation": "'Nag-aaral' comes from the root 'aral' (study) in present ongoing tense."
+    },
+    {
+      "id": "Q-V05",
+      "type": "multiple_choice",
+      "topic": "Verb Tense Formation",
+      "lesson": "Lesson_02",
+      "prompt": "How is the PAST (completed) tense generally formed for 'nag-' verbs in Tagalog?",
+      "options": [
+        "By attaching 'nag-' directly to the root word (e.g. naglaro)",
+        "By attaching 'nag-' and duplicating the first syllable (e.g. naglalaro)",
+        "By attaching 'mag-' and duplicating the first syllable (e.g. maglalaro)",
+        "By adding 'ay' before the root word"
+      ],
+      "correct_answer": "By attaching 'nag-' directly to the root word (e.g. naglaro)",
+      "explanation": "Past/completed aspect uses 'nag-' + root without duplicating any syllable (e.g., naglaro = played)."
+    },
+    {
+      "id": "Q-V06",
+      "type": "multiple_choice",
+      "topic": "Verb Tense Formation",
+      "lesson": "Lesson_02",
+      "prompt": "What is the past (completed) tense form of 'naglalaro' (is playing)?",
+      "options": ["naglaro", "maglalaro", "naglalaro", "palaro"],
+      "correct_answer": "naglaro",
+      "explanation": "The past/completed tense form of 'laro' with prefix 'nag-' is 'naglaro' (played)."
+    },
+    {
+      "id": "Q-V07",
+      "type": "multiple_choice",
+      "topic": "Verb Tense Formation",
+      "lesson": "Lesson_02",
+      "prompt": "What is the FUTURE (contemplated) tense form for the verb root 'laro' (play)?",
+      "options": ["maglalaro", "naglaro", "naglalaro", "kumain"],
+      "correct_answer": "maglalaro",
+      "explanation": "Future/contemplated tense replaces 'nag-' with 'mag-' and duplicates the first syllable of the root: mag- + la- + laro = maglalaro (will play)."
+    },
+    {
+      "id": "Q-V08",
+      "type": "fill_in_blank",
+      "topic": "Verb Tenses",
+      "lesson": "Lesson_02",
+      "prompt": "Complete the sentence to say 'The child is eating': Ang bata ay _____.",
+      "correct_answer": "kumakain",
+      "accepted_answers": ["kumakain", "Kumakain"],
+      "explanation": "'Kumakain' is the present/ongoing form of the verb 'kain' (eat)."
+    },
+    {
+      "id": "Q-V09",
+      "type": "fill_in_blank",
+      "topic": "Verb Tenses",
+      "lesson": "Lesson_02",
+      "prompt": "Translate the sentence 'The woman is cooking' into Tagalog: Nagluluto ang _____.",
+      "correct_answer": "babae",
+      "accepted_answers": ["babae", "babae."],
+      "explanation": "'Nagluluto ang babae' means 'The woman is cooking'."
+    },
+    {
+      "id": "Q-V10",
+      "type": "multiple_choice",
+      "topic": "Verb Aspect Identification",
+      "lesson": "Lesson_03",
+      "prompt": "Which tense aspect is represented by 'magluluto'?",
+      "options": ["Future (will cook)", "Past (cooked)", "Present (is cooking)", "Imperative (cook!)"],
+      "correct_answer": "Future (will cook)",
+      "explanation": "The prefix 'mag-' combined with first-syllable duplication ('lu-') indicates future/contemplated action."
+    },
+    {
+      "id": "Q-V11",
+      "type": "multiple_choice",
+      "topic": "Verb Aspect Identification",
+      "lesson": "Lesson_03",
+      "prompt": "Which of the following verb forms means 'studied' (past tense)?",
+      "options": ["nag-aral", "nag-aaral", "mag-aaral", "pag-aral"],
+      "correct_answer": "nag-aral",
+      "explanation": "'Nag-aral' is the completed (past) tense form of the verb root 'aral'."
+    },
+    {
+      "id": "Q-V12",
+      "type": "multiple_choice",
+      "topic": "Verb Aspect Identification",
+      "lesson": "Lesson_03",
+      "prompt": "What is the future tense form of 'nag-aaral' (is studying)?",
+      "options": ["mag-aaral", "nag-aral", "nag-aaral", "paaralan"],
+      "correct_answer": "mag-aaral",
+      "explanation": "'Mag-aaral' means 'will study' (future/contemplated tense)."
+    },
+    {
+      "id": "Q-V13",
+      "type": "fill_in_blank",
+      "topic": "Verb Sentence Translation",
+      "lesson": "Lesson_03",
+      "prompt": "Translate 'We (exclusive) are studying' into Tagalog: _____ ay nag-aaral.",
+      "correct_answer": "Kami",
+      "accepted_answers": ["Kami", "kami"],
+      "explanation": "'Kami' is the 1st person plural exclusive pronoun. 'Kami ay nag-aaral' = We are studying."
+    },
+    {
+      "id": "Q-V14",
+      "type": "multiple_choice",
+      "topic": "Verb + Ligature Rules",
+      "lesson": "Lesson_04",
+      "prompt": "How do you connect the verb 'kumain' (ate) ending in a vowel with the adverb 'mabilis' (quickly)?",
+      "options": ["kumaing mabilis", "kumain na mabilis", "kumain g mabilis", "kumain mabilis"],
+      "correct_answer": "kumaing mabilis",
+      "explanation": "When a verb ends in a vowel (kumain ends in 'n' root stem but spoken vowel / -g suffix after 'n'), the suffix ligature '-g' attaches to 'kumain' to form 'kumaing mabilis'."
+    },
+    {
+      "id": "Q-V15",
+      "type": "multiple_choice",
+      "topic": "Verb Ligature Exceptions",
+      "lesson": "Lesson_04",
+      "prompt": "In the phrase 'Ayaw kumain' (Refuses to eat), why is NO ligature used between 'ayaw' and 'kumain'?",
+      "options": [
+        "Because helping/modal verb + main verb sequences do not take ligatures",
+        "Because 'ayaw' is a noun",
+        "Because 'kumain' is past tense",
+        "Because 'ayaw' already ends in a ligature"
+      ],
+      "correct_answer": "Because helping/modal verb + main verb sequences do not take ligatures",
+      "explanation": "Helping verb + main verb combinations (like 'Ayaw kumain' or 'Gusto kumain') are an exception to ligature rules and do not use ligatures."
+    },
+    {
+      "id": "Q-V16",
+      "type": "fill_in_blank",
+      "topic": "Verb Sentence Construction",
+      "lesson": "Lesson_02",
+      "prompt": "Complete the inverted order sentence for 'He is playing': Siya ay _____.",
+      "correct_answer": "naglalaro",
+      "accepted_answers": ["naglalaro", "naglalaro."],
+      "explanation": "'Siya ay naglalaro' means 'He/She is playing'."
+    },
+    {
+      "id": "Q-V17",
+      "type": "multiple_choice",
+      "topic": "Verb Tenses",
+      "lesson": "Lesson_02",
+      "prompt": "What is the past tense form of 'kumakain' (is eating)?",
+      "options": ["kumain", "kakain", "kumakain", "magkain"],
+      "correct_answer": "kumain",
+      "explanation": "'Kumain' is the past/completed form ('ate') of the root 'kain'."
+    },
+    {
+      "id": "Q-V18",
+      "type": "multiple_choice",
+      "topic": "Verb Tenses",
+      "lesson": "Lesson_02",
+      "prompt": "What is the future tense form of 'kumakain' (is eating)?",
+      "options": ["kakain", "kumain", "kumakain", "magkumain"],
+      "correct_answer": "kakain",
+      "explanation": "'Kakain' is the future/contemplated form ('will eat') formed by duplicating the first syllable 'ka-' + root 'kain'."
+    },
+    {
+      "id": "Q-V19",
+      "type": "multiple_choice",
+      "topic": "Verb + Adjective Ligatures",
+      "lesson": "Lesson_04",
+      "prompt": "How do you link 'pagod' (tired) and 'dumating' (arrived) in Tagalog?",
+      "options": ["pagod na dumating", "pagodng dumating", "pagodg dumating", "pagod dumating"],
+      "correct_answer": "pagod na dumating",
+      "explanation": "Since 'pagod' ends in a consonant ('d' which is neither a vowel nor 'n'), the standalone ligature 'na' is used: 'pagod na dumating'."
+    },
+    {
+      "id": "Q-V20",
+      "type": "multiple_choice",
+      "topic": "Verb Meaning Identification",
+      "lesson": "Lesson_04",
+      "prompt": "What does the verb 'dumating' mean in English?",
+      "options": ["Arrived", "Departed", "Ran", "Slept"],
+      "correct_answer": "Arrived",
+      "explanation": "'Dumating' is the completed/past aspect of the verb root 'dating' (arrive)."
+    }
+  ]
+}

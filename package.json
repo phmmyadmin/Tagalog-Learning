@@ -1,0 +1,25 @@
+{
+  "name": "tagalog-learning-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/parse_knowledge.js && node scripts/extract_slides.js && vite build",
+    "preview": "vite preview",
+    "build:data": "node scripts/parse_knowledge.js",
+    "build:slides": "node scripts/extract_slides.js"
+  },
+  "dependencies": {
+    "lucide-react": "^1.16.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jszip": "^3.10.1",
+    "vite": "^6.2.0"
+  }
+}

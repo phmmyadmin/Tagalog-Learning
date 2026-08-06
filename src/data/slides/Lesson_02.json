@@ -1,0 +1,667 @@
+{
+  "lesson": "Lesson_02",
+  "totalSlides": 18,
+  "slides": [
+    {
+      "slideNumber": 1,
+      "title": "WELCOME back Pablo!",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 2,
+      "title": "Lesson 02",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 3,
+      "title": "IN THE END OF THIS LESSON, WE WILL LEARN:",
+      "paragraphs": [
+        {
+          "text": "1.The article of SI and SINA 2.The article of ANG and MGA 3. Sentence formation",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 4,
+      "title": "The Article SI and SINA The article SI is use before the name of a person and the plural article SINA is used before the name of two or more persons. Ex. Liza is a woman Si Liza ay babae Simon and Tom are good. Sina Simon at Tom ay mababait Helen and tom are children. Sina Helen at tom ay mga bata.",
+      "paragraphs": [
+        {
+          "text": "Note that tagalog sentences follow a plurality rule where either the subject or predicate may be plural. However, the pluralization of both subject  and predicate is optional. In the sentence above, the article sina indicates that the subject is plural while mga ( a plural marker that has no meaning on its own) before bata indicates that the noun is plural.",
+          "isBullet": false
+        },
+        {
+          "text": "Adjective form their plural by duplicating the first syllable of the root word .",
+          "isBullet": false
+        },
+        {
+          "text": "For ex. (kind root word is bait) ma bait=singular of good\t\tprefix mababait ma ganda",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 5,
+      "title": "The Article of ANG and MGA The article ANG is used before the name of a single thing or place while ANG MGA (manga) is used before the names of two or more things or places. Halimbawa : The child is good.\t\t\t\tAng bata ay mabait The children and the dogs are good. Ang mga bata at ang mga aso ay mababait .",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 6,
+      "title": "The article ANG",
+      "paragraphs": [
+        {
+          "text": "The article ANG must always precede the name of a place . However, the article MANGA may be place before the adjective, which must then take on a plural form if there is more than one name of place in the subject , or before the noun. Ex.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang Manila ay isang lungsod ng Pilipinas.\t\t\tManila is a city in the Philippines",
+          "isBullet": false
+        },
+        {
+          "text": "Ang Manila at ang Washington D.C ay mga lungsod Manila and Washington D.C are cities Note that it is acceptable to delete the second ANG before the second name of a place and the meaning of the sentence will not change",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 7,
+      "title": "Vocabulary list for today",
+      "paragraphs": [
+        {
+          "text": "Marunong / matalino -intelligent Magkapatid -Siblings",
+          "isBullet": false
+        },
+        {
+          "text": "Bata- young(adj.) ; child (noun)\t\tMalinis-Clean",
+          "isBullet": false
+        },
+        {
+          "text": "Lungsod -City Sapatos -Shoes",
+          "isBullet": false
+        },
+        {
+          "text": "Lugar-Place\t\t\t\t\tMahal - expensive; beloved",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 8,
+      "title": "Exercises",
+      "paragraphs": [
+        {
+          "text": "_Ang mga __ bata ay malilinis .",
+          "isBullet": false
+        },
+        {
+          "text": "_Ang mga ____b ata at_ ang mga _ aso ay mababait .  \t The dogs are ugly.  \t( pangit )",
+          "isBullet": false
+        },
+        {
+          "text": "_Sina___ Ruth at Peter ay magkapatid . \t\t  Ang mga aso ay mga pangit .",
+          "isBullet": false
+        },
+        {
+          "text": "_Ang___ Amerika at Aprika ay malalaki .",
+          "isBullet": false
+        },
+        {
+          "text": "_Sina__ Peter at Ruth ay mababait at marurunong .",
+          "isBullet": false
+        },
+        {
+          "text": "_ Sina ___ Helen, Tom, Mary at John ay malilinis .",
+          "isBullet": false
+        },
+        {
+          "text": "_Ang mga ___ bata at si Helen ay magaganda .",
+          "isBullet": false
+        },
+        {
+          "text": "_ Sina___ Tom ay mababait . ( Tom and his companions are good .)",
+          "isBullet": false
+        },
+        {
+          "text": "_ Sina__H elen , John at Peter at _ang mga __ aso ay mababait .",
+          "isBullet": false
+        },
+        {
+          "text": "_ Ang __ bata ay naglalaro .(playing) naglaro,naglalaro maglalaro",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 9,
+      "title": "SENTENCE FORMATION",
+      "paragraphs": [
+        {
+          "text": "There are two basic way to form a sentence in a tagalog",
+          "isBullet": false
+        },
+        {
+          "text": "I.Subject -predicate word order",
+          "isBullet": false
+        },
+        {
+          "text": "II.Inverted or transposed sentence order",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 10,
+      "title": "1.SUBJECT-PREDICATE WORD/SENTENCE ORDER",
+      "paragraphs": [
+        {
+          "text": "Where the subject appears at the beginning of the sentence . A sentence in this order when the subject is the most important element in the sentence and it comes first within the sentence. In this order, the word AY (is) &amp; (are) is used.",
+          "isBullet": false
+        },
+        {
+          "text": "Subject- tell us who or what the sentence is about Predicate tells us what the subject does or is . It contains the verb and all the words related to action or state.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 11,
+      "title": "Example: Halimbawa",
+      "paragraphs": [
+        {
+          "text": "1. Ang bahay ay Malaki. The house is big.",
+          "isBullet": false
+        },
+        {
+          "text": "2. Si Peter ay mabait .\t\t\tPeter is good.",
+          "isBullet": false
+        },
+        {
+          "text": "3. Sina Peter at Mary ay mga bata.\t\tPeter and Mary are children.",
+          "isBullet": false
+        },
+        {
+          "text": "4. Ang mga bata ay kumakain . The children are eating.",
+          "isBullet": false
+        },
+        {
+          "text": "5.Ang babae at lalaki ay nagluluto The woman and the man are cooking.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 12,
+      "title": "THE INVERTED OR TRANSPOSED SENTENCE ORDER",
+      "paragraphs": [
+        {
+          "text": "A sentence is in the inverted or transposed word order when the predicate comes at the beginning of the sentence before the subject. The word AY is not used the inverted word order sentence. Example: Halimbawa",
+          "isBullet": false
+        },
+        {
+          "text": "Malaki ang bahay The house is big\t\tAng bahay ay malaki",
+          "isBullet": false
+        },
+        {
+          "text": "Kumakain ang bata\t\t\tThe child is eating",
+          "isBullet": false
+        },
+        {
+          "text": "Mabait si Peter\t\t\tPeter is good/kind",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 13,
+      "title": "Slide 13",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 14,
+      "title": "The focus or emphasis in such sentence is on the predicate rather than on the subject .",
+      "paragraphs": [
+        {
+          "text": "In inverted word order sentences having plural nouns as their subject , the word mga -not ang mga comes before the first nouns .",
+          "isBullet": false
+        },
+        {
+          "text": "Example: Halimbawa",
+          "isBullet": false
+        },
+        {
+          "text": "Mga lungsod ang Manila at Cebu\t\t\tManila and Cebu are cities",
+          "isBullet": false
+        },
+        {
+          "text": "Mga babae sina Lisa at Cha\t\t\t\tLisa and Cha are women",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 15,
+      "title": "SUBJECTS",
+      "paragraphs": [
+        {
+          "text": "PREDICATES",
+          "isBullet": false
+        },
+        {
+          "text": "babae",
+          "isBullet": false
+        },
+        {
+          "text": "woman",
+          "isBullet": false
+        },
+        {
+          "text": "maganda",
+          "isBullet": false
+        },
+        {
+          "text": "beautiful",
+          "isBullet": false
+        },
+        {
+          "text": "lalaki",
+          "isBullet": false
+        },
+        {
+          "text": "man",
+          "isBullet": false
+        },
+        {
+          "text": "marunong",
+          "isBullet": false
+        },
+        {
+          "text": "intelligent",
+          "isBullet": false
+        },
+        {
+          "text": "batå",
+          "isBullet": false
+        },
+        {
+          "text": "child",
+          "isBullet": false
+        },
+        {
+          "text": "mataba",
+          "isBullet": false
+        },
+        {
+          "text": "fat",
+          "isBullet": false
+        },
+        {
+          "text": "bahay",
+          "isBullet": false
+        },
+        {
+          "text": "house",
+          "isBullet": false
+        },
+        {
+          "text": "mabait",
+          "isBullet": false
+        },
+        {
+          "text": "kind; good (Of character)",
+          "isBullet": false
+        },
+        {
+          "text": "bansa",
+          "isBullet": false
+        },
+        {
+          "text": "nation",
+          "isBullet": false
+        },
+        {
+          "text": "mabuti",
+          "isBullet": false
+        },
+        {
+          "text": "good (of condition or quality)",
+          "isBullet": false
+        },
+        {
+          "text": "tubig",
+          "isBullet": false
+        },
+        {
+          "text": "water",
+          "isBullet": false
+        },
+        {
+          "text": "maliit",
+          "isBullet": false
+        },
+        {
+          "text": "small",
+          "isBullet": false
+        },
+        {
+          "text": "pagkain",
+          "isBullet": false
+        },
+        {
+          "text": "food",
+          "isBullet": false
+        },
+        {
+          "text": "malaki",
+          "isBullet": false
+        },
+        {
+          "text": "big",
+          "isBullet": false
+        },
+        {
+          "text": "bulaklak",
+          "isBullet": false
+        },
+        {
+          "text": "flower",
+          "isBullet": false
+        },
+        {
+          "text": "mainit",
+          "isBullet": false
+        },
+        {
+          "text": "hot",
+          "isBullet": false
+        },
+        {
+          "text": "mesa",
+          "isBullet": false
+        },
+        {
+          "text": "table",
+          "isBullet": false
+        },
+        {
+          "text": "malamig",
+          "isBullet": false
+        },
+        {
+          "text": "cold",
+          "isBullet": false
+        },
+        {
+          "text": "silya",
+          "isBullet": false
+        },
+        {
+          "text": "chair",
+          "isBullet": false
+        },
+        {
+          "text": "malinis",
+          "isBullet": false
+        },
+        {
+          "text": "clean",
+          "isBullet": false
+        },
+        {
+          "text": "paaralan",
+          "isBullet": false
+        },
+        {
+          "text": "school",
+          "isBullet": false
+        },
+        {
+          "text": "bago",
+          "isBullet": false
+        },
+        {
+          "text": "new",
+          "isBullet": false
+        },
+        {
+          "text": "kotse",
+          "isBullet": false
+        },
+        {
+          "text": "car",
+          "isBullet": false
+        },
+        {
+          "text": "mura",
+          "isBullet": false
+        },
+        {
+          "text": "cheap",
+          "isBullet": false
+        },
+        {
+          "text": "Iapis",
+          "isBullet": false
+        },
+        {
+          "text": "pencil",
+          "isBullet": false
+        },
+        {
+          "text": "mahal",
+          "isBullet": false
+        },
+        {
+          "text": "dear; expensive",
+          "isBullet": false
+        },
+        {
+          "text": "papél",
+          "isBullet": false
+        },
+        {
+          "text": "paper",
+          "isBullet": false
+        },
+        {
+          "text": "masarap",
+          "isBullet": false
+        },
+        {
+          "text": "delicious; delightful",
+          "isBullet": false
+        },
+        {
+          "text": "kapé",
+          "isBullet": false
+        },
+        {
+          "text": "coffee",
+          "isBullet": false
+        },
+        {
+          "text": "malusog",
+          "isBullet": false
+        },
+        {
+          "text": "healthy",
+          "isBullet": false
+        },
+        {
+          "text": "isda",
+          "isBullet": false
+        },
+        {
+          "text": "fish",
+          "isBullet": false
+        },
+        {
+          "text": "luma",
+          "isBullet": false
+        },
+        {
+          "text": "old (inanimate)",
+          "isBullet": false
+        },
+        {
+          "text": "araw",
+          "isBullet": false
+        },
+        {
+          "text": "sun; day",
+          "isBullet": false
+        },
+        {
+          "text": "matanda",
+          "isBullet": false
+        },
+        {
+          "text": "old (animate)",
+          "isBullet": false
+        },
+        {
+          "text": "hangin",
+          "isBullet": false
+        },
+        {
+          "text": "wind",
+          "isBullet": false
+        },
+        {
+          "text": "mataas",
+          "isBullet": false
+        },
+        {
+          "text": "high",
+          "isBullet": false
+        },
+        {
+          "text": "aklat",
+          "isBullet": false
+        },
+        {
+          "text": "book",
+          "isBullet": false
+        },
+        {
+          "text": "mababa",
+          "isBullet": false
+        },
+        {
+          "text": "low",
+          "isBullet": false
+        },
+        {
+          "text": "simbahan",
+          "isBullet": false
+        },
+        {
+          "text": "church",
+          "isBullet": false
+        },
+        {
+          "text": "mahirap",
+          "isBullet": false
+        },
+        {
+          "text": "poor; difficult",
+          "isBullet": false
+        }
+      ],
+      "images": [
+        "/slides/Lesson_02/image2.jpeg",
+        "/slides/Lesson_02/image3.jpeg",
+        "/slides/Lesson_02/image4.jpeg",
+        "/slides/Lesson_02/image5.jpeg",
+        "/slides/Lesson_02/image6.jpeg",
+        "/slides/Lesson_02/image7.jpeg",
+        "/slides/Lesson_02/image8.jpeg",
+        "/slides/Lesson_02/image9.jpeg",
+        "/slides/Lesson_02/image10.jpeg",
+        "/slides/Lesson_02/image11.jpeg",
+        "/slides/Lesson_02/image12.jpeg",
+        "/slides/Lesson_02/image13.jpeg",
+        "/slides/Lesson_02/image14.jpeg",
+        "/slides/Lesson_02/image15.jpeg",
+        "/slides/Lesson_02/image16.jpeg"
+      ]
+    },
+    {
+      "slideNumber": 16,
+      "title": "Exercises",
+      "paragraphs": [
+        {
+          "text": "Si peter ay Lalaki .",
+          "isBullet": false
+        },
+        {
+          "text": "Si Liza ay batang babae .",
+          "isBullet": false
+        },
+        {
+          "text": "Si Ruth ay Maganda.",
+          "isBullet": false
+        },
+        {
+          "text": "Si Peter ay marunong .",
+          "isBullet": false
+        },
+        {
+          "text": "Sina Helen at Tom ay mababait .",
+          "isBullet": false
+        },
+        {
+          "text": "Ang mga sapatos ay malilinis .\t\t.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 17,
+      "title": "Vocabulary List",
+      "paragraphs": [
+        {
+          "text": "Bahay\t\t\tHouse Nagluluto Cooking",
+          "isBullet": false
+        },
+        {
+          "text": "Aso\t\t\tDog",
+          "isBullet": false
+        },
+        {
+          "text": "Kumakain is/are eating",
+          "isBullet": false
+        },
+        {
+          "text": "Mainit Hot",
+          "isBullet": false
+        },
+        {
+          "text": "Pusa\t\t\tCat",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 18,
+      "title": "Salamat!",
+      "paragraphs": [],
+      "images": []
+    }
+  ]
+}

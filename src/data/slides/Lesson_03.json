@@ -1,0 +1,414 @@
+{
+  "lesson": "Lesson_03",
+  "totalSlides": 20,
+  "slides": [
+    {
+      "slideNumber": 1,
+      "title": "WELCOME back Pablo!",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 2,
+      "title": "Lesson 03",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 3,
+      "title": "IN THE END OF THIS LESSON, WE WILL LEARN:",
+      "paragraphs": [
+        {
+          "text": "1.Personal pronoun",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 4,
+      "title": "A pronoun replace a noun in Tagalog sentence to make the sentence less repetitive. Two important types of tagalog pronoun that are often used",
+      "paragraphs": [
+        {
+          "text": "personal pronouns ( ako,kami,tayo,ikaw,kayo,siya and sila ) and",
+          "isBullet": false
+        },
+        {
+          "text": "demonstrative pronouns ( ito,iyan and iyon ).",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 5,
+      "title": "PERSONAL PRONOUNS",
+      "paragraphs": [
+        {
+          "text": "The ff. Pronouns are nominative in form and can only be used as the subject of a verb",
+          "isBullet": false
+        },
+        {
+          "text": "in a sentence.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 6,
+      "title": "THE PERSONAL PRONOUN AKO (MEANING I )",
+      "paragraphs": [
+        {
+          "text": "The pronoun ako is the equivalent of the English pronoun / and, when used as a subject, can come at the beginning of the sentence before the verb or, in the inverted word order, after the predicate, as in the following examples:",
+          "isBullet": false
+        },
+        {
+          "text": "Ako ay si John. I am John.",
+          "isBullet": false
+        },
+        {
+          "text": "Ako ay lalaki . I am a man.",
+          "isBullet": false
+        },
+        {
+          "text": "Masipag ako . I am industrious.",
+          "isBullet": false
+        },
+        {
+          "text": "Malusog ako . I am healthy.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 7,
+      "title": "AKO is linked by AY to the predicate in the first two sentences above using the subject-predicate word order. Note chat in this type of sentence, ay may be shortened to 'y when the preceding word ends in a vowel . The shortened form 'y is also used after kami (we including he/she, and), tayo (we including you, he/she, and /), and other pronouns ending in vowels.",
+      "paragraphs": [
+        {
+          "text": "Ako'y si John.\t\tI am John.",
+          "isBullet": false
+        },
+        {
+          "text": "Ako'y lalaki .\t\tI am a man.",
+          "isBullet": false
+        },
+        {
+          "text": "Ako'y nag- aaral .\t\tI am studying. Kami’y nag aaral We are studying",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 8,
+      "title": "2 .THE PERSONAL PRONOUNS KAMI AND TAYO (MEANING WE)",
+      "paragraphs": [
+        {
+          "text": "The pronoun we is expressed by KAMI and TAYO in Tagalog.",
+          "isBullet": false
+        },
+        {
+          "text": "Kam i means we in the sense of he/she and I excluding the person spoken to , whereas Tayo means we in the sense of you, he/she, and I, or you (the person spoken to) and I.",
+          "isBullet": false
+        },
+        {
+          "text": "Kami ay sina John at Lisa. We are John and Lisa.",
+          "isBullet": false
+        },
+        {
+          "text": "Kami'y magkapatid . We are brothers and sisters.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 9,
+      "title": "Vocabulary List",
+      "paragraphs": [
+        {
+          "text": "Masipag Industrious/Hardworking",
+          "isBullet": false
+        },
+        {
+          "text": "Magkaibigan Friends",
+          "isBullet": false
+        },
+        {
+          "text": "Magkapatid Siblings",
+          "isBullet": false
+        },
+        {
+          "text": "Mahirap Poor; difficult",
+          "isBullet": false
+        },
+        {
+          "text": "Marami\t\t\tPlenty Maniwala Believe",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 10,
+      "title": "Mababait kami We are good.",
+      "paragraphs": [
+        {
+          "text": "Mahirap kami. We are poor.",
+          "isBullet": false
+        },
+        {
+          "text": "It is important to remember that pronouns may come at the beginning of the sentence before the verb or at the end of the sentence after the predicate depending on the word order.",
+          "isBullet": false
+        },
+        {
+          "text": "Tayo ay sina John at Mary.\t\tWe are John and Mary.",
+          "isBullet": false
+        },
+        {
+          "text": "Tayo'y magkaibigan .\t\tWe are friends.",
+          "isBullet": false
+        },
+        {
+          "text": "Mababait tayo.\t\t\tWe are good.",
+          "isBullet": false
+        },
+        {
+          "text": "Masisipag tayo.\t\t\tWe are industrious.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 11,
+      "title": "3. The personal pronouns IKAW and KAYO (meaning you)",
+      "paragraphs": [
+        {
+          "text": "The pronoun IKAW is used to express YOU when it is used at the beginning of the sentence , however in the inverted word order where the subject comes after the predicate, it is shortened to ka.",
+          "isBullet": false
+        },
+        {
+          "text": "lkaw ay si Mary.\t\tYou are Mary.\t\tSi Mary ka.",
+          "isBullet": false
+        },
+        {
+          "text": "lkaw ay babae .\t\tYou are a woman.\tBabae ka.",
+          "isBullet": false
+        },
+        {
+          "text": "Masipag ka.\t\tYou are industrious.\tIkaw ay masipag .",
+          "isBullet": false
+        },
+        {
+          "text": "Malusog ka.\t\tYou are healthy\t\tIkaw malusog .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 12,
+      "title": "KAYO is the plural form of IKAW excluding the speaker . Kayo ay sina John at Lisa\t\tYou are John and Lisa Kayo ay magkakapatid .\t\tYou are brother and sister (siblings)",
+      "paragraphs": [
+        {
+          "text": "Malulusog kayo\t\t\tYou are heathy",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 13,
+      "title": "4 . The personal pronouns siya and sila (meaning he/she and they )",
+      "paragraphs": [
+        {
+          "text": "The pronoun SIYA is singular meaning he or she .",
+          "isBullet": false
+        },
+        {
+          "text": "Siya ay si Peter.\t\tHe is Peter.",
+          "isBullet": false
+        },
+        {
+          "text": "Siya’y isang bata.\t\tHe is a child.",
+          "isBullet": false
+        },
+        {
+          "text": "Marunong siya .\t\tHe is intelligent.",
+          "isBullet": false
+        },
+        {
+          "text": "Mabait siya .\t\tShe is good.",
+          "isBullet": false
+        },
+        {
+          "text": "The plural form of SIYA is SILA meaning they .",
+          "isBullet": false
+        },
+        {
+          "text": "Sila ay sina John at Mary. They are John and Mary.",
+          "isBullet": false
+        },
+        {
+          "text": "Sila ay magkaibigan . They are friends.",
+          "isBullet": false
+        },
+        {
+          "text": "Marurunong sila . They are intelligent .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 14,
+      "title": "In a polite or formal situation, either one of the plural pronouns kayo and sila may replace the singular pronoun ikaw or ka in sentences and questions to indicate respect.",
+      "paragraphs": [
+        {
+          "text": "Kayo po ba ay guro ? \t\t\t Are you a teacher, sir/madam?",
+          "isBullet": false
+        },
+        {
+          "text": "Sila po ba ay guro ? \t\t\t Are you a teacher, sir/madam?",
+          "isBullet": false
+        },
+        {
+          "text": "Kayo ay mabait .\t\t\t\tYou (plural) are kind.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 15,
+      "title": "TRANSLATE THE FOLLOWING SENTENCES INTO TAGALOG:",
+      "paragraphs": [
+        {
+          "text": "1. We (exclusive) are studying Tagalog. Kami ay nag- aaral ng Tagalog.   \tNag- aaral ng Tagalog kami.",
+          "isBullet": false
+        },
+        {
+          "text": "2.\tI am Mary.  He is John. \t         Ako ay si Mary. Siya ay si John. \tSi Mary ako . Si John siya .",
+          "isBullet": false
+        },
+        {
+          "text": "3.\tWe (inclusive) are clean and good.   Tayo ay malilinis at mababait . Malilinis at mababait tayo",
+          "isBullet": false
+        },
+        {
+          "text": "4.\tThey are healthy and intelligent.       Sila ay malulusog at marurunong . Malulusog at marurunong sila . 5.\tYou are a teacher. (polite)\t         Kayo ay isang guro . \t      \tIsang guro kayo.",
+          "isBullet": false
+        },
+        {
+          "text": "6.\tYou (plural) are Filipinos.\t         Kayo ay mga Pilipino.\t\tMga Pilipino kayo",
+          "isBullet": false
+        },
+        {
+          "text": "7.\tShe is playing. ( naglalaro )\t         Siya ay naglalaro . Naglalaro siya .",
+          "isBullet": false
+        },
+        {
+          "text": "8. \tYou are intelligent.\t\t        Ikaw ay marunong . Marunong ka.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 16,
+      "title": "Fill in the blanks with the proper pronouns in the third sentence in each set of sentences by combining the pronouns mentioned in the first two sentences. For example, the answering the first set of sentences is the combination of kayo + ako .= You+I =We",
+      "paragraphs": [
+        {
+          "text": "l . Kayo ay bumili ng pagkain . Ako ay bumili ng pagkain . _'y bumili ng pagkain .",
+          "isBullet": false
+        },
+        {
+          "text": "2 Mabait ka. Mabait siya . Mababait ___ .",
+          "isBullet": false
+        },
+        {
+          "text": "3. Nag- aral si Maria . Nag- aral si Tino . _’y nag aral .",
+          "isBullet": false
+        },
+        {
+          "text": "4. Ako ay naniniwala kay Delia. Sila’y naniniwala kay Delia. _ 'y naniniwala kay Delia.",
+          "isBullet": false
+        },
+        {
+          "text": "5. Nakakasulat na si Gizelle . Nakakasulat na ako . Nakakasulat na ___.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 17,
+      "title": "We (excluding)  are clean. \tKami ay malilinis .",
+      "paragraphs": [
+        {
+          "text": "They are drinking coffee. \tKayo ay umiinom ng kape .",
+          "isBullet": false
+        },
+        {
+          "text": "She is beautiful.\t\tSiya ay Maganda.",
+          "isBullet": false
+        },
+        {
+          "text": "You are tall. Matangkad ka.",
+          "isBullet": false
+        },
+        {
+          "text": "You (plural) noisy.\t\tKayo ay maingay .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 18,
+      "title": "Personal pronoun------- Nominative in form can be use as a subject of a sentence",
+      "paragraphs": [
+        {
+          "text": "Ako----------I",
+          "isBullet": false
+        },
+        {
+          "text": "Ikaw---------you",
+          "isBullet": false
+        },
+        {
+          "text": "Kayo---------You (plural)",
+          "isBullet": false
+        },
+        {
+          "text": "Kami &amp; Tayo- We",
+          "isBullet": false
+        },
+        {
+          "text": "Siya----------She",
+          "isBullet": false
+        },
+        {
+          "text": "Sila. ---------They",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 19,
+      "title": "Wrap up Time! What did you learn today?",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 20,
+      "title": "Salamat!",
+      "paragraphs": [],
+      "images": []
+    }
+  ]
+}

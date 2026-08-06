@@ -1,0 +1,28 @@
+{
+  "theory": {
+    "THEORY-01": { "lesson": "Lesson_02", "slide": 4, "slideEnd": 6, "label": "Articles SI/SINA & ANG/MGA" },
+    "THEORY-02": { "lesson": "Lesson_02", "slide": 9, "slideEnd": 14, "label": "Sentence Structure & Word Order" },
+    "THEORY-03": { "lesson": "Lesson_02", "slide": 4, "slideEnd": 5, "label": "Pluralization of Adjectives & Nouns" },
+    "THEORY-04": { "lesson": "Lesson_03", "slide": 4, "slideEnd": 14, "label": "Nominative Personal Pronouns" },
+    "THEORY-05": { "lesson": "Lesson_04", "slide": 4, "slideEnd": 12, "label": "Demonstrative Pronouns" },
+    "THEORY-06": { "lesson": "Lesson_04", "slide": 14, "slideEnd": 38, "label": "Connectives & Ligatures" },
+    "THEORY-07": { "lesson": "Lesson_05", "slide": 3, "slideEnd": 16, "label": "Possessive Words & Pronouns" },
+    "THEORY-08": { "lesson": "Lesson_02", "slide": 15, "slideEnd": 15, "label": "Basic Verb Tenses" }
+  },
+  "vocabulary": {
+    "_default_slides": {
+      "Lesson_02": 7,
+      "Lesson_03": 9,
+      "Lesson_04": 3,
+      "Lesson_05": 8
+    }
+  },
+  "activities": {
+    "_default_slides": {
+      "Lesson_02": 8,
+      "Lesson_03": 15,
+      "Lesson_04": 13,
+      "Lesson_05": 17
+    }
+  }
+}

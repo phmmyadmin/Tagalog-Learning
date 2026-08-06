@@ -1,0 +1,632 @@
+{
+  "lesson": "Lesson_05",
+  "totalSlides": 24,
+  "slides": [
+    {
+      "slideNumber": 1,
+      "title": "Welcome Back Pablo!",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 2,
+      "title": "Lesson 05",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 3,
+      "title": "Words That Show Possession",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 4,
+      "title": "Certain words in Tagalog are used to indicate  possession. These include the words ni and ng ; posses­sive pronouns such as akin ; as well as nito , niyan and niyon , which are the possessive counterparts of the demonstratives this and that .",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 5,
+      "title": "I. THE POSSESSIVE WORDS NI AND NG",
+      "paragraphs": [
+        {
+          "text": "To indicate ownership, the possessive word ni is placed before a proper noun such as Maria or Pedro w hile the word ng is placed before a common noun such as guro (teacher) or babae (woman). ni and ng both mean of in English.",
+          "isBullet": false
+        },
+        {
+          "text": "Note that in Tagalog sentences, the object that is possessed must always come before the owner as in the following examples :",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 6,
+      "title": "ang bahay ni maria \t\t\t\t\tthe house of maria or maria's house ang lapis ni Helen \t\t\t\t\tthe pencil of Helen or Helen's pencil ang baro ni Juan \t\t \t\t\tthe shirt of Juan or Juan's shirt",
+      "paragraphs": [
+        {
+          "text": "ang sapatos ni Berto \t\t\t\tthe shoes of Berto or Berto's shoes",
+          "isBullet": false
+        },
+        {
+          "text": "ang aklat ni Paulo \t\t\t\t\tthe book of Paulo or Paulo's book",
+          "isBullet": false
+        },
+        {
+          "text": "ang bahay ng lalaki the house of the man or man's house",
+          "isBullet": false
+        },
+        {
+          "text": "ang baro ng sanggol the dress of the baby or baby's dress",
+          "isBullet": false
+        },
+        {
+          "text": "ang lapis ng guro the pencil of the teacher or teacher's pencil",
+          "isBullet": false
+        },
+        {
+          "text": "ang aklat ng babae the book of the woman or the woman's book",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 7,
+      "title": "Based on the plurality rule, when the owner or the thing that is possessed is more than one, the plu­ral form of ni and ng are used. The plural form of ni is nina while that of ng is ng mga .",
+      "paragraphs": [
+        {
+          "text": "Ang bahay nina Maria at Pedro.\t\t\tThe house of maria and Pedro.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang lapis nina Helen\t\t\t\t\t\t\tThe pencil of Helen and company Ang sapatos ng mga bata \t\t\t\t\tThe shoes of the children or the childre’s shoes",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 8,
+      "title": "Damit\t\t\t\t\t\t\t\t\tClothes Kotse Car Gamot\t\t\t\t\t\t\t\t\tMedicine Pagkain Food Luma\t\t\t\t\t\t\t\t\t\tOld Paaralan School Malamig Cold Marumi Dirty",
+      "paragraphs": [
+        {
+          "text": "VOCABULARY LIST",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 9,
+      "title": "Singular",
+      "paragraphs": [
+        {
+          "text": "Plural",
+          "isBullet": false
+        },
+        {
+          "text": "First person",
+          "isBullet": false
+        },
+        {
+          "text": "akin (my)",
+          "isBullet": false
+        },
+        {
+          "text": "amin or our in the sense of his/her and mine",
+          "isBullet": false
+        },
+        {
+          "text": "(excluding t he person spoken to)",
+          "isBullet": false
+        },
+        {
+          "text": "atin or our in the sense of yours, his/her and mine",
+          "isBullet": false
+        },
+        {
+          "text": "(including the speaker and person spoken to)",
+          "isBullet": false
+        },
+        {
+          "text": "Second person",
+          "isBullet": false
+        },
+        {
+          "text": "Iyo (your)",
+          "isBullet": false
+        },
+        {
+          "text": "inyo ( your )",
+          "isBullet": false
+        },
+        {
+          "text": "Third person",
+          "isBullet": false
+        },
+        {
+          "text": "kaniya (his/her)",
+          "isBullet": false
+        },
+        {
+          "text": "kanila ( their )",
+          "isBullet": false
+        },
+        {
+          "text": "I I. THE POSSESSIVE PRONOUNS AKIN, IY O , KANIYA , ETC.",
+          "isBullet": false
+        },
+        {
+          "text": "The following possessive pronouns are used in Tagalog:",
+          "isBullet": false
+        },
+        {
+          "text": "Table 1. List of possessive pronouns",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 10,
+      "title": "These possessive pronouns are used either (1) before a noun or (2) after a noun .",
+      "paragraphs": [
+        {
+          "text": "When the pronouns are used before a noun , note that the ligatures -ng, -g and na are needed. Possessive pronouns placed after the noun change their forms as seen in the examples below.",
+          "isBullet": false
+        },
+        {
+          "text": "1.\tAkin( g ) becomes ko when placed after the noun.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang aking bahay ay Malaki.\t\t\t\t\tMy house is big.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang bahay ko ay Malaki.",
+          "isBullet": false
+        },
+        {
+          "text": "2. lyo (ng) becomes mo when placed after the noun.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang iyong baro ay bago .\t\t\t\t\t\tYour dress is new.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang baro mo ay bago .",
+          "isBullet": false
+        },
+        {
+          "text": "3. Kaniya (ng), which may be shortened to kanya , becomes niya when placed after the noun.",
+          "isBullet": false
+        },
+        {
+          "text": "Malinis ang kaniyang sapatos . His/Her shoes are clean.",
+          "isBullet": false
+        },
+        {
+          "text": "Malinis ang sapatos niya .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 11,
+      "title": "4.\tAmin(g) (or his/her and mine) becomes namin when placed after the noun.",
+      "paragraphs": [
+        {
+          "text": "Luma ang aming kotse .\t\t\t\t\t\tOur car is old.",
+          "isBullet": false
+        },
+        {
+          "text": "Luma ang kotse namin .",
+          "isBullet": false
+        },
+        {
+          "text": "5.Atin(g) (or yours, his/her, and mine) becomes natin when placed after the noun.",
+          "isBullet": false
+        },
+        {
+          "text": "Malaki ang ating bahay .  \t\t\t\t\tOur house is big.",
+          "isBullet": false
+        },
+        {
+          "text": "Malaki ang bahay natin .",
+          "isBullet": false
+        },
+        {
+          "text": "6. lnyo (ng) becomes ninyo when placed after the noun.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang inyong ama ay masipag .\t\t\tYour father is industrious. (plural)",
+          "isBullet": false
+        },
+        {
+          "text": "Ang ama ninyo ay masipag .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 12,
+      "title": "Kanila(ng) becomes nila when placed after the noun.",
+      "paragraphs": [
+        {
+          "text": "Mahaba ang kanilang lapis.\t\tTheir pencil is long.",
+          "isBullet": false
+        },
+        {
+          "text": "Mahaba ang lapis nila .",
+          "isBullet": false
+        },
+        {
+          "text": "Remember the following changes when pronouns are place after a nouns .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 13,
+      "title": "Table 2. Changes in possessive pronouns",
+      "paragraphs": [
+        {
+          "text": "Singular",
+          "isBullet": false
+        },
+        {
+          "text": "Plural",
+          "isBullet": false
+        },
+        {
+          "text": "First person",
+          "isBullet": false
+        },
+        {
+          "text": "akin becomes ko",
+          "isBullet": false
+        },
+        {
+          "text": "Amin becomes namin",
+          "isBullet": false
+        },
+        {
+          "text": "Atin becomes natin",
+          "isBullet": false
+        },
+        {
+          "text": "Second person",
+          "isBullet": false
+        },
+        {
+          "text": "iyo becomes mo",
+          "isBullet": false
+        },
+        {
+          "text": "inyo becomes ninyo",
+          "isBullet": false
+        },
+        {
+          "text": "Third person",
+          "isBullet": false
+        },
+        {
+          "text": "kaniya becomes niya",
+          "isBullet": false
+        },
+        {
+          "text": "kanila becomes nila",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 14,
+      "title": "ln cases where two pronouns are used in a sentence, a combination of the two styles (possessive pronouns used before and after the nouns) instead of only one style for both pronouns, will produce a better sentence.",
+      "paragraphs": [
+        {
+          "text": "For example, the sentence Her mother went to her house uses the pronoun her twice.",
+          "isBullet": false
+        },
+        {
+          "text": "Sticking to one style will produce the following awkward sentences:",
+          "isBullet": false
+        },
+        {
+          "text": "Not Good:  Ang kanyang ina ay pumunta sa kanyang bahay .",
+          "isBullet": false
+        },
+        {
+          "text": "Not Good:  Ang ina niya ay pumunta sa bahay niya .",
+          "isBullet": false
+        },
+        {
+          "text": "The two sentences above use similar possessive pronouns, thus producing redundant sounds of either niya or kaniya .",
+          "isBullet": false
+        },
+        {
+          "text": "However, a combination of two different possessive pronouns, one placed before the first noun and another placed after the second noun, will produce better sounding sentences.",
+          "isBullet": false
+        },
+        {
+          "text": "Good:  Ang ina niya ay pumunta sa kanyang bahay",
+          "isBullet": false
+        },
+        {
+          "text": "Good:  Ang kanyang ina ay pumunta sa bahay niya .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 15,
+      "title": "Each sentence above uses two different versions of the possessive pronoun to avoid the repetition of either niya or kanya in the same sentence.",
+      "paragraphs": [
+        {
+          "text": "However, the first sentence has the tongue-twisting phrase ina niya . The second sentence sounds better as it eliminates the phrase by pairing ina with kanya and bahay with niya . Both sentences, however, are correct.",
+          "isBullet": false
+        },
+        {
+          "text": "In other words, it is better if the same form of a possessive pronoun is not used twice in the same sentence.",
+          "isBullet": false
+        },
+        {
+          "text": "In this case, Tagalog speakers prefer to use two different forms of the same possessive pro­noun (one appearing before and one after the nouns they modify).",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 16,
+      "title": "In the case of plural nouns, the possessive personal pronouns are placed between ang and mga .",
+      "paragraphs": [
+        {
+          "text": "Similarly, the adjectives should be in their plural forms as well.",
+          "isBullet": false
+        },
+        {
+          "text": "Right: Ang aking mga anak ay mababait .",
+          "isBullet": false
+        },
+        {
+          "text": "Wrong:  Ang mga aking anak ay mababait .",
+          "isBullet": false
+        },
+        {
+          "text": "My children are good.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 17,
+      "title": "Exercises",
+      "paragraphs": [
+        {
+          "text": "Fill in the blanks with the appropriate possessive pronouns.",
+          "isBullet": false
+        },
+        {
+          "text": "Kakulay ng _ iyong ___ baro ang pitaka_mo _.( you , singular)",
+          "isBullet": false
+        },
+        {
+          "text": "Your dress has the same color as your wallet.",
+          "isBullet": false
+        },
+        {
+          "text": "Pumunta sa __ aming __ bahay ang guro _namin _ (our excluding listener)",
+          "isBullet": false
+        },
+        {
+          "text": "Our teacher went to our house.",
+          "isBullet": false
+        },
+        {
+          "text": "3. Naghanap ang _ aking __ anak na babae ng regalo para sa kanyang __ kapatid na babae .",
+          "isBullet": false
+        },
+        {
+          "text": "My daughter looked for my gift for her sister. (literal)",
+          "isBullet": false
+        },
+        {
+          "text": "Mahaba ang pasensiya _ nila __ sa _ kanilang __ ama. (their)",
+          "isBullet": false
+        },
+        {
+          "text": "They have long patience for their father.",
+          "isBullet": true
+        },
+        {
+          "text": "Ang pang- unawa _ ninyo ___ ay mas mahalaga sa __ inyong ___ abuloy . (you, plural)",
+          "isBullet": false
+        },
+        {
+          "text": "Your understanding is more important than your contribution.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 18,
+      "title": "Assignment",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 19,
+      "title": "Translate the following sentences into Tagalog using both the subject-predicate word order and the inverted or transposed order.",
+      "paragraphs": [
+        {
+          "text": "The man's shoes are new.",
+          "isBullet": false
+        },
+        {
+          "text": "Their house is big.",
+          "isBullet": false
+        },
+        {
+          "text": "The child's dress is dirty.",
+          "isBullet": false
+        },
+        {
+          "text": "4. \tPeter's book is clean.",
+          "isBullet": false
+        },
+        {
+          "text": "Your food is cold.",
+          "isBullet": false
+        },
+        {
+          "text": "My food is delicious",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 20,
+      "title": "Ill. THE POSSESSIVES NITO, NIYAN AND NIYON",
+      "paragraphs": [
+        {
+          "text": "lto , lyan and l yon are similar to this and that ; they indicate where an object is in relation to the speak­er.",
+          "isBullet": false
+        },
+        {
+          "text": "As possessives, they change into nito (of this person), niyan and niyon ( of that person) and point to a possession belonging to a person near or far from the speaker or persons spoken to. When nito , niyan , and niyon are used, the speaker assumes that the person he/she is talking to also recognizes the owner.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 21,
+      "title": "Note that in contrast with the preceding examples using possessive personal pronouns, the posses­sives nito , niyan , and niyon are always used in the same place after the noun, even in an inverted sen­tence.",
+      "paragraphs": [
+        {
+          "text": "Ang bahay nito ay malaki . \t\t\t\t\t\tMalaki ang bahay nito .",
+          "isBullet": false
+        },
+        {
+          "text": "The house of this (person) is big. \t\t\t\t(Owner of house is near the speaker)",
+          "isBullet": false
+        },
+        {
+          "text": "Ang bahay niyan ay maliit . Maliit ang bahay niyan .",
+          "isBullet": false
+        },
+        {
+          "text": "The house of that (person) is small.",
+          "isBullet": false
+        },
+        {
+          "text": "(Owner of the house is near the person spoken to)",
+          "isBullet": false
+        },
+        {
+          "text": "Ang bahay niyon ay maliit . Maliit ang bahay niyon .",
+          "isBullet": false
+        },
+        {
+          "text": "The house of that (person) is small.",
+          "isBullet": false
+        },
+        {
+          "text": "(Owner of the house is far from the persons talking)",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 22,
+      "title": "As previously mentioned in prev. lesson, Tagalog sentences follow the plurality rule. In the case of possessive pronouns, their plural forms are formed by adding ng mga to the demonstratives ito , iyan , iyon ; and not to the possessives nito , niyan and niyon . As ng is already a possessive word, ng mga niyan , for example is both wrong and redundant.",
+      "paragraphs": [
+        {
+          "text": "ang bahay ng mga ito the house of these people",
+          "isBullet": false
+        },
+        {
+          "text": "ang bahay ng mga iyan the house of those people",
+          "isBullet": false
+        },
+        {
+          "text": "ang bahay ng mga iyon the house of those people",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 23,
+      "title": "Exercises",
+      "paragraphs": [
+        {
+          "text": "Translate the following sentences into Tagalog using the subject-predicate word order to indicate that the owner is near, far from the listener, and far from both you and the listener. Follow the sentence patterns of the first sentence.",
+          "isBullet": false
+        },
+        {
+          "text": "Robert's dog is intelligent. Ang aso nito ay marunong Ang aso ni Robert ay marunong .",
+          "isBullet": false
+        },
+        {
+          "text": "Ang aso niyan ay marunong . Ang aso niyon ay marunong .",
+          "isBullet": true
+        },
+        {
+          "text": "Peter's book is clean.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang libro nito ay malinis .",
+          "isBullet": false
+        },
+        {
+          "text": "Ang libro niyan ay malinis .",
+          "isBullet": false
+        },
+        {
+          "text": "Ang libro niyon ay malinis .",
+          "isBullet": false
+        },
+        {
+          "text": "Cha and Sam’s pencils are tall.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang lapis ng mga ito ay mahaba .",
+          "isBullet": false
+        },
+        {
+          "text": "Ang lapis ng mga iyan ay mahaba .",
+          "isBullet": false
+        },
+        {
+          "text": "Ang lapis ng mga iyon ay mahaba .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 24,
+      "title": "Great we just indeed our lesson!",
+      "paragraphs": [],
+      "images": []
+    }
+  ]
+}

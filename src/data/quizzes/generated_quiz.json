@@ -1,0 +1,226 @@
+{
+  "quiz_metadata": {
+    "id": "QUIZ-20260805-DEF",
+    "title": "General Tagalog Grammar & Theory Master Quiz",
+    "topic": "General Theory",
+    "total_questions": 20,
+    "created_at": "2026-08-05T16:43:00Z"
+  },
+  "questions": [
+    {
+      "id": "Q-001",
+      "type": "multiple_choice",
+      "topic": "Articles in Tagalog",
+      "lesson": "Lesson_02",
+      "prompt": "Which article is used before a singular proper name of a person?",
+      "options": ["Si", "Sina", "Ang", "Ang mga"],
+      "correct_answer": "Si",
+      "explanation": "'Si' is used before a singular proper noun of a person (e.g. Si Liza ay babae)."
+    },
+    {
+      "id": "Q-002",
+      "type": "multiple_choice",
+      "topic": "Articles in Tagalog",
+      "lesson": "Lesson_02",
+      "prompt": "Which article marker is used before two or more proper names of people?",
+      "options": ["Si", "Sina", "Ang", "Ang mga"],
+      "correct_answer": "Sina",
+      "explanation": "'Sina' is the plural proper noun article used before two or more names (e.g. Sina Simon at Tom)."
+    },
+    {
+      "id": "Q-003",
+      "type": "fill_in_blank",
+      "topic": "Sentence Structure and Word Order",
+      "lesson": "Lesson_02",
+      "prompt": "Translate 'The house is big' into Inverted / Transposed Word Order (without 'ay'): ______",
+      "correct_answer": "Malaki ang bahay.",
+      "accepted_answers": ["Malaki ang bahay", "Malaki ang bahay."],
+      "explanation": "In inverted word order, the predicate (adjective) comes first, followed by the subject, dropping 'ay'."
+    },
+    {
+      "id": "Q-004",
+      "type": "multiple_choice",
+      "topic": "Pluralization of Adjectives",
+      "lesson": "Lesson_02",
+      "prompt": "What is the plural form of the adjective 'mabait' (kind)?",
+      "options": ["mabait mga", "mababait", "mamabait", "mabaitin"],
+      "correct_answer": "mababait",
+      "explanation": "Adjectives form their plural by duplicating the first syllable of the root word (root: bait -> mababait)."
+    },
+    {
+      "id": "Q-005",
+      "type": "multiple_choice",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "What is the key difference between 'kami' and 'tayo'?",
+      "options": [
+        "'kami' excludes the listener; 'tayo' includes the listener",
+        "'kami' includes the listener; 'tayo' excludes the listener",
+        "'kami' is singular; 'tayo' is plural",
+        "'kami' means you; 'tayo' means they"
+      ],
+      "correct_answer": "'kami' excludes the listener; 'tayo' includes the listener",
+      "explanation": "'Kami' is exclusive we (excludes the listener), while 'tayo' is inclusive we (includes speaker and listener)."
+    },
+    {
+      "id": "Q-006",
+      "type": "multiple_choice",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "When placing the 2nd person singular pronoun after the predicate in inverted order, which form is used?",
+      "options": ["Ikaw", "Ka", "Siya", "Kayo"],
+      "correct_answer": "Ka",
+      "explanation": "'Ikaw' is used at the beginning of a sentence. After the predicate in inverted order, it shortens to 'ka' (e.g. Marunong ka)."
+    },
+    {
+      "id": "Q-007",
+      "type": "fill_in_blank",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "How do you ask 'Are you a teacher, sir/madam?' respectfully using the polite pronoun: ______ po ba ay guro?",
+      "correct_answer": "Kayo",
+      "accepted_answers": ["Kayo", "Sila"],
+      "explanation": "Plural pronouns 'Kayo' or 'Sila' combined with 'po' express politeness when addressing a single person."
+    },
+    {
+      "id": "Q-008",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Pronouns",
+      "lesson": "Lesson_04",
+      "prompt": "Which demonstrative pronoun refers to an object far from both the speaker and the listener?",
+      "options": ["Ito", "Iyan", "Iyon", "Dito"],
+      "correct_answer": "Iyon",
+      "explanation": "'Ito' = near speaker; 'Iyan' = near listener; 'Iyon' = far from both speaker and listener."
+    },
+    {
+      "id": "Q-009",
+      "type": "multiple_choice",
+      "topic": "Connectives or Ligatures",
+      "lesson": "Lesson_04",
+      "prompt": "Which ligature suffix is attached to words ending in vowels (a, e, i, o, u)?",
+      "options": ["-ng", "-g", "na", "-n"],
+      "correct_answer": "-ng",
+      "explanation": "Words ending in vowels take the suffix ligature '-ng' (e.g. malaki + bahay -> malaking bahay)."
+    },
+    {
+      "id": "Q-010",
+      "type": "multiple_choice",
+      "topic": "Connectives or Ligatures",
+      "lesson": "Lesson_04",
+      "prompt": "Which ligature suffix is attached to words ending in the consonant 'n'?",
+      "options": ["-ng", "-g", "na", "-s"],
+      "correct_answer": "-g",
+      "explanation": "Words ending in the consonant 'n' take the suffix ligature '-g' (e.g. mayaman + lalaki -> mayamang lalaki)."
+    },
+    {
+      "id": "Q-011",
+      "type": "multiple_choice",
+      "topic": "Connectives or Ligatures",
+      "lesson": "Lesson_04",
+      "prompt": "Which ligature word is used when the first word ends in consonants other than 'n'?",
+      "options": ["-ng", "-g", "na", "ng"],
+      "correct_answer": "na",
+      "explanation": "Between words where the first ends in consonants other than 'n', the ligature word 'na' is used (e.g. tahimik na bata)."
+    },
+    {
+      "id": "Q-012",
+      "type": "fill_in_blank",
+      "topic": "Possessive Words",
+      "lesson": "Lesson_05",
+      "prompt": "Complete the phrase for 'Maria's house': ang bahay ___ Maria",
+      "correct_answer": "ni",
+      "accepted_answers": ["ni"],
+      "explanation": "'Ni' is placed before singular proper names of people to indicate possession."
+    },
+    {
+      "id": "Q-013",
+      "type": "fill_in_blank",
+      "topic": "Possessive Words",
+      "lesson": "Lesson_05",
+      "prompt": "Complete the phrase for 'the teacher's pencil': ang lapis ___ guro",
+      "correct_answer": "ng",
+      "accepted_answers": ["ng"],
+      "explanation": "'Ng' (pronounced nangg) is placed before common nouns to indicate possession."
+    },
+    {
+      "id": "Q-014",
+      "type": "multiple_choice",
+      "topic": "Possessive Word Order",
+      "lesson": "Lesson_05",
+      "prompt": "In Tagalog possessive expressions, which element MUST come first?",
+      "options": [
+        "The possessed object comes before the owner",
+        "The owner comes before the possessed object",
+        "The verb always comes first",
+        "The adjective comes after the owner"
+      ],
+      "correct_answer": "The possessed object comes before the owner",
+      "explanation": "In Tagalog possessive constructions, the possessed object ALWAYS precedes the owner (e.g. ang bahay ni Maria)."
+    },
+    {
+      "id": "Q-015",
+      "type": "multiple_choice",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "What is the post-noun possessive pronoun form corresponding to the 1st person singular base 'akin'?",
+      "options": ["Ko", "Mo", "Niya", "Namin"],
+      "correct_answer": "Ko",
+      "explanation": "Base pre-noun 'akin' (with ligature 'aking') changes to 'ko' when placed after the noun (e.g. ang bahay ko)."
+    },
+    {
+      "id": "Q-016",
+      "type": "multiple_choice",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "What is the post-noun possessive pronoun form corresponding to 2nd person singular 'iyo'?",
+      "options": ["Ko", "Mo", "Niya", "Ninyo"],
+      "correct_answer": "Mo",
+      "explanation": "Base pre-noun 'iyo' (with ligature 'iyong') changes to 'mo' when placed after the noun (e.g. ang baro mo)."
+    },
+    {
+      "id": "Q-017",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Possessives",
+      "lesson": "Lesson_05",
+      "prompt": "Which demonstrative possessive word means 'of this person' (near speaker)?",
+      "options": ["Nito", "Niyan", "Niyon", "Dito"],
+      "correct_answer": "Nito",
+      "explanation": "'Nito' is the possessive form of 'ito' (of this person near speaker). 'Niyan' = near listener, 'Niyon' = far from both."
+    },
+    {
+      "id": "Q-018",
+      "type": "multiple_choice",
+      "topic": "Basic Verb Tenses",
+      "lesson": "Lesson_02",
+      "prompt": "What prefix pattern forms the present (ongoing) tense for nag- verbs?",
+      "options": [
+        "nag- + duplicated first syllable of root + root",
+        "nag- + root",
+        "mag- + duplicated first syllable of root + root",
+        "um- + root"
+      ],
+      "correct_answer": "nag- + duplicated first syllable of root + root",
+      "explanation": "Present (ongoing) aspect duplicates the first syllable of the root after 'nag-' (e.g. laro -> naglalaro)."
+    },
+    {
+      "id": "Q-019",
+      "type": "fill_in_blank",
+      "topic": "Basic Verb Tenses",
+      "lesson": "Lesson_02",
+      "prompt": "What is the future tense form of the verb root 'laro' (to play)? ______",
+      "correct_answer": "maglalaro",
+      "accepted_answers": ["maglalaro", "maglalaro."],
+      "explanation": "Future (contemplated) aspect uses 'mag-' + duplicated first syllable of root (maglalaro)."
+    },
+    {
+      "id": "Q-020",
+      "type": "multiple_choice",
+      "topic": "Sentence Contractions",
+      "lesson": "Lesson_02",
+      "prompt": "The sentence linker 'ay' can be shortened to ''y' when the preceding word ends in what sound?",
+      "options": ["A vowel sound", "A consonant sound", "The letter 'N'", "The letter 'S'"],
+      "correct_answer": "A vowel sound",
+      "explanation": "The linker 'ay' contracts to ''y' when the preceding word ends in a vowel (e.g. Ako ay -> Ako'y)."
+    }
+  ]
+}

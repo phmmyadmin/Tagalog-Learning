@@ -1,0 +1,211 @@
+{
+  "quiz_metadata": {
+    "id": "QUIZ-PRONOUNS-MASTER",
+    "title": "Tagalog Pronouns Master Quiz (Personal, Demonstrative & Possessive)",
+    "topic": "Pronouns Master",
+    "total_questions": 20,
+    "created_at": "2026-08-05T17:05:00Z"
+  },
+  "questions": [
+    {
+      "id": "Q-P01",
+      "type": "multiple_choice",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Which pronoun means 'we' EXCLUDING the person being spoken to?",
+      "options": ["kami", "tayo", "kayo", "sila"],
+      "correct_answer": "kami",
+      "explanation": "'Kami' is the 1st person plural exclusive pronoun (he/she and I, but NOT you)."
+    },
+    {
+      "id": "Q-P02",
+      "type": "multiple_choice",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Which pronoun means 'we' INCLUDING the person being spoken to?",
+      "options": ["tayo", "kami", "kayo", "sila"],
+      "correct_answer": "tayo",
+      "explanation": "'Tayo' is the 1st person plural inclusive pronoun (you, he/she, and I)."
+    },
+    {
+      "id": "Q-P03",
+      "type": "fill_in_blank",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Complete the sentence: _____ ay guro. (I am a teacher)",
+      "correct_answer": "Ako",
+      "accepted_answers": ["Ako", "ako"],
+      "explanation": "'Ako' is the 1st person singular nominative pronoun ('I')."
+    },
+    {
+      "id": "Q-P04",
+      "type": "multiple_choice",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "When placing the 2nd person singular pronoun AFTER the predicate in inverted order, which form must be used instead of 'Ikaw'?",
+      "options": ["ka", "mo", "iyo", "kayo"],
+      "correct_answer": "ka",
+      "explanation": "'Ikaw' is used at the beginning of a sentence. After the predicate in inverted order, it shortens to 'ka' (e.g. Mabait ka)."
+    },
+    {
+      "id": "Q-P05",
+      "type": "multiple_choice",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Which pronoun is gender-neutral and means both 'he' and 'she' in Tagalog?",
+      "options": ["siya", "niya", "kanya", "sila"],
+      "correct_answer": "siya",
+      "explanation": "Tagalog has no grammatical gender. 'Siya' means both 'he' and 'she'."
+    },
+    {
+      "id": "Q-P06",
+      "type": "fill_in_blank",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Complete the sentence using the polite plural pronoun: _____ po ba ay mag-aaral? (Are you a student, sir/madam?)",
+      "correct_answer": "Kayo",
+      "accepted_answers": ["Kayo", "Sila", "kayo", "sila"],
+      "explanation": "Plural pronouns 'Kayo' or 'Sila' combined with 'po' express politeness when addressing a single person."
+    },
+    {
+      "id": "Q-P07",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Pronouns",
+      "lesson": "Lesson_04",
+      "prompt": "Which demonstrative pronoun refers to an object near the speaker ('this')?",
+      "options": ["ito", "iyan", "iyon", "dito"],
+      "correct_answer": "ito",
+      "explanation": "'Ito' means 'this' (object near the speaker)."
+    },
+    {
+      "id": "Q-P08",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Pronouns",
+      "lesson": "Lesson_04",
+      "prompt": "Which demonstrative pronoun refers to an object near the listener ('that')?",
+      "options": ["iyan", "ito", "iyon", "doon"],
+      "correct_answer": "iyan",
+      "explanation": "'Iyan' means 'that' (object near the person being spoken to)."
+    },
+    {
+      "id": "Q-P09",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Pronouns",
+      "lesson": "Lesson_04",
+      "prompt": "Which demonstrative pronoun refers to an object far from BOTH speaker and listener ('that over there')?",
+      "options": ["iyon", "iyan", "ito", "diyan"],
+      "correct_answer": "iyon",
+      "explanation": "'Iyon' refers to an object far from both the speaker and listener."
+    },
+    {
+      "id": "Q-P10",
+      "type": "multiple_choice",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "What is the post-noun possessive pronoun corresponding to 1st person singular base 'akin' ('my/mine')?",
+      "options": ["ko", "mo", "niya", "namin"],
+      "correct_answer": "ko",
+      "explanation": "Base pre-noun 'akin' (with ligature 'aking') becomes 'ko' when placed after the noun (e.g. ang bahay ko)."
+    },
+    {
+      "id": "Q-P11",
+      "type": "fill_in_blank",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "Complete the sentence: Ang bahay ___ ay malaki. (My house is big)",
+      "correct_answer": "ko",
+      "accepted_answers": ["ko"],
+      "explanation": "'Ko' is the 1st person singular post-noun possessive pronoun ('my')."
+    },
+    {
+      "id": "Q-P12",
+      "type": "multiple_choice",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "What is the post-noun possessive pronoun corresponding to 2nd person singular base 'iyo' ('your/yours')?",
+      "options": ["mo", "ko", "niya", "ninyo"],
+      "correct_answer": "mo",
+      "explanation": "Base pre-noun 'iyo' (with ligature 'iyong') becomes 'mo' when placed after the noun (e.g. ang baro mo)."
+    },
+    {
+      "id": "Q-P13",
+      "type": "multiple_choice",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "What is the post-noun possessive pronoun for 3rd person singular 'kaniya' ('his/her')?",
+      "options": ["niya", "nila", "mo", "namin"],
+      "correct_answer": "niya",
+      "explanation": "Pre-noun 'kaniya' becomes 'niya' when placed after the noun (e.g. ang sapatos niya)."
+    },
+    {
+      "id": "Q-P14",
+      "type": "multiple_choice",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "What is the post-noun possessive pronoun for 1st person plural EXCLUSIVE ('our' - excluding listener)?",
+      "options": ["namin", "natin", "ninyo", "nila"],
+      "correct_answer": "namin",
+      "explanation": "Pre-noun 'amin' becomes 'namin' when placed after the noun (excludes listener)."
+    },
+    {
+      "id": "Q-P15",
+      "type": "multiple_choice",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "What is the post-noun possessive pronoun for 1st person plural INCLUSIVE ('our' - including listener)?",
+      "options": ["natin", "namin", "ninyo", "nila"],
+      "correct_answer": "natin",
+      "explanation": "Pre-noun 'atin' becomes 'natin' when placed after the noun (includes listener)."
+    },
+    {
+      "id": "Q-P16",
+      "type": "multiple_choice",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "What is the post-noun possessive pronoun for 3rd person plural 'kanila' ('their/theirs')?",
+      "options": ["nila", "niya", "ninyo", "namin"],
+      "correct_answer": "nila",
+      "explanation": "Pre-noun 'kanila' becomes 'nila' when placed after the noun (e.g. ang lapis nila)."
+    },
+    {
+      "id": "Q-P17",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Possessives",
+      "lesson": "Lesson_05",
+      "prompt": "Which demonstrative possessive word means 'of this' (near speaker)?",
+      "options": ["nito", "niyan", "niyon", "dito"],
+      "correct_answer": "nito",
+      "explanation": "'Nito' is the possessive form of 'ito' ('of this' near speaker, e.g. ang bahay nito)."
+    },
+    {
+      "id": "Q-P18",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Possessives",
+      "lesson": "Lesson_05",
+      "prompt": "Which demonstrative possessive word means 'of that' (near listener)?",
+      "options": ["niyan", "nito", "niyon", "diyan"],
+      "correct_answer": "niyan",
+      "explanation": "'Niyan' is the possessive form of 'iyan' ('of that' near listener)."
+    },
+    {
+      "id": "Q-P19",
+      "type": "multiple_choice",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "When placed BEFORE a noun, what ligature suffix attaches to the base possessive pronoun 'akin'?",
+      "options": ["-g", "-ng", "na", "-n"],
+      "correct_answer": "-g",
+      "explanation": "'Akin' ends in consonant 'n', so it takes the ligature suffix '-g' to become 'aking' (e.g. ang aking bahay)."
+    },
+    {
+      "id": "Q-P20",
+      "type": "fill_in_blank",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_05",
+      "prompt": "Translate to Tagalog: 'Their car is old' (using post-noun possessive): Luma ang kotse _____.",
+      "correct_answer": "nila",
+      "accepted_answers": ["nila", "nila."],
+      "explanation": "'Nila' is the 3rd person plural post-noun possessive pronoun meaning 'their'."
+    }
+  ]
+}

@@ -1,0 +1,1537 @@
+{
+  "metadata": {
+    "title": "Tagalog Knowledge Base",
+    "lessons_covered": [
+      "Lesson_02",
+      "Lesson_03",
+      "Lesson_04",
+      "Lesson_05"
+    ],
+    "total_vocab_terms": 95,
+    "total_grammar_topics": 8,
+    "total_exercises": 30,
+    "categories": [
+      "Theory",
+      "Vocabulary",
+      "Activities"
+    ]
+  },
+  "theory": [
+    {
+      "id": "THEORY-01",
+      "topic": "Articles in Tagalog",
+      "lesson": "Lesson_02",
+      "summary": "Rules for using proper noun articles and common noun articles in singular and plural forms.",
+      "rules": [
+        {
+          "article": "si",
+          "target": "Singular proper noun (person's name)",
+          "example_tagalog": "Si Liza ay babae.",
+          "example_english": "Liza is a woman."
+        },
+        {
+          "article": "sina",
+          "target": "Plural proper nouns (two or more people)",
+          "example_tagalog": "Sina Simon at Tom ay mababait.",
+          "example_english": "Simon and Tom are good."
+        },
+        {
+          "article": "ang",
+          "target": "Singular common noun or place name",
+          "example_tagalog": "Ang bata ay mabait.",
+          "example_english": "The child is good."
+        },
+        {
+          "article": "ang mga",
+          "target": "Plural common nouns or places (pronounced 'manga')",
+          "example_tagalog": "Ang mga bata at ang mga aso ay mababait.",
+          "example_english": "The children and the dogs are good."
+        }
+      ]
+    },
+    {
+      "id": "THEORY-02",
+      "topic": "Sentence Structure and Word Order",
+      "lesson": "Lesson_02",
+      "summary": "Tagalog features two main word orders: Direct Order (Subject-Predicate with 'ay') and Inverted Order (Predicate-Subject without 'ay'). The inverted order is more natural in spoken Tagalog.",
+      "rules": [
+        {
+          "order_type": "Direct Order (Subject-Predicate)",
+          "has_ay": true,
+          "pattern": "[Subject] + ay + [Predicate]",
+          "example_tagalog": "Ang bahay ay malaki.",
+          "example_english": "The house is big."
+        },
+        {
+          "order_type": "Inverted / Transposed Order (Predicate-Subject)",
+          "has_ay": false,
+          "pattern": "[Predicate] + [Subject]",
+          "example_tagalog": "Malaki ang bahay.",
+          "example_english": "The house is big."
+        },
+        {
+          "order_type": "Inverted Order with Plural Subject",
+          "has_ay": false,
+          "pattern": "mga + [Nouns] + ang + [Names/Places]",
+          "example_tagalog": "Mga lungsod ang Manila at Cebu.",
+          "example_english": "Manila and Cebu are cities."
+        },
+        {
+          "order_type": "Contraction: 'ay' shortens to 'y after vowels",
+          "has_ay": true,
+          "pattern": "[Pronoun ending in vowel]'y + [Predicate]",
+          "example_tagalog": "Ako'y si John.",
+          "example_english": "I am John."
+        }
+      ]
+    },
+    {
+      "id": "THEORY-03",
+      "topic": "Pluralization of Adjectives and Nouns",
+      "lesson": "Lesson_02",
+      "summary": "Adjectives form their plural by duplicating the first syllable of the root word. Nouns are pluralized using the marker 'mga'. The plurality rule states that either the subject or predicate may be plural; pluralizing both is optional.",
+      "rules": [
+        {
+          "rule": "Adjective plural: duplicate first syllable of root",
+          "example": "mabait (good) -> mababait (good, plural)"
+        },
+        {
+          "rule": "Adjective plural: duplicate first syllable of root",
+          "example": "maganda (beautiful) -> magaganda (beautiful, plural)"
+        },
+        {
+          "rule": "Adjective plural: duplicate first syllable of root",
+          "example": "malaki (big) -> malalaki (big, plural)"
+        },
+        {
+          "rule": "Adjective plural: duplicate first syllable of root",
+          "example": "marunong (intelligent) -> marurunong (intelligent, plural)"
+        },
+        {
+          "rule": "Adjective plural: duplicate first syllable of root",
+          "example": "malinis (clean) -> malilinis (clean, plural)"
+        },
+        {
+          "rule": "Adjective plural: duplicate first syllable of root",
+          "example": "malusog (healthy) -> malulusog (healthy, plural)"
+        },
+        {
+          "rule": "Adjective plural: duplicate first syllable of root",
+          "example": "masipag (hardworking) -> masisipag (hardworking, plural)"
+        },
+        {
+          "rule": "Noun pluralization using marker 'mga'",
+          "example": "bata (child) -> mga bata (children)"
+        }
+      ]
+    },
+    {
+      "id": "THEORY-04",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "summary": "Nominative pronouns function as the subject of a sentence. They can appear at the beginning (before 'ay') or after the predicate in inverted order. The linker 'ay' may be shortened to ''y' when the preceding word ends in a vowel.",
+      "table": [
+        {
+          "pronoun": "ako",
+          "meaning": "I",
+          "type": "1st Person Singular",
+          "contraction": "Ako'y"
+        },
+        {
+          "pronoun": "ikaw / ka",
+          "meaning": "You (singular)",
+          "type": "2nd Person Singular",
+          "usage": "'ikaw' at sentence start, 'ka' after predicate"
+        },
+        {
+          "pronoun": "siya",
+          "meaning": "He / She",
+          "type": "3rd Person Singular",
+          "contraction": "Siya'y"
+        },
+        {
+          "pronoun": "kami",
+          "meaning": "We (exclusive — excludes listener)",
+          "type": "1st Person Plural (excl.)",
+          "contraction": "Kami'y"
+        },
+        {
+          "pronoun": "tayo",
+          "meaning": "We (inclusive — includes listener)",
+          "type": "1st Person Plural (incl.)",
+          "contraction": "Tayo'y"
+        },
+        {
+          "pronoun": "kayo",
+          "meaning": "You (plural / polite singular)",
+          "type": "2nd Person Plural",
+          "contraction": "Kayo'y",
+          "polite": "Used with 'po' for respect"
+        },
+        {
+          "pronoun": "sila",
+          "meaning": "They / Polite singular",
+          "type": "3rd Person Plural",
+          "contraction": "Sila'y",
+          "polite": "Used with 'po' for respect"
+        }
+      ]
+    },
+    {
+      "id": "THEORY-05",
+      "topic": "Demonstrative Pronouns and Modifiers",
+      "lesson": "Lesson_04",
+      "summary": "Demonstrative pronouns point out objects based on distance from speaker and listener. They can also function as modifiers connected to nouns via ligatures.",
+      "table": [
+        {
+          "pronoun": "ito",
+          "meaning": "This (near speaker)",
+          "plural": "ang mga ito (these)"
+        },
+        {
+          "pronoun": "iyan",
+          "meaning": "That (near listener)",
+          "plural": "ang mga iyan (those)"
+        },
+        {
+          "pronoun": "iyon",
+          "meaning": "That over there (far from both)",
+          "plural": "ang mga iyon (those over there)"
+        }
+      ]
+    },
+    {
+      "id": "THEORY-06",
+      "topic": "Connectives or Ligatures (-ng, -g, na)",
+      "lesson": "Lesson_04",
+      "summary": "Ligatures link adjacent words to show a modifying relationship. The suffix -ng is used after vowels, -g after the consonant 'n', and the word 'na' after other consonants. They connect adjective+noun, noun+noun, noun+verb, verb+adverb, and many other word-pair sequences.",
+      "rules": [
+        {
+          "ligature": "-ng",
+          "condition": "After words ending in vowels (a, e, i, o, u)",
+          "example": "malaki + bahay -> malaking bahay (big house)"
+        },
+        {
+          "ligature": "-g",
+          "condition": "After words ending in consonant 'n'",
+          "example": "mayaman + lalaki -> mayamang lalaki (rich man)"
+        },
+        {
+          "ligature": "na",
+          "condition": "Between words where the first ends in consonants other than 'n'",
+          "example": "tahimik + bata -> tahimik na bata (quiet child)"
+        },
+        {
+          "ligature": "-ng",
+          "condition": "Noun + Noun sequence",
+          "example": "bata + babae -> batang babae (young girl)"
+        },
+        {
+          "ligature": "na",
+          "condition": "Verb + Adjective / Adjective + Verb",
+          "example": "pagod + dumating -> pagod na dumating (arrived tired)"
+        },
+        {
+          "ligature": "-g",
+          "condition": "Verb + Adverb sequence",
+          "example": "kumain + mabilis -> kumaing mabilis (ate quickly)"
+        },
+        {
+          "ligature": "na",
+          "condition": "Repeated adjective for superlative",
+          "example": "mabait + mabait -> mabait na mabait (very kind)"
+        },
+        {
+          "ligature": "rule",
+          "condition": "Multiple adjectives before a noun",
+          "example": "Only the LAST adjective takes the ligature: mabait at masunuring aso"
+        }
+      ]
+    },
+    {
+      "id": "THEORY-07",
+      "topic": "Possessive Words and Pronouns",
+      "lesson": "Lesson_05",
+      "summary": "Possession is indicated by 'ni' (before proper nouns) and 'ng' (before common nouns). Possessive pronouns have two forms: pre-noun (with ligature) and post-noun. The possessed object ALWAYS comes before the owner in Tagalog.",
+      "rules": [
+        {
+          "type": "Proper Noun Possessive",
+          "singular": "ni Maria",
+          "plural": "nina Maria at Pedro"
+        },
+        {
+          "type": "Common Noun Possessive",
+          "singular": "ng lalaki",
+          "plural": "ng mga bata"
+        },
+        {
+          "type": "Possessive Word Order",
+          "description": "The possessed object ALWAYS precedes the owner (e.g. ang bahay ni Maria — Maria's house)."
+        },
+        {
+          "type": "Pre-Noun vs Post-Noun Possessive Pronouns",
+          "pairs": [
+            {
+              "pre": "akin",
+              "post": "ko",
+              "meaning": "my / mine"
+            },
+            {
+              "pre": "iyo",
+              "post": "mo",
+              "meaning": "your / yours"
+            },
+            {
+              "pre": "kaniya / kanya",
+              "post": "niya",
+              "meaning": "his / her / hers"
+            },
+            {
+              "pre": "amin",
+              "post": "namin",
+              "meaning": "our / ours (exclusive)"
+            },
+            {
+              "pre": "atin",
+              "post": "natin",
+              "meaning": "our / ours (inclusive)"
+            },
+            {
+              "pre": "inyo",
+              "post": "ninyo",
+              "meaning": "your / yours (plural)"
+            },
+            {
+              "pre": "kanila",
+              "post": "nila",
+              "meaning": "their / theirs"
+            }
+          ]
+        },
+        {
+          "type": "Demonstrative Possessives",
+          "forms": [
+            {
+              "word": "nito",
+              "meaning": "of this person (near speaker)",
+              "example": "ang bahay nito"
+            },
+            {
+              "word": "niyan",
+              "meaning": "of that person (near listener)",
+              "example": "ang bahay niyan"
+            },
+            {
+              "word": "niyon",
+              "meaning": "of that person (far from both)",
+              "example": "ang bahay niyon"
+            }
+          ]
+        },
+        {
+          "type": "Plural possessive forms",
+          "description": "Plural possessives: 'ng mga ito', 'ng mga iyan', 'ng mga iyon' (of these/those people)."
+        }
+      ]
+    },
+    {
+      "id": "THEORY-08",
+      "topic": "Basic Verb Tenses (Introduction)",
+      "lesson": "Lesson_02",
+      "summary": "Tagalog verbs change form to indicate tense. Three basic forms are introduced: past (completed), present (ongoing), and future (not yet started).",
+      "rules": [
+        {
+          "tense": "Past (Completed)",
+          "pattern": "nag- prefix + root",
+          "example": "naglaro (played)"
+        },
+        {
+          "tense": "Present (Ongoing)",
+          "pattern": "nag- prefix + duplicated first syllable + root",
+          "example": "naglalaro (is playing)"
+        },
+        {
+          "tense": "Future (Not yet started)",
+          "pattern": "mag- prefix + duplicated first syllable + root",
+          "example": "maglalaro (will play)"
+        },
+        {
+          "tense": "Past (Completed)",
+          "pattern": "Example with kumain",
+          "example": "kumain (ate)"
+        },
+        {
+          "tense": "Present (Ongoing)",
+          "pattern": "Example with kumain",
+          "example": "kumakain (is eating)"
+        },
+        {
+          "tense": "Past (Completed)",
+          "pattern": "Example with luto",
+          "example": "nagluto (cooked)"
+        },
+        {
+          "tense": "Present (Ongoing)",
+          "pattern": "Example with luto",
+          "example": "nagluluto (is cooking)"
+        }
+      ]
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "VOCAB-001",
+      "word": "ako",
+      "meaning": "I / Me",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_03",
+      "example": "Ako ay si John."
+    },
+    {
+      "id": "VOCAB-002",
+      "word": "aklat",
+      "meaning": "Book",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Ang aklat ni Paulo."
+    },
+    {
+      "id": "VOCAB-003",
+      "word": "amin",
+      "meaning": "Our (exclusive)",
+      "partOfSpeech": "Possessive Pronoun",
+      "lesson": "Lesson_05",
+      "example": "Ang aming kotse."
+    },
+    {
+      "id": "VOCAB-004",
+      "word": "ang",
+      "meaning": "The (singular marker)",
+      "partOfSpeech": "Article",
+      "lesson": "Lesson_02",
+      "example": "Ang bata ay mabait."
+    },
+    {
+      "id": "VOCAB-005",
+      "word": "araw",
+      "meaning": "Sun / Day",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 04",
+      "example": "Magandang araw."
+    },
+    {
+      "id": "VOCAB-006",
+      "word": "aso",
+      "meaning": "Dog",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Ang mga aso ay mababait."
+    },
+    {
+      "id": "VOCAB-007",
+      "word": "atin",
+      "meaning": "Our (inclusive)",
+      "partOfSpeech": "Possessive Pronoun",
+      "lesson": "Lesson_05",
+      "example": "Ang ating bahay."
+    },
+    {
+      "id": "VOCAB-008",
+      "word": "babae",
+      "meaning": "Woman / Girl",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Si Liza ay babae."
+    },
+    {
+      "id": "VOCAB-009",
+      "word": "bago",
+      "meaning": "New",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 05",
+      "example": "Ang baro mo ay bago."
+    },
+    {
+      "id": "VOCAB-010",
+      "word": "bahay",
+      "meaning": "House",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 05",
+      "example": "Malaki ang bahay."
+    },
+    {
+      "id": "VOCAB-011",
+      "word": "bansa",
+      "meaning": "Nation / Country",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Malaki ang bansa."
+    },
+    {
+      "id": "VOCAB-012",
+      "word": "bata",
+      "meaning": "Child / Young",
+      "partOfSpeech": "Noun / Adjective",
+      "lesson": "Lesson_02",
+      "example": "Siya ay bata."
+    },
+    {
+      "id": "VOCAB-013",
+      "word": "binata",
+      "meaning": "Bachelor / Unmarried man",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Ang binata ay masipag."
+    },
+    {
+      "id": "VOCAB-014",
+      "word": "bintana",
+      "meaning": "Window",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Nakabukas ang bintana."
+    },
+    {
+      "id": "VOCAB-015",
+      "word": "bulaklak",
+      "meaning": "Flower",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 04",
+      "example": "Maganda ang bulaklak."
+    },
+    {
+      "id": "VOCAB-016",
+      "word": "bundok",
+      "meaning": "Mountain",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Mataas ang bundok."
+    },
+    {
+      "id": "VOCAB-017",
+      "word": "dagat",
+      "meaning": "Sea / Ocean",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Malaki ang dagat."
+    },
+    {
+      "id": "VOCAB-018",
+      "word": "dahon",
+      "meaning": "Leaf",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Berde ang dahon."
+    },
+    {
+      "id": "VOCAB-019",
+      "word": "dalaga",
+      "meaning": "Unmarried woman / Maiden",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Maganda ang dalaga."
+    },
+    {
+      "id": "VOCAB-020",
+      "word": "damit / baro",
+      "meaning": "Clothes / Dress",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04, 05",
+      "example": "Maganda ang damit."
+    },
+    {
+      "id": "VOCAB-021",
+      "word": "gabi",
+      "meaning": "Night",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Gabing-gabi na."
+    },
+    {
+      "id": "VOCAB-022",
+      "word": "gamot",
+      "meaning": "Medicine",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04, 05",
+      "example": "Bumili ng gamot."
+    },
+    {
+      "id": "VOCAB-023",
+      "word": "gulay",
+      "meaning": "Vegetable",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Masarap ang gulay."
+    },
+    {
+      "id": "VOCAB-024",
+      "word": "guro",
+      "meaning": "Teacher",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_03, 05",
+      "example": "Kayo po ba ay guro?"
+    },
+    {
+      "id": "VOCAB-025",
+      "word": "hangal",
+      "meaning": "Fool",
+      "partOfSpeech": "Noun / Adjective",
+      "lesson": "Lesson_04",
+      "example": "Ang hangal na ito ay umiyak."
+    },
+    {
+      "id": "VOCAB-026",
+      "word": "hangin",
+      "meaning": "Wind",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Malamig ang hangin."
+    },
+    {
+      "id": "VOCAB-027",
+      "word": "ibon",
+      "meaning": "Bird",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Lumilipad ang ibon."
+    },
+    {
+      "id": "VOCAB-028",
+      "word": "ikaw / ka",
+      "meaning": "You (singular)",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_03",
+      "example": "Ikaw ay marunong. / Marunong ka."
+    },
+    {
+      "id": "VOCAB-029",
+      "word": "inapi",
+      "meaning": "Maltreated",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Tayong kanilang inapi ay natuto."
+    },
+    {
+      "id": "VOCAB-030",
+      "word": "inyo",
+      "meaning": "Your (plural)",
+      "partOfSpeech": "Possessive Pronoun",
+      "lesson": "Lesson_05",
+      "example": "Ang inyong ama."
+    },
+    {
+      "id": "VOCAB-031",
+      "word": "isda",
+      "meaning": "Fish",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 04",
+      "example": "Masarap ang isda."
+    },
+    {
+      "id": "VOCAB-032",
+      "word": "ito",
+      "meaning": "This",
+      "partOfSpeech": "Demonstrative",
+      "lesson": "Lesson_04",
+      "example": "Ito'y pagkain."
+    },
+    {
+      "id": "VOCAB-033",
+      "word": "iyan",
+      "meaning": "That (near listener)",
+      "partOfSpeech": "Demonstrative",
+      "lesson": "Lesson_04",
+      "example": "Iyan ay pagkain."
+    },
+    {
+      "id": "VOCAB-034",
+      "word": "iyon",
+      "meaning": "That over there (far)",
+      "partOfSpeech": "Demonstrative",
+      "lesson": "Lesson_04",
+      "example": "Iyon ay ilog."
+    },
+    {
+      "id": "VOCAB-035",
+      "word": "kami",
+      "meaning": "We (exclusive)",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_03",
+      "example": "Kami ay nag-aaral."
+    },
+    {
+      "id": "VOCAB-036",
+      "word": "kaniya / kanya",
+      "meaning": "His / Her",
+      "partOfSpeech": "Possessive Pronoun",
+      "lesson": "Lesson_05",
+      "example": "Kanyang sapatos."
+    },
+    {
+      "id": "VOCAB-037",
+      "word": "kanila",
+      "meaning": "Their / Theirs",
+      "partOfSpeech": "Possessive Pronoun",
+      "lesson": "Lesson_05",
+      "example": "Kanilang lapis."
+    },
+    {
+      "id": "VOCAB-038",
+      "word": "kapé",
+      "meaning": "Coffee",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 03",
+      "example": "Umiinom ng kape."
+    },
+    {
+      "id": "VOCAB-039",
+      "word": "kayo",
+      "meaning": "You (plural / polite)",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_03",
+      "example": "Kayo ay mga Pilipino."
+    },
+    {
+      "id": "VOCAB-040",
+      "word": "kotse",
+      "meaning": "Car",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 05",
+      "example": "Luma ang kotse."
+    },
+    {
+      "id": "VOCAB-041",
+      "word": "kumakain",
+      "meaning": "Eating (present tense)",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_02",
+      "example": "Kumakain ang bata."
+    },
+    {
+      "id": "VOCAB-042",
+      "word": "lamok",
+      "meaning": "Mosquito",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Maliit ang lamok."
+    },
+    {
+      "id": "VOCAB-043",
+      "word": "langit",
+      "meaning": "Sky",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_04",
+      "example": "Bughaw ang langit."
+    },
+    {
+      "id": "VOCAB-044",
+      "word": "lapis",
+      "meaning": "Pencil",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 05",
+      "example": "Ang lapis ni Helen."
+    },
+    {
+      "id": "VOCAB-045",
+      "word": "luma",
+      "meaning": "Old (for inanimate objects)",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 05",
+      "example": "Luma ang kotse."
+    },
+    {
+      "id": "VOCAB-046",
+      "word": "lungsod",
+      "meaning": "City",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Ang Manila ay lungsod."
+    },
+    {
+      "id": "VOCAB-047",
+      "word": "lugar",
+      "meaning": "Place",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Maganda ang lugar."
+    },
+    {
+      "id": "VOCAB-048",
+      "word": "mababa",
+      "meaning": "Low",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Mababa ang mesa."
+    },
+    {
+      "id": "VOCAB-049",
+      "word": "mabait",
+      "meaning": "Good / Kind",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Mabait si Peter."
+    },
+    {
+      "id": "VOCAB-050",
+      "word": "mabilis",
+      "meaning": "Fast",
+      "partOfSpeech": "Adjective / Adverb",
+      "lesson": "Lesson_04",
+      "example": "Kumaing mabilis si Pablo."
+    },
+    {
+      "id": "VOCAB-051",
+      "word": "mabuti",
+      "meaning": "Good (condition / quality)",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Mabuti ang lagay."
+    },
+    {
+      "id": "VOCAB-052",
+      "word": "madilim",
+      "meaning": "Dark",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Madilim ang gabi."
+    },
+    {
+      "id": "VOCAB-053",
+      "word": "maganda",
+      "meaning": "Beautiful",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Si Ruth ay maganda."
+    },
+    {
+      "id": "VOCAB-054",
+      "word": "magkaibigan",
+      "meaning": "Friends",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_03",
+      "example": "Tayo'y magkaibigan."
+    },
+    {
+      "id": "VOCAB-055",
+      "word": "magkapatid",
+      "meaning": "Siblings",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 03",
+      "example": "Magkapatid sila."
+    },
+    {
+      "id": "VOCAB-056",
+      "word": "mahal",
+      "meaning": "Expensive / Beloved",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 04",
+      "example": "Mahal ang relo."
+    },
+    {
+      "id": "VOCAB-057",
+      "word": "mahirap",
+      "meaning": "Poor / Difficult",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 03",
+      "example": "Mahirap kami."
+    },
+    {
+      "id": "VOCAB-058",
+      "word": "mahusay",
+      "meaning": "Efficient",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Mahusay ang guro."
+    },
+    {
+      "id": "VOCAB-059",
+      "word": "maingay",
+      "meaning": "Noisy",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_03, 04",
+      "example": "Maingay kayo."
+    },
+    {
+      "id": "VOCAB-060",
+      "word": "mainit",
+      "meaning": "Hot",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 04",
+      "example": "Mainit ang kape."
+    },
+    {
+      "id": "VOCAB-061",
+      "word": "maitim",
+      "meaning": "Black",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Maitim ang aso."
+    },
+    {
+      "id": "VOCAB-062",
+      "word": "malamig",
+      "meaning": "Cold",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 05",
+      "example": "Malamig ang tubig."
+    },
+    {
+      "id": "VOCAB-063",
+      "word": "malaki",
+      "meaning": "Big",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Malaki ang bahay."
+    },
+    {
+      "id": "VOCAB-064",
+      "word": "malinaw",
+      "meaning": "Clear",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Malinaw ang tubig."
+    },
+    {
+      "id": "VOCAB-065",
+      "word": "malinis",
+      "meaning": "Clean",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Malinis ang sapatos."
+    },
+    {
+      "id": "VOCAB-066",
+      "word": "maliit",
+      "meaning": "Small",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 04",
+      "example": "Maliit ito."
+    },
+    {
+      "id": "VOCAB-067",
+      "word": "malusog",
+      "meaning": "Healthy",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 03",
+      "example": "Malusog ako."
+    },
+    {
+      "id": "VOCAB-068",
+      "word": "mapagbigay",
+      "meaning": "Generous",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Ang mayamang lalaki ay mapagbigay."
+    },
+    {
+      "id": "VOCAB-069",
+      "word": "maputi",
+      "meaning": "Whitish / Fair-skinned",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Maputi ang babae."
+    },
+    {
+      "id": "VOCAB-070",
+      "word": "marami",
+      "meaning": "Plenty / Many",
+      "partOfSpeech": "Adjective / Adverb",
+      "lesson": "Lesson_03, 04",
+      "example": "Marami iyan."
+    },
+    {
+      "id": "VOCAB-071",
+      "word": "marunong / matalino",
+      "meaning": "Intelligent / Learned",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 03",
+      "example": "Marunong si Peter."
+    },
+    {
+      "id": "VOCAB-072",
+      "word": "marumi",
+      "meaning": "Dirty",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04, 05",
+      "example": "Marumi ang baro."
+    },
+    {
+      "id": "VOCAB-073",
+      "word": "maasim",
+      "meaning": "Sour",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Maasim na mangga."
+    },
+    {
+      "id": "VOCAB-074",
+      "word": "masarap",
+      "meaning": "Delicious",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Masarap ang pagkain."
+    },
+    {
+      "id": "VOCAB-075",
+      "word": "masipag",
+      "meaning": "Industrious / Hardworking",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_03",
+      "example": "Masipag ako."
+    },
+    {
+      "id": "VOCAB-076",
+      "word": "mataas",
+      "meaning": "High / Tall",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Mataas ang bundok."
+    },
+    {
+      "id": "VOCAB-077",
+      "word": "mataba",
+      "meaning": "Fat",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02, 04",
+      "example": "Mataba ang aso."
+    },
+    {
+      "id": "VOCAB-078",
+      "word": "matamis",
+      "meaning": "Sweet (food)",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Matamis ang prutas."
+    },
+    {
+      "id": "VOCAB-079",
+      "word": "matanda",
+      "meaning": "Old (animate beings)",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Matandang lalaki."
+    },
+    {
+      "id": "VOCAB-080",
+      "word": "matangkad",
+      "meaning": "Tall (person)",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_03",
+      "example": "Matangkad ka."
+    },
+    {
+      "id": "VOCAB-081",
+      "word": "matapang",
+      "meaning": "Brave",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Matapang ang sundalo."
+    },
+    {
+      "id": "VOCAB-082",
+      "word": "mayaman",
+      "meaning": "Rich / Wealthy",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Ang mayamang lalaki."
+    },
+    {
+      "id": "VOCAB-083",
+      "word": "mesa / lamesa",
+      "meaning": "Table",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 04",
+      "example": "Malinis ang mesa."
+    },
+    {
+      "id": "VOCAB-084",
+      "word": "mga",
+      "meaning": "Plural marker",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_02",
+      "example": "Ang mga bata."
+    },
+    {
+      "id": "VOCAB-085",
+      "word": "mura",
+      "meaning": "Cheap",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Mura ang pagkain."
+    },
+    {
+      "id": "VOCAB-086",
+      "word": "naglalaro",
+      "meaning": "Playing (present tense)",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_02, 03",
+      "example": "Siya ay naglalaro."
+    },
+    {
+      "id": "VOCAB-087",
+      "word": "nagluluto",
+      "meaning": "Cooking (present tense)",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_02",
+      "example": "Nagluluto ang babae."
+    },
+    {
+      "id": "VOCAB-088",
+      "word": "nag-aaral",
+      "meaning": "Studying (present tense)",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_03",
+      "example": "Nag-aaral kami."
+    },
+    {
+      "id": "VOCAB-089",
+      "word": "paaralan",
+      "meaning": "School",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 05",
+      "example": "Ang paaralan ay malaki."
+    },
+    {
+      "id": "VOCAB-090",
+      "word": "pagkain",
+      "meaning": "Food",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 04, 05",
+      "example": "Masarap ang pagkain."
+    },
+    {
+      "id": "VOCAB-091",
+      "word": "pagod",
+      "meaning": "Tired",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Pagod na dumating si tatay."
+    },
+    {
+      "id": "VOCAB-092",
+      "word": "pangit",
+      "meaning": "Ugly",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_02",
+      "example": "Pangit ang aso."
+    },
+    {
+      "id": "VOCAB-093",
+      "word": "papél",
+      "meaning": "Paper",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Ang papél ni John."
+    },
+    {
+      "id": "VOCAB-094",
+      "word": "payat",
+      "meaning": "Thin",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Payat ang bata."
+    },
+    {
+      "id": "VOCAB-095",
+      "word": "pusa",
+      "meaning": "Cat",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Mabait ang pusa."
+    },
+    {
+      "id": "VOCAB-096",
+      "word": "sanggol",
+      "meaning": "Baby",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_05",
+      "example": "Ang baro ng sanggol."
+    },
+    {
+      "id": "VOCAB-097",
+      "word": "sapatos",
+      "meaning": "Shoes",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 05",
+      "example": "Malilinis ang sapatos."
+    },
+    {
+      "id": "VOCAB-098",
+      "word": "sariwa",
+      "meaning": "Fresh",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Sariwa ang gulay."
+    },
+    {
+      "id": "VOCAB-099",
+      "word": "sila",
+      "meaning": "They",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_03",
+      "example": "Sila ay magkaibigan."
+    },
+    {
+      "id": "VOCAB-100",
+      "word": "silya",
+      "meaning": "Chair",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Ang silya ay bago."
+    },
+    {
+      "id": "VOCAB-101",
+      "word": "simbahan",
+      "meaning": "Church",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02",
+      "example": "Malaki ang simbahan."
+    },
+    {
+      "id": "VOCAB-102",
+      "word": "siya",
+      "meaning": "He / She",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_03",
+      "example": "Siya ay bata."
+    },
+    {
+      "id": "VOCAB-103",
+      "word": "tahimik",
+      "meaning": "Quiet",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Tahimik na bata."
+    },
+    {
+      "id": "VOCAB-104",
+      "word": "tamad",
+      "meaning": "Lazy",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_04",
+      "example": "Tamad ang lalaki."
+    },
+    {
+      "id": "VOCAB-105",
+      "word": "tayo",
+      "meaning": "We (inclusive)",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_03",
+      "example": "Tayo'y magkaibigan."
+    },
+    {
+      "id": "VOCAB-106",
+      "word": "tubig",
+      "meaning": "Water",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_02, 04",
+      "example": "Mainit ang tubig."
+    }
+  ],
+  "activities": [
+    {
+      "id": "EX-L02-001",
+      "lesson": "Lesson_02",
+      "type": "fill_in_blank",
+      "prompt": "Complete the sentence referring to Ruth and Peter (siblings): `___ Ruth at Peter ay magkapatid.`",
+      "correctAnswer": "Sina",
+      "acceptedAnswers": [
+        "Sina"
+      ],
+      "explanation": "`Sina` is used because it precedes multiple proper names of people."
+    },
+    {
+      "id": "EX-L02-002",
+      "lesson": "Lesson_02",
+      "type": "fill_in_blank",
+      "prompt": "Complete the sentence to say \"The children are clean\": `___ ___ bata ay malilinis.`",
+      "correctAnswer": "Ang mga",
+      "acceptedAnswers": [
+        "Ang mga"
+      ],
+      "explanation": "The plural article for common nouns consists of `ang mga`."
+    },
+    {
+      "id": "EX-L02-003",
+      "lesson": "Lesson_02",
+      "type": "fill_in_blank",
+      "prompt": "Complete the sentence: `___ Amerika at Aprika ay malalaki.`",
+      "correctAnswer": "Ang",
+      "acceptedAnswers": [
+        "Ang"
+      ],
+      "explanation": "The article `ang` is used before place names. It is acceptable to omit the second `ang`."
+    },
+    {
+      "id": "EX-L02-004",
+      "lesson": "Lesson_02",
+      "type": "translation",
+      "prompt": "Translate \"The house is big\" into inverted word order (predicate first, without *ay*).",
+      "correctAnswer": "Malaki ang bahay.",
+      "acceptedAnswers": [
+        "Malaki ang bahay."
+      ],
+      "explanation": "In inverted order, the adjective (*Malaki*) comes first, followed by *ang bahay*. The word *ay* is dropped."
+    },
+    {
+      "id": "EX-L02-005",
+      "lesson": "Lesson_02",
+      "type": "translation",
+      "prompt": "Translate \"Peter is intelligent\" using subject-predicate word order.",
+      "correctAnswer": "Si Peter ay marunong.",
+      "acceptedAnswers": [
+        "Si Peter ay marunong."
+      ],
+      "explanation": "In direct word order, `si` precedes the proper noun, followed by `ay` and the adjective."
+    },
+    {
+      "id": "EX-L02-006",
+      "lesson": "Lesson_02",
+      "type": "translation",
+      "prompt": "Translate \"The shoes are clean\" into Tagalog.",
+      "correctAnswer": "Ang mga sapatos ay malilinis.` / `Malilinis ang mga sapatos.",
+      "acceptedAnswers": [
+        "Ang mga sapatos ay malilinis.",
+        "Malilinis ang mga sapatos."
+      ],
+      "explanation": "`Malilinis` is the plural form of `malinis` (clean), formed by duplicating the first syllable."
+    },
+    {
+      "id": "EX-L03-001",
+      "lesson": "Lesson_03",
+      "type": "translation",
+      "prompt": "Translate \"We (exclusive) are studying Tagalog.\"",
+      "correctAnswer": "Kami ay nag-aaral ng Tagalog.` / `Nag-aaral ng Tagalog kami.",
+      "acceptedAnswers": [
+        "Kami ay nag-aaral ng Tagalog.",
+        "Nag-aaral ng Tagalog kami."
+      ],
+      "explanation": "`Kami` is used because it excludes the listener."
+    },
+    {
+      "id": "EX-L03-002",
+      "lesson": "Lesson_03",
+      "type": "translation",
+      "prompt": "Translate \"You are intelligent\" using the post-predicate pronoun (*ka*).",
+      "correctAnswer": "Marunong ka.",
+      "acceptedAnswers": [
+        "Marunong ka."
+      ],
+      "explanation": "When placing the pronoun after the predicate, `Ikaw` is shortened to `ka`."
+    },
+    {
+      "id": "EX-L03-003",
+      "lesson": "Lesson_03",
+      "type": "translation",
+      "prompt": "Translate \"Are you a teacher?\" using the polite form with *po*.",
+      "correctAnswer": "Kayo po ba ay guro?",
+      "acceptedAnswers": [
+        "Kayo po ba ay guro?"
+      ],
+      "explanation": "The plural pronoun `kayo` with `po` expresses politeness when addressing a single person."
+    },
+    {
+      "id": "EX-L03-004",
+      "lesson": "Lesson_03",
+      "type": "translation",
+      "prompt": "Translate \"They are friends\" into Tagalog.",
+      "correctAnswer": "Sila ay magkaibigan.` / `Magkaibigan sila.",
+      "acceptedAnswers": [
+        "Sila ay magkaibigan.",
+        "Magkaibigan sila."
+      ],
+      "explanation": "`Sila` is the plural 3rd-person pronoun meaning \"they\"."
+    },
+    {
+      "id": "EX-L03-005",
+      "lesson": "Lesson_03",
+      "type": "fill_in_blank",
+      "prompt": "Combine the sentences: \"Kayo ay bumili ng pagkain\" (You plural bought food) + \"Ako ay bumili ng pagkain\" (I bought food) into one sentence.",
+      "correctAnswer": "Tayo'y bumili ng pagkain.` / `Kami'y bumili ng pagkain.",
+      "acceptedAnswers": [
+        "Tayo'y bumili ng pagkain.",
+        "Kami'y bumili ng pagkain."
+      ],
+      "explanation": "Combining \"You (plural) + I\" yields \"We\" (*Tayo* inclusive or *Kami* exclusive)."
+    },
+    {
+      "id": "EX-L03-006",
+      "lesson": "Lesson_03",
+      "type": "translation",
+      "prompt": "Translate \"We (inclusive) are clean and good.\"",
+      "correctAnswer": "Tayo ay malilinis at mababait.` / `Malilinis at mababait tayo.",
+      "acceptedAnswers": [
+        "Tayo ay malilinis at mababait.",
+        "Malilinis at mababait tayo."
+      ],
+      "explanation": "`Tayo` includes both the speaker and the listener."
+    },
+    {
+      "id": "EX-L03-007",
+      "lesson": "Lesson_03",
+      "type": "translation",
+      "prompt": "Translate \"She is playing\" into Tagalog using both word orders.",
+      "correctAnswer": "Siya ay naglalaro.` / `Naglalaro siya.",
+      "acceptedAnswers": [
+        "Siya ay naglalaro.",
+        "Naglalaro siya."
+      ],
+      "explanation": "`Siya` means he/she and `naglalaro` is the present tense of \"to play\"."
+    },
+    {
+      "id": "EX-L03-008",
+      "lesson": "Lesson_03",
+      "type": "translation",
+      "prompt": "Translate \"They are healthy and intelligent\" into Tagalog.",
+      "correctAnswer": "Sila ay malulusog at marurunong.` / `Malulusog at marurunong sila.",
+      "acceptedAnswers": [
+        "Sila ay malulusog at marurunong.",
+        "Malulusog at marurunong sila."
+      ],
+      "explanation": "Both adjectives take the plural form (duplicated first syllable) because the subject `sila` is plural."
+    },
+    {
+      "id": "EX-L04-001",
+      "lesson": "Lesson_04",
+      "type": "fill_in_blank",
+      "prompt": "Apply the correct ligature to combine `mayaman` (rich) + `lalaki` (man).",
+      "correctAnswer": "mayamang lalaki` / `lalaking mayaman",
+      "acceptedAnswers": [
+        "mayamang lalaki",
+        "lalaking mayaman"
+      ],
+      "explanation": "Since `mayaman` ends in the consonant **N**, the suffix ligature `-g` is attached, producing `mayamang`."
+    },
+    {
+      "id": "EX-L04-002",
+      "lesson": "Lesson_04",
+      "type": "fill_in_blank",
+      "prompt": "Apply the correct ligature to combine `malinis` (clean) + `pagkain` (food).",
+      "correctAnswer": "malinis na pagkain` / `pagkaing malinis",
+      "acceptedAnswers": [
+        "malinis na pagkain",
+        "pagkaing malinis"
+      ],
+      "explanation": "`Malinis` ends in the consonant **s** (not **n**), so the ligature word `na` is used between the two words."
+    },
+    {
+      "id": "EX-L04-003",
+      "lesson": "Lesson_04",
+      "type": "fill_in_blank",
+      "prompt": "Apply the correct ligature to combine `marumi` (dirty) + `sapatos` (shoes).",
+      "correctAnswer": "maruming sapatos` / `sapatos na marumi",
+      "acceptedAnswers": [
+        "maruming sapatos",
+        "sapatos na marumi"
+      ],
+      "explanation": "`Marumi` ends in a vowel (**i**), so the suffix `-ng` is attached."
+    },
+    {
+      "id": "EX-L04-004",
+      "lesson": "Lesson_04",
+      "type": "fill_in_blank",
+      "prompt": "Point to the desk in front of you (close to the speaker): `_____ ang aking lamesa.`",
+      "correctAnswer": "Ito` / `Ito'y",
+      "acceptedAnswers": [
+        "Ito",
+        "Ito'y"
+      ],
+      "explanation": "`Ito` is used for objects near the speaker."
+    },
+    {
+      "id": "EX-L04-005",
+      "lesson": "Lesson_04",
+      "type": "fill_in_blank",
+      "prompt": "Apply the correct ligature to combine `malakas` (strong) + `batang lalaki` (boy).",
+      "correctAnswer": "malakas na batang lalaki` / `batang lalaking malakas",
+      "acceptedAnswers": [
+        "malakas na batang lalaki",
+        "batang lalaking malakas"
+      ],
+      "explanation": "`Malakas` ends in consonant **s** (not **n**), so `na` is used."
+    },
+    {
+      "id": "EX-L04-006",
+      "lesson": "Lesson_04",
+      "type": "fill_in_blank",
+      "prompt": "Apply the correct ligature to combine `mataba` (fat) + `aso` (dog).",
+      "correctAnswer": "matabang aso` / `asong mataba",
+      "acceptedAnswers": [
+        "matabang aso",
+        "asong mataba"
+      ],
+      "explanation": "`Mataba` ends in vowel **a**, so the suffix `-ng` is attached."
+    },
+    {
+      "id": "EX-L05-001",
+      "lesson": "Lesson_05",
+      "type": "translation",
+      "prompt": "Translate \"Peter's book is clean\" into direct word order.",
+      "correctAnswer": "Ang aklat ni Peter ay malinis.",
+      "acceptedAnswers": [
+        "Ang aklat ni Peter ay malinis."
+      ],
+      "explanation": "The possessed object (*ang aklat*) comes first, followed by the proper possessive marker *ni* and the name *Peter*."
+    },
+    {
+      "id": "EX-L05-002",
+      "lesson": "Lesson_05",
+      "type": "translation",
+      "prompt": "Rewrite the sentence `Ang aking bahay ay malaki` using a post-noun possessive pronoun.",
+      "correctAnswer": "Ang bahay ko ay malaki.",
+      "acceptedAnswers": [
+        "Ang bahay ko ay malaki."
+      ],
+      "explanation": "The pre-noun possessive pronoun `aking` changes to `ko` when placed after the noun."
+    },
+    {
+      "id": "EX-L05-003",
+      "lesson": "Lesson_05",
+      "type": "fill_in_blank",
+      "prompt": "Complete the sentence for \"The dog of this person (near speaker) is intelligent\": `Ang aso ____ ay marunong.`",
+      "correctAnswer": "nito",
+      "acceptedAnswers": [
+        "nito"
+      ],
+      "explanation": "`Nito` is the possessive form of the demonstrative `ito` (of this)."
+    },
+    {
+      "id": "EX-L05-004",
+      "lesson": "Lesson_05",
+      "type": "translation",
+      "prompt": "Translate \"The man's shoes are new\" into Tagalog.",
+      "correctAnswer": "Ang sapatos ng lalaki ay bago.` / `Bago ang sapatos ng lalaki.",
+      "acceptedAnswers": [
+        "Ang sapatos ng lalaki ay bago.",
+        "Bago ang sapatos ng lalaki."
+      ],
+      "explanation": "`Ng lalaki` is the possessive form for a common noun (the man). The possessed object (*ang sapatos*) comes before the owner."
+    },
+    {
+      "id": "EX-L05-005",
+      "lesson": "Lesson_05",
+      "type": "translation",
+      "prompt": "Translate \"Their house is big\" into Tagalog.",
+      "correctAnswer": "Ang kanilang bahay ay malaki.` / `Ang bahay nila ay malaki.` / `Malaki ang bahay nila.",
+      "acceptedAnswers": [
+        "Ang kanilang bahay ay malaki.",
+        "Ang bahay nila ay malaki.",
+        "Malaki ang bahay nila."
+      ],
+      "explanation": "`Kanilang` is the pre-noun form and `nila` is the post-noun form of the 3rd person plural possessive."
+    },
+    {
+      "id": "EX-L05-006",
+      "lesson": "Lesson_05",
+      "type": "translation",
+      "prompt": "Translate \"My food is delicious\" into Tagalog.",
+      "correctAnswer": "Ang aking pagkain ay masarap.` / `Ang pagkain ko ay masarap.` / `Masarap ang pagkain ko.",
+      "acceptedAnswers": [
+        "Ang aking pagkain ay masarap.",
+        "Ang pagkain ko ay masarap.",
+        "Masarap ang pagkain ko."
+      ],
+      "explanation": "`Aking` (pre-noun) or `ko` (post-noun) are the first person singular possessive forms."
+    }
+  ]
+}
