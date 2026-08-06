@@ -149,13 +149,18 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
             style={{
               fontSize: '0.85rem',
               padding: '0.45rem 0.85rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               gap: '0.45rem',
               border: '1px solid var(--border-default)',
               backgroundColor: 'var(--bg-surface-alt)',
             }}
           >
-            {allExpanded ? <EyeOff size={15} aria-hidden="true" /> : <Eye size={15} aria-hidden="true" />}
-            <span>{allExpanded ? 'Collapse All Groups' : 'Expand All Groups'}</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              {allExpanded ? <EyeOff size={15} aria-hidden="true" /> : <Eye size={15} aria-hidden="true" />}
+            </span>
+            <span style={{ display: 'inline-block', lineHeight: 1 }}>{allExpanded ? 'Collapse All Groups' : 'Expand All Groups'}</span>
           </Button>
         )}
       </div>
@@ -173,7 +178,7 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
               savedResults={savedResults}
               onOpenLesson={onOpenLesson}
               completedIds={completedIds}
-              isExpanded={allExpanded}
+              defaultExpanded={allExpanded}
               onActivityComplete={(id, result) => handleSaveResult(id, result)}
             />
           ))}

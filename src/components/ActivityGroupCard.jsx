@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, Eye, EyeOff } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Badge } from './ui/Badge';
@@ -18,13 +18,16 @@ export const ActivityGroupCard = ({
   savedResults = {},
   completedIds = [],
   onActivityComplete,
-  isExpanded: controlledExpanded,
+  defaultExpanded = false,
 }) => {
-  const [internalExpanded, setInternalExpanded] = useState(false);
-  const isExpanded = controlledExpanded !== undefined ? controlledExpanded : internalExpanded;
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+
+  useEffect(() => {
+    setIsExpanded(defaultExpanded);
+  }, [defaultExpanded]);
 
   const handleToggle = () => {
-    setInternalExpanded(!isExpanded);
+    setIsExpanded((prev) => !prev);
   };
 
   const completedCount = activities.filter((act) => completedIds.includes(act.id)).length;
@@ -105,22 +108,29 @@ export const ActivityGroupCard = ({
               fontSize: '0.875rem',
               padding: '0.45rem 0.95rem',
               borderRadius: 'var(--radius-sm)',
-              gap: '0.45rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
               fontWeight: 600,
               boxShadow: isExpanded ? 'none' : 'var(--shadow-sm)',
               transition: 'all var(--transition-fast)',
             }}
           >
-            {isExpanded ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
-            <span>{isExpanded ? 'Hide Exercises' : 'Show Exercises'}</span>
-            <ChevronDown
-              size={16}
-              aria-hidden="true"
-              style={{
-                transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                transition: 'transform var(--transition-fast)',
-              }}
-            />
+            <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              {isExpanded ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
+            </span>
+            <span style={{ display: 'inline-block', lineHeight: 1 }}>{isExpanded ? 'Hide Exercises' : 'Show Exercises'}</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <ChevronDown
+                size={16}
+                aria-hidden="true"
+                style={{
+                  transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform var(--transition-fast)',
+                }}
+              />
+            </span>
           </Button>
         </div>
       </div>
