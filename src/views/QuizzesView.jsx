@@ -52,9 +52,11 @@ export default function QuizzesView() {
   const handleStartMistakesQuiz = () => {
     if (mistakes.length === 0) return;
     setActiveQuiz({
-      id: 'mistakes_review',
-      title: 'Mistakes Bank Review',
-      description: 'Review questions you missed in past activities and quizzes.',
+      quiz_metadata: {
+        id: 'mistakes_review',
+        title: 'Mistakes Bank Review',
+        topic: 'Mistakes Review',
+      },
       questions: mistakes,
     });
   };
@@ -68,6 +70,24 @@ export default function QuizzesView() {
       />
     );
   }
+
+  // Flatten all history attempts into a chronological list
+  const allHistoryAttempts = [];
+  Object.keys(history).forEach((quizId) => {
+    const attempts = history[quizId] || [];
+    const matchedQuiz = availableQuizzes.find((q) => (q.quiz_metadata?.id || q.id) === quizId);
+    const quizTitle = matchedQuiz?.quiz_metadata?.title || matchedQuiz?.title || quizId;
+
+    attempts.forEach((att) => {
+      allHistoryAttempts.push({
+        ...att,
+        quizId,
+        quizTitle,
+      });
+    });
+  });
+
+  allHistoryAttempts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }} className="animate-fade-in">
@@ -108,32 +128,43 @@ export default function QuizzesView() {
       {/* Quiz Cards Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
         {availableQuizzes.map((quiz) => {
-          const quizHistory = history[quiz.id] || [];
+          const meta = quiz.quiz_metadata || {};
+          const quizId = meta.id || quiz.id;
+          const quizTitle = meta.title || quiz.title || 'Tagalog Quiz';
+          const quizTopic = meta.topic || quiz.category || 'General';
+          const numQuestions = quiz.questions?.length || meta.total_questions || 0;
+
+          const quizHistory = history[quizId] || [];
           const lastAttempt = quizHistory[0];
 
           return (
-            <Card key={quiz.id} variant="interactive" onClick={() => setActiveQuiz(quiz)} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}>
+            <Card
+              key={quizId}
+              variant="interactive"
+              onClick={() => setActiveQuiz(quiz)}
+              style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}
+            >
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                  <Badge variant="primary">{quiz.category || 'Quiz'}</Badge>
+                  <Badge variant="primary">{quizTopic}</Badge>
                   {lastAttempt && (
-                    <Badge variant={lastAttempt.percent >= 80 ? 'success' : 'warning'}>
+                    <Badge variant={lastAttempt.percent >= 80 ? 'success' : 'amber'}>
                       Best: {lastAttempt.percent}%
                     </Badge>
                   )}
                 </div>
 
-                <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', margin: '0 0 0.35rem 0' }}>
-                  {quiz.title}
+                <h3 style={{ fontSize: '1.15rem', color: 'var(--text-primary)', margin: '0 0 0.35rem 0' }}>
+                  {quizTitle}
                 </h3>
                 <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                  {quiz.description}
+                  Comprehensive exam covering {quizTopic.toLowerCase()} syntax and vocabulary.
                 </p>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--border-default)' }}>
                 <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                  {quiz.questions?.length || 0} Questions
+                  {numQuestions} Questions
                 </span>
                 <Button variant="primary" size="sm" onClick={(e) => { e.stopPropagation(); setActiveQuiz(quiz); }}>
                   Start Quiz →
@@ -142,6 +173,53 @@ export default function QuizzesView() {
             </Card>
           );
         })}
+      </div>
+
+      {/* Quiz Attempt History Section */}
+      <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span>📜</span> Attempt History
+        </h2>
+
+        {allHistoryAttempts.length > 0 ? (
+          <Card style={{ padding: '0', overflow: 'hidden' }}>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem', textAlign: 'left' }}>
+                <thead>
+                  <tr style={{ backgroundColor: 'var(--bg-surface-alt)', borderBottom: '1px solid var(--border-default)' }}>
+                    <th style={{ padding: '0.85rem 1.25rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Date & Time</th>
+                    <th style={{ padding: '0.85rem 1.25rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Quiz Title</th>
+                    <th style={{ padding: '0.85rem 1.25rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Score</th>
+                    <th style={{ padding: '0.85rem 1.25rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allHistoryAttempts.map((att, idx) => {
+                    const dateFormatted = new Date(att.timestamp).toLocaleString();
+                    const isPassed = att.percent >= 70;
+
+                    return (
+                      <tr key={idx} style={{ borderBottom: '1px solid var(--border-default)' }}>
+                        <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-secondary)' }}>{dateFormatted}</td>
+                        <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-primary)', fontWeight: 600 }}>{att.quizTitle}</td>
+                        <td style={{ padding: '0.85rem 1.25rem', color: 'var(--text-primary)' }}>{att.score} / {att.total}</td>
+                        <td style={{ padding: '0.85rem 1.25rem' }}>
+                          <Badge variant={isPassed ? 'success' : 'amber'}>
+                            {att.percent}% {isPassed ? 'Passed' : 'Needs Practice'}
+                          </Badge>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        ) : (
+          <Card variant="alt" style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+            <p style={{ margin: 0 }}>No quiz attempts recorded yet. Select a quiz above to start testing!</p>
+          </Card>
+        )}
       </div>
     </div>
   );
