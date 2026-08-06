@@ -8,7 +8,7 @@ import slideMap from '../data/slideMap.json';
  * TheoryCard Component - Accessible grammar rule card with warm light styling, collapsible sections, speech synthesis, and slides deep linking.
  */
 export default function TheoryCard({ topicData, isMastered, onToggleMastered, index = 0, onOpenLesson }) {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(!isMastered);
   const [speakingText, setSpeakingText] = useState(null);
 
   const topicMapping = slideMap.theory?.[topicData.id] || {
@@ -16,6 +16,15 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
     slide: 1,
     slideEnd: 1,
     label: topicData.topic,
+  };
+
+  const handleToggleMastered = () => {
+    if (!isMastered) {
+      setIsExpanded(false);
+    }
+    if (onToggleMastered) {
+      onToggleMastered(topicData.id);
+    }
   };
 
   const handleSpeak = (text) => {
@@ -72,7 +81,7 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flex: 1, minWidth: '280px' }}>
           <button
             type="button"
-            onClick={() => onToggleMastered(topicData.id)}
+            onClick={handleToggleMastered}
             aria-label={isMastered ? `Mark ${topicData.topic} as unread` : `Mark ${topicData.topic} as mastered`}
             style={{
               background: 'none',
