@@ -77,10 +77,11 @@ export const ActivityGroupCard = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.35rem',
-                padding: '0.35rem 0.65rem',
+                padding: '0.4rem 0.75rem',
                 borderRadius: 'var(--radius-sm)',
                 backgroundColor: 'var(--bg-surface)',
                 border: '1px solid var(--border-default)',
+                transition: 'all var(--transition-fast)',
               }}
             >
               🖼️ View Slide {slide}
@@ -88,13 +89,16 @@ export const ActivityGroupCard = ({
           )}
 
           <Button
-            variant="ghost"
+            variant={isExpanded ? 'secondary' : 'primary'}
             size="sm"
             onClick={() => setIsExpanded(!isExpanded)}
             ariaLabel={isExpanded ? 'Collapse exercise group' : 'Expand exercise group'}
-            style={{ fontSize: '0.9rem', padding: '0.35rem 0.65rem' }}
+            style={{ fontSize: '0.875rem', padding: '0.4rem 0.85rem', gap: '0.4rem' }}
           >
-            {isExpanded ? 'Hide ▲' : 'Show ▼'}
+            <span>{isExpanded ? 'Hide Exercises' : 'Show Exercises'}</span>
+            <span style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--transition-fast)', display: 'inline-block' }}>
+              ▼
+            </span>
           </Button>
         </div>
       </div>
