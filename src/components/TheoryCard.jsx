@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Badge } from './ui/Badge';
 import { Button } from './ui/Button';
@@ -141,8 +142,16 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
             onClick={() => setIsExpanded(!isExpanded)}
             aria-expanded={isExpanded}
             aria-label={isExpanded ? 'Collapse topic content' : 'Expand topic content'}
+            style={{ padding: '0.4rem', borderRadius: 'var(--radius-sm)' }}
           >
-            {isExpanded ? '▲' : '▼'}
+            <ChevronDown
+              size={18}
+              aria-hidden="true"
+              style={{
+                transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                transition: 'transform var(--transition-fast)',
+              }}
+            />
           </Button>
         </div>
       </div>

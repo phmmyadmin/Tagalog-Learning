@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ChevronDown, Eye, EyeOff } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Badge } from './ui/Badge';
 import { Button } from './ui/Button';
@@ -17,8 +18,14 @@ export const ActivityGroupCard = ({
   savedResults = {},
   completedIds = [],
   onActivityComplete,
+  isExpanded: controlledExpanded,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [internalExpanded, setInternalExpanded] = useState(false);
+  const isExpanded = controlledExpanded !== undefined ? controlledExpanded : internalExpanded;
+
+  const handleToggle = () => {
+    setInternalExpanded(!isExpanded);
+  };
 
   const completedCount = activities.filter((act) => completedIds.includes(act.id)).length;
   const totalCount = activities.length;
@@ -91,14 +98,29 @@ export const ActivityGroupCard = ({
           <Button
             variant={isExpanded ? 'secondary' : 'primary'}
             size="sm"
-            onClick={() => setIsExpanded(!isExpanded)}
-            ariaLabel={isExpanded ? 'Collapse exercise group' : 'Expand exercise group'}
-            style={{ fontSize: '0.875rem', padding: '0.4rem 0.85rem', gap: '0.4rem' }}
+            onClick={handleToggle}
+            aria-expanded={isExpanded}
+            aria-label={isExpanded ? 'Collapse exercise group' : 'Expand exercise group'}
+            style={{
+              fontSize: '0.875rem',
+              padding: '0.45rem 0.95rem',
+              borderRadius: 'var(--radius-sm)',
+              gap: '0.45rem',
+              fontWeight: 600,
+              boxShadow: isExpanded ? 'none' : 'var(--shadow-sm)',
+              transition: 'all var(--transition-fast)',
+            }}
           >
+            {isExpanded ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
             <span>{isExpanded ? 'Hide Exercises' : 'Show Exercises'}</span>
-            <span style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--transition-fast)', display: 'inline-block' }}>
-              ▼
-            </span>
+            <ChevronDown
+              size={16}
+              aria-hidden="true"
+              style={{
+                transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                transition: 'transform var(--transition-fast)',
+              }}
+            />
           </Button>
         </div>
       </div>
