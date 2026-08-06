@@ -174,6 +174,8 @@ export function App() {
           <VocabularyView
             vocabularyList={tagalogData.vocabulary}
             searchQuery={searchQuery}
+            masteredIds={masteredItems}
+            onToggleMastered={toggleMastered}
             onOpenLesson={handleOpenSlideViewer}
           />
         </div>

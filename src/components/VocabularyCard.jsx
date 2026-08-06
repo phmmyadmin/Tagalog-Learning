@@ -5,9 +5,9 @@ import { Button } from './ui/Button';
 import slideMap from '../data/slideMap.json';
 
 /**
- * VocabularyCard Component - Warm light card displaying word, POS badge, phonetics, audio synthesis, and example sentences.
+ * VocabularyCard Component - Warm light card displaying word, POS badge, phonetics, audio synthesis, mastered toggle, and example sentences.
  */
-export default function VocabularyCard({ vocabItem, srsStatus, onSpeak, onOpenLesson }) {
+export default function VocabularyCard({ vocabItem, isMastered = false, onToggleMastered, onSpeak, onOpenLesson }) {
   const getPosVariant = (pos) => {
     const p = (pos || '').toLowerCase();
     if (p.includes('noun')) return 'noun';
@@ -41,15 +41,40 @@ export default function VocabularyCard({ vocabItem, srsStatus, onSpeak, onOpenLe
         justifyContent: 'space-between',
         gap: '1rem',
         padding: '1.25rem',
+        border: isMastered ? '1px solid var(--accent-success)' : '1px solid var(--border-default)',
       }}
       className="animate-fade-in"
     >
       {/* Top Header */}
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-          <Badge variant={getPosVariant(vocabItem.partOfSpeech)}>
-            {vocabItem.partOfSpeech}
-          </Badge>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            {onToggleMastered && (
+              <button
+                type="button"
+                onClick={() => onToggleMastered(vocabItem.id)}
+                aria-label={isMastered ? `Mark ${vocabItem.word} as unmastered` : `Mark ${vocabItem.word} as mastered`}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1.2rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                {isMastered ? '✅' : '⚪'}
+              </button>
+            )}
+
+            <Badge variant={getPosVariant(vocabItem.partOfSpeech)}>
+              {vocabItem.partOfSpeech}
+            </Badge>
+
+            {isMastered && (
+              <Badge variant="success">Mastered</Badge>
+            )}
+          </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             {vocabItem.lesson && (
@@ -59,74 +84,70 @@ export default function VocabularyCard({ vocabItem, srsStatus, onSpeak, onOpenLe
                 style={{
                   fontSize: '0.8rem',
                   color: 'var(--accent-primary)',
-                  textDecoration: 'none',
                   fontWeight: 600,
+                  textDecoration: 'none',
+                  padding: '0.2rem 0.5rem',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: 'var(--bg-surface-alt)',
                 }}
-                title={`Open ${vocabItem.lesson.replace('_', ' ')} Slide ${vocabSlide}`}
               >
-                🖼️ {vocabItem.lesson.replace('_', ' ')} (p. {vocabSlide})
+                🖼️ Slide {vocabSlide}
               </a>
             )}
-            {srsStatus && srsStatus.interval >= 3 && (
-              <Badge variant="success" size="sm">Mastered</Badge>
-            )}
           </div>
         </div>
 
-        {/* Word + Audio button */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.35rem' }}>
-          <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
+        {/* Word Title & Audio */}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.25rem' }}>
+          <h3 style={{ fontSize: '1.35rem', color: 'var(--text-primary)', margin: 0 }}>
             {vocabItem.word}
           </h3>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onSpeak(vocabItem.word)}
-            ariaLabel={`Listen to pronunciation of ${vocabItem.word}`}
-            style={{ fontSize: '1.25rem', padding: '0.25rem' }}
-          >
-            🔊
-          </Button>
+          {onSpeak && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onSpeak(vocabItem.word)}
+              ariaLabel={`Listen to Tagalog pronunciation of ${vocabItem.word}`}
+              style={{ padding: '0.2rem 0.4rem', fontSize: '1rem' }}
+            >
+              🔊
+            </Button>
+          )}
         </div>
 
-        {/* Phonetic Pronunciation if present */}
-        {vocabItem.phonetic && (
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-            /{vocabItem.phonetic}/
-          </span>
-        )}
-
-        {/* English Meaning */}
-        <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', fontWeight: 500, marginTop: '0.5rem', marginBottom: '0.75rem' }}>
-          {vocabItem.meaning}
+        {/* Translation */}
+        <p style={{ fontSize: '1rem', color: 'var(--accent-primary)', fontWeight: 600, margin: '0 0 0.5rem 0' }}>
+          {vocabItem.translation}
         </p>
 
-        {/* Example Sentence */}
-        {vocabItem.example && (
-          <div
-            style={{
-              padding: '0.75rem 0.85rem',
-              backgroundColor: 'var(--bg-surface-alt)',
-              borderRadius: 'var(--radius-sm)',
-              borderLeft: '3px solid var(--accent-primary)',
-              fontSize: '0.875rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.2rem',
-            }}
-          >
-            <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
-              {typeof vocabItem.example === 'string' ? vocabItem.example : vocabItem.example.tagalog}
-            </span>
-            {typeof vocabItem.example === 'object' && vocabItem.example.english && (
-              <span style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
-                {vocabItem.example.english}
-              </span>
-            )}
-          </div>
+        {/* Phonetics / Notes */}
+        {vocabItem.phonetic && (
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontStyle: 'italic', margin: 0 }}>
+            [{vocabItem.phonetic}]
+          </p>
         )}
       </div>
+
+      {/* Example Sentences */}
+      {vocabItem.example && (
+        <div
+          style={{
+            padding: '0.75rem',
+            backgroundColor: 'var(--bg-surface-alt)',
+            borderRadius: 'var(--radius-sm)',
+            fontSize: '0.875rem',
+          }}
+        >
+          <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
+            {typeof vocabItem.example === 'string' ? vocabItem.example : vocabItem.example.tagalog}
+          </div>
+          {vocabItem.example.english && (
+            <div style={{ color: 'var(--text-secondary)', fontStyle: 'italic', marginTop: '0.15rem' }}>
+              {vocabItem.example.english}
+            </div>
+          )}
+        </div>
+      )}
     </Card>
   );
 }

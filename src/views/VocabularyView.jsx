@@ -5,7 +5,13 @@ import { FilterChip } from '../components/ui/FilterChip';
 import { Button } from '../components/ui/Button';
 import { EmptyState } from '../components/ui/EmptyState';
 
-export default function VocabularyView({ vocabularyList = [], searchQuery = '', onOpenLesson }) {
+export default function VocabularyView({
+  vocabularyList = [],
+  searchQuery = '',
+  masteredIds = [],
+  onToggleMastered,
+  onOpenLesson,
+}) {
   const [mode, setMode] = useState('dictionary'); // 'dictionary' | 'flashcards'
   const [selectedPos, setSelectedPos] = useState('all');
   const [srsIndex, setSrsIndex] = useState(0);
@@ -101,6 +107,8 @@ export default function VocabularyView({ vocabularyList = [], searchQuery = '', 
               <VocabularyCard
                 key={item.id || item.word}
                 vocabItem={item}
+                isMastered={masteredIds.includes(item.id)}
+                onToggleMastered={onToggleMastered}
                 onSpeak={handleSpeak}
                 onOpenLesson={onOpenLesson}
               />
