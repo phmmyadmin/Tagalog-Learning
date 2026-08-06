@@ -3,7 +3,7 @@ import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 
 /**
- * Header Component - Sticky TopBar navigation with drawer toggle, tabs, and global search.
+ * Header Component - Sticky TopBar navigation with drawer toggle, semantic <a> links, and global search.
  */
 export const Header = ({
   activeTab = 'dashboard',
@@ -21,6 +21,13 @@ export const Header = ({
     { id: 'activities', label: 'Practice', icon: '✍️' },
     { id: 'quizzes', label: 'Quizzes', icon: '🏆' },
   ];
+
+  const handleNavClick = (e, tabId) => {
+    if (!e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+      e.preventDefault();
+      onTabChange(tabId);
+    }
+  };
 
   return (
     <header
@@ -57,29 +64,30 @@ export const Header = ({
             ☰
           </Button>
 
-          <div
-            onClick={() => onTabChange('dashboard')}
-            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          <a
+            href="#dashboard"
+            onClick={(e) => handleNavClick(e, 'dashboard')}
+            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}
           >
             <span style={{ fontSize: '1.5rem' }}>🇵🇭</span>
             <div>
-              <h1 style={{ fontSize: '1.2rem', margin: 0, lineHeight: 1 }}>Tagalog Master</h1>
+              <h1 style={{ fontSize: '1.2rem', margin: 0, lineHeight: 1, color: 'var(--text-primary)' }}>Tagalog Master</h1>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                 {masteredCount}/{totalCount} Mastered
               </span>
             </div>
-          </div>
+          </a>
         </div>
 
-        {/* Center: Navigation Tabs */}
+        {/* Center: Semantic <a> Navigation Tabs */}
         <nav style={{ display: 'flex', gap: '0.35rem', backgroundColor: 'var(--bg-surface-alt)', padding: '0.25rem', borderRadius: 'var(--radius-sm)' }}>
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
-              <button
+              <a
                 key={tab.id}
-                type="button"
-                onClick={() => onTabChange(tab.id)}
+                href={`#${tab.id}`}
+                onClick={(e) => handleNavClick(e, tab.id)}
                 aria-selected={isActive}
                 style={{
                   display: 'inline-flex',
@@ -90,7 +98,7 @@ export const Header = ({
                   fontWeight: 600,
                   fontFamily: 'var(--font-heading)',
                   borderRadius: 'var(--radius-sm)',
-                  border: 'none',
+                  textDecoration: 'none',
                   backgroundColor: isActive ? 'var(--bg-surface)' : 'transparent',
                   color: isActive ? 'var(--accent-primary)' : 'var(--text-secondary)',
                   boxShadow: isActive ? 'var(--shadow-sm)' : 'none',
@@ -100,7 +108,7 @@ export const Header = ({
               >
                 <span>{tab.icon}</span>
                 <span>{tab.label}</span>
-              </button>
+              </a>
             );
           })}
         </nav>

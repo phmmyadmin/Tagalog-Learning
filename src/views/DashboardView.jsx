@@ -1,11 +1,10 @@
 import React from 'react';
 import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
 import { StreakCalendar } from '../components/StreakCalendar';
 import { ProgressCard } from '../components/ProgressCard';
 
 /**
- * DashboardView Component - Home overview with greeting, study stats, progress cards, and quick actions.
+ * DashboardView Component - Home overview with greeting, study stats, progress cards, and quick action links.
  */
 export const DashboardView = ({
   onNavigate,
@@ -31,6 +30,13 @@ export const DashboardView = ({
     return 'Magandang gabi (Good evening), Pablo 👋';
   };
 
+  const handleNavClick = (e, tabId) => {
+    if (!e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+      e.preventDefault();
+      onNavigate(tabId);
+    }
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }} className="animate-fade-in">
       {/* Header Banner */}
@@ -47,7 +53,7 @@ export const DashboardView = ({
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
         <StreakCalendar streakCount={streakCount} daysActive={daysActiveThisWeek} />
 
-        {/* Quick Action Cards */}
+        {/* Quick Action Links */}
         <Card style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span>⚡</span> Quick Actions
@@ -55,35 +61,35 @@ export const DashboardView = ({
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {stats.dueSrsCount > 0 && (
-              <Button
-                variant="primary"
-                fullWidth
-                onClick={() => onNavigate('vocabulary')}
-                icon={<span>🧠</span>}
+              <a
+                href="#vocabulary"
+                onClick={(e) => handleNavClick(e, 'vocabulary')}
+                className="btn-primary"
+                style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}
               >
-                Review SRS Flashcards ({stats.dueSrsCount} due)
-              </Button>
+                <span>🧠</span> Review SRS Flashcards ({stats.dueSrsCount} due)
+              </a>
             )}
 
             {stats.mistakesCount > 0 && (
-              <Button
-                variant="danger"
-                fullWidth
-                onClick={() => onNavigate('quizzes')}
-                icon={<span>⚠️</span>}
+              <a
+                href="#quizzes"
+                onClick={(e) => handleNavClick(e, 'quizzes')}
+                className="btn-primary"
+                style={{ width: '100%', textDecoration: 'none', justifyContent: 'center', backgroundColor: 'var(--accent-danger)' }}
               >
-                Review Mistakes Bank ({stats.mistakesCount} items)
-              </Button>
+                <span>⚠️</span> Review Mistakes Bank ({stats.mistakesCount} items)
+              </a>
             )}
 
-            <Button
-              variant="secondary"
-              fullWidth
-              onClick={() => onNavigate('theory')}
-              icon={<span>📖</span>}
+            <a
+              href="#theory"
+              onClick={(e) => handleNavClick(e, 'theory')}
+              className="btn-secondary"
+              style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}
             >
-              Explore Theory & Grammar
-            </Button>
+              <span>📖</span> Explore Theory & Grammar
+            </a>
           </div>
         </Card>
       </div>
@@ -100,6 +106,7 @@ export const DashboardView = ({
             icon="📖"
             completedCount={stats.theoryMastered}
             totalCount={stats.totalTheory}
+            targetTab="theory"
             onNavigate={() => onNavigate('theory')}
             color="var(--accent-primary)"
           />
@@ -109,6 +116,7 @@ export const DashboardView = ({
             icon="🎴"
             completedCount={stats.vocabMastered}
             totalCount={stats.totalVocab}
+            targetTab="vocabulary"
             onNavigate={() => onNavigate('vocabulary')}
             color="var(--accent-success)"
           />
@@ -118,6 +126,7 @@ export const DashboardView = ({
             icon="✍️"
             completedCount={stats.activitiesDone}
             totalCount={stats.totalActivities}
+            targetTab="activities"
             onNavigate={() => onNavigate('activities')}
             color="var(--accent-warning)"
           />
@@ -127,6 +136,7 @@ export const DashboardView = ({
             icon="🏆"
             completedCount={stats.quizzesCompleted}
             totalCount={stats.totalQuizzes}
+            targetTab="quizzes"
             onNavigate={() => onNavigate('quizzes')}
             color="var(--accent-info)"
           />

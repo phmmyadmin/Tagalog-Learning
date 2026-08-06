@@ -1,10 +1,9 @@
 import React from 'react';
 import { Card } from './ui/Card';
 import { ProgressBar } from './ui/ProgressBar';
-import { Button } from './ui/Button';
 
 /**
- * ProgressCard Component - Visualizes section completion percentage and direct action button.
+ * ProgressCard Component - Visualizes section completion percentage and direct action link.
  */
 export const ProgressCard = ({
   title,
@@ -12,13 +11,23 @@ export const ProgressCard = ({
   completedCount,
   totalCount,
   onNavigate,
+  targetTab = 'theory',
   actionLabel = 'Continue',
   color = 'var(--accent-primary)',
 }) => {
-  const percentage = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+  const handleNavClick = (e) => {
+    if (!e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+      e.preventDefault();
+      onNavigate();
+    }
+  };
 
   return (
-    <Card variant="interactive" onClick={onNavigate} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <Card
+      variant="interactive"
+      onClick={onNavigate}
+      style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+    >
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <div
           style={{
@@ -45,9 +54,21 @@ export const ProgressCard = ({
       <ProgressBar value={completedCount} max={totalCount} color={color} showPercent={true} />
 
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.25rem' }}>
-        <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); onNavigate(); }}>
+        <a
+          href={`#${targetTab}`}
+          onClick={handleNavClick}
+          style={{
+            fontSize: '0.875rem',
+            color: 'var(--accent-primary)',
+            fontWeight: 600,
+            textDecoration: 'none',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.35rem',
+          }}
+        >
           {actionLabel} →
-        </Button>
+        </a>
       </div>
     </Card>
   );
