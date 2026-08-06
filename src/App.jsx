@@ -107,7 +107,7 @@ export function App() {
 
       {/* Main Content Area */}
       <main id="main-content" className="main-content-wrapper">
-        {activeTab === 'dashboard' && (
+        <div style={{ display: activeTab === 'dashboard' ? 'block' : 'none', width: '100%' }}>
           <DashboardView
             onNavigate={setActiveTab}
             streakCount={streakCount}
@@ -124,9 +124,9 @@ export function App() {
               mistakesCount: 0,
             }}
           />
-        )}
+        </div>
 
-        {activeTab === 'theory' && (
+        <div style={{ display: activeTab === 'theory' ? 'block' : 'none', width: '100%' }}>
           <TheoryView
             theoryList={tagalogData.theory}
             searchQuery={searchQuery}
@@ -137,24 +137,26 @@ export function App() {
             onToggleMastered={toggleMastered}
             onOpenLesson={handleOpenSlideViewer}
           />
-        )}
+        </div>
 
-        {activeTab === 'vocabulary' && (
+        <div style={{ display: activeTab === 'vocabulary' ? 'block' : 'none', width: '100%' }}>
           <VocabularyView
             vocabularyList={tagalogData.vocabulary}
             searchQuery={searchQuery}
             onOpenLesson={handleOpenSlideViewer}
           />
-        )}
+        </div>
 
-        {activeTab === 'activities' && (
+        <div style={{ display: activeTab === 'activities' ? 'block' : 'none', width: '100%' }}>
           <ActivitiesView
             activitiesList={tagalogData.activities}
             onOpenLesson={handleOpenSlideViewer}
           />
-        )}
+        </div>
 
-        {activeTab === 'quizzes' && <QuizzesView />}
+        <div style={{ display: activeTab === 'quizzes' ? 'block' : 'none', width: '100%' }}>
+          <QuizzesView />
+        </div>
       </main>
 
       {/* PPTX Presentation Modal */}

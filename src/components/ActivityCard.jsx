@@ -107,7 +107,7 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onOp
 
         {activity.lesson && (
           <a
-            href={`#slides?lesson=${activity.lesson}&slide=${actSlide}`}
+            href={`#slides-${activity.lesson}-slide-${actSlide}`}
             onClick={handleLessonLinkClick}
             style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', fontWeight: 600, textDecoration: 'none' }}
           >
