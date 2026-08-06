@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Badge } from './ui/Badge';
 import { Button } from './ui/Button';
@@ -196,9 +197,18 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onOp
               variant="ghost"
               size="sm"
               onClick={() => setShowSolution(!showSolution)}
-              style={{ alignSelf: 'flex-start', padding: 0, textDecoration: 'underline' }}
+              aria-expanded={showSolution}
+              style={{
+                alignSelf: 'flex-start',
+                padding: '0.3rem 0.5rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                fontSize: '0.85rem',
+              }}
             >
-              {showSolution ? 'Hide Solution' : 'Show Solution'}
+              {showSolution ? <EyeOff size={14} aria-hidden="true" /> : <Eye size={14} aria-hidden="true" />}
+              <span>{showSolution ? 'Hide Solution' : 'Show Solution'}</span>
             </Button>
           </div>
         )}

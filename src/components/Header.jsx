@@ -1,4 +1,5 @@
 import React from 'react';
+import { Menu } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 
@@ -55,13 +56,24 @@ export const Header = ({
         {/* Left: Brand + Drawer Toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <Button
-            variant="ghost"
+            variant="secondary"
             size="sm"
             onClick={onOpenDrawer}
-            ariaLabel="Open Navigation Drawer"
-            style={{ padding: '0.5rem', fontSize: '1.25rem' }}
+            aria-label="Open Navigation Drawer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '0.5rem',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--border-default)',
+              backgroundColor: 'var(--bg-surface-alt)',
+              color: 'var(--text-primary)',
+              transition: 'all var(--transition-fast)',
+              cursor: 'pointer',
+            }}
           >
-            ☰
+            <Menu size={20} strokeWidth={2.2} aria-hidden="true" />
           </Button>
 
           <a

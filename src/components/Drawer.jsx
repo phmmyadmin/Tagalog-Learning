@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { X } from 'lucide-react';
 import { Button } from './ui/Button';
 import { FilterChip } from './ui/FilterChip';
 
@@ -73,8 +74,8 @@ export const Drawer = ({
           <h2 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', margin: 0 }}>
             🎛️ Navigation & Filters
           </h2>
-          <Button variant="ghost" size="sm" onClick={onClose} ariaLabel="Close Drawer">
-            ✕
+          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close Drawer" style={{ padding: '0.4rem' }}>
+            <X size={20} aria-hidden="true" />
           </Button>
         </div>
 

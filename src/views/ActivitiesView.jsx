@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { ActivityGroupCard } from '../components/ActivityGroupCard';
 import { FilterChip } from '../components/ui/FilterChip';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { EmptyState } from '../components/ui/EmptyState';
+import { Button } from '../components/ui/Button';
 
 export default function ActivitiesView({ activitiesList = [], searchQuery = '', onOpenLesson }) {
   const [selectedType, setSelectedType] = useState('all');
   const [selectedLesson, setSelectedLesson] = useState('all');
+  const [allExpanded, setAllExpanded] = useState(false);
 
   const [savedResults, setSavedResults] = useState(() => {
     try {
@@ -107,33 +110,54 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
         </div>
       </div>
 
-      {/* Filter Chips Bar */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-        {/* Lesson Filter Chips */}
-        {lessonsList.length > 1 && (
+      {/* Filter Chips Bar + Batch Actions */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1, minWidth: '280px' }}>
+          {/* Lesson Filter Chips */}
+          {lessonsList.length > 1 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              {lessonsList.map((les) => (
+                <FilterChip
+                  key={les}
+                  label={les === 'all' ? 'All Lessons' : les.replace('_', ' ')}
+                  active={selectedLesson === les}
+                  onClick={() => setSelectedLesson(les)}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Type Filter Chips */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-            {lessonsList.map((les) => (
+            {typesList.map((type) => (
               <FilterChip
-                key={les}
-                label={les === 'all' ? 'All Lessons' : les.replace('_', ' ')}
-                active={selectedLesson === les}
-                onClick={() => setSelectedLesson(les)}
+                key={type}
+                label={type === 'all' ? 'All Types' : type.replace(/_/g, ' ').toUpperCase()}
+                active={selectedType === type}
+                onClick={() => setSelectedType(type)}
               />
             ))}
           </div>
-        )}
-
-        {/* Type Filter Chips */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-          {typesList.map((type) => (
-            <FilterChip
-              key={type}
-              label={type === 'all' ? 'All Types' : type.replace(/_/g, ' ').toUpperCase()}
-              active={selectedType === type}
-              onClick={() => setSelectedType(type)}
-            />
-          ))}
         </div>
+
+        {/* Global Batch Toggle Exercises */}
+        {activityGroups.length > 0 && (
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setAllExpanded(!allExpanded)}
+            style={{
+              fontSize: '0.85rem',
+              padding: '0.45rem 0.85rem',
+              gap: '0.45rem',
+              border: '1px solid var(--border-default)',
+              backgroundColor: 'var(--bg-surface-alt)',
+            }}
+          >
+            {allExpanded ? <EyeOff size={15} aria-hidden="true" /> : <Eye size={15} aria-hidden="true" />}
+            <span>{allExpanded ? 'Collapse All Groups' : 'Expand All Groups'}</span>
+          </Button>
+        )}
       </div>
 
       {/* Activity Group Cards */}
@@ -149,6 +173,7 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
               savedResults={savedResults}
               onOpenLesson={onOpenLesson}
               completedIds={completedIds}
+              isExpanded={allExpanded}
               onActivityComplete={(id, result) => handleSaveResult(id, result)}
             />
           ))}
