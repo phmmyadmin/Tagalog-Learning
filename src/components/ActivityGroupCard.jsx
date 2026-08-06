@@ -17,7 +17,7 @@ export const ActivityGroupCard = ({
   completedIds = [],
   onActivityComplete,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const completedCount = activities.filter((act) => completedIds.includes(act.id)).length;
   const totalCount = activities.length;
