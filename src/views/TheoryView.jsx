@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TheoryCard from '../components/TheoryCard';
-import { BookOpen } from 'lucide-react';
+import { FilterChip } from '../components/ui/FilterChip';
+import { EmptyState } from '../components/ui/EmptyState';
 
-export default function TheoryView({ 
-  theoryList, 
-  searchQuery, 
-  selectedCategory, 
-  selectedLesson, 
-  filterMastered,
-  masteredIds,
+export default function TheoryView({
+  theoryList = [],
+  searchQuery = '',
+  selectedCategory = 'all',
+  selectedLesson = 'all',
+  filterMastered = 'all',
+  masteredIds = [],
   onToggleMastered,
-  onOpenLesson
+  onOpenLesson,
 }) {
-  // Filter logic
+  const [activeCategoryFilter, setActiveCategoryFilter] = useState(selectedCategory);
+
+  const categories = ['all', ...new Set(theoryList.map((item) => item.category || item.id).filter(Boolean))];
+
+  // Filtering logic
   const filteredTheory = theoryList.filter((item) => {
+    // Search filter
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      const matchTopic = item.topic?.toLowerCase().includes(q);
+      const matchSummary = item.summary?.toLowerCase().includes(q);
+      const matchId = item.id?.toLowerCase().includes(q);
+      if (!matchTopic && !matchSummary && !matchId) return false;
+    }
+
     // Category filter
-    if (selectedCategory !== 'all' && item.id !== selectedCategory) {
+    if (activeCategoryFilter !== 'all' && (item.category || item.id) !== activeCategoryFilter) {
       return false;
     }
 
@@ -29,92 +43,62 @@ export default function TheoryView({
     if (filterMastered === 'mastered' && !isMastered) return false;
     if (filterMastered === 'unmastered' && isMastered) return false;
 
-    // Search query filter
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      const matchTopic = item.topic.toLowerCase().includes(q);
-      const matchSummary = item.summary && item.summary.toLowerCase().includes(q);
-      const matchRules = item.rules && item.rules.some(r => 
-        (r.article && r.article.toLowerCase().includes(q)) ||
-        (r.target && r.target.toLowerCase().includes(q)) ||
-        (r.example_tagalog && r.example_tagalog.toLowerCase().includes(q)) ||
-        (r.example_english && r.example_english.toLowerCase().includes(q)) ||
-        (r.example && r.example.toLowerCase().includes(q))
-      );
-      const matchTable = item.table && item.table.some(t =>
-        (t.pronoun && t.pronoun.toLowerCase().includes(q)) ||
-        (t.word && t.word.toLowerCase().includes(q)) ||
-        (t.meaning && t.meaning.toLowerCase().includes(q))
-      );
-
-      return matchTopic || matchSummary || matchRules || matchTable;
-    }
-
     return true;
   });
 
   return (
-    <div style={{ flex: 1, minWidth: 0 }}>
-      {/* Page Title & Controls */}
-      <div className="glass-card" style={{
-        padding: '1.25rem 1.5rem',
-        marginBottom: '1.5rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: '1rem'
-      }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
-            <BookOpen size={20} style={{ color: 'var(--accent-cyan)' }} aria-hidden="true" />
-            <h2 style={{ fontSize: '1.3rem', fontWeight: '800', margin: 0 }}>Grammar Theory & Contents</h2>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }} className="animate-fade-in">
+      {/* Header & Filter Chips Bar */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            <h1 style={{ fontSize: '1.75rem', color: 'var(--text-primary)', margin: 0 }}>
+              📖 Grammar & Theory
+            </h1>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
+              Master Tagalog sentence structures, markers, pronouns, and syntax rules.
+            </p>
           </div>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: 0 }}>
-            Master Tagalog grammar rules, word orders, pronouns, ligatures, and possessives.
-          </p>
+          <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
+            Showing {filteredTheory.length} of {theoryList.length} topics
+          </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <span className="badge badge-cyan" style={{ padding: '0.35rem 0.75rem', fontSize: '0.785rem' }}>
-            Showing {filteredTheory.length} of {theoryList.length} topics
-          </span>
-        </div>
+        {/* Category Chips */}
+        {categories.length > 2 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', padding: '0.5rem 0' }}>
+            {categories.map((cat) => (
+              <FilterChip
+                key={cat}
+                label={cat === 'all' ? 'All Topics' : cat}
+                active={activeCategoryFilter === cat}
+                onClick={() => setActiveCategoryFilter(cat)}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Empty State */}
-      {filteredTheory.length === 0 ? (
-        <div className="glass-card" style={{
-          padding: '3rem 2rem',
-          textAlign: 'center',
-          color: 'var(--text-secondary)'
-        }}>
-          <div style={{
-            fontSize: '2.5rem',
-            marginBottom: '1rem',
-            color: 'var(--accent-amber)'
-          }}>
-            🔍
-          </div>
-          <h3 style={{ fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-            No grammar topics found
-          </h3>
-          <p style={{ fontSize: '0.875rem', maxWidth: '400px', margin: '0 auto 1.25rem auto' }}>
-            No topics matched your search query or category filters. Try clearing your search bar or adjusting the category filters.
-          </p>
+      {/* Topics List */}
+      {filteredTheory.length > 0 ? (
+        <div>
+          {filteredTheory.map((topic, idx) => (
+            <TheoryCard
+              key={topic.id}
+              topicData={topic}
+              isMastered={masteredIds.includes(topic.id)}
+              onToggleMastered={onToggleMastered}
+              index={idx}
+              onOpenLesson={onOpenLesson}
+            />
+          ))}
         </div>
       ) : (
-        /* Render Theory Cards */
-        filteredTheory.map((topic, index) => (
-          <TheoryCard
-            key={topic.id}
-            index={index}
-            topicData={topic}
-            isMastered={masteredIds.includes(topic.id)}
-            onToggleMastered={onToggleMastered}
-            onOpenLesson={onOpenLesson}
-          />
-        ))
+        <EmptyState
+          icon="📖"
+          title="No grammar topics match your filters"
+          description="Try selecting 'All Lessons' or clearing your search term to see all grammar rules."
+        />
       )}
     </div>
   );
