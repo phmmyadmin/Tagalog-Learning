@@ -223,8 +223,18 @@
         },
         {
           "ligature": "-ng",
+          "condition": "Adjective + Noun sequence",
+          "example": "maganda + babae -> magandang babae (beautiful woman)"
+        },
+        {
+          "ligature": "-ng",
           "condition": "Noun + Noun sequence",
           "example": "bata + babae -> batang babae (young girl)"
+        },
+        {
+          "ligature": "-ng",
+          "condition": "Noun + Verb / Verb + Noun sequence",
+          "example": "bata + kumakain -> batang kumakain (child eating)"
         },
         {
           "ligature": "na",
@@ -233,8 +243,28 @@
         },
         {
           "ligature": "-g",
-          "condition": "Verb + Adverb sequence",
+          "condition": "Verb + Adverb / Adverb + Verb sequence",
           "example": "kumain + mabilis -> kumaing mabilis (ate quickly)"
+        },
+        {
+          "ligature": "na",
+          "condition": "Adjective + Adverb / Adverb + Adjective sequence",
+          "example": "mabilis + masyado -> mabilis na masyado (too fast)"
+        },
+        {
+          "ligature": "Exception",
+          "condition": "Verb + Verb: Helping verb + main verb need NO ligature",
+          "example": "ayaw + kumain -> ayaw kumain (does not want to eat)"
+        },
+        {
+          "ligature": "-ng",
+          "condition": "Pronoun + Noun / Noun + Pronoun",
+          "example": "ito + mesa -> itong mesa (this table)"
+        },
+        {
+          "ligature": "Exception",
+          "condition": "Pronoun + Adjective: Adjective + nominative pronoun needs NO ligature",
+          "example": "marunong + ka -> marunong ka (you are smart)"
         },
         {
           "ligature": "na",
@@ -242,7 +272,7 @@
           "example": "mabait + mabait -> mabait na mabait (very kind)"
         },
         {
-          "ligature": "rule",
+          "ligature": "Rule",
           "condition": "Multiple adjectives before a noun",
           "example": "Only the LAST adjective takes the ligature: mabait at masunuring aso"
         }

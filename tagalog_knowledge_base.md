@@ -139,11 +139,17 @@
         {"ligature": "-ng", "condition": "After words ending in vowels (a, e, i, o, u)", "example": "malaki + bahay -> malaking bahay (big house)"},
         {"ligature": "-g", "condition": "After words ending in consonant 'n'", "example": "mayaman + lalaki -> mayamang lalaki (rich man)"},
         {"ligature": "na", "condition": "Between words where the first ends in consonants other than 'n'", "example": "tahimik + bata -> tahimik na bata (quiet child)"},
+        {"ligature": "-ng", "condition": "Adjective + Noun sequence", "example": "maganda + babae -> magandang babae (beautiful woman)"},
         {"ligature": "-ng", "condition": "Noun + Noun sequence", "example": "bata + babae -> batang babae (young girl)"},
+        {"ligature": "-ng", "condition": "Noun + Verb / Verb + Noun sequence", "example": "bata + kumakain -> batang kumakain (child eating)"},
         {"ligature": "na", "condition": "Verb + Adjective / Adjective + Verb", "example": "pagod + dumating -> pagod na dumating (arrived tired)"},
-        {"ligature": "-g", "condition": "Verb + Adverb sequence", "example": "kumain + mabilis -> kumaing mabilis (ate quickly)"},
+        {"ligature": "-g", "condition": "Verb + Adverb / Adverb + Verb sequence", "example": "kumain + mabilis -> kumaing mabilis (ate quickly)"},
+        {"ligature": "na", "condition": "Adjective + Adverb / Adverb + Adjective sequence", "example": "mabilis + masyado -> mabilis na masyado (too fast)"},
+        {"ligature": "Exception", "condition": "Verb + Verb: Helping verb + main verb need NO ligature", "example": "ayaw + kumain -> ayaw kumain (does not want to eat)"},
+        {"ligature": "-ng", "condition": "Pronoun + Noun / Noun + Pronoun", "example": "ito + mesa -> itong mesa (this table)"},
+        {"ligature": "Exception", "condition": "Pronoun + Adjective: Adjective + nominative pronoun needs NO ligature", "example": "marunong + ka -> marunong ka (you are smart)"},
         {"ligature": "na", "condition": "Repeated adjective for superlative", "example": "mabait + mabait -> mabait na mabait (very kind)"},
-        {"ligature": "rule", "condition": "Multiple adjectives before a noun", "example": "Only the LAST adjective takes the ligature: mabait at masunuring aso"}
+        {"ligature": "Rule", "condition": "Multiple adjectives before a noun", "example": "Only the LAST adjective takes the ligature: mabait at masunuring aso"}
       ]
     },
     {
