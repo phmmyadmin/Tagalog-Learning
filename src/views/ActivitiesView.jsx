@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import ActivityCard from '../components/ActivityCard';
+import { ActivityGroupCard } from '../components/ActivityGroupCard';
 import { FilterChip } from '../components/ui/FilterChip';
-import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { EmptyState } from '../components/ui/EmptyState';
 
 export default function ActivitiesView({ activitiesList = [], searchQuery = '', onOpenLesson }) {
   const [selectedType, setSelectedType] = useState('all');
+  const [selectedLesson, setSelectedLesson] = useState('all');
 
   const [savedResults, setSavedResults] = useState(() => {
     try {
@@ -37,6 +37,7 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
   };
 
   const typesList = ['all', 'fill_in_blank', 'translation', 'multiple_choice'];
+  const lessonsList = ['all', ...new Set(activitiesList.map((a) => a.lesson).filter(Boolean))];
 
   const filteredActivities = activitiesList.filter((act) => {
     if (searchQuery) {
@@ -50,10 +51,38 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
       return false;
     }
 
+    if (selectedLesson !== 'all' && act.lesson !== selectedLesson) {
+      return false;
+    }
+
     return true;
   });
 
-  const completedCount = Object.values(savedResults).filter((r) => r && r.isCorrect).length;
+  // Group activities by lesson + slide
+  const activityGroups = [];
+  const groupsMap = new Map();
+
+  filteredActivities.forEach((act) => {
+    const lesson = act.lesson || 'General';
+    const slide = act.slide || 1;
+    const key = `${lesson}_slide_${slide}`;
+
+    if (!groupsMap.has(key)) {
+      const groupObj = {
+        key,
+        lesson: act.lesson,
+        slide: act.slide,
+        activities: [],
+      };
+      groupsMap.set(key, groupObj);
+      activityGroups.push(groupObj);
+    }
+
+    groupsMap.get(key).activities.push(act);
+  });
+
+  const completedIds = Object.keys(savedResults).filter((id) => savedResults[id]?.isCorrect);
+  const completedCount = completedIds.length;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }} className="animate-fade-in">
@@ -64,7 +93,7 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
             ✍️ Practice & Exercises
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-            Test your Tagalog grammar, vocabulary, and translation skills with interactive prompts.
+            Test your Tagalog grammar, vocabulary, and translation skills grouped by lesson slide.
           </p>
         </div>
 
@@ -78,36 +107,56 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
         </div>
       </div>
 
-      {/* Filter Chips */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-        {typesList.map((type) => (
-          <FilterChip
-            key={type}
-            label={type === 'all' ? 'All Types' : type.replace(/_/g, ' ').toUpperCase()}
-            active={selectedType === type}
-            onClick={() => setSelectedType(type)}
-          />
-        ))}
+      {/* Filter Chips Bar */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        {/* Lesson Filter Chips */}
+        {lessonsList.length > 1 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+            {lessonsList.map((les) => (
+              <FilterChip
+                key={les}
+                label={les === 'all' ? 'All Lessons' : les.replace('_', ' ')}
+                active={selectedLesson === les}
+                onClick={() => setSelectedLesson(les)}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Type Filter Chips */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          {typesList.map((type) => (
+            <FilterChip
+              key={type}
+              label={type === 'all' ? 'All Types' : type.replace(/_/g, ' ').toUpperCase()}
+              active={selectedType === type}
+              onClick={() => setSelectedType(type)}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* Activities List */}
-      {filteredActivities.length > 0 ? (
-        <div>
-          {filteredActivities.map((act) => (
-            <ActivityCard
-              key={act.id}
-              activity={act}
-              savedResult={savedResults[act.id]}
-              onSaveResult={handleSaveResult}
+      {/* Activity Group Cards */}
+      {activityGroups.length > 0 ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          {activityGroups.map((group) => (
+            <ActivityGroupCard
+              key={group.key}
+              groupKey={group.key}
+              lesson={group.lesson}
+              slide={group.slide}
+              activities={group.activities}
               onOpenLesson={onOpenLesson}
+              completedIds={completedIds}
+              onActivityComplete={(id, result) => handleSaveResult(id, result)}
             />
           ))}
         </div>
       ) : (
         <EmptyState
-          icon="✍️"
-          title="No activities match your filters"
-          description="Try selecting 'All Types' or clearing your search term to see all practice exercises."
+          icon="🔍"
+          title="No exercises found"
+          description="Try selecting another lesson or exercise type."
         />
       )}
     </div>
