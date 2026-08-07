@@ -1,5 +1,7 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
 
+let isInitialPullComplete = false;
+
 const safeParseJSON = (key, fallback) => {
   try {
     const item = localStorage.getItem(key);
@@ -45,7 +47,7 @@ export const applyStateToLocal = (state) => {
  */
 export const pushProgressToCloud = async (userId) => {
   if (!isSupabaseConfigured() || !supabase) {
-    throw new Error('Supabase is not configured. Enter your Supabase URL & Anon Key in Cloud Sync settings.');
+    throw new Error('Supabase is not configured.');
   }
 
   let targetUserId = userId;
@@ -55,7 +57,7 @@ export const pushProgressToCloud = async (userId) => {
   }
 
   if (!targetUserId) {
-    throw new Error('No active user logged in. Please sign in via Cloud Sync (☁️ Sync) to upload data.');
+    throw new Error('No active user logged in.');
   }
 
   const localState = getLocalProgressState();
@@ -77,7 +79,7 @@ export const pushProgressToCloud = async (userId) => {
   if (error) {
     console.error('Supabase cloud push error:', error);
     if (error.code === '42501') {
-      throw new Error('RLS Permission denied. Ensure you ran the supabase_schema.sql script in your Supabase SQL Editor.');
+      throw new Error('RLS Permission denied. Ensure you ran supabase_schema.sql script in Supabase SQL Editor.');
     }
     throw error;
   }
@@ -86,9 +88,10 @@ export const pushProgressToCloud = async (userId) => {
 };
 
 /**
- * Auto-push helper triggered whenever progress changes.
+ * Auto-push helper triggered whenever progress changes, ONLY AFTER initial pull completes.
  */
 export const autoPushIfLoggedIn = async () => {
+  if (!isInitialPullComplete) return; // Prevent overwriting cloud with empty mount state
   if (!isSupabaseConfigured() || !supabase) return;
   try {
     const { data: authData } = await supabase.auth.getUser();
@@ -101,11 +104,12 @@ export const autoPushIfLoggedIn = async () => {
 };
 
 /**
- * Merges and pulls cloud progress from Supabase PostgreSQL table down to localStorage.
+ * Performs a Smart Union Merge between Cloud data and Local device data.
  */
 export const pullProgressFromCloud = async (userId) => {
   if (!isSupabaseConfigured() || !supabase) {
-    throw new Error('Supabase is not configured.');
+    isInitialPullComplete = true;
+    return null;
   }
 
   let targetUserId = userId;
@@ -115,7 +119,8 @@ export const pullProgressFromCloud = async (userId) => {
   }
 
   if (!targetUserId) {
-    throw new Error('No active user logged in.');
+    isInitialPullComplete = true;
+    return null;
   }
 
   const { data, error } = await supabase
@@ -126,23 +131,53 @@ export const pullProgressFromCloud = async (userId) => {
 
   if (error && error.code !== 'PGRST116') {
     console.error('Supabase cloud pull error:', error);
+    isInitialPullComplete = true;
     throw error;
   }
 
+  const localState = getLocalProgressState();
+
   if (data) {
-    const cloudState = {
-      masteredItems: data.mastered_items || [],
-      studyDates: data.study_dates || [],
-      activityResults: data.activity_results || {},
-      quizHistory: data.quiz_history || {},
-      mistakesBank: data.mistakes_bank || [],
+    // Smart Union Merge: Union of arrays, merge of object keys
+    const cloudMastered = data.mastered_items || [];
+    const cloudDates = data.study_dates || [];
+    const cloudActivities = data.activity_results || {};
+    const cloudQuizzes = data.quiz_history || {};
+    const cloudMistakes = data.mistakes_bank || [];
+
+    const mergedMastered = Array.from(new Set([...cloudMastered, ...localState.masteredItems]));
+    const mergedDates = Array.from(new Set([...cloudDates, ...localState.studyDates]));
+    const mergedActivities = { ...cloudActivities, ...localState.activityResults };
+    const mergedQuizzes = { ...cloudQuizzes, ...localState.quizHistory };
+    
+    // Merge mistakes array by unique question/id
+    const mistakeMap = new Map();
+    [...cloudMistakes, ...localState.mistakesBank].forEach((item) => {
+      const key = item.id || item.question || JSON.stringify(item);
+      mistakeMap.set(key, item);
+    });
+    const mergedMistakes = Array.from(mistakeMap.values());
+
+    const mergedState = {
+      masteredItems: mergedMastered,
+      studyDates: mergedDates,
+      activityResults: mergedActivities,
+      quizHistory: mergedQuizzes,
+      mistakesBank: mergedMistakes,
     };
 
-    applyStateToLocal(cloudState);
-    return cloudState;
+    // Apply merged state to local device
+    applyStateToLocal(mergedState);
+    isInitialPullComplete = true;
+
+    // Push merged state back to cloud so cloud has union of both devices!
+    await pushProgressToCloud(targetUserId);
+
+    return mergedState;
   } else {
     // First time user on cloud -> push local state
+    isInitialPullComplete = true;
     await pushProgressToCloud(targetUserId);
-    return getLocalProgressState();
+    return localState;
   }
 };
