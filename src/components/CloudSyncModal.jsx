@@ -50,14 +50,22 @@ export const CloudSyncModal = ({ isOpen, onClose }) => {
     setLoading(true);
     setMessage(null);
 
+    const formatErrorMessage = (err) => {
+      const msg = err?.message || '';
+      if (msg.toLowerCase().includes('rate limit')) {
+        return 'Supabase Email Rate Limit Exceeded. In Supabase Dashboard > Authentication > Providers > Email, turn OFF "Confirm email" to log in without limits.';
+      }
+      return msg;
+    };
+
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       // Try signup if login fails
       const { data: signUpData, error: signUpError } = await supabase.auth.signUp({ email, password });
       if (signUpError) {
-        setMessage({ type: 'danger', text: signUpError.message });
+        setMessage({ type: 'danger', text: formatErrorMessage(signUpError) });
       } else {
-        setMessage({ type: 'success', text: 'Account created! Logged in successfully.' });
+        setMessage({ type: 'success', text: 'Account created! Syncing progress...' });
         if (signUpData?.user) {
           await pullProgressFromCloud(signUpData.user.id);
         }
