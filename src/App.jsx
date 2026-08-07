@@ -10,7 +10,7 @@ import QuizzesView from './views/QuizzesView';
 import PptxViewer from './components/PptxViewer';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { recordStudyActivity, calculateStreak } from './utils/streakManager';
-import { autoPushIfLoggedIn, pullProgressFromCloud } from './utils/cloudSyncManager';
+import { autoPushIfLoggedIn, pullProgressFromCloud, pushProgressToCloud } from './utils/cloudSyncManager';
 
 const VALID_TABS = ['dashboard', 'theory', 'vocabulary', 'activities', 'quizzes'];
 
