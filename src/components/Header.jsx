@@ -10,6 +10,7 @@ export const Header = ({
   activeTab = 'dashboard',
   onTabChange,
   onOpenDrawer,
+  onOpenCloudSync,
   searchQuery = '',
   onSearchChange,
   masteredCount = 0,
@@ -125,14 +126,31 @@ export const Header = ({
           })}
         </nav>
 
-        {/* Right: Global Search Input */}
-        <div style={{ width: '220px' }}>
-          <Input
-            placeholder="Search grammar, words..."
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            icon="🔍"
-          />
+        {/* Right: Global Search Input & Cloud Sync Button */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: '280px' }}>
+          <div style={{ flex: 1 }}>
+            <Input
+              placeholder="Search grammar, words..."
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              icon="🔍"
+            />
+          </div>
+
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={onOpenCloudSync}
+            ariaLabel="Open Multi-Device Cloud Sync"
+            style={{
+              fontSize: '0.8rem',
+              padding: '0.45rem 0.65rem',
+              whiteSpace: 'nowrap',
+              gap: '0.35rem',
+            }}
+          >
+            ☁️ Sync
+          </Button>
         </div>
       </div>
     </header>
