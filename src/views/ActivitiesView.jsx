@@ -5,6 +5,7 @@ import { FilterChip } from '../components/ui/FilterChip';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { EmptyState } from '../components/ui/EmptyState';
 import { Button } from '../components/ui/Button';
+import { pushProgressToCloud } from '../utils/cloudSyncManager';
 
 export default function ActivitiesView({ activitiesList = [], searchQuery = '', onOpenLesson }) {
   const [selectedType, setSelectedType] = useState('all');
@@ -30,12 +31,16 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
 
   const handleSaveResult = (id, resultData) => {
     setSavedResults((prev) => {
+      let next;
       if (resultData === null) {
-        const next = { ...prev };
+        next = { ...prev };
         delete next[id];
-        return next;
+      } else {
+        next = { ...prev, [id]: resultData };
       }
-      return { ...prev, [id]: resultData };
+      
+      pushProgressToCloud().catch(() => {});
+      return next;
     });
   };
 
