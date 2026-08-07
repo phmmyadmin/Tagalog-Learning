@@ -93,7 +93,7 @@ export const Header = ({
         </div>
 
         {/* Center: Semantic <a> Navigation Tabs */}
-        <nav style={{ display: 'flex', gap: '0.35rem', backgroundColor: 'var(--bg-surface-alt)', padding: '0.25rem', borderRadius: 'var(--radius-sm)' }}>
+        <nav className="header-nav">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -102,6 +102,7 @@ export const Header = ({
                 href={`#${tab.id}`}
                 onClick={(e) => handleNavClick(e, tab.id)}
                 aria-selected={isActive}
+                className="header-nav-link"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -120,7 +121,7 @@ export const Header = ({
                 }}
               >
                 <span>{tab.icon}</span>
-                <span>{tab.label}</span>
+                <span className="nav-text">{tab.label}</span>
               </a>
             );
           })}
