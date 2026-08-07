@@ -10,6 +10,7 @@ import QuizzesView from './views/QuizzesView';
 import PptxViewer from './components/PptxViewer';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { recordStudyActivity, calculateStreak } from './utils/streakManager';
+import { autoPushIfLoggedIn } from './utils/cloudSyncManager';
 
 const VALID_TABS = ['dashboard', 'theory', 'vocabulary', 'activities', 'quizzes'];
 
@@ -82,6 +83,7 @@ export function App() {
   useEffect(() => {
     try {
       localStorage.setItem('tagalog_mastered_items', JSON.stringify(masteredItems));
+      autoPushIfLoggedIn();
     } catch (e) {
       console.error('Failed to save mastered items:', e);
     }

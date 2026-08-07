@@ -44,12 +44,24 @@ export const applyStateToLocal = (state) => {
  * Syncs local progress to Supabase PostgreSQL table.
  */
 export const pushProgressToCloud = async (userId) => {
-  if (!isSupabaseConfigured() || !supabase || !userId) return null;
+  if (!isSupabaseConfigured() || !supabase) {
+    throw new Error('Supabase is not configured. Enter your Supabase URL & Anon Key in Cloud Sync settings.');
+  }
+
+  let targetUserId = userId;
+  if (!targetUserId) {
+    const { data: authData } = await supabase.auth.getUser();
+    targetUserId = authData?.user?.id;
+  }
+
+  if (!targetUserId) {
+    throw new Error('No active user logged in. Please sign in via Cloud Sync (☁️ Sync) to upload data.');
+  }
 
   const localState = getLocalProgressState();
 
   const payload = {
-    user_id: userId,
+    user_id: targetUserId,
     mastered_items: localState.masteredItems,
     study_dates: localState.studyDates,
     activity_results: localState.activityResults,
@@ -64,6 +76,9 @@ export const pushProgressToCloud = async (userId) => {
 
   if (error) {
     console.error('Supabase cloud push error:', error);
+    if (error.code === '42501') {
+      throw new Error('RLS Permission denied. Ensure you ran the supabase_schema.sql script in your Supabase SQL Editor.');
+    }
     throw error;
   }
 
@@ -71,15 +86,42 @@ export const pushProgressToCloud = async (userId) => {
 };
 
 /**
+ * Auto-push helper triggered whenever progress changes.
+ */
+export const autoPushIfLoggedIn = async () => {
+  if (!isSupabaseConfigured() || !supabase) return;
+  try {
+    const { data: authData } = await supabase.auth.getUser();
+    if (authData?.user?.id) {
+      await pushProgressToCloud(authData.user.id);
+    }
+  } catch (e) {
+    console.warn('Auto cloud push skipped:', e.message);
+  }
+};
+
+/**
  * Merges and pulls cloud progress from Supabase PostgreSQL table down to localStorage.
  */
 export const pullProgressFromCloud = async (userId) => {
-  if (!isSupabaseConfigured() || !supabase || !userId) return null;
+  if (!isSupabaseConfigured() || !supabase) {
+    throw new Error('Supabase is not configured.');
+  }
+
+  let targetUserId = userId;
+  if (!targetUserId) {
+    const { data: authData } = await supabase.auth.getUser();
+    targetUserId = authData?.user?.id;
+  }
+
+  if (!targetUserId) {
+    throw new Error('No active user logged in.');
+  }
 
   const { data, error } = await supabase
     .from('user_progress')
     .select('*')
-    .eq('user_id', userId)
+    .eq('user_id', targetUserId)
     .single();
 
   if (error && error.code !== 'PGRST116') {
@@ -100,7 +142,7 @@ export const pullProgressFromCloud = async (userId) => {
     return cloudState;
   } else {
     // First time user on cloud -> push local state
-    await pushProgressToCloud(userId);
+    await pushProgressToCloud(targetUserId);
     return getLocalProgressState();
   }
 };
