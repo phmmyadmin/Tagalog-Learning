@@ -8,6 +8,7 @@ import VocabularyView from './views/VocabularyView';
 import ActivitiesView from './views/ActivitiesView';
 import QuizzesView from './views/QuizzesView';
 import PptxViewer from './components/PptxViewer';
+import { CloudSyncModal } from './components/CloudSyncModal';
 import { recordStudyActivity, calculateStreak } from './utils/streakManager';
 
 const VALID_TABS = ['dashboard', 'theory', 'vocabulary', 'activities', 'quizzes'];
@@ -21,6 +22,7 @@ const getTabFromHash = () => {
 export function App() {
   const [activeTab, setActiveTabState] = useState(() => getTabFromHash());
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isCloudSyncOpen, setIsCloudSyncOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLesson, setSelectedLesson] = useState('all');
   const [filterMastered, setFilterMastered] = useState('all');
@@ -149,6 +151,7 @@ export function App() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
         onOpenDrawer={() => setIsDrawerOpen(true)}
+        onOpenCloudSync={() => setIsCloudSyncOpen(true)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         masteredCount={totalMastered}
@@ -232,6 +235,12 @@ export function App() {
           onClose={() => setPptxModal({ isOpen: false, lesson: 'Lesson_02', initialSlide: 1, conceptLabel: null })}
         />
       )}
+
+      {/* Multi-Device Cloud Sync Modal */}
+      <CloudSyncModal
+        isOpen={isCloudSyncOpen}
+        onClose={() => setIsCloudSyncOpen(false)}
+      />
     </div>
   );
 }
