@@ -105,17 +105,21 @@ export function App() {
   useEffect(() => {
     try {
       localStorage.setItem('tagalog_mastered_items', JSON.stringify(masteredItems));
-      autoPushIfLoggedIn();
     } catch (e) {
       console.error('Failed to save mastered items:', e);
     }
   }, [masteredItems]);
 
-  const toggleMastered = (itemId) => {
+  const toggleMastered = async (itemId) => {
     recordStudyActivity();
-    setMasteredItems((prev) =>
-      prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId]
-    );
+    setMasteredItems((prev) => {
+      const next = prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId];
+      try {
+        localStorage.setItem('tagalog_mastered_items', JSON.stringify(next));
+      } catch (e) {}
+      pushProgressToCloud().catch(() => {});
+      return next;
+    });
   };
 
   const totalTheory = tagalogData.theory.length;

@@ -5,6 +5,7 @@ import { getMistakes, clearAllMistakes } from '../utils/mistakesManager';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
+import { pushProgressToCloud } from '../utils/cloudSyncManager';
 
 export default function QuizzesView() {
   const [activeQuiz, setActiveQuiz] = useState(null);
@@ -43,6 +44,7 @@ export default function QuizzesView() {
       } catch (e) {
         console.error('Failed to save quiz history', e);
       }
+      pushProgressToCloud().catch(() => {});
       return updated;
     });
 
