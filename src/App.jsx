@@ -10,7 +10,7 @@ import QuizzesView from './views/QuizzesView';
 import PptxViewer from './components/PptxViewer';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { recordStudyActivity, calculateStreak } from './utils/streakManager';
-import { autoPushIfLoggedIn } from './utils/cloudSyncManager';
+import { autoPushIfLoggedIn, pullProgressFromCloud } from './utils/cloudSyncManager';
 
 const VALID_TABS = ['dashboard', 'theory', 'vocabulary', 'activities', 'quizzes'];
 
@@ -63,8 +63,30 @@ export function App() {
     recordStudyActivity();
     refreshStreak();
 
+    // Perform initial cloud pull on startup
+    pullProgressFromCloud().then((merged) => {
+      if (merged?.masteredItems) {
+        setMasteredItems(merged.masteredItems);
+      }
+      refreshStreak();
+    }).catch((e) => {
+      console.warn('Initial cloud pull skipped:', e.message);
+    });
+
+    const handleCloudSyncCompleted = () => {
+      try {
+        const saved = localStorage.getItem('tagalog_mastered_items');
+        if (saved) setMasteredItems(JSON.parse(saved));
+      } catch {}
+      refreshStreak();
+    };
+
     window.addEventListener('tagalog_streak_updated', refreshStreak);
-    return () => window.removeEventListener('tagalog_streak_updated', refreshStreak);
+    window.addEventListener('tagalog_cloud_sync_completed', handleCloudSyncCompleted);
+    return () => {
+      window.removeEventListener('tagalog_streak_updated', refreshStreak);
+      window.removeEventListener('tagalog_cloud_sync_completed', handleCloudSyncCompleted);
+    };
   }, []);
 
   // Mastered state persistence
