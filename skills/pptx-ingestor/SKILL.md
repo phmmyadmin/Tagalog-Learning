@@ -1,21 +1,26 @@
 ---
 name: pptx-ingestor
-description: Automates full ingestion of new PPTX lesson files into Tagalog Master. Converts PPTX to Markdown, integrates into tagalog_knowledge_base.md, runs build pipeline (parse_knowledge + extract_slides), commits, pushes branch, opens PR, auto-merges, and updates GitHub Project status.
+description: Automates full ingestion of new PPTX lesson files into Tagalog Master from any directory (e.g., ~/Downloads, Desktop, or pptx_sources/). Copies/moves PPTX to pptx_sources/, converts PPTX to Markdown, integrates into tagalog_knowledge_base.md, runs build pipeline (parse_knowledge + extract_slides), commits, pushes branch, opens PR, auto-merges, and updates GitHub Project status.
 ---
 
 # 🚀 PPTX Lesson Ingestion Skill
 
-Trigger this skill whenever the user asks to ingest a new PPTX lesson (e.g., "Ingesta Lesson_06.pptx", "Hay una nueva lección en pptx_sources/", or "Procesa la nueva lección de la carpeta pptx_sources").
+Trigger this skill whenever the user asks to ingest a new PPTX lesson, whether inside the workspace or from an external location like `~/Downloads`, `~/Desktop`, or a specific file path (e.g., "Ingesta la lección que tengo en Downloads", "Ingesta Lesson_06.pptx de Descargas", or "Procesa el nuevo PPTX").
 
 ## Ingestion Workflow (4-Stage Protocol)
 
-### Stage 1: Identification & Extraction
-1. Locate the target `.pptx` file in `pptx_sources/<Lesson_XX>.pptx`.
-2. Convert PPTX to Markdown format:
+### Stage 1: File Retrieval & Extraction
+1. **Locate Source PPTX**:
+   - If the file is in an external directory (e.g., `~/Downloads/Lesson_06.pptx` or `~/Desktop/`), locate it using file search tools.
+   - Copy the file into the project repository folder `pptx_sources/`:
+     ```bash
+     cp "/path/to/external/Lesson_XX.pptx" pptx_sources/Lesson_XX.pptx
+     ```
+2. **Convert PPTX to Markdown**:
    ```bash
    python3 convert_pptx_to_md.py pptx_sources/<Lesson_XX>.pptx md_sources/<Lesson_XX>.md
    ```
-3. Read `md_sources/<Lesson_XX>.md` to inspect extracted theory topics, vocabulary terms, and activity exercises.
+3. Read `md_sources/<Lesson_XX>.md` to inspect extracted theory rules, vocabulary terms, and activity exercises.
 
 ### Stage 2: Knowledge Base Integration & Task Tracking
 1. Integrate the extracted theory rules, vocabulary items, and exercises into `tagalog_knowledge_base.md`.
