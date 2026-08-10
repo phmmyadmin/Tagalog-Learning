@@ -6,7 +6,7 @@ import { Button } from './ui/Button';
 import slideMap from '../data/slideMap.json';
 
 /**
- * TheoryCard Component - Accessible grammar rule card with warm light styling, collapsible sections, speech synthesis, and slides deep linking.
+ * TheoryCard Component - Accessible grammar rule card with warm light styling, collapsible sections, pronoun tables, speech synthesis, and slides deep linking.
  */
 export default function TheoryCard({ topicData, isMastered, onToggleMastered, index = 0, onOpenLesson }) {
   const [isExpanded, setIsExpanded] = useState(!isMastered);
@@ -175,11 +175,58 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
             </div>
           )}
 
+          {/* Pronoun / Concept Data Tables (e.g., Nominative Pronouns, Demonstratives) */}
+          {topicData.table && topicData.table.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <h4 style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Pronoun Table</h4>
+              <div style={{ overflowX: 'auto', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+                  <thead>
+                    <tr style={{ backgroundColor: 'var(--bg-surface-alt)', borderBottom: '2px solid var(--border-default)', textAlign: 'left' }}>
+                      <th style={{ padding: '0.65rem 0.85rem', color: 'var(--text-primary)' }}>Pronoun</th>
+                      <th style={{ padding: '0.65rem 0.85rem', color: 'var(--text-primary)' }}>English Meaning</th>
+                      <th style={{ padding: '0.65rem 0.85rem', color: 'var(--text-primary)' }}>Type / Category</th>
+                      <th style={{ padding: '0.65rem 0.85rem', color: 'var(--text-primary)' }}>Contraction / Usage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topicData.table.map((row, idx) => (
+                      <tr key={idx} style={{ borderBottom: idx < topicData.table.length - 1 ? '1px solid var(--border-default)' : 'none' }}>
+                        <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: 'var(--accent-primary)' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            <span>{row.pronoun}</span>
+                            <button
+                              type="button"
+                              onClick={() => handleSpeak(row.pronoun)}
+                              aria-label={`Listen to ${row.pronoun}`}
+                              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem', padding: 0 }}
+                            >
+                              🔊
+                            </button>
+                          </div>
+                        </td>
+                        <td style={{ padding: '0.65rem 0.85rem', color: 'var(--text-primary)' }}>
+                          {row.meaning}
+                        </td>
+                        <td style={{ padding: '0.65rem 0.85rem', color: 'var(--text-secondary)' }}>
+                          {row.type || row.plural || '-'}
+                        </td>
+                        <td style={{ padding: '0.65rem 0.85rem', color: 'var(--text-secondary)' }}>
+                          {row.contraction || row.usage || row.polite || '-'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
           {/* Grammar Rules */}
           {topicData.rules && topicData.rules.length > 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <h4 style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Grammar & Syntax Rules</h4>
-              <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {topicData.rules.map((rule, idx) => {
                   if (typeof rule === 'string') {
                     return <li key={idx} style={{ color: 'var(--text-secondary)', fontSize: '0.925rem' }}>{rule}</li>;
@@ -192,10 +239,63 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
 
                   return (
                     <li key={idx} style={{ color: 'var(--text-secondary)', fontSize: '0.925rem' }}>
-                      {title && <strong>{title}: </strong>}
-                      {detail && <span>{detail} </span>}
-                      {exTagalog && typeof exTagalog === 'string' && (
-                        <span style={{ fontStyle: 'italic', color: 'var(--accent-primary)' }}>({exTagalog}{exEnglish ? ` - ${exEnglish}` : ''})</span>
+                      <div>
+                        {title && <strong>{title}: </strong>}
+                        {detail && <span>{detail} </span>}
+                        {rule.singular && <span>(Singular: <em>{rule.singular}</em>, Plural: <em>{rule.plural}</em>) </span>}
+                        {exTagalog && typeof exTagalog === 'string' && (
+                          <span style={{ fontStyle: 'italic', color: 'var(--accent-primary)' }}>({exTagalog}{exEnglish ? ` - ${exEnglish}` : ''})</span>
+                        )}
+                      </div>
+
+                      {/* Embedded Possessive Pronoun Pairs Table */}
+                      {rule.pairs && rule.pairs.length > 0 && (
+                        <div style={{ overflowX: 'auto', marginTop: '0.65rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)' }}>
+                          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+                            <thead>
+                              <tr style={{ backgroundColor: 'var(--bg-surface-alt)', borderBottom: '2px solid var(--border-default)', textAlign: 'left' }}>
+                                <th style={{ padding: '0.65rem 0.85rem', color: 'var(--text-primary)' }}>Pre-Noun Form (with ligature)</th>
+                                <th style={{ padding: '0.65rem 0.85rem', color: 'var(--text-primary)' }}>Post-Noun Form</th>
+                                <th style={{ padding: '0.65rem 0.85rem', color: 'var(--text-primary)' }}>English Meaning</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {rule.pairs.map((p, pIdx) => (
+                                <tr key={pIdx} style={{ borderBottom: pIdx < rule.pairs.length - 1 ? '1px solid var(--border-default)' : 'none' }}>
+                                  <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: 'var(--accent-primary)' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                      <span>{p.pre}</span>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleSpeak(p.pre)}
+                                        aria-label={`Listen to ${p.pre}`}
+                                        style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem', padding: 0 }}
+                                      >
+                                        🔊
+                                      </button>
+                                    </div>
+                                  </td>
+                                  <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: 'var(--accent-success)' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                      <span>{p.post}</span>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleSpeak(p.post)}
+                                        aria-label={`Listen to ${p.post}`}
+                                        style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem', padding: 0 }}
+                                      >
+                                        🔊
+                                      </button>
+                                    </div>
+                                  </td>
+                                  <td style={{ padding: '0.65rem 0.85rem', color: 'var(--text-primary)' }}>
+                                    {p.meaning}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
                       )}
                     </li>
                   );
