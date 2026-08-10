@@ -1,6 +1,6 @@
 ---
 name: pptx-ingestor
-description: Automates full ingestion of new PPTX lesson files into Tagalog Master from any directory (e.g., ~/Downloads, Desktop, or pptx_sources/). Copies/moves PPTX to pptx_sources/, converts PPTX to Markdown, integrates into tagalog_knowledge_base.md, runs build pipeline (parse_knowledge + extract_slides), commits, pushes branch, opens PR, auto-merges, and updates GitHub Project status.
+description: Automates full ingestion of new PPTX lesson files into Tagalog Master from any directory (e.g., ~/Downloads, Desktop, or pptx_sources/). Copies/moves PPTX to pptx_sources/, converts PPTX to Markdown, structures theory topics with formatted JSON tables (table / pairs schemas), integrates into tagalog_knowledge_base.md, runs build pipeline (parse_knowledge + extract_slides), commits, pushes branch, opens PR, auto-merges, and updates GitHub Project status.
 ---
 
 # 🚀 PPTX Lesson Ingestion Skill
@@ -22,8 +22,30 @@ Trigger this skill whenever the user asks to ingest a new PPTX lesson, whether i
    ```
 3. Read `md_sources/<Lesson_XX>.md` to inspect extracted theory rules, vocabulary terms, and activity exercises.
 
-### Stage 2: Knowledge Base Integration & Task Tracking
-1. Integrate the extracted theory rules, vocabulary items, and exercises into `tagalog_knowledge_base.md`.
+### Stage 2: Knowledge Base Integration & Structured Table Generation
+1. **Theory Structuring Rule**:
+   - Whenever structuring grammar theory entries (e.g., Pronouns, Articles, Possessives, Conjugations, Demonstratives), **MANDATORILY include a `"table"` or `"pairs"` JSON array** in the topic object within `tagalog_knowledge_base.md`.
+   - **Table Schema Example**:
+     ```json
+     "table": [
+       {"pronoun": "ako", "meaning": "I", "type": "1st Person Singular", "contraction": "Ako'y"},
+       {"pronoun": "ikaw / ka", "meaning": "You (singular)", "type": "2nd Person Singular", "usage": "'ikaw' at start, 'ka' post-predicate"}
+     ]
+     ```
+   - **Possessive Pairs Schema Example**:
+     ```json
+     "rules": [
+       {
+         "type": "Pre-Noun vs Post-Noun Possessive Pronouns",
+         "pairs": [
+           {"pre": "akin", "post": "ko", "meaning": "my / mine"},
+           {"pre": "iyo", "post": "mo", "meaning": "your / yours"}
+         ]
+       }
+     ]
+     ```
+   - This ensures `TheoryCard.jsx` automatically renders clean, responsive HTML tables with interactive TTS pronunciation buttons (`🔊`).
+
 2. Create a tracking issue in GitHub Project V2 `@phmmyadmin's tasks` (`PVT_kwHOAkgXus4BfhjX`):
    - Title: `[Ingestion] Ingestar nueva lección <Lesson_XX> desde PPTX`
 3. Update task status to `In Progress` (`47fc9ee4`).
@@ -39,7 +61,7 @@ Trigger this skill whenever the user asks to ingest a new PPTX lesson, whether i
 3. Commit all changes:
    ```bash
    git add pptx_sources/ md_sources/ tagalog_knowledge_base.md src/data/ public/slides/
-   git commit -m "feat(ingest): ingest new lesson <Lesson_XX> from PPTX"
+   git commit -m "feat(ingest): ingest new lesson <Lesson_XX> from PPTX with structured theory tables"
    ```
 4. Push branch to origin:
    ```bash

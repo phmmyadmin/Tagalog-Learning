@@ -41,6 +41,12 @@ flowchart LR
 
 ---
 
+## 📚 Grammar Theory Structuring Directive
+- Whenever adding or ingesting new grammar theory topics (pronouns, articles, possessives, tenses, demonstratives), **MANDATORILY provide structured `"table"` arrays or `"pairs"` arrays** within `tagalog_knowledge_base.md`.
+- This enables `TheoryCard.jsx` to automatically render styled responsive HTML tables with interactive TTS pronunciation buttons (`🔊`).
+
+---
+
 ## 🎨 Design System Principles
 - **Theme**: Warm Light Mode (`#FAFAF7` background, `#FFFFFF` cards, `#F5F3EE` alt surfaces).
 - **Typography**: Outfit for headings, Inter for body text, JetBrains Mono for code/patterns.
