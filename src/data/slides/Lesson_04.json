@@ -10,8 +10,13 @@
     },
     {
       "slideNumber": 2,
-      "title": "Lesson 04 THE DEMONSTRATIVES \tPRONOUNS ITO, IYAN AND IYON &amp; WORDS THAT LINK AND DESCRIBE",
-      "paragraphs": [],
+      "title": "Slide 2",
+      "paragraphs": [
+        {
+          "text": "Lesson 04 THE DEMONSTRATIVES \tPRONOUNS ITO, IYAN AND IYON &amp; WORDS THAT LINK AND DESCRIBE",
+          "isBullet": false
+        }
+      ],
       "images": []
     },
     {
@@ -69,8 +74,12 @@
     },
     {
       "slideNumber": 6,
-      "title": "Example: This is John. lto'y si John.",
+      "title": "Slide 6",
       "paragraphs": [
+        {
+          "text": "Example: This is John. lto'y si John.",
+          "isBullet": false
+        },
         {
           "text": "This is a child. lto'y bata.",
           "isBullet": false
@@ -192,8 +201,12 @@
     },
     {
       "slideNumber": 11,
-      "title": "Ang mesa ng ito ay malinis .\t\t\t\tThis table is clean.",
+      "title": "Slide 11",
       "paragraphs": [
+        {
+          "text": "Ang mesa ng ito ay malinis .\t\t\t\tThis table is clean.",
+          "isBullet": false
+        },
         {
           "text": "lto ng mesa ng ito ay malinis .",
           "isBullet": false
@@ -235,8 +248,12 @@
     },
     {
       "slideNumber": 12,
-      "title": "In these phrase, the connective - ng is attached to the modifier ito , the noun mesa, and the pronoun mo ; the connective -g is attached to the modifiers iyan and iyon ; and the connective na comes after the noun bahay .",
+      "title": "Slide 12",
       "paragraphs": [
+        {
+          "text": "In these phrase, the connective - ng is attached to the modifier ito , the noun mesa, and the pronoun mo ; the connective -g is attached to the modifiers iyan and iyon ; and the connective na comes after the noun bahay .",
+          "isBullet": false
+        },
         {
           "text": "The purpose of these three connectives or ligature , to be discussed in the next lesson is to connect the ff:",
           "isBullet": false
@@ -315,8 +332,12 @@
     },
     {
       "slideNumber": 15,
-      "title": "A peculiar but noteworthy feature of the Tagalog language is the use of connectives or ligatures to \"link together \" two adjacent words . The ligature suffixes - ng and -g are attached to the end of the first word in a sequence whereas the ligature word na is placed between the two words .",
+      "title": "Slide 15",
       "paragraphs": [
+        {
+          "text": "A peculiar but noteworthy feature of the Tagalog language is the use of connectives or ligatures to \"link together \" two adjacent words . The ligature suffixes - ng and -g are attached to the end of the first word in a sequence whereas the ligature word na is placed between the two words .",
+          "isBullet": false
+        },
         {
           "text": "These ligatures have no particular meaning of their own, but merely indicate that there is a close rela­tionship between the two words and that, generally, one modifies the other.",
           "isBullet": false
@@ -775,8 +796,12 @@
     },
     {
       "slideNumber": 35,
-      "title": "Observe that, generally, the exceptions in the last four sequences contain either a possessive per­sonal pronoun that comes after a noun such as ko, mo , niya , namin , natin, ninyo nila or a nomi­native personal pronoun that changes form when used in an inverted word order sentence such as ka, kayo, kami, tayo, siya , and sila .",
+      "title": "Slide 35",
       "paragraphs": [
+        {
+          "text": "Observe that, generally, the exceptions in the last four sequences contain either a possessive per­sonal pronoun that comes after a noun such as ko, mo , niya , namin , natin, ninyo nila or a nomi­native personal pronoun that changes form when used in an inverted word order sentence such as ka, kayo, kami, tayo, siya , and sila .",
+          "isBullet": false
+        },
         {
           "text": "Some sequences not mentioned above also do not need a ligature and these will be pointed out later.",
           "isBullet": false
@@ -900,8 +925,12 @@
     },
     {
       "slideNumber": 38,
-      "title": "Give the formula for attaching ligatures to the following pairs of words, The first one has been given as an example.",
+      "title": "Slide 38",
       "paragraphs": [
+        {
+          "text": "Give the formula for attaching ligatures to the following pairs of words, The first one has been given as an example.",
+          "isBullet": false
+        },
         {
           "text": "1. rich man lalaking mayaman / mayamang lalaki",
           "isBullet": false
