@@ -13,10 +13,10 @@
 {
   "metadata": {
     "title": "Tagalog Knowledge Base",
-    "lessons_covered": ["Lesson_02", "Lesson_03", "Lesson_04", "Lesson_05"],
-    "total_vocab_terms": 95,
-    "total_grammar_topics": 8,
-    "total_exercises": 30,
+    "lessons_covered": ["Lesson_02", "Lesson_03", "Lesson_04", "Lesson_05", "Lesson_06"],
+    "total_vocab_terms": 119,
+    "total_grammar_topics": 11,
+    "total_exercises": 36,
     "categories": ["Theory", "Vocabulary", "Activities"]
   },
   "theory": [
@@ -191,6 +191,62 @@
         {"tense": "Present (Ongoing)", "pattern": "Example with kumain", "example": "kumakain (is eating)"},
         {"tense": "Past (Completed)", "pattern": "Example with luto", "example": "nagluto (cooked)"},
         {"tense": "Present (Ongoing)", "pattern": "Example with luto", "example": "nagluluto (is cooking)"}
+      ]
+    },
+    {
+      "id": "THEORY-09",
+      "topic": "Question Words (Interrogative Pronouns & Adverbs)",
+      "lesson": "Lesson_06",
+      "summary": "Tagalog uses 12 main interrogative words corresponding to who, what, which, how, why, when, where, how many, how much, and whose. Question words appear at the start of sentences.",
+      "table": [
+        {"pronoun": "Sino", "meaning": "Who", "type": "Interrogative Pronoun (person)", "contraction": "Sino'y", "usage": "Sino ba kayo? (Who are you?)"},
+        {"pronoun": "Ano", "meaning": "What", "type": "Interrogative Pronoun (things/ideas)", "contraction": "Ano'y", "usage": "Ano ito? (What is this?)"},
+        {"pronoun": "Alin", "meaning": "Which", "type": "Interrogative Pronoun (selection)", "usage": "Alin ba ang iyong gusto? (Which do you like?)"},
+        {"pronoun": "Gaano", "meaning": "How (extent/degree)", "type": "Interrogative Adverb (degree)", "usage": "Gaano katagal? (How long? Requires ka- + adjective)"},
+        {"pronoun": "Paano", "meaning": "How (manner/method)", "type": "Interrogative Adverb (method)", "usage": "Paano ka natutong magluto? (How did you learn to cook?)"},
+        {"pronoun": "Bakit", "meaning": "Why", "type": "Interrogative Adverb (reason)", "usage": "Bakit siya galit? (Why is he/she angry?)"},
+        {"pronoun": "Kailan", "meaning": "When", "type": "Interrogative Adverb (time)", "usage": "Kailan kayo dumating? (When did you arrive?)"},
+        {"pronoun": "Nasaan", "meaning": "Where is/are", "type": "Interrogative Adverb (location of specific item/person)", "usage": "Nasaan ang susi? (Where is the key? Followed by specific noun)"},
+        {"pronoun": "Saan", "meaning": "Where", "type": "Interrogative Adverb (direction/general location)", "usage": "Saan kayo nakatira? (Where do you live?)"},
+        {"pronoun": "Ilan", "meaning": "How many", "type": "Interrogative Pronoun/Adjective (count)", "usage": "Ilan ang anak ninyo? (How many children do you have?)"},
+        {"pronoun": "Magkano", "meaning": "How much", "type": "Interrogative Word (price/cost)", "usage": "Magkano ang aklat? (How much is the book?)"},
+        {"pronoun": "Kanino", "meaning": "Whose / To whom", "type": "Interrogative Pronoun (possession)", "usage": "Kanino ang bahay na iyan? (Whose house is that?)"}
+      ]
+    },
+    {
+      "id": "THEORY-10",
+      "topic": "Pluralization of Question Words",
+      "lesson": "Lesson_06",
+      "summary": "Plural forms of question words are created by duplicating the whole word (for 2-syllable words) or the first two syllables (for 3+ syllable words) when referring to multiple items or expecting a plural response. Note: nasaan and bakit are never duplicated.",
+      "table": [
+        {"pronoun": "sinu-sino", "meaning": "Who (plural)", "type": "2-syllable duplication (o -> u)", "usage": "Sinu-sino ang inyong mga anak? (Which of the children are yours?)"},
+        {"pronoun": "anu-ano", "meaning": "What (plural)", "type": "2-syllable duplication (o -> u)", "usage": "Anu-ano ang mga pangalan ninyo? (What are your names?)"},
+        {"pronoun": "alin-alin", "meaning": "Which (plural)", "type": "2-syllable duplication", "usage": "Alin-alin ang mga aklat mo? (Which ones are your books?)"},
+        {"pronoun": "saan-saan", "meaning": "Where (plural locations)", "type": "2-syllable duplication", "usage": "Saan-saan kayo nakatira? (Where do you all live?)"},
+        {"pronoun": "ilan-ilan", "meaning": "How many (each/per group)", "type": "2-syllable duplication", "usage": "Ilan-ilan ang mga anak nila? (How many children do they each have?)"},
+        {"pronoun": "kani-kanino", "meaning": "Whose (plural items/owners)", "type": "3+ syllable first 2 syllable duplication", "usage": "Kani-kanino ang mga bahay na iyan? (Whose houses are those?)"},
+        {"pronoun": "magka-magkano", "meaning": "How much each", "type": "3+ syllable first 2 syllable duplication", "usage": "Magka-magkano ang mga aklat? (How much are each of the books?)"}
+      ],
+      "rules": [
+        {"rule": "2-syllable words", "condition": "Duplicate whole word", "example": "alin -> alin-alin, sino -> sinu-sino"},
+        {"rule": "3+ syllable words", "condition": "Duplicate first two syllables", "example": "kanino -> kani-kanino, magkano -> magka-magkano"},
+        {"rule": "Vowel shift 'o' -> 'u'", "condition": "Last syllable 'o' changes to 'u' in duplicated prefix", "example": "ano -> anu-ano, sino -> sinu-sino"},
+        {"rule": "Exceptions", "condition": "nasaan & bakit are NEVER duplicated", "example": "Nothing can be in two places at once; no duplicate explanations"}
+      ]
+    },
+    {
+      "id": "THEORY-11",
+      "topic": "Contracted Questions and Common Everyday Phrases",
+      "lesson": "Lesson_06",
+      "summary": "In spoken Tagalog, question words frequently combine with ligatures (-ng) and demonstratives (ito -> 'to, iyan -> 'yan) to create natural contracted questions.",
+      "rules": [
+        {"type": "Contracted Sino", "example_tagalog": "Sinong tao 'yan?", "example_english": "Who is that person?"},
+        {"type": "Contracted Kanino", "example_tagalog": "Kanino 'to?", "example_english": "Whose is this?"},
+        {"type": "Contracted Ano", "example_tagalog": "Ano 'yan?", "example_english": "What's that?"},
+        {"type": "Everyday Question: Do you know?", "example_tagalog": "Kilala mo ba siya?", "example_english": "Do you know her/him?"},
+        {"type": "Everyday Question: Are you coming?", "example_tagalog": "Sasama ka ba?", "example_english": "Are you coming along?"},
+        {"type": "Everyday Question: Going home?", "example_tagalog": "Uuwi ka na ba?", "example_english": "Are you going home already?"},
+        {"type": "Everyday Question: Correct?", "example_tagalog": "Tama ba ito?", "example_english": "Is this correct?"}
       ]
     }
   ]
@@ -708,11 +764,51 @@ This exercise bank is structured with unique IDs to be automatically loaded by a
 * **Correct Answer**: `Ang kanilang bahay ay malaki.` / `Ang bahay nila ay malaki.` / `Malaki ang bahay nila.`
 * **Grammar Explanation**: `Kanilang` is the pre-noun form and `nila` is the post-noun form of the 3rd person plural possessive.
 
-#### `EX-L05-006` (Translation — Possessive)
+#### `EX-L05-006` (Translation — Possessive Pronoun)
 * **Prompt**: Translate "My food is delicious" into Tagalog.
 * **Type**: `translation`
 * **Correct Answer**: `Ang aking pagkain ay masarap.` / `Ang pagkain ko ay masarap.` / `Masarap ang pagkain ko.`
 * **Grammar Explanation**: `Aking` (pre-noun) or `ko` (post-noun) are the first person singular possessive forms.
+
+---
+
+### 3.5 Question Words Exercises (Lesson 06)
+
+#### `EX-L06-001` (Fill-in-the-blank — Interrogative Pronoun Who)
+* **Prompt**: Ask 'Who are you?' in Tagalog: `_____ ba kayo?`
+* **Type**: `fill_in_blank`
+* **Correct Answer**: `Sino` / `sino`
+* **Grammar Explanation**: `Sino` is the interrogative pronoun used to ask 'who'.
+
+#### `EX-L06-002` (Fill-in-the-blank — Interrogative Pronoun What)
+* **Prompt**: Ask 'What is your name?' in Tagalog: `_____ ang pangalan mo?`
+* **Type**: `fill_in_blank`
+* **Correct Answer**: `Ano` / `ano` / `Anong` / `Ano'ng`
+* **Grammar Explanation**: `Ano` means 'what' in Tagalog.
+
+#### `EX-L06-003` (Translation — Specific Location Where)
+* **Prompt**: Translate 'Where is the key?' into Tagalog.
+* **Type**: `translation`
+* **Correct Answer**: `Nasaan ang susi?` / `Nasaan ang susi`
+* **Grammar Explanation**: `Nasaan` asks for the location or position of a specific item or person.
+
+#### `EX-L06-004` (Fill-in-the-blank — Interrogative Price How Much)
+* **Prompt**: Ask 'How much is the book?' in Tagalog: `_____ ang aklat?`
+* **Type**: `fill_in_blank`
+* **Correct Answer**: `Magkano` / `magkano`
+* **Grammar Explanation**: `Magkano` is used to ask about price or monetary cost.
+
+#### `EX-L06-005` (Translation — Interrogative Reason Why)
+* **Prompt**: Translate 'Why are you angry?' into Tagalog.
+* **Type**: `translation`
+* **Correct Answer**: `Bakit ka galit?` / `Bakit ka galit` / `Bakit siya galit?`
+* **Grammar Explanation**: `Bakit` asks for reasons or explanations behind an action or feeling.
+
+#### `EX-L06-006` (Fill-in-the-blank — Plural Question Word What)
+* **Prompt**: Ask for plural names ('What are your names?'): `_____ ang mga pangalan ninyo?`
+* **Type**: `fill_in_blank`
+* **Correct Answer**: `Anu-ano` / `Anu-ano'y` / `anu-ano`
+* **Grammar Explanation**: `Anu-ano` is the duplicated plural form of `ano` used when expecting plural answers.
 
 ---
 
