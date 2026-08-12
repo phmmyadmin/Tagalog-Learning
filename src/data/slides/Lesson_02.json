@@ -27,8 +27,12 @@
     },
     {
       "slideNumber": 4,
-      "title": "The Article SI and SINA The article SI is use before the name of a person and the plural article SINA is used before the name of two or more persons. Ex. Liza is a woman Si Liza ay babae Simon and Tom are good. Sina Simon at Tom ay mababait Helen and tom are children. Sina Helen at tom ay mga bata.",
+      "title": "Slide 4",
       "paragraphs": [
+        {
+          "text": "The Article SI and SINA The article SI is use before the name of a person and the plural article SINA is used before the name of two or more persons. Ex. Liza is a woman Si Liza ay babae Simon and Tom are good. Sina Simon at Tom ay mababait Helen and tom are children. Sina Helen at tom ay mga bata.",
+          "isBullet": false
+        },
         {
           "text": "Note that tagalog sentences follow a plurality rule where either the subject or predicate may be plural. However, the pluralization of both subject  and predicate is optional. In the sentence above, the article sina indicates that the subject is plural while mga ( a plural marker that has no meaning on its own) before bata indicates that the noun is plural.",
           "isBullet": false
@@ -46,8 +50,13 @@
     },
     {
       "slideNumber": 5,
-      "title": "The Article of ANG and MGA The article ANG is used before the name of a single thing or place while ANG MGA (manga) is used before the names of two or more things or places. Halimbawa : The child is good.\t\t\t\tAng bata ay mabait The children and the dogs are good. Ang mga bata at ang mga aso ay mababait .",
-      "paragraphs": [],
+      "title": "Slide 5",
+      "paragraphs": [
+        {
+          "text": "The Article of ANG and MGA The article ANG is used before the name of a single thing or place while ANG MGA (manga) is used before the names of two or more things or places. Halimbawa : The child is good.\t\t\t\tAng bata ay mabait The children and the dogs are good. Ang mga bata at ang mga aso ay mababait .",
+          "isBullet": false
+        }
+      ],
       "images": []
     },
     {
@@ -231,8 +240,12 @@
     },
     {
       "slideNumber": 14,
-      "title": "The focus or emphasis in such sentence is on the predicate rather than on the subject .",
+      "title": "Slide 14",
       "paragraphs": [
+        {
+          "text": "The focus or emphasis in such sentence is on the predicate rather than on the subject .",
+          "isBullet": false
+        },
         {
           "text": "In inverted word order sentences having plural nouns as their subject , the word mga -not ang mga comes before the first nouns .",
           "isBullet": false

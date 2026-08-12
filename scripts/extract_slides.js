@@ -100,8 +100,15 @@ async function extractPptx(pptxFilename) {
     let bodyParagraphs = [];
 
     if (paragraphs.length > 0) {
-      title = paragraphs[0].text;
-      bodyParagraphs = paragraphs.slice(1);
+      const firstText = paragraphs[0].text;
+      // If first paragraph is short (<90 chars) and not a full sentence ending in period, treat as title
+      if (firstText.length < 90 && !firstText.endsWith('.')) {
+        title = firstText;
+        bodyParagraphs = paragraphs.slice(1);
+      } else {
+        title = `Slide ${idx + 1}`;
+        bodyParagraphs = paragraphs;
+      }
     }
 
     const slideImages = [];

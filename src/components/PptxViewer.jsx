@@ -130,32 +130,76 @@ export default function PptxViewer({
           }}
         >
           {currentSlide ? (
-            <div style={{ width: '100%', maxWidth: '720px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {currentSlide.image && (
+            <div style={{ width: '100%', maxWidth: '750px', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {/* Title */}
+              {currentSlide.title && (
+                <h3 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', textAlign: 'left', margin: 0, fontWeight: 700, borderBottom: '2px solid var(--border-default)', paddingBottom: '0.5rem' }}>
+                  {currentSlide.title}
+                </h3>
+              )}
+
+              {/* Images */}
+              {currentSlide.images && currentSlide.images.length > 0 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', width: '100%', alignItems: 'center' }}>
+                  {currentSlide.images.map((imgSrc, imgIdx) => (
+                    <img
+                      key={imgIdx}
+                      src={imgSrc}
+                      alt={`Slide ${currentSlideIndex + 1} Image ${imgIdx + 1}`}
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '360px',
+                        objectFit: 'contain',
+                        borderRadius: 'var(--radius-sm)',
+                        border: '1px solid var(--border-default)',
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : currentSlide.image ? (
                 <img
                   src={currentSlide.image}
                   alt={`Slide ${currentSlideIndex + 1}: ${currentSlide.title || ''}`}
                   style={{
                     width: '100%',
-                    maxHeight: '400px',
+                    maxHeight: '360px',
                     objectFit: 'contain',
                     borderRadius: 'var(--radius-sm)',
                     border: '1px solid var(--border-default)',
                   }}
                 />
-              )}
+              ) : null}
 
-              {currentSlide.title && (
-                <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)', textAlign: 'center', margin: 0 }}>
-                  {currentSlide.title}
-                </h3>
-              )}
-
-              {currentSlide.text && (
-                <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', textAlign: 'center' }}>
+              {/* Paragraphs */}
+              {currentSlide.paragraphs && currentSlide.paragraphs.length > 0 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', width: '100%' }}>
+                  {currentSlide.paragraphs.map((p, pIdx) => (
+                    <div
+                      key={pIdx}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '0.6rem',
+                        fontSize: '0.975rem',
+                        color: 'var(--text-primary)',
+                        lineHeight: 1.6,
+                        paddingLeft: p.isBullet ? '1rem' : 0,
+                        backgroundColor: p.isBullet ? 'transparent' : 'var(--bg-surface-alt)',
+                        padding: p.isBullet ? '0.2rem 0.5rem' : '0.65rem 0.85rem',
+                        borderRadius: 'var(--radius-sm)',
+                        border: p.isBullet ? 'none' : '1px solid var(--border-default)',
+                      }}
+                    >
+                      {p.isBullet && <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold', fontSize: '1.1rem' }}>•</span>}
+                      <span style={{ flex: 1 }}>{p.text}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : currentSlide.text ? (
+                <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                   {currentSlide.text}
                 </p>
-              )}
+              ) : null}
             </div>
           ) : (
             <span style={{ color: 'var(--text-muted)' }}>No slide content available</span>
