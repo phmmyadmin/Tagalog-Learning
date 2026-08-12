@@ -1,0 +1,628 @@
+{
+  "lesson": "Lesson_06",
+  "totalSlides": 26,
+  "slides": [
+    {
+      "slideNumber": 1,
+      "title": "WELCOME back Pablo!",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 2,
+      "title": "Lesson 06",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 3,
+      "title": "Asking Questions",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 4,
+      "title": "Slide 4",
+      "paragraphs": [
+        {
+          "text": "I. QUESTION WORDS IN TAGALOG There are 14 different question words in the tagalog language that correspond to the English question words who, what, which, how, why, when, where and whose. These are:",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 5,
+      "title": "The word \"Sino\" in Tagalog is an interrogative pronoun used to ask \"Who?“",
+      "paragraphs": [
+        {
+          "text": "SINO\t\t\t\t\t\t\t\tWHO",
+          "isBullet": false
+        },
+        {
+          "text": "Example:",
+          "isBullet": false
+        },
+        {
+          "text": "Sino ba kayo ? Who are you?",
+          "isBullet": false
+        },
+        {
+          "text": "Sino ang kumain ng tinapay ? \t\tWho ate the bread?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 6,
+      "title": "Slide 6",
+      "paragraphs": [
+        {
+          "text": "‘Ano \" is an interrogative pronoun in Tagalog that means \"What \" in English. It is used to ask about things, ideas, events, or situations — essentially anything that is not a person.",
+          "isBullet": false
+        },
+        {
+          "text": "ANO WHAT example:",
+          "isBullet": false
+        },
+        {
+          "text": "Ano ba ang pangalan ninyo ? What is your name?",
+          "isBullet": false
+        },
+        {
+          "text": "Ano ito ? \t\t\t\t\t\t\t\t\t\t\t\tWhat is this?",
+          "isBullet": false
+        },
+        {
+          "text": "Ano ang pangalan mo ?\t\t\t\t\t\t\t\tWhat is your name?",
+          "isBullet": false
+        },
+        {
+          "text": "Ano ang ginagawa mo ?\t\t\t\t\t\t\t\tWhat are you doing?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 7,
+      "title": "Slide 7",
+      "paragraphs": [
+        {
+          "text": "Alin \" is another interrogative pronoun, and in English, it means \"which\". Is used when choosing one or more items from a known group or set. It asks for specific identification within that group. ALIN\t\t\t\t\t\t\tWHICH example: halimbawa Alin ba ang iyong gusto?\t\t\t\tWhich do you like? Alin sa mga ito ang sa iyo ?\t\t\tWhich of these is yours? Alin ang mas mabigat : bakal o tingga ?\t\tWhich is heavier: iron or lead?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 8,
+      "title": "Slide 8",
+      "paragraphs": [
+        {
+          "text": "GAANO is a tagalog interrogative word used to ask about extent , degree , or measurement —",
+          "isBullet": false
+        },
+        {
+          "text": "GAANO\t\t\t\t\t\t\t\tHOW",
+          "isBullet": false
+        },
+        {
+          "text": "example: halimbawa",
+          "isBullet": false
+        },
+        {
+          "text": "Gaano ka laki ang Pilipinas?\t\t\tHow large is the Philippines? ( requires a response expressing degree or quality )",
+          "isBullet": false
+        },
+        {
+          "text": "Gaano ka tagal ?\t\t\t\t\t\tHow long?",
+          "isBullet": false
+        },
+        {
+          "text": "Gaano ka laki ang bahay mo ?\t\t\tHow big is your house?",
+          "isBullet": false
+        },
+        {
+          "text": "Gaano + [ka- + adjective/adverb]\t\t\t\t\t\" Gaano \" – asks about degree/ exten \"Ilan\" – asks how many (quantity)",
+          "isBullet": false
+        },
+        {
+          "text": "ka- is a prefix that links \" Gaano \" to a descriptive word",
+          "isBullet": false
+        },
+        {
+          "text": "Long- Mahaba",
+          "isBullet": false
+        },
+        {
+          "text": "Long- time frame ------ Matagal",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 9,
+      "title": "Slide 9",
+      "paragraphs": [
+        {
+          "text": "PAANO is a Tagalog interrogative word that means \"How\" — specifically used to ask about the manner, method, or process by which something is done.",
+          "isBullet": false
+        },
+        {
+          "text": "PAANO \t\t\t\t\t\t\t\t\tHOW",
+          "isBullet": false
+        },
+        {
+          "text": "Example: halimbawa Paano mo malalaman ?\t\t\t\tHow will you know ? (requires a response detailing a process)",
+          "isBullet": false
+        },
+        {
+          "text": "Paano ka natutong magluto ?\t\t\tHow did you learn to cook?",
+          "isBullet": false
+        },
+        {
+          "text": "Paano mo nalaman ?\t\t\t\t\tHow did you know?",
+          "isBullet": false
+        },
+        {
+          "text": "Tip: Usually followed by a verb or verb phrase",
+          "isBullet": false
+        },
+        {
+          "text": "Can be used in questions about instructions, explanations, or procedures",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 10,
+      "title": "Slide 10",
+      "paragraphs": [
+        {
+          "text": "Bakit\" is an interrogative word in Tagalog that means \"Why\" in English. It is used to ask for reasons , causes , or explanations behind an action, situation, or event .",
+          "isBullet": false
+        },
+        {
+          "text": "BAKIT\t\t\t\t\t\t\t\t\t\t\tWHY",
+          "isBullet": false
+        },
+        {
+          "text": "example: halimbawa",
+          "isBullet": false
+        },
+        {
+          "text": "Bakit siya galit ?\t\t\t\t\t\t\t\tWhy is he/she angry?",
+          "isBullet": false
+        },
+        {
+          "text": "Bakit ka umalis ?\t\t\t\t\t\t\tWhy did you leave?",
+          "isBullet": false
+        },
+        {
+          "text": "Bakit hindi siya dumating ?\t\t\t\tWhy didn’t he/she come?",
+          "isBullet": false
+        },
+        {
+          "text": "Tip: Usually followed by a subject + verb or a verb + subject construction.",
+          "isBullet": false
+        },
+        {
+          "text": "Can appear at the beginning of the sentence or before the reason clause.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 11,
+      "title": "Slide 11",
+      "paragraphs": [
+        {
+          "text": "\"Kailan\" is a Tagalog interrogative word that means \"When \" in English. It is used to ask about time — whether past, present, or future .",
+          "isBullet": false
+        },
+        {
+          "text": "KAILAN\t\t\t\t\t\t\t\t\t\t\tWHEN",
+          "isBullet": false
+        },
+        {
+          "text": "Example: halimbawa",
+          "isBullet": false
+        },
+        {
+          "text": "Kailan kayo dumating sa Pilipinas?\t\t\tWhen did you arrive in the Philippines?",
+          "isBullet": false
+        },
+        {
+          "text": "Kailan tayo aalis ?\t\t\t\t\t\t\t\tWhen are we leaving?",
+          "isBullet": false
+        },
+        {
+          "text": "Kailan mo siya nakilala ? When did you meet him/her?",
+          "isBullet": false
+        },
+        {
+          "text": "Usually placed at the beginning of the sentence",
+          "isBullet": false
+        },
+        {
+          "text": "Often followed by a verb or subject + verb",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 12,
+      "title": "Slide 12",
+      "paragraphs": [
+        {
+          "text": "\" Nasaan \" is used when the subject is specific or known (often a proper noun or identified item).It is usually followed by a proper noun or a definite noun (e.g., si Nanay, ang libro , ang aso ).",
+          "isBullet": false
+        },
+        {
+          "text": "“NASAAN \" is an interrogative word in Tagalog used to ask about the location or position of a person, thing, or place . In English, it means \"Where is...\" or simply \"Where?“",
+          "isBullet": false
+        },
+        {
+          "text": "NASAAN\t\t\t\t\t\tWHERE",
+          "isBullet": false
+        },
+        {
+          "text": "Nasaan siya ?\t\t\t\tWhere is he/she?(when asking for the location of a \t\t\t\t\t\t\t\t\t\tperson or thing)",
+          "isBullet": false
+        },
+        {
+          "text": "Nasaan ang bag mo ? Where is your bag?",
+          "isBullet": false
+        },
+        {
+          "text": "Nasaan na tayo?\t \t\tWhere are we now?",
+          "isBullet": false
+        },
+        {
+          "text": "Nasaan ang susi ?\t\t\tWhere is the key?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 13,
+      "title": "Slide 13",
+      "paragraphs": [
+        {
+          "text": "\"Saan\" functions as an interrogative adverb — it's used to ask about location or direction , and it typically translates to \"where\" in english .’ SAAN\t\t\t\t\tWHERE example: halimbawa Saan kayo nakatira ?\t\tWhere do you live? Saan ang ospital ? \t\t\tWhere is the hospital? Saan siya galing ?\t\t\tWhere did he/she come from? Saan tayo kakain ?\t\t\tWhere we eat?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 14,
+      "title": "Vocabulary List",
+      "paragraphs": [
+        {
+          "text": "malaman = to know\t\t\t\t\tgusto = to like",
+          "isBullet": false
+        },
+        {
+          "text": "nakatira = live/reside simbahan = church",
+          "isBullet": false
+        },
+        {
+          "text": "galit = angry dumating = arrived",
+          "isBullet": false
+        },
+        {
+          "text": "tao = person pelikula = movie",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 15,
+      "title": "Slide 15",
+      "paragraphs": [
+        {
+          "text": "\"ILAN \" is an interrogative pronoun/adjective that means \" how many” ILAN \t\t\t\t\tHOW MANY example: halimbawa Ilan ang anak ninyo / mo ? \t\tHow many children do you have? Ilan sila sa klase ?\t\t\tHow many are they in the class? Ilan kayo sa pamilya ?\t\tHow many are you in the family?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 16,
+      "title": "Slide 16",
+      "paragraphs": [
+        {
+          "text": "“MAGKANO\" is an interrogative word that means \"how much\" — usually used when asking about price or cost. Magkano How much Example : halimbawa Magkano ang aklat ? \t\tHow much is the book? Magkano ang sapatos ?\t\tHow much are the shoes? Magkano ang kinita mo ?\t\tHow much did you earn? Magkano ang pamasahe ?\t \tHow much is the fare",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 17,
+      "title": "Slide 17",
+      "paragraphs": [
+        {
+          "text": "\"KANINO \" Is an interrogative pronoun that means \" to whom\" or \"whose \", depending on the context. KANINO\t\t\t\t\t\tWHOSE Kanino ang bahay na iyan ? \t\t\tWhose house is that? Kanino ang cellphone?\t\t\t\tWhose cellphone is it? Kanino ka nagsabi ?\t\t\t\tTo whom did you say it? Questions beginning with kanino require responses that point to akin (mine), kaniya (his or her), kanila (their) or other possessive pronouns. Para sa kanino For whom para sa kanino iyan ? For whom is that? Sa kanino with/to whom sa kanino iyan ? To whom does that belong?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 18,
+      "title": "II. THE PLURAL FORMS OF QUESTION WORDS",
+      "paragraphs": [
+        {
+          "text": "In Prev.lesson, the pluralization of either or both the predicate and subject of a sentence has been pointed out. Plural markers such as sina , nina , ng mga and ang mga have also been introduced.",
+          "isBullet": false
+        },
+        {
+          "text": "Question words are not exempt from the plurality rule either.",
+          "isBullet": false
+        },
+        {
+          "text": "The plural forms of these interrogatives are formed by duplicating the question words or certain syllables of the question words based on the following rules:",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 19,
+      "title": "I.\tWhen a word is composed of two syllables , the whole word is duplicated :",
+      "paragraphs": [
+        {
+          "text": "alin becomes alin-alin",
+          "isBullet": false
+        },
+        {
+          "text": "sino becomes sinu-sino",
+          "isBullet": false
+        },
+        {
+          "text": "II. When a word has three or more syllables , only the first two syllables are duplicated:",
+          "isBullet": false
+        },
+        {
+          "text": "kanino becomes kani-kanino",
+          "isBullet": false
+        },
+        {
+          "text": "magkano becomes magka-magkano",
+          "isBullet": false
+        },
+        {
+          "text": "III.The o in the last syllable becomes u in the first half of the new duplicated word.",
+          "isBullet": false
+        },
+        {
+          "text": "ano becomes anu- ano sino becomes sinu-sino",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 20,
+      "title": "Slide 20",
+      "paragraphs": [
+        {
+          "text": "The plural forms of these interrogative words are used when more than one thing is being referred to and when an answer in the plural form is expected.",
+          "isBullet": false
+        },
+        {
+          "text": "The interrogatives nasaan and bakit are never duplicated for the simple reason that nothing or no one can be in more than one place at the same time nor can there be more than one explanation for an event or action.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 21,
+      "title": "Slide 21",
+      "paragraphs": [
+        {
+          "text": "The following are examples of questions using duplicated interrogatives.",
+          "isBullet": false
+        },
+        {
+          "text": "Sinu- sino ang inyong mga anak ? Which of the children are yours?",
+          "isBullet": false
+        },
+        {
+          "text": "Anu- ano ang mga pangalan ninyo ? What are your names?",
+          "isBullet": false
+        },
+        {
+          "text": "Kani- kanino ang mga bahay na iyan ? Whose houses are those?",
+          "isBullet": false
+        },
+        {
+          "text": "Saan- saan kayo nakatira ? Where do you (plural) live?",
+          "isBullet": false
+        },
+        {
+          "text": "Magka-magkano ang mga aklat ? How much are each of the books?",
+          "isBullet": false
+        },
+        {
+          "text": "llan-llan ang mga anak nila ? How many children do they have?",
+          "isBullet": false
+        },
+        {
+          "text": "In the ilan-ilan question above, the speaker is referring to the total number of children of more than one couple or parent. The question may be translated to Between those two (or three) couples (or parents), how many children do they have in all?",
+          "isBullet": false
+        },
+        {
+          "text": "Kai-kailan kayo dumating sa Pilipinas ?",
+          "isBullet": false
+        },
+        {
+          "text": "When (plural, referring to several dates) did you (plural) arrive in the Philippines?",
+          "isBullet": false
+        },
+        {
+          "text": "Note that kai-kailan is very infrequently used nowadays and is mostly confined in rural Tagalog areas or regions.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 22,
+      "title": "Ill. CONTRACTED FORMS OF QUESTIONS",
+      "paragraphs": [
+        {
+          "text": "Contracted and shortened forms of a word or two words together are very common in spoken Tagalog, as in English. In the case of interrogatives, ligatures may produce another version of a question. Both iyan and ito may also be shortened to ' yan and 'to . They lose the stresses on the second syllable as both become monosyllabic modifiers. Note the differences in the following Tagalog questions.",
+          "isBullet": false
+        },
+        {
+          "text": "Sino ang taong iyan ?\t\t \tWho is that person?",
+          "isBullet": false
+        },
+        {
+          "text": "Sinong tao iyan ?\t\t\t\tWho is that (person",
+          "isBullet": false
+        },
+        {
+          "text": "Sino ' yan ?\t\t\t\t(Speaker is pointing to someone)",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 23,
+      "title": "Kanino ang aklat na ito ? \t\t\tWhose book is this?",
+      "paragraphs": [
+        {
+          "text": "Kanino ng aklat Ito?\t\t\t\tWhose (book) is this?",
+          "isBullet": false
+        },
+        {
+          "text": "Kanino ‘to? (Speaker is pointing to or holding a book)",
+          "isBullet": false
+        },
+        {
+          "text": "Ano ang simbahang iyan ? \t\t\tWhat church is that?",
+          "isBullet": false
+        },
+        {
+          "text": "Anong simbahan iyan ?\t\t\tWhat (church) is that?",
+          "isBullet": false
+        },
+        {
+          "text": "Ano ' yan ? (Speaker is pointing to a church)",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 24,
+      "title": "IV. COMMON EVERYDAY QUESTIONS",
+      "paragraphs": [
+        {
+          "text": "Other common questions aside from the ones mentioned above that need to be committed to mem­ory are the following. Note the presence of ba (the use of ba is discussed in the next lesson) in these questions.",
+          "isBullet": false
+        },
+        {
+          "text": "Kilala mo ba siya ? \t\t\t\t \t\t\tDo you know her/him?",
+          "isBullet": false
+        },
+        {
+          "text": "Sasama ka ba ?\t\t\t\t\t\t\t\t Are you coming along?",
+          "isBullet": false
+        },
+        {
+          "text": "Gusto mo ba ito ? \t\t\t\t\t\t\tDo you like this?",
+          "isBullet": false
+        },
+        {
+          "text": "Uuwi ka na ba ?\t\t\t\t\t \t\t\tAre you going home already?",
+          "isBullet": false
+        },
+        {
+          "text": "Gusto mo bang manood ng sine?\t\t\t\tDo you like to watch a movie?",
+          "isBullet": false
+        },
+        {
+          "text": "Tama ba ito ?\t\t\t\t\t\t\t\t\tIs this correct?",
+          "isBullet": false
+        },
+        {
+          "text": "Tama ba ako ?\t\t\t\t\t\t\t\t Am I right?",
+          "isBullet": false
+        },
+        {
+          "text": "Ano ba ' yan ?\t\t\t\t \t\t\t\tWhat's that?",
+          "isBullet": false
+        },
+        {
+          "text": "Anong gusto mo ?\t\t\t \t\t\t\tWhat do you like?",
+          "isBullet": false
+        },
+        {
+          "text": "Saan ka pupunta ?\t\t\t \t\t\t\tWhere are you going?",
+          "isBullet": false
+        },
+        {
+          "text": "Sino ba siya ? \t\t\t\t \t\t\t\tWho's she/he?",
+          "isBullet": false
+        },
+        {
+          "text": "Nasaan siya ?\t\t\t\t\t\t\t\t Where's she/he?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 25,
+      "title": "Slide 25",
+      "paragraphs": [
+        {
+          "text": "Create fictional answers to these questions.",
+          "isBullet": false
+        },
+        {
+          "text": "1.Ano ba ' yan ?\t\t\t \t     What's that?",
+          "isBullet": false
+        },
+        {
+          "text": "2.Ano'ng gusto mo ?\t\t\t What do you like?",
+          "isBullet": false
+        },
+        {
+          "text": "3.Saan ka pupunta ?\t\t\t Where are you going?",
+          "isBullet": false
+        },
+        {
+          "text": "4.Sino ba siya ?\t\t\t\t     Who's she/he?",
+          "isBullet": false
+        },
+        {
+          "text": "5.Nasaan siya ?\t\t\t\t\t Where's she/he?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 26,
+      "title": "Salamat",
+      "paragraphs": [],
+      "images": []
+    }
+  ]
+}

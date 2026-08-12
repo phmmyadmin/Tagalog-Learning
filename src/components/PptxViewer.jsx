@@ -8,12 +8,14 @@ import lesson02Slides from '../data/slides/Lesson_02.json';
 import lesson03Slides from '../data/slides/Lesson_03.json';
 import lesson04Slides from '../data/slides/Lesson_04.json';
 import lesson05Slides from '../data/slides/Lesson_05.json';
+import lesson06Slides from '../data/slides/Lesson_06.json';
 
 const slideManifests = {
   Lesson_02: lesson02Slides,
   Lesson_03: lesson03Slides,
   Lesson_04: lesson04Slides,
   Lesson_05: lesson05Slides,
+  Lesson_06: lesson06Slides,
 };
 
 /**
