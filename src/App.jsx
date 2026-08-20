@@ -170,6 +170,8 @@ export function App() {
     [...new Set(tagalogData.theory.map((t) => t.lesson).filter(Boolean))]
   ).sort();
 
+  const dynamicStats = getDynamicStats();
+
   return (
     <div className="app-container">
       {/* Accessibility Skip Link */}
