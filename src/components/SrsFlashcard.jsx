@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
 import { ProgressBar } from './ui/ProgressBar';
+import { previewNextIntervals, RATING } from '../utils/fsrsEngine';
 
 /**
- * SrsFlashcard Component - Interactive 3D flip SRS flashcard with rating controls.
+ * SrsFlashcard Component - Interactive 3D flip SRS flashcard with rating controls & FSRS intervals.
  */
 export default function SrsFlashcard({
   currentCard,
@@ -18,10 +19,19 @@ export default function SrsFlashcard({
   onSpeak,
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const startTimeRef = useRef(Date.now());
 
   useEffect(() => {
     setIsFlipped(false);
+    startTimeRef.current = Date.now();
   }, [currentCard?.id]);
+
+  const intervals = previewNextIntervals(currentCard?.srs);
+
+  const handleRate = (ratingName) => {
+    const timeMs = Date.now() - startTimeRef.current;
+    onRateCard(ratingName, timeMs);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -36,10 +46,10 @@ export default function SrsFlashcard({
           onUndoCard();
         }
       } else if (isFlipped) {
-        if (e.key === '1') onRateCard('again');
-        if (e.key === '2') onRateCard('hard');
-        if (e.key === '3') onRateCard('good');
-        if (e.key === '4') onRateCard('easy');
+        if (e.key === '1') handleRate('again');
+        if (e.key === '2') handleRate('hard');
+        if (e.key === '3') handleRate('good');
+        if (e.key === '4') handleRate('easy');
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -47,6 +57,15 @@ export default function SrsFlashcard({
   }, [isFlipped, onRateCard, onUndoCard, canUndo]);
 
   if (!currentCard) return null;
+
+  const cardStateStr = currentCard.srs?.state || 'new';
+
+  const getStateBadgeVariant = (state) => {
+    if (state === 'new') return 'primary';
+    if (state === 'learning' || state === 'relearning') return 'warning';
+    if (state === 'review') return 'success';
+    return 'default';
+  };
 
   return (
     <div style={{ maxWidth: '580px', margin: '0 auto', width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -111,6 +130,9 @@ export default function SrsFlashcard({
           /* FRONT SIDE */
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, gap: '1rem' }}>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              <Badge variant={getStateBadgeVariant(cardStateStr)}>
+                {cardStateStr.toUpperCase()}
+              </Badge>
               <Badge variant="primary">{currentCard.partOfSpeech || 'Vocabulary'}</Badge>
               {isMastered && <Badge variant="success">✅ Mastered</Badge>}
             </div>
@@ -139,6 +161,9 @@ export default function SrsFlashcard({
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, gap: '0.85rem' }}>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <Badge variant="success">Answer</Badge>
+              <Badge variant={getStateBadgeVariant(cardStateStr)}>
+                {cardStateStr.toUpperCase()}
+              </Badge>
               {isMastered && <Badge variant="success">✅ Mastered</Badge>}
             </div>
             <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
@@ -170,17 +195,24 @@ export default function SrsFlashcard({
       {/* SRS Rating Buttons (Only visible when flipped) */}
       {isFlipped ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
-          <Button variant="danger" size="md" onClick={() => onRateCard('again')}>
-            1. Again
+          <Button variant="danger" size="md" onClick={() => handleRate('again')} style={{ flexDirection: 'column', padding: '0.5rem 0.2rem' }}>
+            <span>1. Again</span>
+            <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>{intervals[RATING.AGAIN]}</span>
           </Button>
-          <Button variant="secondary" size="md" onClick={() => onRateCard('hard')}>
-            2. Hard
+
+          <Button variant="secondary" size="md" onClick={() => handleRate('hard')} style={{ flexDirection: 'column', padding: '0.5rem 0.2rem' }}>
+            <span>2. Hard</span>
+            <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>{intervals[RATING.HARD]}</span>
           </Button>
-          <Button variant="primary" size="md" onClick={() => onRateCard('good')}>
-            3. Good
+
+          <Button variant="primary" size="md" onClick={() => handleRate('good')} style={{ flexDirection: 'column', padding: '0.5rem 0.2rem' }}>
+            <span>3. Good</span>
+            <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>{intervals[RATING.GOOD]}</span>
           </Button>
-          <Button variant="success" size="md" onClick={() => onRateCard('easy')}>
-            4. Easy ⭐
+
+          <Button variant="success" size="md" onClick={() => handleRate('easy')} style={{ flexDirection: 'column', padding: '0.5rem 0.2rem' }}>
+            <span>4. Easy ⭐</span>
+            <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>{intervals[RATING.EASY]}</span>
           </Button>
         </div>
       ) : (

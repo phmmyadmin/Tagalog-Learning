@@ -1,0 +1,236 @@
+import React, { useState, useEffect, useMemo } from 'react';
+import SrsFlashcard from '../components/SrsFlashcard';
+import SrsSessionSummary from '../components/SrsSessionSummary';
+import { EmptyState } from '../components/ui/EmptyState';
+import { Button } from '../components/ui/Button';
+import { buildStudyQueue } from '../utils/srsQueueBuilder';
+import { scheduleReview, RATING } from '../utils/fsrsEngine';
+import { updateCardState, addReviewLogEntry, getSrsSettings } from '../utils/srsStore';
+import { addXpForReview, checkAchievements } from '../utils/gamification';
+
+export default function SrsSessionView({
+  vocabularyList = [],
+  searchQuery = '',
+  selectedLesson = 'all',
+  selectedPos = 'all',
+  filterMastered = 'all',
+  masteredIds = [],
+  onToggleMastered,
+  onOpenSettings,
+  onSpeak,
+}) {
+  const [sessionQueue, setSessionQueue] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [historyStack, setHistoryStack] = useState([]);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [sessionStats, setSessionStats] = useState({
+    totalReviewed: 0,
+    againCount: 0,
+    hardCount: 0,
+    goodCount: 0,
+    easyCount: 0,
+    totalTimeMs: 0,
+    xpEarned: 0,
+    newlyUnlocked: [],
+  });
+
+  // Filter vocabulary based on search/lesson/pos
+  const filteredVocab = useMemo(() => {
+    return vocabularyList.filter((item) => {
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        const matchWord = item.word?.toLowerCase().includes(q);
+        const matchMeaning = item.meaning?.toLowerCase().includes(q);
+        if (!matchWord && !matchMeaning) return false;
+      }
+
+      if (selectedPos !== 'all') {
+        const p = (item.partOfSpeech || '').toLowerCase();
+        if (!p.includes(selectedPos)) return false;
+      }
+
+      if (selectedLesson !== 'all' && item.lesson !== selectedLesson && item.lesson !== selectedLesson.replace(' ', '_')) {
+        return false;
+      }
+
+      const isMastered = masteredIds.includes(item.id);
+      if (filterMastered === 'mastered' && !isMastered) return false;
+      if (filterMastered === 'unmastered' && isMastered) return false;
+
+      return true;
+    });
+  }, [vocabularyList, searchQuery, selectedPos, selectedLesson, filterMastered, masteredIds]);
+
+  // Initialize Queue
+  const initQueue = () => {
+    const { queue } = buildStudyQueue(filteredVocab);
+    setSessionQueue(queue);
+    setCurrentIndex(0);
+    setHistoryStack([]);
+    setIsCompleted(false);
+    setSessionStats({
+      totalReviewed: 0,
+      againCount: 0,
+      hardCount: 0,
+      goodCount: 0,
+      easyCount: 0,
+      totalTimeMs: 0,
+      xpEarned: 0,
+      newlyUnlocked: [],
+    });
+  };
+
+  useEffect(() => {
+    initQueue();
+  }, [filteredVocab]);
+
+  const currentCard = sessionQueue[currentIndex];
+
+  const handleRateCard = (ratingName, timeMs = 0) => {
+    if (!currentCard) return;
+
+    const ratingMap = { again: RATING.AGAIN, hard: RATING.HARD, good: RATING.GOOD, easy: RATING.EASY };
+    const ratingGrade = ratingMap[ratingName] || RATING.GOOD;
+
+    const previousSrsState = currentCard.srs;
+    const isNew = !previousSrsState || previousSrsState.state === 'new';
+    const wasMasteredBefore = masteredIds.includes(currentCard.id);
+    let newlyMastered = false;
+
+    // FSRS Schedule
+    const { updatedCard } = scheduleReview(previousSrsState, ratingGrade);
+    updateCardState(currentCard.id, updatedCard);
+
+    // Auto-master on easy rating if not mastered
+    if (ratingName === 'easy' && !wasMasteredBefore && onToggleMastered) {
+      onToggleMastered(currentCard.id);
+      newlyMastered = true;
+    }
+
+    // Add Review Log
+    addReviewLogEntry({
+      cardId: currentCard.id,
+      rating: ratingGrade,
+      ratingName,
+      timeMs,
+      stateBefore: previousSrsState?.state || 'new',
+      stateAfter: updatedCard.state,
+    });
+
+    // Award XP
+    const { xpEarned } = addXpForReview(ratingGrade, isNew, timeMs);
+
+    // Update Session Stats
+    setSessionStats((prev) => {
+      const nextStats = {
+        ...prev,
+        totalReviewed: prev.totalReviewed + 1,
+        againCount: ratingName === 'again' ? prev.againCount + 1 : prev.againCount,
+        hardCount: ratingName === 'hard' ? prev.hardCount + 1 : prev.hardCount,
+        goodCount: ratingName === 'good' ? prev.goodCount + 1 : prev.goodCount,
+        easyCount: ratingName === 'easy' ? prev.easyCount + 1 : prev.easyCount,
+        totalTimeMs: prev.totalTimeMs + timeMs,
+        xpEarned: prev.xpEarned + xpEarned,
+      };
+
+      const unlocked = checkAchievements({
+        totalReviews: nextStats.totalReviewed,
+        sessionReviews: nextStats.totalReviewed,
+        avgTimeMs: nextStats.totalTimeMs / (nextStats.totalReviewed || 1),
+      });
+
+      return {
+        ...nextStats,
+        newlyUnlocked: [...prev.newlyUnlocked, ...unlocked],
+      };
+    });
+
+    // Record History for Undo
+    setHistoryStack((prev) => [
+      ...prev,
+      {
+        index: currentIndex,
+        card: currentCard,
+        previousSrsState,
+        newlyMastered,
+      },
+    ]);
+
+    // Advance Queue
+    if (currentIndex < sessionQueue.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+    } else {
+      setIsCompleted(true);
+    }
+  };
+
+  const handleUndoCard = () => {
+    if (historyStack.length === 0) return;
+
+    const lastState = historyStack[historyStack.length - 1];
+    setHistoryStack((prev) => prev.slice(0, -1));
+
+    // Revert Card State
+    if (lastState.previousSrsState) {
+      updateCardState(lastState.card.id, lastState.previousSrsState);
+    }
+
+    // Revert Mastered state
+    if (lastState.newlyMastered && masteredIds.includes(lastState.card.id) && onToggleMastered) {
+      onToggleMastered(lastState.card.id);
+    }
+
+    setCurrentIndex(lastState.index);
+    if (isCompleted) setIsCompleted(false);
+  };
+
+  if (!currentCard || isCompleted) {
+    return (
+      <div style={{ padding: '2rem 0' }}>
+        {isCompleted ? (
+          <SrsSessionSummary
+            sessionStats={sessionStats}
+            onRestart={initQueue}
+            onClose={() => setIsCompleted(false)}
+          />
+        ) : (
+          <EmptyState
+            icon="🎉"
+            title="All caught up for today!"
+            description="No due SRS flashcards right now. You can adjust your daily limits in Settings or explore vocabulary."
+            actionLabel="🔄 Re-study Queue"
+            onAction={initQueue}
+          />
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
+      {/* Session Action Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+          Queue: <strong>{sessionQueue.length - currentIndex} cards left</strong>
+        </div>
+        {onOpenSettings && (
+          <Button variant="ghost" size="sm" onClick={onOpenSettings} icon={<span>⚙️</span>}>
+            Settings
+          </Button>
+        )}
+      </div>
+
+      {/* SrsFlashcard Component */}
+      <SrsFlashcard
+        currentCard={currentCard}
+        totalDue={sessionQueue.length}
+        currentIndex={currentIndex}
+        isMastered={masteredIds.includes(currentCard.id)}
+        canUndo={historyStack.length > 0}
+        onRateCard={handleRateCard}
+        onUndoCard={handleUndoCard}
+        onSpeak={onSpeak}
+      />
+    </div>
+  );
+}

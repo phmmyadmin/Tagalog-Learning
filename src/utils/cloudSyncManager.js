@@ -21,6 +21,10 @@ export const getLocalProgressState = () => {
     activityResults: safeParseJSON('tagalog_activity_results_v1', {}),
     quizHistory: safeParseJSON('tagalog_quiz_history_v1', {}),
     mistakesBank: safeParseJSON('tagalog_mistakes_bank_v1', []),
+    srsCards: safeParseJSON('tagalog_srs_cards_v2', {}),
+    srsReviewLog: safeParseJSON('tagalog_srs_review_log_v2', []),
+    srsGamification: safeParseJSON('tagalog_srs_gamification_v2', {}),
+    srsSettings: safeParseJSON('tagalog_srs_settings_v2', {}),
   };
 };
 
@@ -35,8 +39,14 @@ export const applyStateToLocal = (state) => {
     if (state.activityResults) localStorage.setItem('tagalog_activity_results_v1', JSON.stringify(state.activityResults));
     if (state.quizHistory) localStorage.setItem('tagalog_quiz_history_v1', JSON.stringify(state.quizHistory));
     if (state.mistakesBank) localStorage.setItem('tagalog_mistakes_bank_v1', JSON.stringify(state.mistakesBank));
+    if (state.srsCards) localStorage.setItem('tagalog_srs_cards_v2', JSON.stringify(state.srsCards));
+    if (state.srsReviewLog) localStorage.setItem('tagalog_srs_review_log_v2', JSON.stringify(state.srsReviewLog));
+    if (state.srsGamification) localStorage.setItem('tagalog_srs_gamification_v2', JSON.stringify(state.srsGamification));
+    if (state.srsSettings) localStorage.setItem('tagalog_srs_settings_v2', JSON.stringify(state.srsSettings));
 
     window.dispatchEvent(new Event('tagalog_cloud_sync_completed'));
+    window.dispatchEvent(new Event('tagalog_srs_updated'));
+    window.dispatchEvent(new Event('tagalog_gamification_updated'));
   } catch (e) {
     console.error('Failed to apply cloud state to localStorage:', e);
   }
@@ -69,6 +79,10 @@ export const pushProgressToCloud = async (userId) => {
     activity_results: localState.activityResults,
     quiz_history: localState.quizHistory,
     mistakes_bank: localState.mistakesBank,
+    srs_cards_v2: localState.srsCards,
+    srs_review_log_v2: localState.srsReviewLog,
+    srs_gamification_v2: localState.srsGamification,
+    srs_settings_v2: localState.srsSettings,
     updated_at: new Date().toISOString(),
   };
 
@@ -138,19 +152,21 @@ export const pullProgressFromCloud = async (userId) => {
   const localState = getLocalProgressState();
 
   if (data) {
-    // Smart Union Merge: Union of arrays, merge of object keys
     const cloudMastered = data.mastered_items || [];
     const cloudDates = data.study_dates || [];
     const cloudActivities = data.activity_results || {};
     const cloudQuizzes = data.quiz_history || {};
     const cloudMistakes = data.mistakes_bank || [];
+    const cloudSrsCards = data.srs_cards_v2 || {};
+    const cloudSrsLog = data.srs_review_log_v2 || [];
+    const cloudSrsGamification = data.srs_gamification_v2 || {};
+    const cloudSrsSettings = data.srs_settings_v2 || {};
 
     const mergedMastered = Array.from(new Set([...cloudMastered, ...localState.masteredItems]));
     const mergedDates = Array.from(new Set([...cloudDates, ...localState.studyDates]));
     const mergedActivities = { ...cloudActivities, ...localState.activityResults };
     const mergedQuizzes = { ...cloudQuizzes, ...localState.quizHistory };
     
-    // Merge mistakes array by unique question/id
     const mistakeMap = new Map();
     [...cloudMistakes, ...localState.mistakesBank].forEach((item) => {
       const key = item.id || item.question || JSON.stringify(item);
@@ -158,24 +174,59 @@ export const pullProgressFromCloud = async (userId) => {
     });
     const mergedMistakes = Array.from(mistakeMap.values());
 
+    // Merge SRS Cards (newer lastReview wins)
+    const mergedSrsCards = { ...cloudSrsCards, ...localState.srsCards };
+    Object.keys(cloudSrsCards).forEach((cardId) => {
+      const c1 = cloudSrsCards[cardId];
+      const c2 = localState.srsCards[cardId];
+      if (c1 && c2 && c1.lastReview && c2.lastReview) {
+        if (new Date(c1.lastReview) > new Date(c2.lastReview)) {
+          mergedSrsCards[cardId] = c1;
+        }
+      }
+    });
+
+    // Merge Review Logs (deduplicate by id/timestamp)
+    const logMap = new Map();
+    [...cloudSrsLog, ...localState.srsReviewLog].forEach((entry) => {
+      const key = entry.id || `${entry.timestamp}_${entry.cardId}`;
+      logMap.set(key, entry);
+    });
+    const mergedSrsLog = Array.from(logMap.values());
+
+    // Merge Gamification (max XP)
+    const maxXp = Math.max(cloudSrsGamification.xp || 0, localState.srsGamification.xp || 0);
+    const unlockedSet = new Set([
+      ...(cloudSrsGamification.unlockedAchievements || []),
+      ...(localState.srsGamification.unlockedAchievements || []),
+    ]);
+    const mergedGamification = {
+      ...localState.srsGamification,
+      ...cloudSrsGamification,
+      xp: maxXp,
+      unlockedAchievements: Array.from(unlockedSet),
+    };
+
+    const mergedSrsSettings = { ...cloudSrsSettings, ...localState.srsSettings };
+
     const mergedState = {
       masteredItems: mergedMastered,
       studyDates: mergedDates,
       activityResults: mergedActivities,
       quizHistory: mergedQuizzes,
       mistakesBank: mergedMistakes,
+      srsCards: mergedSrsCards,
+      srsReviewLog: mergedSrsLog,
+      srsGamification: mergedGamification,
+      srsSettings: mergedSrsSettings,
     };
 
-    // Apply merged state to local device
     applyStateToLocal(mergedState);
     isInitialPullComplete = true;
-
-    // Push merged state back to cloud so cloud has union of both devices!
     await pushProgressToCloud(targetUserId);
 
     return mergedState;
   } else {
-    // First time user on cloud -> push local state
     isInitialPullComplete = true;
     await pushProgressToCloud(targetUserId);
     return localState;
