@@ -6,11 +6,13 @@
       "Lesson_03",
       "Lesson_04",
       "Lesson_05",
-      "Lesson_06"
+      "Lesson_06",
+      "Lesson_07",
+      "Lesson_08"
     ],
-    "total_vocab_terms": 119,
-    "total_grammar_topics": 11,
-    "total_exercises": 36,
+    "total_vocab_terms": 138,
+    "total_grammar_topics": 16,
+    "total_exercises": 44,
     "categories": [
       "Theory",
       "Vocabulary",
@@ -602,6 +604,173 @@
           "type": "Everyday Question: Correct?",
           "example_tagalog": "Tama ba ito?",
           "example_english": "Is this correct?"
+        }
+      ]
+    },
+    {
+      "id": "THEORY-12",
+      "topic": "The Question Marker BA",
+      "lesson": "Lesson_07",
+      "summary": "The particle 'ba' has no direct English translation but acts as a spoken question mark to explicitly turn statements into questions and avoid ambiguity.",
+      "rules": [
+        {
+          "type": "Direct Order Placement",
+          "condition": "Placed after subject and before 'ay' (shortens to ba'y)",
+          "example": "Sila ba ay aalis na? / Sila ba'y aalis na?"
+        },
+        {
+          "type": "Inverted Order Placement",
+          "condition": "Placed immediately after the predicate",
+          "example": "Aalis ba sila? / Mabait ba ang babae?"
+        },
+        {
+          "type": "With Question Words",
+          "condition": "Placed immediately after the interrogative pronoun",
+          "example": "Sino ba ang kasama mo? / Ano ba ang gusto mo?"
+        },
+        {
+          "type": "Enclitic Monosyllables & Particles",
+          "condition": "Monosyllables (ka, ko, mo) and particles (na, pa, din/rin, daw/raw) come before 'ba'",
+          "example": "Aalis ka na ba? / Malinis daw ba ang bata?"
+        },
+        {
+          "type": "With Pseudo-Verbs (gusto, ayaw, etc.)",
+          "condition": "Placed between pseudo-verb and main verb with ligature -ng attached to ba",
+          "example": "Gusto bang kumain ng bata?"
+        }
+      ]
+    },
+    {
+      "id": "THEORY-13",
+      "topic": "Tagalog Enclitic Particles (Na, Pa, Din/Rin, Daw/Raw, Nga)",
+      "lesson": "Lesson_07",
+      "summary": "Enclitic particles express subtle nuances, emphasis, and time aspect in questions and statements.",
+      "table": [
+        {
+          "pronoun": "na",
+          "meaning": "already / now",
+          "type": "Finality aspect",
+          "usage": "Aalis ka na ba? (Will you leave already?)"
+        },
+        {
+          "pronoun": "pa",
+          "meaning": "still / yet / more",
+          "type": "Continuation aspect",
+          "usage": "Marumi pa ba siya? (Is he/she still dirty?)"
+        },
+        {
+          "pronoun": "din",
+          "meaning": "too / also (after consonants)",
+          "type": "Inclusion particle",
+          "usage": "Ikaw din ba? (You too?)"
+        },
+        {
+          "pronoun": "rin",
+          "meaning": "too / also (after vowels)",
+          "type": "Inclusion particle",
+          "usage": "Ako rin ba? (Me too?)"
+        },
+        {
+          "pronoun": "daw",
+          "meaning": "reportedly / they say (after consonants)",
+          "type": "Reported speech",
+          "usage": "Malinis daw ba ang bata? (Is the child clean as they say?)"
+        },
+        {
+          "pronoun": "raw",
+          "meaning": "reportedly / they say (after vowels)",
+          "type": "Reported speech",
+          "usage": "Ako raw ba? (They say it is I?)"
+        },
+        {
+          "pronoun": "nga",
+          "meaning": "indeed / really",
+          "type": "Emphasis particle",
+          "usage": "Mabait nga siya. (He/she is indeed kind.)"
+        }
+      ]
+    },
+    {
+      "id": "THEORY-14",
+      "topic": "Expressing Equality in Comparisons (Kasing-, Magkasing-, Pareho, Katulad, Gaya)",
+      "lesson": "Lesson_08",
+      "summary": "Tagalog uses prefixes kasing- and magkasing- or words pareho, katulad, gaya to express that two items possess equal degree of a quality.",
+      "table": [
+        {
+          "pronoun": "kasing-",
+          "meaning": "as [adjective] as",
+          "type": "Attached to root (a, e, i, o, u, k, g, h, m, n, w, y)",
+          "usage": "Si Maria ay kasingganda ni Elena."
+        },
+        {
+          "pronoun": "kasin-",
+          "meaning": "as [adjective] as",
+          "type": "Sound shift before d, l, r, s, t",
+          "usage": "kasindumi, kasinrunong"
+        },
+        {
+          "pronoun": "kasim-",
+          "meaning": "as [adjective] as",
+          "type": "Sound shift before b, p",
+          "usage": "kasimbait, kasimbaho"
+        },
+        {
+          "pronoun": "magkasing-",
+          "meaning": "are equally [adjective]",
+          "type": "Used when subjects are side by side",
+          "usage": "Sina Maria at Elena ay magkasingganda."
+        },
+        {
+          "pronoun": "pareho / katulad / gaya",
+          "meaning": "similar to / like",
+          "type": "Words expressing similarity",
+          "usage": "Si Maria ay maganda gaya ni Elena."
+        }
+      ]
+    },
+    {
+      "id": "THEORY-15",
+      "topic": "Expressing Inequality in Comparisons (Mas, Lalong, Higit na, Kaysa / Kesa)",
+      "lesson": "Lesson_08",
+      "summary": "To express that item A has a higher degree (superiority) or lower degree (inferiority) than item B.",
+      "rules": [
+        {
+          "type": "Superiority (A > B)",
+          "pattern": "A + mas / lalong / higit na + [adjective] + kaysa kay/sa + B",
+          "example": "Si Peter ay mas marunong kaysa kay John. / Ang matanda ay lalong masipag kaysa sa bata."
+        },
+        {
+          "type": "Kaysa kay vs Kaysa sa",
+          "condition": "Kaysa kay followed by person's name; Kaysa sa followed by thing or place name (shortened to kesa)",
+          "example": "kaysa kay John vs kaysa sa bata"
+        },
+        {
+          "type": "Inferiority (A < B)",
+          "pattern": "A + hindi + kasin-[adjective] + ni/ng + B",
+          "example": "Si John ay hindi kasinrunong ni Peter. (John is not as bright as Peter.)"
+        }
+      ]
+    },
+    {
+      "id": "THEORY-16",
+      "topic": "Intensives and Superlatives (Napaka-, Adjective Duplication, Pinaka-)",
+      "lesson": "Lesson_08",
+      "summary": "Intensives express 'very [adjective]' using napaka- or duplication with ligatures. Superlatives express 'the most / -est' using the prefix pinaka-.",
+      "rules": [
+        {
+          "type": "Intensive by Duplication",
+          "pattern": "[Adjective] + ligature (-ng, -g, na) + [Adjective]",
+          "example": "magandang-maganda (very beautiful), pangit na pangit (very ugly)"
+        },
+        {
+          "type": "Intensive by Prefix napaka-",
+          "pattern": "napaka- + [Adjective root]",
+          "example": "napakaganda (very beautiful), napakasipag (very industrious)"
+        },
+        {
+          "type": "Superlative by Prefix pinaka-",
+          "pattern": "pinaka- + [Adjective]",
+          "example": "pinakamaganda (most beautiful), pinakamalaking bahay (biggest house), pinakamataas na bundok (highest mountain)"
         }
       ]
     }
@@ -1836,6 +2005,100 @@
         "anu-ano"
       ],
       "explanation": "`Anu-ano` is the duplicated plural form of `ano` used when expecting plural answers."
+    },
+    {
+      "id": "EX-L07-001",
+      "lesson": "Lesson_07",
+      "type": "fill_in_blank",
+      "prompt": "Turn the statement \"Sila ay aalis na\" into a question: `Sila _____ ay aalis na?`",
+      "correctAnswer": "ba` / `ba'y",
+      "acceptedAnswers": [
+        "ba",
+        "ba'y"
+      ],
+      "explanation": "In direct order, `ba` is placed immediately after the subject and before `ay`."
+    },
+    {
+      "id": "EX-L07-002",
+      "lesson": "Lesson_07",
+      "type": "fill_in_blank",
+      "prompt": "Complete the question \"Will you leave already?\": `Aalis ka _____ _____?`",
+      "correctAnswer": "na ba",
+      "acceptedAnswers": [
+        "na ba"
+      ],
+      "explanation": "The particle `na` (already) comes before `ba`, following the monosyllabic pronoun `ka`."
+    },
+    {
+      "id": "EX-L07-003",
+      "lesson": "Lesson_07",
+      "type": "fill_in_blank",
+      "prompt": "Complete the question \"Is the child clean as they say?\": `Malinis _____ ba ang bata?`",
+      "correctAnswer": "daw",
+      "acceptedAnswers": [
+        "daw"
+      ],
+      "explanation": "`Daw` is used after words ending in consonants (`malinis` ends in 's')."
+    },
+    {
+      "id": "EX-L07-004",
+      "lesson": "Lesson_07",
+      "type": "fill_in_blank",
+      "prompt": "Ask \"Does the child like to eat?\": `Gusto _____ kumain ng bata?`",
+      "correctAnswer": "bang` / `ba",
+      "acceptedAnswers": [
+        "bang",
+        "ba"
+      ],
+      "explanation": "`Ba` combined with ligature `-ng` attaches to pseudo-verbs like `gusto` when preceding a main verb."
+    },
+    {
+      "id": "EX-L08-001",
+      "lesson": "Lesson_08",
+      "type": "fill_in_blank",
+      "prompt": "Express \"Maria is as beautiful as Elena\": `Si Maria ay __________ ni Elena.` (Root: `ganda`)",
+      "correctAnswer": "kasingganda` / `kasing-ganda",
+      "acceptedAnswers": [
+        "kasingganda",
+        "kasing-ganda"
+      ],
+      "explanation": "`Kasing-` + root `ganda` expresses equality (\"as beautiful as\")."
+    },
+    {
+      "id": "EX-L08-002",
+      "lesson": "Lesson_08",
+      "type": "fill_in_blank",
+      "prompt": "Express \"Maria and Elena are equally beautiful\": `Sina Maria at Elena ay __________.` (Root: `ganda`)",
+      "correctAnswer": "magkasingganda` / `magkasing-ganda",
+      "acceptedAnswers": [
+        "magkasingganda",
+        "magkasing-ganda"
+      ],
+      "explanation": "`Magkasing-` is used when comparing two subjects side by side."
+    },
+    {
+      "id": "EX-L08-003",
+      "lesson": "Lesson_08",
+      "type": "translation",
+      "prompt": "Translate \"Peter is brighter than John\" into Tagalog using `mas`.",
+      "correctAnswer": "Mas marunong si Peter kaysa kay John.` / `Si Peter ay mas marunong kaysa kay John.",
+      "acceptedAnswers": [
+        "Mas marunong si Peter kaysa kay John.",
+        "Si Peter ay mas marunong kaysa kay John."
+      ],
+      "explanation": "`Mas` + adjective + `kaysa kay` + [Person's name] expresses superiority."
+    },
+    {
+      "id": "EX-L08-004",
+      "lesson": "Lesson_08",
+      "type": "fill_in_blank",
+      "prompt": "Complete the sentence for \"This mountain is the highest mountain\": `Ang bundok na ito ang __________ na bundok.` (Root: `taas`)",
+      "correctAnswer": "pinakamataas` / `pinaka-mataas",
+      "acceptedAnswers": [
+        "pinakamataas",
+        "pinaka-mataas"
+      ],
+      "explanation": "The prefix `pinaka-` attached to `mataas` forms the superlative degree (\"the highest\")."
     }
   ]
 }

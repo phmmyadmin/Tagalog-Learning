@@ -65,6 +65,36 @@
       "slide": 22,
       "slideEnd": 22,
       "label": "Contracted Questions and Common Everyday Phrases"
+    },
+    "THEORY-12": {
+      "lesson": "Lesson_07",
+      "slide": 11,
+      "slideEnd": 11,
+      "label": "The Question Marker BA"
+    },
+    "THEORY-13": {
+      "lesson": "Lesson_07",
+      "slide": 11,
+      "slideEnd": 11,
+      "label": "Tagalog Enclitic Particles (Na, Pa, Din/Rin, Daw/Raw, Nga)"
+    },
+    "THEORY-14": {
+      "lesson": "Lesson_08",
+      "slide": 11,
+      "slideEnd": 11,
+      "label": "Expressing Equality in Comparisons (Kasing-, Magkasing-, Pareho, Katulad, Gaya)"
+    },
+    "THEORY-15": {
+      "lesson": "Lesson_08",
+      "slide": 11,
+      "slideEnd": 11,
+      "label": "Expressing Inequality in Comparisons (Mas, Lalong, Higit na, Kaysa / Kesa)"
+    },
+    "THEORY-16": {
+      "lesson": "Lesson_08",
+      "slide": 13,
+      "slideEnd": 13,
+      "label": "Intensives and Superlatives (Napaka-, Adjective Duplication, Pinaka-)"
     }
   },
   "vocabulary": {

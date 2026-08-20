@@ -9,6 +9,8 @@ import lesson03Slides from '../data/slides/Lesson_03.json';
 import lesson04Slides from '../data/slides/Lesson_04.json';
 import lesson05Slides from '../data/slides/Lesson_05.json';
 import lesson06Slides from '../data/slides/Lesson_06.json';
+import lesson07Slides from '../data/slides/Lesson_07.json';
+import lesson08Slides from '../data/slides/Lesson_08.json';
 
 const slideManifests = {
   Lesson_02: lesson02Slides,
@@ -16,6 +18,8 @@ const slideManifests = {
   Lesson_04: lesson04Slides,
   Lesson_05: lesson05Slides,
   Lesson_06: lesson06Slides,
+  Lesson_07: lesson07Slides,
+  Lesson_08: lesson08Slides,
 };
 
 /**
