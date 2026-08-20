@@ -15,7 +15,7 @@ export default function TheoryView({
 }) {
   const [activeLessonFilter, setActiveLessonFilter] = useState(selectedLesson);
 
-  const lessons = ['all', ...new Set(theoryList.map((item) => item.lesson).filter(Boolean))];
+  const lessons = ['all', ...new Set(theoryList.map((item) => item.lesson).filter(Boolean))].sort();
 
   // Filtering logic
   const filteredTheory = theoryList.filter((item) => {
@@ -29,12 +29,12 @@ export default function TheoryView({
     }
 
     // Internal Lesson filter chip
-    if (activeLessonFilter !== 'all' && item.lesson !== activeLessonFilter) {
+    if (activeLessonFilter !== 'all' && item.lesson !== activeLessonFilter && item.lesson !== activeLessonFilter.replace(' ', '_')) {
       return false;
     }
 
     // External Lesson filter from drawer
-    if (selectedLesson !== 'all' && item.lesson !== selectedLesson) {
+    if (selectedLesson !== 'all' && item.lesson !== selectedLesson && item.lesson !== selectedLesson.replace(' ', '_')) {
       return false;
     }
 
