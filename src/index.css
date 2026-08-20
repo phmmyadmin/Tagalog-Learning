@@ -338,3 +338,38 @@ h4 { font-size: 1.125rem; }
   }
 }
 
+/* SRS Rating Buttons Styling */
+.srs-rate-btn {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.srs-rate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.srs-rate-again:hover {
+  border-color: var(--accent-danger) !important;
+  background-color: #FEE2E2 !important;
+}
+
+.srs-rate-hard:hover {
+  border-color: var(--accent-warning) !important;
+  background-color: #FEF3C7 !important;
+}
+
+.srs-rate-good:hover {
+  border-color: var(--accent-primary) !important;
+  background-color: #DBEAFE !important;
+}
+
+.srs-rate-easy:hover {
+  border-color: var(--accent-success) !important;
+  background-color: #DCFCE7 !important;
+}
+
+

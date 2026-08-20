@@ -5,7 +5,7 @@ import React from 'react';
  */
 export const Button = ({
   children,
-  variant = 'primary', // 'primary' | 'secondary' | 'ghost' | 'danger' | 'success'
+  variant = 'primary', // 'primary' | 'secondary' | 'ghost' | 'danger' | 'warning' | 'success'
   size = 'md', // 'sm' | 'md' | 'lg'
   icon = null,
   fullWidth = false,
@@ -52,6 +52,11 @@ export const Button = ({
       backgroundColor: 'var(--accent-danger)',
       color: 'var(--text-inverse)',
       borderColor: 'var(--accent-danger)',
+    },
+    warning: {
+      backgroundColor: 'var(--accent-warning)',
+      color: 'var(--text-inverse)',
+      borderColor: 'var(--accent-warning)',
     },
     success: {
       backgroundColor: 'var(--accent-success)',
