@@ -3,6 +3,7 @@ import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { Button } from '../components/ui/Button';
+import AchievementModal from '../components/AchievementModal';
 import {
   getCardMaturityDistribution,
   calculateRetentionStats,
@@ -17,6 +18,7 @@ export default function SrsStatsView({ vocabularyList = [] }) {
   const [selectedForecastDay, setSelectedForecastDay] = useState(null);
   const [hoveredHistoryDay, setHoveredHistoryDay] = useState(null);
   const [hoveredForecastDay, setHoveredForecastDay] = useState(null);
+  const [selectedAchievement, setSelectedAchievement] = useState(null);
 
   const maturity = getCardMaturityDistribution(vocabularyList);
   const retention = calculateRetentionStats(30);
@@ -89,29 +91,47 @@ export default function SrsStatsView({ vocabularyList = [] }) {
           color="var(--accent-primary)"
         />
 
-        {/* Achievement Badges */}
+        {/* Achievement Badges (Clickable!) */}
         <div>
-          <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
-            Unlocked Achievements ({gamification.unlockedAchievements.length}/{ACHIEVEMENTS.length})
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>
+              Unlocked Achievements ({gamification.unlockedAchievements.length}/{ACHIEVEMENTS.length})
+            </span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              Click any badge to view details
+            </span>
           </div>
+
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
             {ACHIEVEMENTS.map((ach) => {
               const isUnlocked = gamification.unlockedAchievements.includes(ach.id);
               return (
                 <div
                   key={ach.id}
-                  title={`${ach.title}: ${ach.desc}`}
+                  onClick={() => setSelectedAchievement({ achievement: ach, isUnlocked })}
+                  title={`Click to view how to unlock ${ach.title}`}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.4rem',
-                    padding: '0.3rem 0.6rem',
+                    padding: '0.35rem 0.7rem',
                     borderRadius: 'var(--radius-sm)',
                     backgroundColor: isUnlocked ? 'var(--bg-surface)' : 'var(--bg-surface-alt)',
                     border: isUnlocked ? '1px solid var(--accent-warning)' : '1px solid var(--border-default)',
-                    opacity: isUnlocked ? 1 : 0.45,
+                    opacity: isUnlocked ? 1 : 0.55,
                     fontSize: '0.825rem',
                     fontWeight: isUnlocked ? 700 : 500,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                    userSelect: 'none',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'none';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
                   <span>{ach.icon}</span>
@@ -516,6 +536,15 @@ export default function SrsStatsView({ vocabularyList = [] }) {
           </div>
         )}
       </Card>
+
+      {/* Achievement Detail Modal */}
+      {selectedAchievement && (
+        <AchievementModal
+          achievement={selectedAchievement.achievement}
+          isUnlocked={selectedAchievement.isUnlocked}
+          onClose={() => setSelectedAchievement(null)}
+        />
+      )}
     </div>
   );
 }
