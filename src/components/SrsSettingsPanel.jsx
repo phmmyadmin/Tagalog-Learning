@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { getSrsSettings, saveSrsSettings } from '../utils/srsStore';
@@ -7,7 +8,7 @@ export default function SrsSettingsPanel({ isOpen, onClose }) {
   const [settings, setSettings] = useState(getSrsSettings());
   const [savedMessage, setSavedMessage] = useState(false);
 
-  if (!isOpen) return null;
+  if (!isOpen || typeof document === 'undefined') return null;
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -19,29 +20,36 @@ export default function SrsSettingsPanel({ isOpen, onClose }) {
     }, 1000);
   };
 
-  return (
+  const modalContent = (
     <div
       style={{
         position: 'fixed',
-        inset: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
         backdropFilter: 'blur(4px)',
-        zIndex: 1000,
+        zIndex: 99999,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '1rem',
       }}
-      className="animate-fade-in"
     >
       <Card
         style={{
-          maxWidth: '480px',
+          maxWidth: '460px',
           width: '100%',
+          maxHeight: '85vh',
+          overflowY: 'auto',
+          backgroundColor: 'var(--bg-surface)',
           padding: '1.75rem',
           display: 'flex',
           flexDirection: 'column',
           gap: '1.25rem',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.08)',
+          borderRadius: 'var(--radius-lg)',
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -141,4 +149,6 @@ export default function SrsSettingsPanel({ isOpen, onClose }) {
       </Card>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
