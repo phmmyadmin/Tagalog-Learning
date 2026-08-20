@@ -1,0 +1,436 @@
+{
+  "lesson": "Lesson_08",
+  "totalSlides": 19,
+  "slides": [
+    {
+      "slideNumber": 1,
+      "title": "WELCOME back Pablo!",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 2,
+      "title": "Lesson 08",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 3,
+      "title": "Making Comparisons",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 4,
+      "title": "Slide 4",
+      "paragraphs": [
+        {
+          "text": "People and things have qualities or attributes that may be compared to one another. These qualities are expressed by an adjective, which can indicate if two people or things are equal or not equal, or if a person or thing has a high degree of a certain quality-if not the highest among all others. In the Tagalog language, as in English, there are various ways of comparing things according to the different levels or degrees.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 5,
+      "title": "express equality",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 6,
+      "title": "Slide 6",
+      "paragraphs": [
+        {
+          "text": "I. To express equality between two nouns (A and B) in terms of one quality, either attach the prefixes kasing - or magkasing - , which by themselves mean as, t o the root word of an adjective ; or use the words pareho , katulad or gaya , all of which mean similar to or like .",
+          "isBullet": false
+        },
+        {
+          "text": "1.A is as [adjective] as B",
+          "isBullet": false
+        },
+        {
+          "text": "Formula: A prefix kasing - + adjective + ni ( or ng) B",
+          "isBullet": false
+        },
+        {
+          "text": "This phrase means as + adjective + as as seen in the following examples, and the order can also be reversed with kasing - +adjective at the beginning of the sentence.",
+          "isBullet": false
+        },
+        {
+          "text": "Si Maria ay kasing ganda ni Elena.\t\tMaria is as beautiful as Elena.",
+          "isBullet": false
+        },
+        {
+          "text": "Kasinggaling ni Rizal si Bonifacio. As good as Rizal, Bonifacio is. (lie.)",
+          "isBullet": false
+        },
+        {
+          "text": "Bonifacio is as good as Rizal.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang Spain ay kasinglinis ng Pilipinas.\tSpain is as clean as Philippines.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 7,
+      "title": "2. A and B are equally [adjective]",
+      "paragraphs": [
+        {
+          "text": "Formula: prefix magkasing - + adjective",
+          "isBullet": true
+        },
+        {
+          "text": "Unlike the previous formula, subjects being compared using magkasing - are mentioned side by side.",
+          "isBullet": false
+        },
+        {
+          "text": "An optional pronoun or article introducing the name or names of subject or subjects is needed if magkasing - is placed at the beginning of the sentence (see second and third sentences).",
+          "isBullet": false
+        },
+        {
+          "text": "Sina Maria at Elena ay magkasingganda .\t \tMaria and Elena are equally beautiful.",
+          "isBullet": false
+        },
+        {
+          "text": "Magkasinggaling sina Rizal at Bonifacio.\t \tRizal and Bonifacio are equally good .",
+          "isBullet": false
+        },
+        {
+          "text": "Magkasintaas kami. We are equally tall.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 8,
+      "title": "Slide 8",
+      "paragraphs": [
+        {
+          "text": "Note how the following prefixes are attached to the adjectives: a. Kasing - or magkasing - is attached to roots that begin in a, e, i , o, u, k, g, h, m, n, w, and y (for example: kasingkulot meaning as curly as) B. kasin - or magkasin - is attached to roots that begin with d, I, r, s, and t (for example: kasindumi meaning as dirty as ) c. kasim - or magkasim - is attached to roots that begins with b and p (for example: magkasimbaho meaning as faul -smelling as) remember also that names of people must be preceded by the articles ni / nina and si / sina while names of things or places use the articles ng/ng mga .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 9,
+      "title": "3. A is [adjective] like B",
+      "paragraphs": [
+        {
+          "text": "Formula: A + adjective + pareho ni /ng , katulad ni /ng or gaya ni /ng + B",
+          "isBullet": false
+        },
+        {
+          "text": "These phrases mean similar to or like on their own and but translate to the first formula ( as+ adjec­tive + as ) when used to compare the qualities of nouns.",
+          "isBullet": false
+        },
+        {
+          "text": "Si Maria ay maganda pareho ni Elena.",
+          "isBullet": false
+        },
+        {
+          "text": "Si Maria ay maganda gaya ni Elena.",
+          "isBullet": false
+        },
+        {
+          "text": "Maria is beautiful like (as beautiful as) Elena. Ang Espanya ay malaki pareho ng Pilipinas.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 10,
+      "title": "II. INEQUALITY (A\tB)",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 11,
+      "title": "A is better than B",
+      "paragraphs": [
+        {
+          "text": "To express that something is better than something else, the formula is:",
+          "isBullet": false
+        },
+        {
+          "text": "A + lalong ( or higit na or mas) + [adjective] + kaysa kay ( or kaysa sa ) + B",
+          "isBullet": false
+        },
+        {
+          "text": "The first noun is usually the one with the higher degree of quality. Lalong ( lalo + the ligature",
+          "isBullet": false
+        },
+        {
+          "text": "- ng ), higit na ( higit + the ligature na ) or mas (no ligature) all mean more while kaysa means than . Similar to the possessive words ni and ng , kaysa kay is followed by the name of a person while kaysa sa is fol­lowed by the name of a place or thing . Kaysa sa may be shortened to kesa .",
+          "isBullet": false
+        },
+        {
+          "text": "Si Peter ay lalong marunong kaysa kay John.",
+          "isBullet": false
+        },
+        {
+          "text": "Higit na marunong si Peter kaysa kay John. \t\t\t\tPeter is brighter than John.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang matanda ay lalong masipag kaysa sa bata.",
+          "isBullet": false
+        },
+        {
+          "text": "Mas masipag ang matanda kaysa sa bata. The old is more diligent than the young.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 12,
+      "title": "2. A is worse than B",
+      "paragraphs": [
+        {
+          "text": "To express a lower quality or lesser degree, the formula is:",
+          "isBullet": false
+        },
+        {
+          "text": "A + hindi kasing - + [adjective] + ni /ng + B",
+          "isBullet": false
+        },
+        {
+          "text": "The resulting phrase not as [adjective] as means that the quality of the first noun is lower or less­er than that of the second noun.",
+          "isBullet": false
+        },
+        {
+          "text": "Si John ay hindi kasinrunong ni Peter. John is not as bright as Peter.",
+          "isBullet": false
+        },
+        {
+          "text": "Hindi kasinrunong si John ni Peter.",
+          "isBullet": false
+        },
+        {
+          "text": "Ang aking anak ay hindi kasimbait ng anak niya . My child is not as good as his/her child.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 13,
+      "title": "III. INTENSIVES: A IS VERY [ADJECTIVE]",
+      "paragraphs": [
+        {
+          "text": "The intensive degree expresses a quality of a noun in a more forceful and emphatic way by using a phrase that starts with very. There ate many ways to express the intensity of the qualities in Tagalog but the most common are the following:",
+          "isBullet": false
+        },
+        {
+          "text": "1. By duplicating the adjective and attaching an appropriate ligature (-ng, -g or na ):",
+          "isBullet": true
+        },
+        {
+          "text": "maganda ng -maganda very beautiful",
+          "isBullet": true
+        },
+        {
+          "text": "matanda ng -matanda very old",
+          "isBullet": false
+        },
+        {
+          "text": "pangit na pangit very ugly",
+          "isBullet": false
+        },
+        {
+          "text": "masipag na masipag very industrious",
+          "isBullet": false
+        },
+        {
+          "text": "mayaman g -mayaman",
+          "isBullet": false
+        },
+        {
+          "text": "2. By attaching the prefix napaka - (which means very) to the adjective:",
+          "isBullet": true
+        },
+        {
+          "text": "napakapangit very ugly",
+          "isBullet": false
+        },
+        {
+          "text": "napakasipag very industrious",
+          "isBullet": false
+        },
+        {
+          "text": "napakatanda very old",
+          "isBullet": false
+        },
+        {
+          "text": "napakaganda very beautiful",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 14,
+      "title": "IV. SUPERLATIVES: A IS THE MOST [ADJECTIVE]",
+      "paragraphs": [
+        {
+          "text": "Superlatives express the quality of something to the highest degree (the greatest, the best, the most). It uses the prefix pinaka - (which means most) attached to adjectives, resulting in such words as the following: pinakapangit the ugliest",
+          "isBullet": false
+        },
+        {
+          "text": "pinakamalinis cleanest pinakamasipag most industrious",
+          "isBullet": false
+        },
+        {
+          "text": "Pinakamatanda oldest",
+          "isBullet": false
+        },
+        {
+          "text": "pinakamaganda most beautiful",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 15,
+      "title": "Slide 15",
+      "paragraphs": [
+        {
+          "text": "Describe a quality or feature of the following nouns, using the superlative form .",
+          "isBullet": false
+        },
+        {
+          "text": "1. bahay house \t \t\t6. yelo Ice",
+          "isBullet": false
+        },
+        {
+          "text": "2 babae woman\t\t\t7. bundok mountain",
+          "isBullet": false
+        },
+        {
+          "text": "3. araw sun\t\t\t 8. ilog river",
+          "isBullet": false
+        },
+        {
+          "text": "4 \tgabi\t\tnight\t\t\t9. radyo radio",
+          "isBullet": false
+        },
+        {
+          "text": "5. simbahan church\t\t\t10. langit sky 1. Pinakamalaking bahay 6. Pinakamalamig na yelo",
+          "isBullet": false
+        },
+        {
+          "text": "2. Pinakamagandang babae 7. Pinakamataas na bundok",
+          "isBullet": false
+        },
+        {
+          "text": "3. Pinakamainit na araw 8. Pinakamalinaw na ilog",
+          "isBullet": false
+        },
+        {
+          "text": "4. Pinakamalamig na gabi\t\t\t\t9. Pinakamaingay na radyo",
+          "isBullet": false
+        },
+        {
+          "text": "5. Pinakatahimik na simbahan 10. Pinakabughaw na langit",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 16,
+      "title": "Slide 16",
+      "paragraphs": [
+        {
+          "text": "Use the following adjectives and write down examples for each of the levels discussed in this lesson.",
+          "isBullet": false
+        },
+        {
+          "text": "1.  bait\t\tSi Bonifacio ay kasingbait ni Jose Rizal.",
+          "isBullet": false
+        },
+        {
+          "text": "2. taba Ang aking babae ay kasingtaba ko.",
+          "isBullet": false
+        },
+        {
+          "text": "3. runong Ako at siya ay magkasingrunong .",
+          "isBullet": false
+        },
+        {
+          "text": "4. masama",
+          "isBullet": false
+        },
+        {
+          "text": "5. malaki",
+          "isBullet": false
+        },
+        {
+          "text": "6. mahirap",
+          "isBullet": false
+        },
+        {
+          "text": "7. sipag",
+          "isBullet": false
+        },
+        {
+          "text": "8. yaman",
+          "isBullet": false
+        },
+        {
+          "text": "9. ayos",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 17,
+      "title": "Exercises",
+      "paragraphs": [
+        {
+          "text": "Compare the singing skills of two famous singers you like based on the following criteria using the  different degrees of adjectives you have just learned. Use the adjectives given for each category to  describe the similarity of or the differences in their skills.",
+          "isBullet": false
+        },
+        {
+          "text": "1. rhythm ( indayog ) mabilis fast",
+          "isBullet": false
+        },
+        {
+          "text": "2. style ( istilo ) makabago modern",
+          "isBullet": false
+        },
+        {
+          "text": "3. voice ( boses or tono ) malawak broad",
+          "isBullet": false
+        },
+        {
+          "text": "4. kind of music ( uri ng tugtugin ) maganda Beautiful",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 18,
+      "title": "Great job! We just ended our lesson!",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 19,
+      "title": "Thank you!",
+      "paragraphs": [],
+      "images": []
+    }
+  ]
+}

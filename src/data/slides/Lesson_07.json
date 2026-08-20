@@ -1,0 +1,317 @@
+{
+  "lesson": "Lesson_07",
+  "totalSlides": 18,
+  "slides": [
+    {
+      "slideNumber": 1,
+      "title": "WELCOME back Pablo!",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 2,
+      "title": "Lesson 07",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 3,
+      "title": "The Question Word Ba",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 4,
+      "title": "Slide 4",
+      "paragraphs": [
+        {
+          "text": "Certain words unique to the Tagalog language give a particular meaning or sentiment that a speaker may wish to convey in his/her sentences and questions. These words spice up the language. Curiosity, frustration, irritation and other emotions pepper everyday Tagalog speech and a learner of this lan­guage will do well to understand these nuances. One example is the question word ba . The word has no specific meaning and cannot be translated in English except that it serves as a spoken question mark to indicate clearly that the speaker is ask­ing a question.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 5,
+      "title": "Slide 5",
+      "paragraphs": [
+        {
+          "text": "Questions do not necessarily need ba but without the ba , a question may be mistaken for a state­ment, especially when pronounced wrongly, as in the following examples:",
+          "isBullet": false
+        },
+        {
+          "text": "Sila ay aalis na. They will leave now.",
+          "isBullet": false
+        },
+        {
+          "text": "Sila ba ay aalis na ?\t\t\tAre they leaving now?",
+          "isBullet": false
+        },
+        {
+          "text": "(Remember to raise the tone of voice at the end of \t\t\t\t\t\t\t\t\ta question to differentiate it from a statement.)",
+          "isBullet": false
+        },
+        {
+          "text": "The question above may be written as Aalis na ba sila ? to emphasize that the action aalis as being confirmed or awaited by the speaker. In Sila ba ay aalis na ?, the focus is on the subject, which is sila , rather than on the action of leaving.",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 6,
+      "title": "WHAT ARE THE RULES FOR USING BA?",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 7,
+      "title": "Slide 7",
+      "paragraphs": [
+        {
+          "text": "1. To change a sentence in the subject-predicate word order into a question, place ba immediately after the subject and just before ay . T he sequence ba + ay is then often shortened into ba'y . Sila ay aalis na. They will leave already. Sila ba ay aalis na ? Are they leaving now? Sila ba'y aalis na ? Ang babae ay mabait . \t\tT he woman is good/kind. Ang babae ba ay mabait ?\t\tI s the woman good? Ang babae ba'y mabait ? Si Pedro ay marunong . Pedro is intelligent. Si Pedro ba ay marunong ? ls Pedro intelligent? Si Pedro ba'y marunong ?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 8,
+      "title": "Vocabulary List",
+      "paragraphs": [
+        {
+          "text": "aalis = is/are leaving radyo = radio",
+          "isBullet": false
+        },
+        {
+          "text": "magkano = how much kaibigan = friend matapang = brave marumi = dirty",
+          "isBullet": false
+        },
+        {
+          "text": "kasama = companion magsalita = to speak up",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 9,
+      "title": "Slide 9",
+      "paragraphs": [
+        {
+          "text": "2. To change a sentence in the inverted or transposed word order into a question, place ba immediately after the predicate . Aalis sila . They will leave.",
+          "isBullet": false
+        },
+        {
+          "text": "Aalis ba sila ? Will they leave?",
+          "isBullet": false
+        },
+        {
+          "text": "Mabait ang babae . The woman is good .",
+          "isBullet": false
+        },
+        {
+          "text": "Mabait ba ang babae ? Is the woman good?",
+          "isBullet": false
+        },
+        {
+          "text": "Kakain ako . I shall eat.",
+          "isBullet": false
+        },
+        {
+          "text": "Kakain ba ako ? Shall I eat?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 10,
+      "title": "Slide 10",
+      "paragraphs": [
+        {
+          "text": "3.\tIn questions that start with interrogatives , always place ba immediately after the interrogative pro­noun. This sequence is not answerable by yes or no unlike the examples in the first  two rules in using ba .",
+          "isBullet": false
+        },
+        {
+          "text": "Sino ba ang kasama mo ? \t\t\tWho is your companion?",
+          "isBullet": false
+        },
+        {
+          "text": "Ano ba ang gusto mo ?\t\t\t\t\tWhat do you like?",
+          "isBullet": false
+        },
+        {
+          "text": "Saan ba kayo pupunta ? \t\t\t\t Where are you going?",
+          "isBullet": false
+        },
+        {
+          "text": "Kailan ba kayo aalis ?\t\t\t\t\t When are you leaving?",
+          "isBullet": false
+        },
+        {
+          "text": "Magkano ba ito ?\t\t\t     \t\t \tHow much is chis?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 11,
+      "title": "Slide 11",
+      "paragraphs": [
+        {
+          "text": "There are cases where monosyllabic words- such as the personal pronouns ka, ko , and mo as well as the Tagalog particles na , pa, din, daw , po, ho, nga , and others-are inserted for emphasis. They follow the interrogatives and push ba f urther toward the end of the question.",
+          "isBullet": false
+        },
+        {
+          "text": "Ba actually belongs to the same group as the Tagalog particles n a , pa, din, daw , and others, which are optional in sentences and questions but gives emphasis to statements. The other monosyllabic par­ticles have the following meanings:",
+          "isBullet": false
+        },
+        {
+          "text": "- Na means already or now , and expresses finality",
+          "isBullet": false
+        },
+        {
+          "text": "-Pa means still , yet or more",
+          "isBullet": false
+        },
+        {
+          "text": "- Din means too and also ; placed after words ending in consonants ( lka w din ba ? You too? );",
+          "isBullet": false
+        },
+        {
+          "text": "Rin placed after words ending in vowels (Ak o rin ba ? Me too.?)",
+          "isBullet": false
+        },
+        {
+          "text": "-Daw means they say or reportedly ; expresses that the information relayed by the speaker is from another source; placed after words ending in consonants ( lka w daw . They say it is you.); raw is placed after words ending in vowels (Ako raw. They say it is I.)",
+          "isBullet": false
+        },
+        {
+          "text": "-Nga means indeed , also puts emphasis to the word before it",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 12,
+      "title": "Aalis na ba sila ? Will they leave already?",
+      "paragraphs": [
+        {
+          "text": "Aalis ka na ba ? Will you leave already?",
+          "isBullet": false
+        },
+        {
+          "text": "Maganda rin ba ang babae ? Is the woman pretty too?",
+          "isBullet": false
+        },
+        {
+          "text": "Malinis daw ba ang bata? Is the child clean as they say?",
+          "isBullet": false
+        },
+        {
+          "text": "Marumi raw ba ang bata? ls the child dirty as they say?",
+          "isBullet": false
+        },
+        {
+          "text": "Marumi pa ba siya ? Is he/she still dirty?",
+          "isBullet": false
+        },
+        {
+          "text": "Ang bata daw ba ay malinis ? Malinis daw ba ang bata?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 13,
+      "title": "Slide 13",
+      "paragraphs": [
+        {
+          "text": "4.\tIn questions that start with pseudo verbs such as gusto, ayaw , ibig , puwede , maaari , and oth­ers, which help the main verb to express moods (see future Lesson on Pseudo Verbs), place ba between the pseudo verb and the main verb and attach the ligature -ng to ba .",
+          "isBullet": false
+        },
+        {
+          "text": "Gusto bang kumain ng bata?\t\t\tDoes the child like to eat?  Um verb",
+          "isBullet": false
+        },
+        {
+          "text": "lbig bang umalis ng lalaki ?\t\t\tDoes the man like to leave?",
+          "isBullet": false
+        },
+        {
+          "text": "Ayaw bang umalis ng babae ?\t\t\tDoesn't the woman want to leave?",
+          "isBullet": false
+        },
+        {
+          "text": "However, if a pronoun comes before the main verb (usually an - um- or mag- verb , see Lesson Fourteen), the ligature -ng is attached to the pronouns siya , kami, sila and tayo rather than to ba .",
+          "isBullet": false
+        },
+        {
+          "text": "Dapat ba siya ng magsalita ?\t\t\tShould he/she speak?",
+          "isBullet": false
+        },
+        {
+          "text": "Puwede ba ako ng umalis ?\t\t\tCan I go?",
+          "isBullet": false
+        },
+        {
+          "text": "Maaarl ba kami ng magtiwala sa iyo ?\tShould we trust you?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 14,
+      "title": "Slide 14",
+      "paragraphs": [
+        {
+          "text": "Note that in some Tagalog-speaking provinces, baga is used instead of ba . In asking questions, raise your voice at the end if the answer is either yes or no; if not, bring down the voice at the end. Aalis ka ba :? Oo/Hindi. Are you leaving? Yes/No. Sino ka ba ? Ako si Mary. Who are you? I am Mary.",
+          "isBullet": false
+        }
+      ],
+      "images": [
+        "/slides/Lesson_07/image3.png",
+        "/slides/Lesson_07/image4.png"
+      ]
+    },
+    {
+      "slideNumber": 15,
+      "title": "Slide 15",
+      "paragraphs": [
+        {
+          "text": "Form questions using the following statements by inserting ba in the appropriate places. Form questions using the following statements by inserting ba in the appropriate places. 1. Ang kaibigan ko ay si herbert . \tAng kaibigan ko ba ay si Herbert? 2. Sila ay pupunta sa kapilya . \t\tSila ba’y pupunta sa kapilya ? 3. Ako ay guro . \t\t\tAko ba ay guro ? 5. Marunong ng tagalog si peter. Marunong ba ng tagalog si Peter? 4. Siya ay mabait na bata. \t\tSiya ba ay mabait na bata? 5. Ang magagandang bahay ay kanila . Ang magagandang bahay ba ay kanila ? 6. Sila ay magsasalita sa radyo .\t \tSila ba ay magsasalita sa radio? 7. Ang mga mababait ay sina Helen at Mary. Ang mga mababait ba ay sila sina Helen at Mary. 8. Kakain ka na. Kakain ka na ba ? 9. Mabait din si robert . Mabait din ba si Robert? 1 0. Maari ako umalis . \t\tMaari ba akong umalis ?",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 16,
+      "title": "Slide 16",
+      "paragraphs": [
+        {
+          "text": "Answer the following questions. 1. Ano ba ang inyong pangalan ? (Formal) 2. Saan ba kayo nakatira ? (Formal) 3.S ino ba ang inyong kaibigan dito ? (Formal)\tAng aking kaibigan ay si James 4. Mabait ba siya ? Opo 5. Siya ba ay amerikano ?\tHindi po 6. Saan- saan kayo pumunta (went)? Pumunta kami sa El nido ,Coron at Havier . 7. Malaki ba ang bahay nila ? Opo Malaki ang bahay nila 9. Si Bonifacio ba ay matapang ? Opo , matapang si Bonifacio 10. Gusto ba ninyo sa pilipinas ? Opo gusto namin sa Pilipinas * Jose P. Rizal (1861-1896) is the national hero of the Philippines. He is a writer, poet, physician, soci­ologist and nationalist, among others. Andres bonifacio (1863-1896) is the father of the revolution­ary movement called katipunan and led the revolt of the masses against spain .",
+          "isBullet": false
+        }
+      ],
+      "images": []
+    },
+    {
+      "slideNumber": 17,
+      "title": "Great job! We just ended our lesson!",
+      "paragraphs": [],
+      "images": []
+    },
+    {
+      "slideNumber": 18,
+      "title": "Thank you!",
+      "paragraphs": [],
+      "images": []
+    }
+  ]
+}
