@@ -99,18 +99,29 @@ export function calculateRetentionStats(daysWindow = 30) {
 }
 
 /**
- * Generates 30-day daily review count histogram data.
+ * Generates 30-day daily review count histogram data with attached item review logs.
  */
-export function getDailyReviewHistory(numDays = 30) {
+export function getDailyReviewHistory(numDays = 30, vocabularyList = []) {
   const log = getReviewLog();
   const historyMap = {};
+
+  const vocabMap = new Map();
+  vocabularyList.forEach((item) => {
+    if (item.id) vocabMap.set(item.id, item);
+  });
 
   const today = new Date();
   for (let i = numDays - 1; i >= 0; i--) {
     const d = new Date(today);
     d.setDate(today.getDate() - i);
     const dateStr = d.toISOString().split('T')[0];
-    historyMap[dateStr] = { date: dateStr, count: 0, correct: 0, timeSec: 0 };
+    historyMap[dateStr] = {
+      date: dateStr,
+      count: 0,
+      correct: 0,
+      timeSec: 0,
+      items: [],
+    };
   }
 
   log.forEach((entry) => {
@@ -119,6 +130,16 @@ export function getDailyReviewHistory(numDays = 30) {
       historyMap[dateStr].count += 1;
       if (entry.rating >= 2) historyMap[dateStr].correct += 1;
       if (entry.timeMs) historyMap[dateStr].timeSec += Math.round(entry.timeMs / 1000);
+
+      const vocabItem = vocabMap.get(entry.cardId) || { id: entry.cardId, word: entry.cardId, meaning: '' };
+
+      historyMap[dateStr].items.push({
+        ...vocabItem,
+        logEntry: entry,
+        rating: entry.rating,
+        ratingName: entry.ratingName || (entry.rating === 1 ? 'again' : entry.rating === 2 ? 'hard' : entry.rating === 3 ? 'good' : 'easy'),
+        timeMs: entry.timeMs || 0,
+      });
     }
   });
 
@@ -126,7 +147,7 @@ export function getDailyReviewHistory(numDays = 30) {
 }
 
 /**
- * Generates 30-day future workload forecast (cards due per day).
+ * Generates 30-day future workload forecast (cards due per day) with attached card details.
  */
 export function getWorkloadForecast(vocabularyList = [], daysAhead = 30) {
   const cards = getSrsCardStates();
@@ -139,8 +160,14 @@ export function getWorkloadForecast(vocabularyList = [], daysAhead = 30) {
     const d = new Date(today);
     d.setDate(today.getDate() + i);
     const dateStr = d.toISOString().split('T')[0];
-    forecastMap[dateStr] = 0;
+    forecastMap[dateStr] = {
+      date: dateStr,
+      count: 0,
+      items: [],
+    };
   }
+
+  const todayStr = today.toISOString().split('T')[0];
 
   vocabularyList.forEach((item) => {
     const c = cards[item.id];
@@ -148,19 +175,23 @@ export function getWorkloadForecast(vocabularyList = [], daysAhead = 30) {
       const dueDate = new Date(c.due);
       dueDate.setHours(0, 0, 0, 0);
       const dateStr = dueDate.toISOString().split('T')[0];
+
+      const itemWithSrs = { ...item, srs: c };
+
       if (dateStr in forecastMap) {
-        forecastMap[dateStr] += 1;
+        forecastMap[dateStr].count += 1;
+        forecastMap[dateStr].items.push(itemWithSrs);
       } else if (dueDate < today) {
         // Overdue cards count toward today's forecast
-        const todayStr = today.toISOString().split('T')[0];
-        if (forecastMap[todayStr] !== undefined) {
-          forecastMap[todayStr] += 1;
+        if (forecastMap[todayStr]) {
+          forecastMap[todayStr].count += 1;
+          forecastMap[todayStr].items.push(itemWithSrs);
         }
       }
     }
   });
 
-  return Object.entries(forecastMap).map(([date, count]) => ({ date, count }));
+  return Object.values(forecastMap);
 }
 
 /**
