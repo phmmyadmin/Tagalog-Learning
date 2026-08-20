@@ -98,8 +98,8 @@ export default function VocabularyCard({ vocabItem, isMastered = false, onToggle
         </div>
 
         {/* Word Title & Audio */}
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.25rem' }}>
-          <h3 style={{ fontSize: '1.35rem', color: 'var(--text-primary)', margin: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.2rem' }}>
+          <h3 style={{ fontSize: '1.35rem', color: 'var(--text-primary)', margin: 0, fontWeight: 700 }}>
             {vocabItem.word}
           </h3>
           {onSpeak && (
@@ -115,10 +115,29 @@ export default function VocabularyCard({ vocabItem, isMastered = false, onToggle
           )}
         </div>
 
-        {/* Translation */}
-        <p style={{ fontSize: '1rem', color: 'var(--accent-primary)', fontWeight: 600, margin: '0 0 0.5rem 0' }}>
-          {vocabItem.translation}
-        </p>
+        {/* English Translation */}
+        {(vocabItem.meaning || vocabItem.translation) && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                color: 'var(--accent-primary)',
+                backgroundColor: 'var(--bg-surface-alt)',
+                padding: '0.1rem 0.4rem',
+                borderRadius: 'var(--radius-sm)',
+                border: '1px solid var(--border-default)',
+                letterSpacing: '0.04em',
+              }}
+            >
+              EN
+            </span>
+            <span style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+              {vocabItem.meaning || vocabItem.translation}
+            </span>
+          </div>
+        )}
 
         {/* Phonetics / Notes */}
         {vocabItem.phonetic && (
