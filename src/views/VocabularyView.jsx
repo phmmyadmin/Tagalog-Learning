@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import VocabularyCard from '../components/VocabularyCard';
-import SrsFlashcard from '../components/SrsFlashcard';
+import SrsSessionView from './SrsSessionView';
+import SrsStatsView from './SrsStatsView';
+import SrsSettingsPanel from '../components/SrsSettingsPanel';
 import { FilterChip } from '../components/ui/FilterChip';
 import { Button } from '../components/ui/Button';
 import { EmptyState } from '../components/ui/EmptyState';
+import { migrateLegacyMasteredItems } from '../utils/srsStore';
 
 export default function VocabularyView({
   vocabularyList = [],
@@ -14,20 +17,20 @@ export default function VocabularyView({
   onToggleMastered,
   onOpenLesson,
 }) {
-  const [mode, setMode] = useState('dictionary'); // 'dictionary' | 'flashcards'
+  const [mode, setMode] = useState('dictionary'); // 'dictionary' | 'flashcards' | 'stats'
   const [selectedPos, setSelectedPos] = useState('all');
   const [activeLessonFilter, setActiveLessonFilter] = useState(selectedLesson);
-  const [srsIndex, setSrsIndex] = useState(0);
-  const [historyStack, setHistoryStack] = useState([]);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const posList = ['all', 'noun', 'verb', 'adjective', 'pronoun', 'adverb'];
   const lessons = ['all', ...new Set(vocabularyList.map((item) => item.lesson).filter(Boolean))].sort();
 
-  // Reset SRS index & history when filters change
+  // Run legacy mastered items migration on initial render
   useEffect(() => {
-    setSrsIndex(0);
-    setHistoryStack([]);
-  }, [searchQuery, selectedPos, activeLessonFilter, selectedLesson, filterMastered]);
+    if (vocabularyList.length > 0 && masteredIds.length > 0) {
+      migrateLegacyMasteredItems(vocabularyList, masteredIds);
+    }
+  }, [vocabularyList, masteredIds]);
 
   const filteredVocab = vocabularyList.filter((item) => {
     if (searchQuery) {
@@ -69,62 +72,16 @@ export default function VocabularyView({
     window.speechSynthesis.speak(utterance);
   };
 
-  const handleRateCard = (rating) => {
-    const currentCard = filteredVocab[srsIndex];
-    if (!currentCard) return;
-
-    const wasMasteredBefore = masteredIds.includes(currentCard.id);
-    let newlyMastered = false;
-
-    // Automatically mark as mastered in vocabulary list when rated "easy"
-    if (rating === 'easy') {
-      if (!wasMasteredBefore && onToggleMastered) {
-        onToggleMastered(currentCard.id);
-        newlyMastered = true;
-      }
-    }
-
-    setHistoryStack((prev) => [
-      ...prev,
-      {
-        index: srsIndex,
-        cardId: currentCard.id,
-        newlyMastered,
-        rating,
-      },
-    ]);
-
-    if (srsIndex < filteredVocab.length - 1) {
-      setSrsIndex((prev) => prev + 1);
-    } else {
-      setSrsIndex(0);
-    }
-  };
-
-  const handleUndoCard = () => {
-    if (historyStack.length === 0) return;
-
-    const lastState = historyStack[historyStack.length - 1];
-    setHistoryStack((prev) => prev.slice(0, -1));
-
-    // Revert mastered status if easy rating newly marked it as mastered
-    if (lastState.newlyMastered && masteredIds.includes(lastState.cardId) && onToggleMastered) {
-      onToggleMastered(lastState.cardId);
-    }
-
-    setSrsIndex(lastState.index);
-  };
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }} className="animate-fade-in">
       {/* Header & Sub-tabs */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h1 style={{ fontSize: '1.75rem', color: 'var(--text-primary)', margin: 0 }}>
-            🎴 Vocabulary & Flashcards
+            🎴 Vocabulary & Anki SRS Suite
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-            Expand your Tagalog lexicon with spaced repetition and categorised dictionary lookup.
+            Expand your Tagalog lexicon with FSRS-5 spaced repetition and categorised dictionary lookup.
           </p>
         </div>
 
@@ -146,10 +103,18 @@ export default function VocabularyView({
           >
             SRS Flashcards
           </Button>
+          <Button
+            variant={mode === 'stats' ? 'primary' : 'ghost'}
+            size="sm"
+            onClick={() => setMode('stats')}
+            icon={<span>📊</span>}
+          >
+            SRS Stats
+          </Button>
         </div>
       </div>
 
-      {/* Lesson Filter Chips + POS Filter Chips */}
+      {/* Lesson Filter Chips + POS Filter Chips (Dictionary Mode) */}
       {mode === 'dictionary' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {/* Lesson Chips */}
@@ -181,7 +146,7 @@ export default function VocabularyView({
       )}
 
       {/* Mode Content */}
-      {mode === 'dictionary' ? (
+      {mode === 'dictionary' && (
         filteredVocab.length > 0 ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem' }}>
             {filteredVocab.map((item) => (
@@ -202,27 +167,31 @@ export default function VocabularyView({
             description="Try clearing your search term or selecting 'All POS' to see all words."
           />
         )
-      ) : (
-        /* Flashcards SRS Mode */
-        filteredVocab.length > 0 ? (
-          <SrsFlashcard
-            currentCard={filteredVocab[srsIndex]}
-            totalDue={filteredVocab.length}
-            currentIndex={srsIndex}
-            isMastered={masteredIds.includes(filteredVocab[srsIndex]?.id)}
-            canUndo={historyStack.length > 0}
-            onRateCard={handleRateCard}
-            onUndoCard={handleUndoCard}
-            onSpeak={handleSpeak}
-          />
-        ) : (
-          <EmptyState
-            icon="🎉"
-            title="All caught up!"
-            description="No due flashcards right now. Great job!"
-          />
-        )
       )}
+
+      {mode === 'flashcards' && (
+        <SrsSessionView
+          vocabularyList={filteredVocab}
+          searchQuery={searchQuery}
+          selectedLesson={selectedLesson}
+          selectedPos={selectedPos}
+          filterMastered={filterMastered}
+          masteredIds={masteredIds}
+          onToggleMastered={onToggleMastered}
+          onOpenSettings={() => setIsSettingsOpen(true)}
+          onSpeak={handleSpeak}
+        />
+      )}
+
+      {mode === 'stats' && (
+        <SrsStatsView vocabularyList={vocabularyList} />
+      )}
+
+      {/* SRS Settings Panel Modal */}
+      <SrsSettingsPanel
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
     </div>
   );
 }
