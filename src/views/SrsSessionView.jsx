@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import SrsFlashcard from '../components/SrsFlashcard';
 import SrsSessionSummary from '../components/SrsSessionSummary';
 import { EmptyState } from '../components/ui/EmptyState';
 import { Button } from '../components/ui/Button';
 import { buildStudyQueue } from '../utils/srsQueueBuilder';
 import { scheduleReview, RATING } from '../utils/fsrsEngine';
-import { updateCardState, addReviewLogEntry, getSrsSettings } from '../utils/srsStore';
+import { updateCardState, addReviewLogEntry } from '../utils/srsStore';
 import { addXpForReview, checkAchievements } from '../utils/gamification';
 
 export default function SrsSessionView({
@@ -34,9 +34,11 @@ export default function SrsSessionView({
     newlyUnlocked: [],
   });
 
-  // Filter vocabulary based on search/lesson/pos
-  const filteredVocab = useMemo(() => {
-    return vocabularyList.filter((item) => {
+  // Filter key to initialize queue ONCE when filters change (not when card states mutate)
+  const filterKey = `${vocabularyList.length}_${searchQuery}_${selectedLesson}_${selectedPos}_${filterMastered}`;
+
+  const initQueue = () => {
+    const baseList = vocabularyList.filter((item) => {
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         const matchWord = item.word?.toLowerCase().includes(q);
@@ -59,11 +61,8 @@ export default function SrsSessionView({
 
       return true;
     });
-  }, [vocabularyList, searchQuery, selectedPos, selectedLesson, filterMastered, masteredIds]);
 
-  // Initialize Queue
-  const initQueue = () => {
-    const { queue } = buildStudyQueue(filteredVocab);
+    const { queue } = buildStudyQueue(baseList);
     setSessionQueue(queue);
     setCurrentIndex(0);
     setHistoryStack([]);
@@ -82,7 +81,8 @@ export default function SrsSessionView({
 
   useEffect(() => {
     initQueue();
-  }, [filteredVocab]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterKey]);
 
   const currentCard = sessionQueue[currentIndex];
 
@@ -156,7 +156,7 @@ export default function SrsSessionView({
       },
     ]);
 
-    // Advance Queue
+    // Advance Queue or Finish Session
     if (currentIndex < sessionQueue.length - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
