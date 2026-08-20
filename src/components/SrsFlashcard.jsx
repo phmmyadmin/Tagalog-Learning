@@ -81,29 +81,16 @@ export default function SrsFlashcard({
         </div>
         {canUndo && (
           <Button
-            variant="ghost"
+            variant="secondary"
             size="sm"
             onClick={(e) => {
               e.stopPropagation();
               if (onUndoCard) onUndoCard();
             }}
             ariaLabel="Undo / Go back to previous card"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              padding: '0.3rem 0.65rem',
-              fontSize: '0.85rem',
-              color: 'var(--text-primary)',
-              border: '1px solid var(--border-default)',
-              borderRadius: 'var(--radius-sm)',
-              backgroundColor: 'var(--bg-surface-alt)',
-              cursor: 'pointer',
-              fontWeight: 600,
-              whiteSpace: 'nowrap',
-            }}
+            icon={<span>↩️</span>}
           >
-            ↩️ Deshacer
+            Deshacer
           </Button>
         )}
       </div>
@@ -194,26 +181,134 @@ export default function SrsFlashcard({
 
       {/* SRS Rating Buttons (Only visible when flipped) */}
       {isFlipped ? (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
-          <Button variant="danger" size="md" onClick={() => handleRate('again')} style={{ flexDirection: 'column', padding: '0.5rem 0.2rem' }}>
-            <span>1. Again</span>
-            <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>{intervals[RATING.AGAIN]}</span>
-          </Button>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.65rem' }}>
+          {/* AGAIN */}
+          <button
+            type="button"
+            onClick={() => handleRate('again')}
+            className="srs-rate-btn srs-rate-again"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.2rem',
+              padding: '0.65rem 0.4rem',
+              backgroundColor: 'var(--accent-danger-light)',
+              color: 'var(--accent-danger)',
+              border: '1.5px solid rgba(220, 38, 38, 0.3)',
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ fontSize: '0.9rem' }}>1. Again</span>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                backgroundColor: 'rgba(220, 38, 38, 0.12)',
+                padding: '0.1rem 0.45rem',
+                borderRadius: 'var(--radius-full)',
+              }}
+            >
+              {intervals[RATING.AGAIN]}
+            </span>
+          </button>
 
-          <Button variant="secondary" size="md" onClick={() => handleRate('hard')} style={{ flexDirection: 'column', padding: '0.5rem 0.2rem' }}>
-            <span>2. Hard</span>
-            <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>{intervals[RATING.HARD]}</span>
-          </Button>
+          {/* HARD */}
+          <button
+            type="button"
+            onClick={() => handleRate('hard')}
+            className="srs-rate-btn srs-rate-hard"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.2rem',
+              padding: '0.65rem 0.4rem',
+              backgroundColor: 'var(--accent-warning-light)',
+              color: 'var(--accent-warning)',
+              border: '1.5px solid rgba(217, 119, 6, 0.3)',
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ fontSize: '0.9rem' }}>2. Hard</span>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                backgroundColor: 'rgba(217, 119, 6, 0.12)',
+                padding: '0.1rem 0.45rem',
+                borderRadius: 'var(--radius-full)',
+              }}
+            >
+              {intervals[RATING.HARD]}
+            </span>
+          </button>
 
-          <Button variant="primary" size="md" onClick={() => handleRate('good')} style={{ flexDirection: 'column', padding: '0.5rem 0.2rem' }}>
-            <span>3. Good</span>
-            <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>{intervals[RATING.GOOD]}</span>
-          </Button>
+          {/* GOOD */}
+          <button
+            type="button"
+            onClick={() => handleRate('good')}
+            className="srs-rate-btn srs-rate-good"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.2rem',
+              padding: '0.65rem 0.4rem',
+              backgroundColor: 'var(--accent-primary-light)',
+              color: 'var(--accent-primary)',
+              border: '1.5px solid rgba(37, 99, 235, 0.3)',
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ fontSize: '0.9rem' }}>3. Good</span>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                backgroundColor: 'rgba(37, 99, 235, 0.12)',
+                padding: '0.1rem 0.45rem',
+                borderRadius: 'var(--radius-full)',
+              }}
+            >
+              {intervals[RATING.GOOD]}
+            </span>
+          </button>
 
-          <Button variant="success" size="md" onClick={() => handleRate('easy')} style={{ flexDirection: 'column', padding: '0.5rem 0.2rem' }}>
-            <span>4. Easy ⭐</span>
-            <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>{intervals[RATING.EASY]}</span>
-          </Button>
+          {/* EASY */}
+          <button
+            type="button"
+            onClick={() => handleRate('easy')}
+            className="srs-rate-btn srs-rate-easy"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.2rem',
+              padding: '0.65rem 0.4rem',
+              backgroundColor: 'var(--accent-success-light)',
+              color: 'var(--accent-success)',
+              border: '1.5px solid rgba(22, 163, 74, 0.3)',
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ fontSize: '0.9rem' }}>4. Easy ⭐</span>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                backgroundColor: 'rgba(22, 163, 74, 0.12)',
+                padding: '0.1rem 0.45rem',
+                borderRadius: 'var(--radius-full)',
+              }}
+            >
+              {intervals[RATING.EASY]}
+            </span>
+          </button>
         </div>
       ) : (
         <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', alignItems: 'center' }}>
