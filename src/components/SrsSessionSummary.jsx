@@ -1,10 +1,11 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
 
 export default function SrsSessionSummary({ sessionStats, onRestart, onClose }) {
-  if (!sessionStats) return null;
+  if (!sessionStats || typeof document === 'undefined') return null;
 
   const {
     totalReviewed = 0,
@@ -26,14 +27,17 @@ export default function SrsSessionSummary({ sessionStats, onRestart, onClose }) 
   const correctCount = hardCount + goodCount + easyCount;
   const retentionRate = totalReviewed > 0 ? Math.round((correctCount / totalReviewed) * 100) : 100;
 
-  return (
+  const modalContent = (
     <div
       style={{
         position: 'fixed',
-        inset: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.65)',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
         backdropFilter: 'blur(4px)',
-        zIndex: 1000,
+        zIndex: 99999,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -42,9 +46,9 @@ export default function SrsSessionSummary({ sessionStats, onRestart, onClose }) 
     >
       <Card
         style={{
-          maxWidth: '480px',
+          maxWidth: '460px',
           width: '100%',
-          maxHeight: '90vh',
+          maxHeight: '85vh',
           overflowY: 'auto',
           backgroundColor: 'var(--bg-surface)',
           padding: '1.75rem',
@@ -52,11 +56,11 @@ export default function SrsSessionSummary({ sessionStats, onRestart, onClose }) 
           flexDirection: 'column',
           gap: '1.25rem',
           textAlign: 'center',
-          border: '2px solid var(--accent-primary)',
-          boxShadow: 'var(--shadow-lg)',
+          border: '1px solid var(--border-default)',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.08)',
           boxSizing: 'border-box',
+          borderRadius: 'var(--radius-lg)',
         }}
-        className="animate-fade-in"
       >
         <div>
           <div style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>🎉</div>
@@ -152,4 +156,6 @@ export default function SrsSessionSummary({ sessionStats, onRestart, onClose }) 
       </Card>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
