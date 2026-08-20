@@ -39,72 +39,76 @@ export default function SrsSessionSummary({ sessionStats, onRestart, onClose }) 
         justifyContent: 'center',
         padding: '1rem',
       }}
-      className="animate-fade-in"
     >
       <Card
         style={{
-          maxWidth: '520px',
+          maxWidth: '480px',
           width: '100%',
-          padding: '2rem',
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          backgroundColor: 'var(--bg-surface)',
+          padding: '1.75rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '1.5rem',
+          gap: '1.25rem',
           textAlign: 'center',
           border: '2px solid var(--accent-primary)',
           boxShadow: 'var(--shadow-lg)',
+          boxSizing: 'border-box',
         }}
+        className="animate-fade-in"
       >
         <div>
-          <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>🎉</div>
-          <h2 style={{ fontSize: '1.75rem', color: 'var(--text-primary)', margin: 0, fontWeight: 800 }}>
+          <div style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>🎉</div>
+          <h2 style={{ fontSize: '1.5rem', color: 'var(--text-primary)', margin: 0, fontWeight: 800 }}>
             Session Complete!
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginTop: '0.25rem' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.2rem', marginBottom: 0 }}>
             Great job! You've consolidated your Tagalog memory.
           </p>
         </div>
 
         {/* Stats Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
-          <div style={{ padding: '1rem', backgroundColor: 'var(--bg-surface-alt)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)' }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-primary)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem' }}>
+          <div style={{ padding: '0.85rem', backgroundColor: 'var(--bg-surface-alt)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)' }}>
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--accent-primary)' }}>
               {totalReviewed}
             </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-              Cards Reviewed
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+              Reviewed
             </div>
           </div>
 
-          <div style={{ padding: '1rem', backgroundColor: 'var(--bg-surface-alt)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)' }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-success)' }}>
+          <div style={{ padding: '0.85rem', backgroundColor: 'var(--bg-surface-alt)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)' }}>
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--accent-success)' }}>
               {retentionRate}%
             </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
               Retention Rate
             </div>
           </div>
 
-          <div style={{ padding: '1rem', backgroundColor: 'var(--bg-surface-alt)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)' }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-warning)' }}>
+          <div style={{ padding: '0.85rem', backgroundColor: 'var(--bg-surface-alt)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)' }}>
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--accent-warning)' }}>
               {timeFormatted}
             </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-              Total Time ({averageSec}s/card)
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+              Avg {averageSec}s / card
             </div>
           </div>
 
-          <div style={{ padding: '1rem', backgroundColor: 'var(--bg-surface-alt)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)' }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#8B5CF6' }}>
+          <div style={{ padding: '0.85rem', backgroundColor: 'var(--bg-surface-alt)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)' }}>
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#8B5CF6' }}>
               +{xpEarned} XP
             </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
               XP Earned
             </div>
           </div>
         </div>
 
-        {/* Breakdown Badges */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+        {/* Rating Breakdown Badges */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.35rem', flexWrap: 'wrap' }}>
           <Badge variant="danger">Again: {againCount}</Badge>
           <Badge variant="secondary">Hard: {hardCount}</Badge>
           <Badge variant="primary">Good: {goodCount}</Badge>
@@ -115,18 +119,18 @@ export default function SrsSessionSummary({ sessionStats, onRestart, onClose }) 
         {newlyUnlocked.length > 0 && (
           <div
             style={{
-              padding: '0.85rem',
-              backgroundColor: 'rgba(234, 179, 8, 0.15)',
+              padding: '0.75rem',
+              backgroundColor: 'rgba(234, 179, 8, 0.12)',
               border: '1px solid var(--accent-warning)',
-              borderRadius: 'var(--radius-md)',
+              borderRadius: 'var(--radius-sm)',
               textAlign: 'left',
             }}
           >
-            <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
+            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
               🏅 New Achievement Unlocked!
             </div>
             {newlyUnlocked.map((ach) => (
-              <div key={ach.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem' }}>
+              <div key={ach.id} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem' }}>
                 <span>{ach.icon}</span>
                 <strong>{ach.title}</strong> — <span style={{ color: 'var(--text-secondary)' }}>+{ach.xp} XP</span>
               </div>
@@ -135,7 +139,7 @@ export default function SrsSessionSummary({ sessionStats, onRestart, onClose }) 
         )}
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginTop: '0.5rem' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginTop: '0.25rem' }}>
           {onRestart && (
             <Button variant="secondary" onClick={onRestart}>
               🔄 Study More

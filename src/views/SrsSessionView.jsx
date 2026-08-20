@@ -186,20 +186,19 @@ export default function SrsSessionView({
 
   if (!currentCard || isCompleted) {
     return (
-      <div style={{ padding: '2rem 0' }}>
-        {isCompleted ? (
+      <div style={{ width: '100%' }}>
+        <EmptyState
+          icon="🎉"
+          title="All caught up for today!"
+          description="No due SRS flashcards right now. You can adjust your daily limits in Settings or explore vocabulary."
+          actionLabel="🔄 Re-study Queue"
+          onAction={initQueue}
+        />
+        {isCompleted && (
           <SrsSessionSummary
             sessionStats={sessionStats}
             onRestart={initQueue}
             onClose={() => setIsCompleted(false)}
-          />
-        ) : (
-          <EmptyState
-            icon="🎉"
-            title="All caught up for today!"
-            description="No due SRS flashcards right now. You can adjust your daily limits in Settings or explore vocabulary."
-            actionLabel="🔄 Re-study Queue"
-            onAction={initQueue}
           />
         )}
       </div>
