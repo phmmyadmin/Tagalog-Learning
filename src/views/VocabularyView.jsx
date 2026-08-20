@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import VocabularyCard from '../components/VocabularyCard';
 import SrsFlashcard from '../components/SrsFlashcard';
 import { FilterChip } from '../components/ui/FilterChip';
@@ -18,9 +18,16 @@ export default function VocabularyView({
   const [selectedPos, setSelectedPos] = useState('all');
   const [activeLessonFilter, setActiveLessonFilter] = useState(selectedLesson);
   const [srsIndex, setSrsIndex] = useState(0);
+  const [historyStack, setHistoryStack] = useState([]);
 
   const posList = ['all', 'noun', 'verb', 'adjective', 'pronoun', 'adverb'];
   const lessons = ['all', ...new Set(vocabularyList.map((item) => item.lesson).filter(Boolean))].sort();
+
+  // Reset SRS index & history when filters change
+  useEffect(() => {
+    setSrsIndex(0);
+    setHistoryStack([]);
+  }, [searchQuery, selectedPos, activeLessonFilter, selectedLesson, filterMastered]);
 
   const filteredVocab = vocabularyList.filter((item) => {
     if (searchQuery) {
@@ -63,11 +70,49 @@ export default function VocabularyView({
   };
 
   const handleRateCard = (rating) => {
+    const currentCard = filteredVocab[srsIndex];
+    if (!currentCard) return;
+
+    const wasMasteredBefore = masteredIds.includes(currentCard.id);
+    let newlyMastered = false;
+
+    // Automatically mark as mastered in vocabulary list when rated "easy"
+    if (rating === 'easy') {
+      if (!wasMasteredBefore && onToggleMastered) {
+        onToggleMastered(currentCard.id);
+        newlyMastered = true;
+      }
+    }
+
+    setHistoryStack((prev) => [
+      ...prev,
+      {
+        index: srsIndex,
+        cardId: currentCard.id,
+        newlyMastered,
+        rating,
+      },
+    ]);
+
     if (srsIndex < filteredVocab.length - 1) {
       setSrsIndex((prev) => prev + 1);
     } else {
       setSrsIndex(0);
     }
+  };
+
+  const handleUndoCard = () => {
+    if (historyStack.length === 0) return;
+
+    const lastState = historyStack[historyStack.length - 1];
+    setHistoryStack((prev) => prev.slice(0, -1));
+
+    // Revert mastered status if easy rating newly marked it as mastered
+    if (lastState.newlyMastered && masteredIds.includes(lastState.cardId) && onToggleMastered) {
+      onToggleMastered(lastState.cardId);
+    }
+
+    setSrsIndex(lastState.index);
   };
 
   return (
@@ -164,7 +209,10 @@ export default function VocabularyView({
             currentCard={filteredVocab[srsIndex]}
             totalDue={filteredVocab.length}
             currentIndex={srsIndex}
+            isMastered={masteredIds.includes(filteredVocab[srsIndex]?.id)}
+            canUndo={historyStack.length > 0}
             onRateCard={handleRateCard}
+            onUndoCard={handleUndoCard}
             onSpeak={handleSpeak}
           />
         ) : (

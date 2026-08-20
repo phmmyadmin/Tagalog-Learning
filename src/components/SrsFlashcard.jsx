@@ -11,7 +11,10 @@ export default function SrsFlashcard({
   currentCard,
   totalDue = 1,
   currentIndex = 0,
+  isMastered = false,
+  canUndo = false,
   onRateCard,
+  onUndoCard,
   onSpeak,
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -22,9 +25,16 @@ export default function SrsFlashcard({
 
   useEffect(() => {
     const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(e.target?.tagName)) return;
+
       if (e.code === 'Space') {
         e.preventDefault();
         setIsFlipped((prev) => !prev);
+      } else if (e.key === 'Backspace' || e.key === 'z' || e.key === 'Z') {
+        if (canUndo && onUndoCard) {
+          e.preventDefault();
+          onUndoCard();
+        }
       } else if (isFlipped) {
         if (e.key === '1') onRateCard('again');
         if (e.key === '2') onRateCard('hard');
@@ -34,19 +44,50 @@ export default function SrsFlashcard({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isFlipped, onRateCard]);
+  }, [isFlipped, onRateCard, onUndoCard, canUndo]);
 
   if (!currentCard) return null;
 
   return (
     <div style={{ maxWidth: '580px', margin: '0 auto', width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-      {/* Session Progress Header */}
-      <ProgressBar
-        value={currentIndex + 1}
-        max={totalDue}
-        label={`Card ${currentIndex + 1} of ${totalDue}`}
-        color="var(--accent-primary)"
-      />
+      {/* Session Progress Header + Undo Button */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%' }}>
+        <div style={{ flex: 1 }}>
+          <ProgressBar
+            value={currentIndex + 1}
+            max={totalDue}
+            label={`Card ${currentIndex + 1} of ${totalDue}`}
+            color="var(--accent-primary)"
+          />
+        </div>
+        {canUndo && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onUndoCard) onUndoCard();
+            }}
+            ariaLabel="Undo / Go back to previous card"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              padding: '0.3rem 0.65rem',
+              fontSize: '0.85rem',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-default)',
+              borderRadius: 'var(--radius-sm)',
+              backgroundColor: 'var(--bg-surface-alt)',
+              cursor: 'pointer',
+              fontWeight: 600,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            ↩️ Deshacer
+          </Button>
+        )}
+      </div>
 
       {/* Flashcard Container */}
       <Card
@@ -69,7 +110,10 @@ export default function SrsFlashcard({
         {!isFlipped ? (
           /* FRONT SIDE */
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, gap: '1rem' }}>
-            <Badge variant="primary">{currentCard.partOfSpeech || 'Vocabulary'}</Badge>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              <Badge variant="primary">{currentCard.partOfSpeech || 'Vocabulary'}</Badge>
+              {isMastered && <Badge variant="success">✅ Mastered</Badge>}
+            </div>
             <h2 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
               {currentCard.word}
             </h2>
@@ -93,7 +137,10 @@ export default function SrsFlashcard({
         ) : (
           /* BACK SIDE */
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, gap: '0.85rem' }}>
-            <Badge variant="success">Answer</Badge>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              <Badge variant="success">Answer</Badge>
+              {isMastered && <Badge variant="success">✅ Mastered</Badge>}
+            </div>
             <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
               {currentCard.meaning}
             </h2>
@@ -133,11 +180,11 @@ export default function SrsFlashcard({
             3. Good
           </Button>
           <Button variant="success" size="md" onClick={() => onRateCard('easy')}>
-            4. Easy
+            4. Easy ⭐
           </Button>
         </div>
       ) : (
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', alignItems: 'center' }}>
           <Button variant="secondary" onClick={() => setIsFlipped(true)}>
             Show Answer (Space)
           </Button>
