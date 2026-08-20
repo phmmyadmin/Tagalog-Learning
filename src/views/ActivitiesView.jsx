@@ -45,7 +45,7 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
   };
 
   const typesList = ['all', 'fill_in_blank', 'translation', 'multiple_choice'];
-  const lessonsList = ['all', ...new Set(activitiesList.map((a) => a.lesson).filter(Boolean))];
+  const lessonsList = ['all', ...new Set(activitiesList.map((a) => a.lesson).filter(Boolean))].sort();
 
   const filteredActivities = activitiesList.filter((act) => {
     if (searchQuery) {
@@ -59,7 +59,7 @@ export default function ActivitiesView({ activitiesList = [], searchQuery = '', 
       return false;
     }
 
-    if (selectedLesson !== 'all' && act.lesson !== selectedLesson) {
+    if (selectedLesson !== 'all' && act.lesson !== selectedLesson && act.lesson !== selectedLesson.replace(' ', '_')) {
       return false;
     }
 

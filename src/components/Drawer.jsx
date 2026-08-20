@@ -9,7 +9,7 @@ import { FilterChip } from './ui/FilterChip';
 export const Drawer = ({
   isOpen,
   onClose,
-  lessons = ['Lesson 02', 'Lesson 03', 'Lesson 04', 'Lesson 05'],
+  lessons = ['Lesson_02', 'Lesson_03', 'Lesson_04', 'Lesson_05', 'Lesson_06', 'Lesson_07', 'Lesson_08'],
   selectedLesson = 'all',
   onSelectLesson,
   filterMastered = 'all', // 'all' | 'mastered' | 'unmastered'
@@ -93,8 +93,8 @@ export const Drawer = ({
             {lessons.map((lesson) => (
               <FilterChip
                 key={lesson}
-                label={lesson}
-                active={selectedLesson === lesson}
+                label={lesson.replace('_', ' ')}
+                active={selectedLesson === lesson || selectedLesson === lesson.replace('_', ' ')}
                 onClick={() => onSelectLesson(lesson)}
               />
             ))}

@@ -165,7 +165,10 @@ export function App() {
     return { activitiesDone, mistakesCount, quizzesCompleted };
   };
 
-  const dynamicStats = getDynamicStats();
+  const availableLessons = (
+    tagalogData.metadata?.lessons_covered ||
+    [...new Set(tagalogData.theory.map((t) => t.lesson).filter(Boolean))]
+  ).sort();
 
   return (
     <div className="app-container">
@@ -190,6 +193,7 @@ export function App() {
       <Drawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
+        lessons={availableLessons}
         selectedLesson={selectedLesson}
         onSelectLesson={setSelectedLesson}
         filterMastered={filterMastered}
@@ -236,6 +240,8 @@ export function App() {
           <VocabularyView
             vocabularyList={tagalogData.vocabulary}
             searchQuery={searchQuery}
+            selectedLesson={selectedLesson}
+            filterMastered={filterMastered}
             masteredIds={masteredItems}
             onToggleMastered={toggleMastered}
             onOpenLesson={handleOpenSlideViewer}
@@ -245,6 +251,8 @@ export function App() {
         <div style={{ display: activeTab === 'activities' ? 'block' : 'none', width: '100%' }}>
           <ActivitiesView
             activitiesList={tagalogData.activities}
+            searchQuery={searchQuery}
+            selectedLesson={selectedLesson}
             onOpenLesson={handleOpenSlideViewer}
           />
         </div>

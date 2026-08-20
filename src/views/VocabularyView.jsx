@@ -8,15 +8,19 @@ import { EmptyState } from '../components/ui/EmptyState';
 export default function VocabularyView({
   vocabularyList = [],
   searchQuery = '',
+  selectedLesson = 'all',
+  filterMastered = 'all',
   masteredIds = [],
   onToggleMastered,
   onOpenLesson,
 }) {
   const [mode, setMode] = useState('dictionary'); // 'dictionary' | 'flashcards'
   const [selectedPos, setSelectedPos] = useState('all');
+  const [activeLessonFilter, setActiveLessonFilter] = useState(selectedLesson);
   const [srsIndex, setSrsIndex] = useState(0);
 
   const posList = ['all', 'noun', 'verb', 'adjective', 'pronoun', 'adverb'];
+  const lessons = ['all', ...new Set(vocabularyList.map((item) => item.lesson).filter(Boolean))].sort();
 
   const filteredVocab = vocabularyList.filter((item) => {
     if (searchQuery) {
@@ -30,6 +34,21 @@ export default function VocabularyView({
       const p = (item.partOfSpeech || '').toLowerCase();
       if (!p.includes(selectedPos)) return false;
     }
+
+    // Internal Lesson filter chip
+    if (activeLessonFilter !== 'all' && item.lesson !== activeLessonFilter && item.lesson !== activeLessonFilter.replace(' ', '_')) {
+      return false;
+    }
+
+    // External Lesson filter from drawer
+    if (selectedLesson !== 'all' && item.lesson !== selectedLesson && item.lesson !== selectedLesson.replace(' ', '_')) {
+      return false;
+    }
+
+    // Mastered filter
+    const isMastered = masteredIds.includes(item.id);
+    if (filterMastered === 'mastered' && !isMastered) return false;
+    if (filterMastered === 'unmastered' && isMastered) return false;
 
     return true;
   });
@@ -85,17 +104,34 @@ export default function VocabularyView({
         </div>
       </div>
 
-      {/* POS Filter Chips (For Dictionary Mode) */}
+      {/* Lesson Filter Chips + POS Filter Chips */}
       {mode === 'dictionary' && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-          {posList.map((pos) => (
-            <FilterChip
-              key={pos}
-              label={pos === 'all' ? 'All POS' : pos.charAt(0).toUpperCase() + pos.slice(1) + 's'}
-              active={selectedPos === pos}
-              onClick={() => setSelectedPos(pos)}
-            />
-          ))}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          {/* Lesson Chips */}
+          {lessons.length > 1 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              {lessons.map((les) => (
+                <FilterChip
+                  key={les}
+                  label={les === 'all' ? 'All Lessons' : les.replace('_', ' ')}
+                  active={activeLessonFilter === les}
+                  onClick={() => setActiveLessonFilter(les)}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* POS Chips */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+            {posList.map((pos) => (
+              <FilterChip
+                key={pos}
+                label={pos === 'all' ? 'All POS' : pos.charAt(0).toUpperCase() + pos.slice(1) + 's'}
+                active={selectedPos === pos}
+                onClick={() => setSelectedPos(pos)}
+              />
+            ))}
+          </div>
         </div>
       )}
 
