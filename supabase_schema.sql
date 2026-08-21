@@ -17,7 +17,12 @@ CREATE TABLE IF NOT EXISTS public.user_progress (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- Ensure all columns exist for users migrating from older schema versions
+-- Ensure all columns exist for existing tables (migrations)
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS mastered_items JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS study_dates JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS activity_results JSONB DEFAULT '{}'::jsonb;
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS quiz_history JSONB DEFAULT '{}'::jsonb;
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS mistakes_bank JSONB DEFAULT '[]'::jsonb;
 ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_cards_v2 JSONB DEFAULT '{}'::jsonb;
 ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_review_log_v2 JSONB DEFAULT '[]'::jsonb;
 ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_gamification_v2 JSONB DEFAULT '{}'::jsonb;
@@ -27,12 +32,15 @@ ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS saved_quizzes JSONB DE
 -- 2. Enable Row Level Security (RLS)
 ALTER TABLE public.user_progress ENABLE ROW LEVEL SECURITY;
 
--- 3. RLS Security Policies
+-- 3. RLS Security Policies (Idempotent)
+DROP POLICY IF EXISTS "Users can view their own progress" ON public.user_progress;
 CREATE POLICY "Users can view their own progress" ON public.user_progress
   FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can insert their own progress" ON public.user_progress;
 CREATE POLICY "Users can insert their own progress" ON public.user_progress
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can update their own progress" ON public.user_progress;
 CREATE POLICY "Users can update their own progress" ON public.user_progress
   FOR UPDATE USING (auth.uid() = user_id);
