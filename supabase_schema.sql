@@ -1,4 +1,4 @@
--- Supabase SQL Schema for Tagalog Learning Multi-Device Sync (including FSRS SRS Suite)
+-- Supabase SQL Schema for Tagalog Learning Multi-Device Sync (including FSRS SRS Suite & AI Saved Quizzes)
 
 -- 1. Create user_progress table
 CREATE TABLE IF NOT EXISTS public.user_progress (
@@ -13,8 +13,12 @@ CREATE TABLE IF NOT EXISTS public.user_progress (
   srs_review_log_v2 JSONB DEFAULT '[]'::jsonb,
   srs_gamification_v2 JSONB DEFAULT '{}'::jsonb,
   srs_settings_v2 JSONB DEFAULT '{}'::jsonb,
+  saved_quizzes JSONB DEFAULT '[]'::jsonb,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+
+-- Ensure column exists for existing tables
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS saved_quizzes JSONB DEFAULT '[]'::jsonb;
 
 -- 2. Enable Row Level Security (RLS)
 ALTER TABLE public.user_progress ENABLE ROW LEVEL SECURITY;
