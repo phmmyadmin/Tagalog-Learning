@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import QuizRunner from '../components/QuizRunner';
 import AiQuizGeneratorView from './AiQuizGeneratorView';
 import SrsSettingsPanel from '../components/SrsSettingsPanel';
+import { lessonQuizzes } from '../data/quizzes';
 import { getSavedQuizzes, deleteSavedQuiz } from '../utils/savedQuizzesManager';
 import { getMistakes, clearAllMistakes } from '../utils/mistakesManager';
 import { Card } from '../components/ui/Card';
@@ -13,12 +14,15 @@ export default function QuizzesView({
   vocabularyList = [],
   theoryList = [],
   lessons = [],
+  masteredItems = [],
+  onMarkLessonMastered,
 }) {
-  const [subMode, setSubMode] = useState('ai_generator'); // 'ai_generator' | 'library' | 'history'
+  const [subMode, setSubMode] = useState('lesson_exams'); // 'lesson_exams' | 'ai_generator' | 'library' | 'history'
   const [activeQuiz, setActiveQuiz] = useState(null);
   const [mistakes, setMistakes] = useState(getMistakes());
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [savedQuizzes, setSavedQuizzes] = useState(getSavedQuizzes());
+  const [celebrationMsg, setCelebrationMsg] = useState(null);
 
   useEffect(() => {
     const handleMistakesUpdate = () => {
@@ -46,11 +50,12 @@ export default function QuizzesView({
   });
 
   const handleCompleteQuiz = ({ quizId, score, total }) => {
+    const percent = Math.round((score / total) * 100);
     const record = {
       timestamp: new Date().toISOString(),
       score,
       total,
-      percent: Math.round((score / total) * 100),
+      percent,
     };
 
     setHistory((prev) => {
@@ -64,6 +69,15 @@ export default function QuizzesView({
       pushProgressToCloud().catch(() => {});
       return updated;
     });
+
+    // Check if this was a Lesson Quiz completed with 100% score (0 errors)
+    const isPerfectScore = score === total && total > 0;
+    const activeLessonKey = activeQuiz?.quiz_metadata?.lesson;
+
+    if (isPerfectScore && activeLessonKey && onMarkLessonMastered) {
+      onMarkLessonMastered(activeLessonKey);
+      setCelebrationMsg(`🎉 Perfect Score (100%)! ${activeLessonKey.replace('_', ' ')} is now marked as Mastered!`);
+    }
 
     setActiveQuiz(null);
   };
@@ -94,7 +108,7 @@ export default function QuizzesView({
   const allHistoryAttempts = [];
   Object.keys(history).forEach((quizId) => {
     const attempts = history[quizId] || [];
-    const matchedQuiz = savedQuizzes.find((q) => (q.quiz_metadata?.id || q.id) === quizId);
+    const matchedQuiz = [...lessonQuizzes, ...savedQuizzes].find((q) => (q.quiz_metadata?.id || q.id) === quizId);
     const quizTitle = matchedQuiz?.quiz_metadata?.title || matchedQuiz?.title || quizId;
 
     attempts.forEach((att) => {
@@ -114,15 +128,23 @@ export default function QuizzesView({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h1 style={{ fontSize: '1.75rem', color: 'var(--text-primary)', margin: 0 }}>
-            🏆 Quizzes & Practice Suite
+            🏆 Quizzes & Exam Suite
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-            Generate custom Gemini AI quizzes or re-take any saved quiz from your cloud-synced library.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', margin: '0.25rem 0 0 0' }}>
+            Take Lesson Mastery Exams (100% required to master) or generate custom AI quizzes.
           </p>
         </div>
 
         {/* Sub-tab Switcher */}
         <div style={{ display: 'flex', gap: '0.35rem', backgroundColor: 'var(--bg-surface-alt)', padding: '0.25rem', borderRadius: 'var(--radius-sm)' }}>
+          <Button
+            variant={subMode === 'lesson_exams' ? 'primary' : 'ghost'}
+            size="sm"
+            onClick={() => setSubMode('lesson_exams')}
+            icon={<span>🎓</span>}
+          >
+            Lesson Exams ({lessonQuizzes.length})
+          </Button>
           <Button
             variant={subMode === 'ai_generator' ? 'primary' : 'ghost'}
             size="sm"
@@ -150,6 +172,20 @@ export default function QuizzesView({
         </div>
       </div>
 
+      {/* Celebration Notification */}
+      {celebrationMsg && (
+        <Card variant="alt" style={{ border: '1px solid var(--accent-emerald)', backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '1rem 1.25rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontWeight: 700, color: 'var(--accent-emerald)', fontSize: '0.95rem' }}>
+              {celebrationMsg}
+            </span>
+            <Button variant="ghost" size="sm" onClick={() => setCelebrationMsg(null)}>
+              ✕
+            </Button>
+          </div>
+        </Card>
+      )}
+
       {/* Mistakes Bank Alert */}
       {mistakes.length > 0 && (
         <Card variant="alt" style={{ border: '1px solid var(--accent-danger)', backgroundColor: 'var(--accent-danger-light)', padding: '1.25rem' }}>
@@ -174,7 +210,89 @@ export default function QuizzesView({
         </Card>
       )}
 
-      {/* SubMode 1: AI Quiz Generator */}
+      {/* SubMode 1: Lesson Exams (Pestaña dedicada) */}
+      {subMode === 'lesson_exams' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div>
+            <h2 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', margin: 0, fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span>🎓</span> Lesson Mastery Exams
+            </h2>
+            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', margin: '0.2rem 0 0 0' }}>
+              Score <strong>100% (0 errors)</strong> on a Lesson Exam to mark the entire lesson as <strong>Mastered / Entendida</strong>.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+            {lessonQuizzes.map((quiz) => {
+              const meta = quiz.quiz_metadata || {};
+              const quizId = meta.id || quiz.id;
+              const lessonKey = meta.lesson || 'Lesson_02';
+              const quizTitle = meta.title || `Lesson Quiz (${lessonKey})`;
+              const quizTopic = meta.topic || 'Grammar & Vocab Exam';
+              const numQuestions = quiz.questions?.length || 8;
+
+              const quizHistory = history[quizId] || [];
+              const lastAttempt = quizHistory[0];
+
+              const normLessonKey = lessonKey.includes('Lesson_') ? lessonKey : lessonKey.replace('Lesson ', 'Lesson_');
+              const isLessonMastered = masteredItems.includes(`LESSON_MASTERED_${normLessonKey}`) || (lastAttempt && lastAttempt.percent === 100);
+
+              return (
+                <Card
+                  key={quizId}
+                  variant="interactive"
+                  onClick={() => setActiveQuiz(quiz)}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justify: 'space-between',
+                    gap: '1rem',
+                    padding: '1.25rem',
+                    border: isLessonMastered ? '2px solid var(--accent-emerald)' : '1px solid var(--border-default)',
+                    backgroundColor: isLessonMastered ? 'rgba(16, 185, 129, 0.04)' : 'var(--bg-surface)',
+                  }}
+                >
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.35rem' }}>
+                      <Badge variant="primary">{normLessonKey.replace('_', ' ')}</Badge>
+                      {isLessonMastered ? (
+                        <Badge variant="success">
+                          🏆 Mastered (100%)
+                        </Badge>
+                      ) : lastAttempt ? (
+                        <Badge variant="amber">
+                          Best: {lastAttempt.percent}%
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary">Not Attempted</Badge>
+                      )}
+                    </div>
+
+                    <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)', margin: '0 0 0.35rem 0', fontWeight: 700 }}>
+                      {quizTitle}
+                    </h3>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: 0 }}>
+                      {quizTopic} · {numQuestions} Questions
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--border-default)' }}>
+                    <span style={{ fontSize: '0.8rem', color: isLessonMastered ? 'var(--accent-emerald)' : 'var(--text-muted)', fontWeight: isLessonMastered ? 600 : 400 }}>
+                      {isLessonMastered ? '✓ 100% Mastered' : 'Requires 100% score'}
+                    </span>
+
+                    <Button variant={isLessonMastered ? 'secondary' : 'primary'} size="sm" onClick={(e) => { e.stopPropagation(); setActiveQuiz(quiz); }}>
+                      {isLessonMastered ? 'Retake Exam 🔄' : 'Take Exam →'}
+                    </Button>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* SubMode 2: AI Quiz Generator */}
       {subMode === 'ai_generator' && (
         <AiQuizGeneratorView
           vocabularyList={vocabularyList}
@@ -185,7 +303,7 @@ export default function QuizzesView({
         />
       )}
 
-      {/* SubMode 2: Quiz Library (Unified Saved Quizzes) */}
+      {/* SubMode 3: Quiz Library (Saved AI Quizzes) */}
       {subMode === 'library' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -217,7 +335,7 @@ export default function QuizzesView({
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
-                      justifyContent: 'space-between',
+                      justify: 'space-between',
                       gap: '1rem',
                       padding: '1.25rem',
                     }}
@@ -285,7 +403,7 @@ export default function QuizzesView({
         </div>
       )}
 
-      {/* SubMode 3: Attempt History */}
+      {/* SubMode 4: Attempt History */}
       {subMode === 'history' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <h2 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', margin: 0, fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

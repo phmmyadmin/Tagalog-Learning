@@ -1,0 +1,97 @@
+{
+  "quiz_metadata": {
+    "id": "LESSON_08_QUIZ",
+    "lesson": "Lesson_08",
+    "title": "Lesson 8 Mastery Exam",
+    "topic": "Linkers (Na/-ng) & Conjunctions",
+    "total_questions": 8,
+    "created_at": "2026-08-21T20:00:00Z"
+  },
+  "questions": [
+    {
+      "id": "L08-Q01",
+      "type": "multiple_choice",
+      "topic": "Linker for Vowels",
+      "lesson": "Lesson_08",
+      "prompt": "When a modifying word ends in a vowel (e.g. 'maganda'), which linker form is attached directly to the end of the word?",
+      "options": ["-ng", "na", "-g", "nang"],
+      "correct_answer": "-ng",
+      "explanation": "If the preceding word ends in a vowel, '-ng' is attached directly: maganda + -ng = magandang."
+    },
+    {
+      "id": "L08-Q02",
+      "type": "multiple_choice",
+      "topic": "Linker for Consonants",
+      "lesson": "Lesson_08",
+      "prompt": "When a modifying word ends in a consonant except 'n' (e.g. 'mabait'), which standalone linker is used?",
+      "options": ["na", "-ng", "-g", "nang"],
+      "correct_answer": "na",
+      "explanation": "If the preceding word ends in a consonant (other than n), 'na' is placed as a separate word: mabait na bata."
+    },
+    {
+      "id": "L08-Q03",
+      "type": "multiple_choice",
+      "topic": "Linker for letter N",
+      "lesson": "Lesson_08",
+      "prompt": "When a word ends in the letter 'n' (e.g. 'hangin'), how is the linker applied?",
+      "options": ["The 'n' is replaced by '-ng'", "Add 'na'", "Add '-ng' without replacing", "No linker is used"],
+      "correct_answer": "The 'n' is replaced by '-ng'",
+      "explanation": "If a word ends in 'n', the 'n' drops and is replaced by '-ng': hangin + -ng = hanging malamig."
+    },
+    {
+      "id": "L08-Q04",
+      "type": "multiple_choice",
+      "topic": "Conjunction Pero",
+      "lesson": "Lesson_08",
+      "prompt": "Which conjunction means 'but'?",
+      "options": ["pero", "dahil", "kasi", "at"],
+      "correct_answer": "pero",
+      "explanation": "'Pero' (or 'ngunit') means 'but'."
+    },
+    {
+      "id": "L08-Q05",
+      "type": "multiple_choice",
+      "topic": "Causal Conjunctions",
+      "lesson": "Lesson_08",
+      "prompt": "Which conjunction means 'because'?",
+      "options": ["dahil", "pero", "kapag", "at"],
+      "correct_answer": "dahil",
+      "explanation": "'Dahil' (or 'kasi') means 'because'."
+    },
+    {
+      "id": "L08-Q06",
+      "type": "fill_in_blank",
+      "topic": "Conditional Conjunction",
+      "lesson": "Lesson_08",
+      "prompt": "Which conjunction means 'if' or 'whenever'? ______",
+      "correct_answer": "kapag",
+      "accepted_answers": ["kapag", "kung", "Kapag", "Kung"],
+      "explanation": "'Kapag' or 'kung' means 'if' or 'whenever'."
+    },
+    {
+      "id": "L08-Q07",
+      "type": "fill_in_blank",
+      "topic": "Additive Conjunction",
+      "lesson": "Lesson_08",
+      "prompt": "What is the Tagalog conjunction for 'and'? ______",
+      "correct_answer": "at",
+      "accepted_answers": ["at", "At"],
+      "explanation": "'At' is the conjunction for 'and'."
+    },
+    {
+      "id": "L08-Q08",
+      "type": "multiple_choice",
+      "topic": "Linker Function",
+      "lesson": "Lesson_08",
+      "prompt": "What is the primary function of linkers (na/-ng) in Tagalog?",
+      "options": [
+        "To connect modifiers (adjectives/nouns) to the words they modify",
+        "To mark the subject of a sentence",
+        "To indicate verb tense",
+        "To express questions"
+      ],
+      "correct_answer": "To connect modifiers (adjectives/nouns) to the words they modify",
+      "explanation": "Linkers (na/-ng) join adjectives to nouns or adverbs to verbs to form coherent noun phrases or clauses."
+    }
+  ]
+}

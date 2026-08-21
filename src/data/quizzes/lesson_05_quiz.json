@@ -1,0 +1,92 @@
+{
+  "quiz_metadata": {
+    "id": "LESSON_05_QUIZ",
+    "lesson": "Lesson_05",
+    "title": "Lesson 5 Mastery Exam",
+    "topic": "Adjectives, Intensifiers & Comparisons",
+    "total_questions": 8,
+    "created_at": "2026-08-21T20:00:00Z"
+  },
+  "questions": [
+    {
+      "id": "L05-Q01",
+      "type": "multiple_choice",
+      "topic": "Comparative Degree",
+      "lesson": "Lesson_05",
+      "prompt": "Which modifier is placed before an adjective to express 'more' (comparative degree)?",
+      "options": ["mas", "pinaka", "napaka", "sobra"],
+      "correct_answer": "mas",
+      "explanation": "'Mas' means 'more' (e.g. Mas malaki = bigger / more big)."
+    },
+    {
+      "id": "L05-Q02",
+      "type": "multiple_choice",
+      "topic": "Superlative Degree",
+      "lesson": "Lesson_05",
+      "prompt": "Which prefix is used to form the superlative degree ('the most' / '-est')?",
+      "options": ["pinaka-", "napaka-", "mas", "kasing-"],
+      "correct_answer": "pinaka-",
+      "explanation": "'Pinaka-' forms the superlative degree (e.g. Pinakamaganda = most beautiful)."
+    },
+    {
+      "id": "L05-Q03",
+      "type": "multiple_choice",
+      "topic": "Intensifier Prefix",
+      "lesson": "Lesson_05",
+      "prompt": "Which prefix expresses 'very' or 'extremely' when attached to an adjective root (e.g. '___ganda')?",
+      "options": ["napaka-", "pinaka-", "mas", "maga-"],
+      "correct_answer": "napaka-",
+      "explanation": "'Napaka-' means 'very / extremely' (e.g. Napakaganda = extremely beautiful)."
+    },
+    {
+      "id": "L05-Q04",
+      "type": "fill_in_blank",
+      "topic": "Equality Comparison",
+      "lesson": "Lesson_05",
+      "prompt": "Which prefix expresses equality ('as ... as') when attached to a root word? ______",
+      "correct_answer": "kasing",
+      "accepted_answers": ["kasing", "kasing-", "sing"],
+      "explanation": "'Kasing-' or 'sing-' expresses equal quality ('as X as')."
+    },
+    {
+      "id": "L05-Q05",
+      "type": "multiple_choice",
+      "topic": "Adjective Prefix",
+      "lesson": "Lesson_05",
+      "prompt": "Most standard Tagalog descriptive adjectives begin with which common prefix?",
+      "options": ["ma-", "pa-", "ka-", "nag-"],
+      "correct_answer": "ma-",
+      "explanation": "The prefix 'ma-' is attached to roots to form adjectives (ma-ganda, ma-laki, ma-sarap)."
+    },
+    {
+      "id": "L05-Q06",
+      "type": "fill_in_blank",
+      "topic": "Superlative Form",
+      "lesson": "Lesson_05",
+      "prompt": "Translate 'most delicious' using the root 'sarap': ______",
+      "correct_answer": "pinakamasarap",
+      "accepted_answers": ["pinakamasarap", "Pinakamasarap"],
+      "explanation": "Pinaka- + masarap = pinakamasarap (most delicious)."
+    },
+    {
+      "id": "L05-Q07",
+      "type": "multiple_choice",
+      "topic": "Comparative Preposition",
+      "lesson": "Lesson_05",
+      "prompt": "In comparative sentences like 'Mas malaki ang bahay ___ sa kubo', which word introduces 'than'?",
+      "options": ["kaysa", "dahil", "kasi", "para"],
+      "correct_answer": "kaysa",
+      "explanation": "'Kaysa' or 'kaysa sa' means 'than' in comparative statements."
+    },
+    {
+      "id": "L05-Q08",
+      "type": "multiple_choice",
+      "topic": "Antonyms",
+      "lesson": "Lesson_05",
+      "prompt": "What is the opposite of 'mabilis' (fast)?",
+      "options": ["mabagal", "maliit", "mababa", "matagal"],
+      "correct_answer": "mabagal",
+      "explanation": "'Mabagal' means 'slow', which is the antonym of 'mabilis'."
+    }
+  ]
+}

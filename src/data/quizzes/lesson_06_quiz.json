@@ -1,0 +1,92 @@
+{
+  "quiz_metadata": {
+    "id": "LESSON_06_QUIZ",
+    "lesson": "Lesson_06",
+    "title": "Lesson 6 Mastery Exam",
+    "topic": "Numbers, Time, Days & Money",
+    "total_questions": 8,
+    "created_at": "2026-08-21T20:00:00Z"
+  },
+  "questions": [
+    {
+      "id": "L06-Q01",
+      "type": "multiple_choice",
+      "topic": "Cardinal Numbers",
+      "lesson": "Lesson_06",
+      "prompt": "What is the Tagalog word for the number 5?",
+      "options": ["lima", "apat", "anim", "pito"],
+      "correct_answer": "lima",
+      "explanation": "'Lima' is 5 in native Tagalog counting (isa, dalawa, tatlo, apat, lima)."
+    },
+    {
+      "id": "L06-Q02",
+      "type": "multiple_choice",
+      "topic": "Cardinal Numbers",
+      "lesson": "Lesson_06",
+      "prompt": "What is the Tagalog word for 10?",
+      "options": ["sampu", "walo", "siyam", "dalawampu"],
+      "correct_answer": "sampu",
+      "explanation": "'Sampu' is 10 in Tagalog."
+    },
+    {
+      "id": "L06-Q03",
+      "type": "fill_in_blank",
+      "topic": "Telling Time",
+      "lesson": "Lesson_06",
+      "prompt": "How do you say '1:00 o'clock' using Spanish-derived time expressions in Tagalog? ______",
+      "correct_answer": "a la una",
+      "accepted_answers": ["a la una", "A la una", "ala una"],
+      "explanation": "'A la una' means 1 o'clock (singular 'a la', all other hours use 'alas')."
+    },
+    {
+      "id": "L06-Q04",
+      "type": "multiple_choice",
+      "topic": "Telling Time",
+      "lesson": "Lesson_06",
+      "prompt": "How do you say '3:00 o'clock'?",
+      "options": ["alas tres", "a la tres", "alas treses", "ikatlo"],
+      "correct_answer": "alas tres",
+      "explanation": "Hours 2 to 12 use the prefix 'alas' + Spanish hour: 'alas tres' (3:00)."
+    },
+    {
+      "id": "L06-Q05",
+      "type": "multiple_choice",
+      "topic": "Days of the Week",
+      "lesson": "Lesson_06",
+      "prompt": "What day of the week is 'Linggo'?",
+      "options": ["Sunday", "Monday", "Saturday", "Friday"],
+      "correct_answer": "Sunday",
+      "explanation": "'Linggo' means Sunday (and also 'week')."
+    },
+    {
+      "id": "L06-Q06",
+      "type": "fill_in_blank",
+      "topic": "Days of the Week",
+      "lesson": "Lesson_06",
+      "prompt": "What is the Tagalog word for 'Monday'? ______",
+      "correct_answer": "Lunes",
+      "accepted_answers": ["Lunes", "lunes"],
+      "explanation": "'Lunes' is Monday in Tagalog."
+    },
+    {
+      "id": "L06-Q07",
+      "type": "multiple_choice",
+      "topic": "Asking Prices",
+      "lesson": "Lesson_06",
+      "prompt": "How do you ask 'How much is this?' in Tagalog?",
+      "options": ["Magkano ito?", "Ilan ito?", "Ano ito?", "Saan ito?"],
+      "correct_answer": "Magkano ito?",
+      "explanation": "'Magkano' asks for price/cost, so 'Magkano ito?' means 'How much is this?'"
+    },
+    {
+      "id": "L06-Q08",
+      "type": "multiple_choice",
+      "topic": "Counting Items",
+      "lesson": "Lesson_06",
+      "prompt": "Which question word asks for quantity / number of items ('How many?')?",
+      "options": ["Ilan", "Magkano", "Sino", "Alin"],
+      "correct_answer": "Ilan",
+      "explanation": "'Ilan' asks 'How many?' (countable items), while 'Magkano' asks 'How much?' (price)."
+    }
+  ]
+}
