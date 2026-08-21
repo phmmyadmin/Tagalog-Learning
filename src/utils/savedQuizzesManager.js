@@ -9,20 +9,35 @@ import verbsQuiz from '../data/quizzes/verbs_quiz.json';
 import { autoPushIfLoggedIn } from './cloudSyncManager';
 
 const STORAGE_KEY = 'tagalog_saved_quizzes_v1';
-const INITIAL_PRESETS = [defaultQuiz, pronounsQuiz, verbsQuiz];
+export const INITIAL_PRESETS = [defaultQuiz, pronounsQuiz, verbsQuiz];
 
 export function getSavedQuizzes() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
+    let list = [];
     if (raw) {
-      const list = JSON.parse(raw);
-      if (Array.isArray(list) && list.length > 0) {
-        return list;
-      }
+      try {
+        list = JSON.parse(raw);
+      } catch (e) {}
     }
-    // Seed initial presets into storage if no saved quizzes exist
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_PRESETS));
-    return INITIAL_PRESETS;
+
+    // Always ensure INITIAL_PRESETS are included alongside user-generated quizzes
+    const map = new Map();
+
+    INITIAL_PRESETS.forEach((preset) => {
+      const id = preset.quiz_metadata?.id || preset.id;
+      if (id) map.set(id, preset);
+    });
+
+    if (Array.isArray(list)) {
+      list.forEach((q) => {
+        const id = q.quiz_metadata?.id || q.id;
+        if (id) map.set(id, q);
+      });
+    }
+
+    const merged = Array.from(map.values());
+    return merged;
   } catch (e) {
     console.error('Failed to parse saved quizzes:', e);
     return INITIAL_PRESETS;
@@ -30,7 +45,7 @@ export function getSavedQuizzes() {
 }
 
 export function saveQuizToStorage(quiz) {
-  if (!quiz || !quiz.quiz_metadata?.id) return;
+  if (!quiz || (!quiz.quiz_metadata?.id && !quiz.id)) return;
 
   try {
     const existing = getSavedQuizzes();
