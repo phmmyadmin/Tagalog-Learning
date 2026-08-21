@@ -236,16 +236,21 @@ export default function QuizzesView({
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--border-default)' }}>
                       <Button
-                        variant="ghost"
+                        variant="danger"
                         size="sm"
                         onClick={(e) => {
                           e.stopPropagation();
                           deleteSavedQuiz(quizId);
                         }}
-                        style={{ color: 'var(--accent-danger)', padding: '0.2rem 0.5rem' }}
-                        title="Delete quiz"
+                        icon={<span>🗑️</span>}
+                        style={{
+                          backgroundColor: 'var(--accent-danger-light)',
+                          color: 'var(--accent-danger)',
+                          borderColor: 'rgba(220, 38, 38, 0.25)',
+                        }}
+                        title="Delete quiz from library"
                       >
-                        🗑️ Delete
+                        Delete
                       </Button>
 
                       <Button variant="primary" size="sm" onClick={(e) => { e.stopPropagation(); setActiveQuiz(quiz); }}>
