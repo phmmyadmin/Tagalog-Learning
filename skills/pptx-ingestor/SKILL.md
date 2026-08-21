@@ -46,9 +46,38 @@ Trigger this skill whenever the user asks to ingest a new PPTX lesson, whether i
      ```
    - This ensures `TheoryCard.jsx` automatically renders clean, responsive HTML tables with interactive TTS pronunciation buttons (`🔊`).
 
-2. Create a tracking issue in GitHub Project V2 `@phmmyadmin's tasks` (`PVT_kwHOAkgXus4BfhjX`):
+2. **Mandatory Lesson Mastery Quiz Generation**:
+   - For every newly ingested lesson (e.g. `<Lesson_XX>`), **MANDATORILY create a dedicated quiz JSON file** at `src/data/quizzes/lesson_<xx>_quiz.json`.
+   - **Quiz JSON Schema**:
+     ```json
+     {
+       "quiz_metadata": {
+         "id": "LESSON_<XX>_QUIZ",
+         "lesson": "Lesson_<XX>",
+         "title": "Lesson <XX> Mastery Exam",
+         "topic": "<Brief Topic Description>",
+         "total_questions": 8,
+         "created_at": "2026-08-21T20:00:00Z"
+       },
+       "questions": [
+         {
+           "id": "L<XX>-Q01",
+           "type": "multiple_choice",
+           "topic": "Grammar Topic",
+           "lesson": "Lesson_<XX>",
+           "prompt": "Question prompt",
+           "options": ["Opt A", "Opt B", "Opt C", "Opt D"],
+           "correct_answer": "Opt A",
+           "explanation": "Pedagogical explanation"
+         }
+       ]
+     }
+     ```
+   - Register the new quiz in `src/data/quizzes/index.js` under `lessonQuizzes` array.
+
+3. Create a tracking issue in GitHub Project V2 `@phmmyadmin's tasks` (`PVT_kwHOAkgXus4BfhjX`):
    - Title: `[Ingestion] Ingestar nueva lección <Lesson_XX> desde PPTX`
-3. Update task status to `In Progress` (`47fc9ee4`).
+4. Update task status to `In Progress` (`47fc9ee4`).
 
 ### Stage 3: Branch, Pipeline Execution & PR Creation
 1. Checkout a clean feature branch: `git checkout -b feature/ingest-<lesson_xx_lowercase>`

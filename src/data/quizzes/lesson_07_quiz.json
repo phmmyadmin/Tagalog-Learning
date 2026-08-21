@@ -1,0 +1,92 @@
+{
+  "quiz_metadata": {
+    "id": "LESSON_07_QUIZ",
+    "lesson": "Lesson_07",
+    "title": "Lesson 7 Mastery Exam",
+    "topic": "Pseudo-Verbs & Modals (Gusto, Ayaw, Kailangan)",
+    "total_questions": 8,
+    "created_at": "2026-08-21T20:00:00Z"
+  },
+  "questions": [
+    {
+      "id": "L07-Q01",
+      "type": "multiple_choice",
+      "topic": "Pseudo-verb Gusto",
+      "lesson": "Lesson_07",
+      "prompt": "Which pseudo-verb expresses 'want' or 'like'?",
+      "options": ["gusto", "ayaw", "kailangan", "bawal"],
+      "correct_answer": "gusto",
+      "explanation": "'Gusto' means 'want' or 'like' (e.g. Gusto ko ng tubig)."
+    },
+    {
+      "id": "L07-Q02",
+      "type": "multiple_choice",
+      "topic": "Pseudo-verb Ayaw",
+      "lesson": "Lesson_07",
+      "prompt": "Which pseudo-verb expresses dislike or refusal ('don't want' / 'dislike')?",
+      "options": ["ayaw", "gusto", "maaari", "pwede"],
+      "correct_answer": "ayaw",
+      "explanation": "'Ayaw' expresses negative desire or refusal (don't want / dislike)."
+    },
+    {
+      "id": "L07-Q03",
+      "type": "multiple_choice",
+      "topic": "Pseudo-verb Kailangan",
+      "lesson": "Lesson_07",
+      "prompt": "Which pseudo-verb expresses necessity ('need' / 'must')?",
+      "options": ["kailangan", "gusto", "maaari", "bawal"],
+      "correct_answer": "kailangan",
+      "explanation": "'Kailangan' means 'need' or 'must'."
+    },
+    {
+      "id": "L07-Q04",
+      "type": "multiple_choice",
+      "topic": "Prohibition Modal Bawal",
+      "lesson": "Lesson_07",
+      "prompt": "Which modal word means 'forbidden' or 'prohibited'?",
+      "options": ["bawal", "pwede", "maaari", "dapat"],
+      "correct_answer": "bawal",
+      "explanation": "'Bawal' means 'forbidden', 'prohibited', or 'not allowed'."
+    },
+    {
+      "id": "L07-Q05",
+      "type": "fill_in_blank",
+      "topic": "Pronoun Case with Gusto",
+      "lesson": "Lesson_07",
+      "prompt": "When expressing 'I want water', which 1st person pronoun case is used after gusto ('Gusto ___ ng tubig')? ______",
+      "correct_answer": "ko",
+      "accepted_answers": ["ko", "Ko"],
+      "explanation": "Pseudo-verbs like gusto, ayaw, kailangan take genitive pronouns (ko, mo, niya, natin, namin, ninyo, nila)."
+    },
+    {
+      "id": "L07-Q06",
+      "type": "multiple_choice",
+      "topic": "Permission Modals",
+      "lesson": "Lesson_07",
+      "prompt": "Which two words mean 'can' / 'may' / 'is allowed'?",
+      "options": ["maaari / pwede", "gusto / ayaw", "bawal / dapat", "kailangan / ayaw"],
+      "correct_answer": "maaari / pwede",
+      "explanation": "'Maaari' (formal) and 'pwede' (colloquial) mean 'can', 'may', or 'is permitted'."
+    },
+    {
+      "id": "L07-Q07",
+      "type": "fill_in_blank",
+      "topic": "Linker with Verbs after Gusto",
+      "lesson": "Lesson_07",
+      "prompt": "In 'Gusto kong kumain', what suffix linker attached to 'ko' connects to the infinitive verb 'kumain'? ______",
+      "correct_answer": "ng",
+      "accepted_answers": ["ng", "-ng"],
+      "explanation": "The linker '-ng' attaches to words ending in vowels ('ko' + '-ng' = 'kong') before infinitive verbs."
+    },
+    {
+      "id": "L07-Q08",
+      "type": "multiple_choice",
+      "topic": "Obligation Modal Dapat",
+      "lesson": "Lesson_07",
+      "prompt": "Which word expresses 'should' or 'ought to'?",
+      "options": ["dapat", "bawal", "ayaw", "gusto"],
+      "correct_answer": "dapat",
+      "explanation": "'Dapat' means 'should' or 'ought to'."
+    }
+  ]
+}

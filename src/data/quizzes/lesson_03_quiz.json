@@ -1,0 +1,92 @@
+{
+  "quiz_metadata": {
+    "id": "LESSON_03_QUIZ",
+    "lesson": "Lesson_03",
+    "title": "Lesson 3 Mastery Exam",
+    "topic": "Personal, Demonstrative & Possessive Pronouns",
+    "total_questions": 8,
+    "created_at": "2026-08-21T20:00:00Z"
+  },
+  "questions": [
+    {
+      "id": "L03-Q01",
+      "type": "multiple_choice",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Which pronoun means 'we' EXCLUDING the person being spoken to?",
+      "options": ["kami", "tayo", "kayo", "sila"],
+      "correct_answer": "kami",
+      "explanation": "'Kami' is the 1st person plural exclusive pronoun (we excluding you)."
+    },
+    {
+      "id": "L03-Q02",
+      "type": "multiple_choice",
+      "topic": "Nominative Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Which pronoun means 'we' INCLUDING the person being spoken to?",
+      "options": ["tayo", "kami", "kayo", "sila"],
+      "correct_answer": "tayo",
+      "explanation": "'Tayo' is the 1st person plural inclusive pronoun (we including you)."
+    },
+    {
+      "id": "L03-Q03",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Which demonstrative pronoun means 'this' (object near the speaker)?",
+      "options": ["ito", "iyan", "iyon", "dito"],
+      "correct_answer": "ito",
+      "explanation": "'Ito' means 'this' (near speaker)."
+    },
+    {
+      "id": "L03-Q04",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Which demonstrative pronoun means 'that' (object near the listener)?",
+      "options": ["iyan", "ito", "iyon", "doon"],
+      "correct_answer": "iyan",
+      "explanation": "'Iyan' means 'that' (near listener)."
+    },
+    {
+      "id": "L03-Q05",
+      "type": "multiple_choice",
+      "topic": "Demonstrative Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Which demonstrative pronoun means 'that over there' (far from both speaker and listener)?",
+      "options": ["iyon", "ito", "iyan", "diyan"],
+      "correct_answer": "iyon",
+      "explanation": "'Iyon' means 'that over there' (far from both)."
+    },
+    {
+      "id": "L03-Q06",
+      "type": "fill_in_blank",
+      "topic": "Possessive Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "Complete with the possessive pronoun: 'Akin ang librong ito' means 'This book is ______'.",
+      "correct_answer": "mine",
+      "accepted_answers": ["mine", "my"],
+      "explanation": "'Akin' is the possessive pronoun meaning 'mine' or 'my'."
+    },
+    {
+      "id": "L03-Q07",
+      "type": "fill_in_blank",
+      "topic": "Personal Pronouns",
+      "lesson": "Lesson_03",
+      "prompt": "What is the Tagalog pronoun for 'he' or 'she' (gender-neutral 3rd person singular)? ______",
+      "correct_answer": "siya",
+      "accepted_answers": ["siya", "Siya"],
+      "explanation": "'Siya' is the gender-neutral 3rd person singular pronoun in Tagalog."
+    },
+    {
+      "id": "L03-Q08",
+      "type": "multiple_choice",
+      "topic": "2nd Person Plural Pronoun",
+      "lesson": "Lesson_03",
+      "prompt": "Which pronoun means 'you all' / 'you (plural)'?",
+      "options": ["kayo", "sila", "kami", "tayo"],
+      "correct_answer": "kayo",
+      "explanation": "'Kayo' is the 2nd person plural pronoun (you all)."
+    }
+  ]
+}

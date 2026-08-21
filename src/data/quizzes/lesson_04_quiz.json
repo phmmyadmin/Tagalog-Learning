@@ -1,0 +1,92 @@
+{
+  "quiz_metadata": {
+    "id": "LESSON_04_QUIZ",
+    "lesson": "Lesson_04",
+    "title": "Lesson 4 Mastery Exam",
+    "topic": "Verb Foci & Conjugations (-um- vs mag-)",
+    "total_questions": 8,
+    "created_at": "2026-08-21T20:00:00Z"
+  },
+  "questions": [
+    {
+      "id": "L04-Q01",
+      "type": "multiple_choice",
+      "topic": "Completed Aspect (-um-)",
+      "lesson": "Lesson_04",
+      "prompt": "What is the completed (past) form of the -um- verb root 'kain' (eat)?",
+      "options": ["kumain", "kumakain", "kakain", "magkain"],
+      "correct_answer": "kumain",
+      "explanation": "In completed aspect, '-um-' infix is inserted after the first consonant: k-um-ain = kumain."
+    },
+    {
+      "id": "L04-Q02",
+      "type": "multiple_choice",
+      "topic": "Incompleted Aspect (-um-)",
+      "lesson": "Lesson_04",
+      "prompt": "What is the incompleted (present / habit) form of the verb root 'kain'?",
+      "options": ["kumakain", "kumain", "kakain", "nagkain"],
+      "correct_answer": "kumakain",
+      "explanation": "Incompleted aspect duplicates the first syllable of the root and inserts '-um-': k-um-a-kain."
+    },
+    {
+      "id": "L04-Q03",
+      "type": "multiple_choice",
+      "topic": "Contemplated Aspect (-um-)",
+      "lesson": "Lesson_04",
+      "prompt": "What is the contemplated (future) form of the root 'kain'?",
+      "options": ["kakain", "kumain", "kumakain", "magkain"],
+      "correct_answer": "kakain",
+      "explanation": "Contemplated aspect duplicates the first syllable of the root without '-um-': ka-kain."
+    },
+    {
+      "id": "L04-Q04",
+      "type": "multiple_choice",
+      "topic": "Mag- Verbs Completed Aspect",
+      "lesson": "Lesson_04",
+      "prompt": "For mag- verbs, what prefix replaces 'mag-' in the completed (past) aspect?",
+      "options": ["nag-", "mag-", "nagma-", "um-"],
+      "correct_answer": "nag-",
+      "explanation": "'mag-' verbs change the initial 'm' to 'n' for completed aspect: magluto -> nagluto."
+    },
+    {
+      "id": "L04-Q05",
+      "type": "fill_in_blank",
+      "topic": "Mag- Verbs Incompleted Aspect",
+      "lesson": "Lesson_04",
+      "prompt": "What is the incompleted (present) form of 'mag-aral' (to study)? ______",
+      "correct_answer": "nagaaral",
+      "accepted_answers": ["nagaaral", "nag-aaral", "Nag-aaral", "Nagaaral"],
+      "explanation": "Incompleted aspect of mag- verbs: nag- + duplicate first syllable of root + root = nag-a-aral."
+    },
+    {
+      "id": "L04-Q06",
+      "type": "fill_in_blank",
+      "topic": "Completed Aspect (-um-)",
+      "lesson": "Lesson_04",
+      "prompt": "What is the past (completed) tense of 'lakad' (walk) using -um-? ______",
+      "correct_answer": "lumakad",
+      "accepted_answers": ["lumakad", "Lumakad"],
+      "explanation": "Infix '-um-' placed after first consonant 'l': l-um-akad."
+    },
+    {
+      "id": "L04-Q07",
+      "type": "multiple_choice",
+      "topic": "Mag- Verbs Contemplated Aspect",
+      "lesson": "Lesson_04",
+      "prompt": "What is the contemplated (future) tense of 'maglinis' (clean)?",
+      "options": ["maglillinis", "maglillinis", "maglillinis", "maglillinis", "maglilinis"],
+      "correct_answer": "maglilinis",
+      "explanation": "Future tense of mag- verbs keeps 'mag-' and duplicates the first syllable of root: mag-li-linis."
+    },
+    {
+      "id": "L04-Q08",
+      "type": "multiple_choice",
+      "topic": "Actor Focus Concept",
+      "lesson": "Lesson_04",
+      "prompt": "In Actor Focus (AF) sentences, which entity is the topic marked by 'ang'?",
+      "options": ["The actor / doer of the action", "The object acted upon", "The location", "The instrument used"],
+      "correct_answer": "The actor / doer of the action",
+      "explanation": "In Actor Focus, the verb focuses on the performer of the action, who is marked with 'ang' or 'si'."
+    }
+  ]
+}

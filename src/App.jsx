@@ -172,6 +172,28 @@ export function App() {
 
   const dynamicStats = getDynamicStats();
 
+  const handleMarkLessonMastered = (lessonKey) => {
+    recordStudyActivity();
+    const normLesson = lessonKey.includes('Lesson_') ? lessonKey : lessonKey.replace('Lesson ', 'Lesson_');
+    const theoryIds = tagalogData.theory
+      .filter((t) => t.lesson === normLesson || t.lesson === normLesson.replace('_', ' '))
+      .map((t) => t.id);
+    const vocabIds = tagalogData.vocabulary
+      .filter((v) => v.lesson === normLesson || v.lesson === normLesson.replace('_', ' '))
+      .map((v) => v.id);
+
+    const lessonTag = `LESSON_MASTERED_${normLesson}`;
+
+    setMasteredItems((prev) => {
+      const next = Array.from(new Set([...prev, ...theoryIds, ...vocabIds, lessonTag]));
+      try {
+        localStorage.setItem('tagalog_mastered_items', JSON.stringify(next));
+      } catch (e) {}
+      pushProgressToCloud().catch(() => {});
+      return next;
+    });
+  };
+
   return (
     <div className="app-container">
       {/* Accessibility Skip Link */}
@@ -264,6 +286,8 @@ export function App() {
             vocabularyList={tagalogData.vocabulary}
             theoryList={tagalogData.theory}
             lessons={availableLessons}
+            masteredItems={masteredItems}
+            onMarkLessonMastered={handleMarkLessonMastered}
           />
         </div>
       </main>
