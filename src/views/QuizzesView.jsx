@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import QuizRunner from '../components/QuizRunner';
 import AiQuizGeneratorView from './AiQuizGeneratorView';
 import SrsSettingsPanel from '../components/SrsSettingsPanel';
-import { availableQuizzes } from '../data/quizzes';
 import { getSavedQuizzes, deleteSavedQuiz } from '../utils/savedQuizzesManager';
 import { getMistakes, clearAllMistakes } from '../utils/mistakesManager';
 import { Card } from '../components/ui/Card';
@@ -19,14 +18,14 @@ export default function QuizzesView({
   const [activeQuiz, setActiveQuiz] = useState(null);
   const [mistakes, setMistakes] = useState(getMistakes());
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [userSavedQuizzes, setUserSavedQuizzes] = useState(getSavedQuizzes());
+  const [savedQuizzes, setSavedQuizzes] = useState(getSavedQuizzes());
 
   useEffect(() => {
     const handleMistakesUpdate = () => {
       setMistakes(getMistakes());
     };
     const handleSavedQuizzesUpdate = () => {
-      setUserSavedQuizzes(getSavedQuizzes());
+      setSavedQuizzes(getSavedQuizzes());
     };
 
     window.addEventListener('tagalog_mistakes_updated', handleMistakesUpdate);
@@ -91,20 +90,11 @@ export default function QuizzesView({
     );
   }
 
-  // Combine built-in presets and user-generated saved quizzes (avoid duplicates)
-  const allLibraryQuizzes = [...userSavedQuizzes];
-  availableQuizzes.forEach((preset) => {
-    const presetId = preset.quiz_metadata?.id || preset.id;
-    if (!allLibraryQuizzes.some((q) => (q.quiz_metadata?.id || q.id) === presetId)) {
-      allLibraryQuizzes.push(preset);
-    }
-  });
-
   // Flatten all history attempts into a chronological list
   const allHistoryAttempts = [];
   Object.keys(history).forEach((quizId) => {
     const attempts = history[quizId] || [];
-    const matchedQuiz = allLibraryQuizzes.find((q) => (q.quiz_metadata?.id || q.id) === quizId);
+    const matchedQuiz = savedQuizzes.find((q) => (q.quiz_metadata?.id || q.id) === quizId);
     const quizTitle = matchedQuiz?.quiz_metadata?.title || matchedQuiz?.title || quizId;
 
     attempts.forEach((att) => {
@@ -127,7 +117,7 @@ export default function QuizzesView({
             🏆 Quizzes & Practice Suite
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-            Generate custom Gemini AI quizzes or re-take saved quizzes from your library.
+            Generate custom Gemini AI quizzes or re-take any saved quiz from your cloud-synced library.
           </p>
         </div>
 
@@ -147,7 +137,7 @@ export default function QuizzesView({
             onClick={() => setSubMode('library')}
             icon={<span>📚</span>}
           >
-            Quiz Library ({allLibraryQuizzes.length})
+            Quiz Library ({savedQuizzes.length})
           </Button>
           <Button
             variant={subMode === 'history' ? 'primary' : 'ghost'}
@@ -195,27 +185,26 @@ export default function QuizzesView({
         />
       )}
 
-      {/* SubMode 2: Quiz Library (Saved AI & Preset Quizzes) */}
+      {/* SubMode 2: Quiz Library (Unified Saved Quizzes) */}
       {subMode === 'library' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', margin: 0, fontWeight: 700 }}>
-              📚 Saved Quizzes & Presets
+              📚 Saved Quiz Library
             </h2>
             <Button variant="primary" size="sm" onClick={() => setSubMode('ai_generator')} icon={<span>✨</span>}>
               Generate New Quiz
             </Button>
           </div>
 
-          {allLibraryQuizzes.length > 0 ? (
+          {savedQuizzes.length > 0 ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-              {allLibraryQuizzes.map((quiz) => {
+              {savedQuizzes.map((quiz) => {
                 const meta = quiz.quiz_metadata || {};
                 const quizId = meta.id || quiz.id;
                 const quizTitle = meta.title || quiz.title || 'Tagalog Quiz';
                 const quizTopic = meta.topic || quiz.category || 'General Practice';
                 const numQuestions = quiz.questions?.length || meta.total_questions || 0;
-                const isUserSaved = userSavedQuizzes.some((q) => (q.quiz_metadata?.id || q.id) === quizId);
 
                 const quizHistory = history[quizId] || [];
                 const lastAttempt = quizHistory[0];
@@ -230,40 +219,34 @@ export default function QuizzesView({
                     <div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.35rem' }}>
                         <Badge variant="primary">{quizTopic}</Badge>
-                        {lastAttempt ? (
+                        {lastAttempt && (
                           <Badge variant={lastAttempt.percent >= 80 ? 'success' : 'amber'}>
                             Best: {lastAttempt.percent}%
                           </Badge>
-                        ) : isUserSaved ? (
-                          <Badge variant="secondary">Saved AI Quiz</Badge>
-                        ) : null}
+                        )}
                       </div>
 
                       <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)', margin: '0 0 0.35rem 0', fontWeight: 700 }}>
                         {quizTitle}
                       </h3>
                       <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: 0 }}>
-                        {numQuestions} questions · {meta.created_at ? new Date(meta.created_at).toLocaleDateString() : 'Preset Quiz'}
+                        {numQuestions} questions · {meta.created_at ? new Date(meta.created_at).toLocaleDateString() : 'Saved Quiz'}
                       </p>
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--border-default)' }}>
-                      {isUserSaved ? (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            deleteSavedQuiz(quizId);
-                          }}
-                          style={{ color: 'var(--accent-danger)', padding: '0.2rem 0.5rem' }}
-                          title="Delete saved quiz"
-                        >
-                          🗑️ Delete
-                        </Button>
-                      ) : (
-                        <span style={{ fontSize: '0.775rem', color: 'var(--text-muted)' }}>Preset</span>
-                      )}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteSavedQuiz(quizId);
+                        }}
+                        style={{ color: 'var(--accent-danger)', padding: '0.2rem 0.5rem' }}
+                        title="Delete quiz"
+                      >
+                        🗑️ Delete
+                      </Button>
 
                       <Button variant="primary" size="sm" onClick={(e) => { e.stopPropagation(); setActiveQuiz(quiz); }}>
                         Take Quiz →
@@ -276,7 +259,7 @@ export default function QuizzesView({
           ) : (
             <Card variant="alt" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
               <p style={{ margin: 0, fontSize: '0.95rem' }}>
-                No saved quizzes yet. Use the <strong>AI Generator</strong> to create custom quizzes, and they will automatically be saved here so you can re-take them anytime!
+                No saved quizzes yet. Use the <strong>AI Generator</strong> to create custom quizzes, and they will automatically be saved here and synced to Supabase Cloud so you can re-take them anytime!
               </p>
               <Button variant="primary" size="md" onClick={() => setSubMode('ai_generator')} style={{ marginTop: '1rem' }}>
                 ✨ Generate Your First AI Quiz
