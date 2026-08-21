@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
-import { Input } from '../components/ui/Input';
 import { generateAiQuiz } from '../utils/aiQuizGenerator';
 import { getAiConfig } from '../utils/aiConfigStore';
 
@@ -13,7 +12,7 @@ export default function AiQuizGeneratorView({
   onStartQuiz,
   onOpenSettings,
 }) {
-  const [mode, setMode] = useState('adaptive_srs'); // 'adaptive_srs' | 'lesson' | 'custom_prompt'
+  const [mode, setMode] = useState('custom_prompt'); // default to custom prompt
   const [selectedLesson, setSelectedLesson] = useState('Lesson_02');
   const [customPrompt, setCustomPrompt] = useState('');
   const [questionCount, setQuestionCount] = useState(10);
@@ -26,11 +25,13 @@ export default function AiQuizGeneratorView({
   const hasKey = Boolean(config.apiKey || config.proxyUrl);
 
   const presetPrompts = [
-    'Food, dining & ordering at a Filipino restaurant',
-    'Directions, transport & navigating the city',
-    'Family, relationships & polite greetings (Po/Opo)',
-    'Verb conjugations: -um- vs mag- verbs in present tense',
-    'Shopping, market numbers & asking for prices',
+    { icon: '🍽️', label: 'Restaurant & food', prompt: 'Food, dining & ordering at a Filipino restaurant' },
+    { icon: '🗺️', label: 'Directions & transport', prompt: 'Directions, transport & navigating the city' },
+    { icon: '👨‍👩‍👧', label: 'Family & greetings', prompt: 'Family, relationships & polite greetings (Po/Opo)' },
+    { icon: '🔤', label: 'Verb conjugations', prompt: 'Verb conjugations: -um- vs mag- verbs in present tense' },
+    { icon: '🛒', label: 'Shopping & prices', prompt: 'Shopping, market numbers & asking for prices' },
+    { icon: '🏥', label: 'Health & emergency', prompt: 'Health, body parts, feeling sick, visiting a doctor' },
+    { icon: '📅', label: 'Time & dates', prompt: 'Days of the week, months, telling time, making appointments' },
   ];
 
   const handleGenerate = async () => {
@@ -84,96 +85,161 @@ export default function AiQuizGeneratorView({
             <h2 style={{ fontSize: '1.4rem', color: 'var(--text-primary)', margin: 0, fontWeight: 800 }}>
               🤖 AI Adaptive Quiz Generator
             </h2>
-            <Badge variant="primary">Powered by Gemini 2.5 Flash</Badge>
+            <Badge variant="primary">Gemini 3.6 Flash</Badge>
           </div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: '0.35rem 0 0 0' }}>
-            Create unlimited, personalized Tagalog quizzes tailored to your SRS weak spots, specific lessons, or custom prompt topics.
+            Describe qué tipo de quiz quieres y la IA lo genera al instante. También puedes usar modos predefinidos.
           </p>
         </div>
 
         {!hasKey && (
-          <Button variant="warning" size="sm" onClick={onOpenSettings} icon={<span>⚙️</span>}>
+          <Button variant="secondary" size="sm" onClick={onOpenSettings} icon={<span>⚙️</span>}>
             Configure API Key
           </Button>
         )}
       </Card>
 
+      {/* Custom Prompt Area — ALWAYS VISIBLE AND PROMINENT */}
+      <Card style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', border: '1px solid var(--accent-primary)' }}>
+        <div>
+          <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
+            ✍️ ¿Qué quieres practicar?
+          </h3>
+          <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', margin: '0.2rem 0 0 0' }}>
+            Escribe libremente lo que quieras como quiz, o selecciona un preset rápido.
+          </p>
+        </div>
+
+        <textarea
+          placeholder="Ejemplo: Quiero un quiz sobre pedir comida en un restaurante filipino, incluyendo frases de cortesía y vocabulario de bebidas..."
+          value={customPrompt}
+          onChange={(e) => {
+            setCustomPrompt(e.target.value);
+            if (mode !== 'custom_prompt') setMode('custom_prompt');
+          }}
+          rows={3}
+          style={{
+            width: '100%',
+            padding: '0.85rem 1rem',
+            borderRadius: 'var(--radius-md)',
+            border: '1.5px solid var(--border-default)',
+            backgroundColor: 'var(--bg-surface-alt)',
+            color: 'var(--text-primary)',
+            fontSize: '0.95rem',
+            fontFamily: 'var(--font-body)',
+            resize: 'vertical',
+            minHeight: '80px',
+            outline: 'none',
+            transition: 'border-color var(--transition-fast)',
+          }}
+          onFocus={(e) => { e.target.style.borderColor = 'var(--accent-primary)'; }}
+          onBlur={(e) => { e.target.style.borderColor = 'var(--border-default)'; }}
+        />
+
+        {/* Quick Preset Chips */}
+        <div>
+          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            Quick Presets:
+          </span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginTop: '0.4rem' }}>
+            {presetPrompts.map((preset) => (
+              <Button
+                key={preset.label}
+                type="button"
+                variant={customPrompt === preset.prompt ? 'primary' : 'secondary'}
+                size="sm"
+                onClick={() => {
+                  setCustomPrompt(preset.prompt);
+                  setMode('custom_prompt');
+                }}
+                icon={<span>{preset.icon}</span>}
+              >
+                {preset.label}
+              </Button>
+            ))}
+          </div>
+        </div>
+      </Card>
+
       {/* Mode Selector Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-        {/* Mode 1: Adaptive SRS */}
-        <Card
-          onClick={() => setMode('adaptive_srs')}
-          style={{
-            padding: '1.25rem',
-            cursor: 'pointer',
-            border: mode === 'adaptive_srs' ? '2px solid var(--accent-primary)' : '1px solid var(--border-default)',
-            backgroundColor: mode === 'adaptive_srs' ? 'var(--bg-surface-alt)' : 'var(--bg-surface)',
-            transition: 'all var(--transition-fast)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-            <span style={{ fontSize: '1.5rem' }}>🎯</span>
-            <h3 style={{ fontSize: '1.05rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
-              Adaptive SRS Weak-Spots
-            </h3>
-          </div>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: 0 }}>
-            Targets words with low stability in FSRS, cards in relearning, and items from your Mistakes Bank.
-          </p>
-        </Card>
-
-        {/* Mode 2: By Lesson */}
-        <Card
-          onClick={() => setMode('lesson')}
-          style={{
-            padding: '1.25rem',
-            cursor: 'pointer',
-            border: mode === 'lesson' ? '2px solid var(--accent-primary)' : '1px solid var(--border-default)',
-            backgroundColor: mode === 'lesson' ? 'var(--bg-surface-alt)' : 'var(--bg-surface)',
-            transition: 'all var(--transition-fast)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-            <span style={{ fontSize: '1.5rem' }}>📖</span>
-            <h3 style={{ fontSize: '1.05rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
-              Lesson Master Review
-            </h3>
-          </div>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: 0 }}>
-            Focuses 100% of questions and grammar explanations on vocabulary & theory from a specific lesson.
-          </p>
-        </Card>
-
-        {/* Mode 3: Custom Prompt */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.85rem' }}>
+        {/* Mode 1: Custom Prompt */}
         <Card
           onClick={() => setMode('custom_prompt')}
           style={{
-            padding: '1.25rem',
+            padding: '1.15rem',
             cursor: 'pointer',
             border: mode === 'custom_prompt' ? '2px solid var(--accent-primary)' : '1px solid var(--border-default)',
             backgroundColor: mode === 'custom_prompt' ? 'var(--bg-surface-alt)' : 'var(--bg-surface)',
             transition: 'all var(--transition-fast)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-            <span style={{ fontSize: '1.5rem' }}>✍️</span>
-            <h3 style={{ fontSize: '1.05rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
-              Custom Prompt Topic
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+            <span style={{ fontSize: '1.35rem' }}>✍️</span>
+            <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
+              Custom Prompt
             </h3>
+            {mode === 'custom_prompt' && <Badge variant="primary">Active</Badge>}
           </div>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: 0 }}>
-            Instruct Gemini to generate a quiz on any real-life scenario, conversation topic, or grammar rule.
+          <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
+            Describe what you want and Gemini creates it.
+          </p>
+        </Card>
+
+        {/* Mode 2: Adaptive SRS */}
+        <Card
+          onClick={() => setMode('adaptive_srs')}
+          style={{
+            padding: '1.15rem',
+            cursor: 'pointer',
+            border: mode === 'adaptive_srs' ? '2px solid var(--accent-primary)' : '1px solid var(--border-default)',
+            backgroundColor: mode === 'adaptive_srs' ? 'var(--bg-surface-alt)' : 'var(--bg-surface)',
+            transition: 'all var(--transition-fast)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+            <span style={{ fontSize: '1.35rem' }}>🎯</span>
+            <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
+              SRS Weak-Spots
+            </h3>
+            {mode === 'adaptive_srs' && <Badge variant="primary">Active</Badge>}
+          </div>
+          <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
+            Targets your weakest words from SRS + Mistakes Bank.
+          </p>
+        </Card>
+
+        {/* Mode 3: By Lesson */}
+        <Card
+          onClick={() => setMode('lesson')}
+          style={{
+            padding: '1.15rem',
+            cursor: 'pointer',
+            border: mode === 'lesson' ? '2px solid var(--accent-primary)' : '1px solid var(--border-default)',
+            backgroundColor: mode === 'lesson' ? 'var(--bg-surface-alt)' : 'var(--bg-surface)',
+            transition: 'all var(--transition-fast)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+            <span style={{ fontSize: '1.35rem' }}>📖</span>
+            <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
+              Lesson Review
+            </h3>
+            {mode === 'lesson' && <Badge variant="primary">Active</Badge>}
+          </div>
+          <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
+            100% focused on one specific lesson.
           </p>
         </Card>
       </div>
 
       {/* Options Panel */}
       <Card style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-        <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
-          ⚙️ Quiz Options & Configurations
+        <h3 style={{ fontSize: '1.05rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
+          ⚙️ Quiz Options
         </h3>
 
-        {/* Mode Specific Inputs */}
+        {/* Lesson Selector (only if lesson mode) */}
         {mode === 'lesson' && (
           <div>
             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
@@ -190,6 +256,7 @@ export default function AiQuizGeneratorView({
                 backgroundColor: 'var(--bg-surface-alt)',
                 color: 'var(--text-primary)',
                 fontSize: '0.9rem',
+                fontFamily: 'var(--font-body)',
               }}
             >
               {lessons.filter((l) => l !== 'all').map((les) => (
@@ -201,54 +268,10 @@ export default function AiQuizGeneratorView({
           </div>
         )}
 
-        {mode === 'custom_prompt' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
-                Enter Custom Prompt Directive:
-              </label>
-              <Input
-                type="text"
-                placeholder="e.g. Focus on restaurant dining, asking for the bill, and ordering drinks..."
-                value={customPrompt}
-                onChange={(e) => setCustomPrompt(e.target.value)}
-              />
-            </div>
-
-            {/* Quick Preset Chips */}
-            <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>
-                Quick Presets:
-              </span>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.35rem' }}>
-                {presetPrompts.map((preset) => (
-                  <button
-                    key={preset}
-                    type="button"
-                    onClick={() => setCustomPrompt(preset)}
-                    style={{
-                      padding: '0.3rem 0.6rem',
-                      borderRadius: 'var(--radius-full)',
-                      backgroundColor: 'var(--bg-surface-alt)',
-                      border: '1px solid var(--border-default)',
-                      fontSize: '0.775rem',
-                      color: 'var(--text-primary)',
-                      cursor: 'pointer',
-                      transition: 'all var(--transition-fast)',
-                    }}
-                  >
-                    + {preset}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Global Options Grid: Questions Count + Difficulty */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
               Number of Questions:
             </label>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -268,7 +291,7 @@ export default function AiQuizGeneratorView({
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
               Difficulty Level:
             </label>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -296,13 +319,15 @@ export default function AiQuizGeneratorView({
               backgroundColor: 'var(--accent-danger-light)',
               color: 'var(--accent-danger)',
               borderRadius: 'var(--radius-sm)',
+              border: '1px solid var(--accent-danger)',
               fontSize: '0.875rem',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              gap: '0.75rem',
             }}
           >
-            <span>⚠️ {errorMsg}</span>
+            <span style={{ flex: 1 }}>⚠️ {errorMsg}</span>
             {!hasKey && onOpenSettings && (
               <Button variant="danger" size="sm" onClick={onOpenSettings}>
                 Open Settings
@@ -311,7 +336,7 @@ export default function AiQuizGeneratorView({
           </div>
         )}
 
-        {/* Action Button */}
+        {/* Generate Button */}
         <Button
           variant="primary"
           size="lg"
