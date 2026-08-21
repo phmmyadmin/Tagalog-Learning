@@ -8,16 +8,79 @@ import { getSrsCardStates } from './srsStore';
 import { getMistakes } from './mistakesManager';
 
 /**
+ * Calls Gemini API with exponential backoff and automatic model fallback on 503/429 high demand errors.
+ */
+async function callGeminiApiWithRetry(systemPrompt, config) {
+  const modelsToTry = [
+    config.model || 'gemini-3.6-flash',
+    'gemini-2.0-flash',
+    'gemini-1.5-flash',
+  ];
+
+  const uniqueModels = [...new Set(modelsToTry)];
+  let lastError = null;
+
+  for (let mIdx = 0; mIdx < uniqueModels.length; mIdx++) {
+    const currentModel = uniqueModels[mIdx];
+    let endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${config.apiKey}`;
+
+    if (config.proxyUrl && config.proxyUrl.trim().length > 0) {
+      endpoint = config.proxyUrl.trim();
+    }
+
+    const payload = {
+      contents: [{ parts: [{ text: systemPrompt }] }],
+      generationConfig: {
+        temperature: 0.7,
+        responseMimeType: 'application/json',
+      },
+    };
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (!config.proxyUrl && config.apiKey) {
+      headers['x-goog-api-key'] = config.apiKey;
+    }
+
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (rawText) return rawText;
+        }
+
+        const errText = await response.text();
+
+        // 503 Service Unavailable / 429 Too Many Requests -> retry or fallback
+        if (response.status === 503 || response.status === 429) {
+          lastError = new Error(`Gemini AI is experiencing high demand (${response.status}). Retrying...`);
+          if (attempt === 1) {
+            await new Promise((r) => setTimeout(r, 1500));
+            continue;
+          }
+        } else {
+          throw new Error(`Gemini API Error (${response.status}): ${errText}`);
+        }
+      } catch (err) {
+        lastError = err;
+        if (err.message.includes('400') || err.message.includes('403') || err.message.includes('404')) {
+          throw err;
+        }
+      }
+    }
+  }
+
+  throw lastError || new Error('Gemini API servers are currently busy. Please try again in a few seconds.');
+}
+
+/**
  * Builds the AI prompt and calls Gemini API to produce a structured quiz.
- *
- * @param {Object} options
- * @param {string} options.mode - 'adaptive_srs' | 'lesson' | 'custom_prompt' | 'grammar'
- * @param {string} [options.customPrompt] - User defined prompt
- * @param {string} [options.selectedLesson] - Selected lesson ID (e.g. 'Lesson_02')
- * @param {number} [options.questionCount=10] - Number of questions to generate
- * @param {string} [options.difficulty='beginner'] - Difficulty level
- * @param {Array} [options.vocabularyList=[]] - Full vocabulary list
- * @param {Array} [options.theoryList=[]] - Theory topics
  */
 export async function generateAiQuiz(options = {}) {
   const {
@@ -45,7 +108,6 @@ export async function generateAiQuiz(options = {}) {
     const cardStates = getSrsCardStates();
     const mistakes = getMistakes();
 
-    // Pick cards with high difficulty, lapses, or in learning/relearning
     const weakVocab = vocabularyList.filter((item) => {
       const state = cardStates[item.id];
       if (!state) return false;
@@ -66,7 +128,6 @@ export async function generateAiQuiz(options = {}) {
       (item) => item.lesson && lessonList.some((les) => String(item.lesson) === les || String(item.lesson) === les.replace(' ', '_'))
     );
   } else {
-    // General / Custom prompt
     contextVocab = vocabularyList.slice(0, 30);
     contextTheory = theoryList.slice(0, 8);
   }
@@ -127,61 +188,15 @@ REQUIRED JSON SCHEMA:
   ]
 }`;
 
-  // 4. API Request Construction
-  const modelName = config.model || 'gemini-3.6-flash';
-  let endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${config.apiKey}`;
-
-  if (config.proxyUrl && config.proxyUrl.trim().length > 0) {
-    endpoint = config.proxyUrl.trim();
-  }
-
-  const payload = {
-    contents: [
-      {
-        parts: [{ text: systemPrompt }],
-      },
-    ],
-    generationConfig: {
-      temperature: 0.7,
-      responseMimeType: 'application/json',
-    },
-  };
-
   try {
-    const headers = { 'Content-Type': 'application/json' };
-    if (!config.proxyUrl && config.apiKey) {
-      // standard google API key header
-      headers['x-goog-api-key'] = config.apiKey;
-    }
-
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(payload),
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      throw new Error(`Gemini API Error (${response.status}): ${errText}`);
-    }
-
-    const data = await response.json();
-    const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!rawText) {
-      throw new Error('Empty response received from Gemini AI.');
-    }
-
-    // Clean JSON output (remove ```json wrappers if present)
+    const rawText = await callGeminiApiWithRetry(systemPrompt, config);
     const cleanedText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
     const quizJson = JSON.parse(cleanedText);
 
-    // Validate quiz JSON structure
     if (!quizJson.questions || !Array.isArray(quizJson.questions) || quizJson.questions.length === 0) {
       throw new Error('AI generated quiz has no valid questions.');
     }
 
-    // Ensure all questions have required fields & unique IDs
     quizJson.questions = quizJson.questions.map((q, idx) => ({
       ...q,
       id: q.id || `AI_Q_${idx + 1}_${Date.now()}`,

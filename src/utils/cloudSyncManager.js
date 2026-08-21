@@ -90,18 +90,31 @@ export const pushProgressToCloud = async (userId) => {
     updated_at: new Date().toISOString(),
   };
 
-  let { data, error } = await supabase
-    .from('user_progress')
-    .upsert(payload, { onConflict: 'user_id' });
+  // Gracefully strip columns if the user's Supabase SQL schema hasn't added them yet
+  let data = null;
+  let error = null;
 
-  // Fallback if saved_quizzes column does not exist in Supabase table schema yet
-  if (error && (error.code === '42703' || (error.message && error.message.includes('saved_quizzes')))) {
-    delete payload.saved_quizzes;
-    const fallback = await supabase
+  for (let attempt = 0; attempt < 6; attempt++) {
+    const res = await supabase
       .from('user_progress')
       .upsert(payload, { onConflict: 'user_id' });
-    error = fallback.error;
-    data = fallback.data;
+    data = res.data;
+    error = res.error;
+
+    if (!error) break;
+
+    const msg = error.message || '';
+    if (error.code === '42703' || msg.includes('column') || msg.includes('schema cache')) {
+      const match = msg.match(/Could not find the '([^']+)' column/i) || msg.match(/column "([^"]+)"/i);
+      const missingCol = match ? match[1] : null;
+
+      if (missingCol && payload.hasOwnProperty(missingCol)) {
+        console.warn(`Supabase column '${missingCol}' missing in SQL table. Stripping column from push payload.`);
+        delete payload[missingCol];
+        continue;
+      }
+    }
+    break;
   }
 
   if (error) {
@@ -159,9 +172,9 @@ export const pullProgressFromCloud = async (userId) => {
     .maybeSingle();
 
   if (error) {
-    console.error('Supabase cloud pull error:', error.message || error.code || JSON.stringify(error));
+    console.warn('Initial cloud pull skipped due to schema mismatch or network issue:', error.message || error.code || JSON.stringify(error));
     isInitialPullComplete = true;
-    throw error;
+    return getLocalProgressState();
   }
 
   const localState = getLocalProgressState();
