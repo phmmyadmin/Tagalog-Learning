@@ -115,28 +115,93 @@ export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
             {(currentQuestion.options || ['True', 'False']).map((opt, idx) => {
               const isSelected = selectedOption === opt;
-              let btnVariant = 'secondary';
+              const isCorrectOpt = opt === currentQuestion.correct_answer;
+              const isWrongSelection = isSelected && !isCorrectOpt;
+
+              let bgColor = 'var(--bg-surface-alt)';
+              let borderColor = 'var(--border-default)';
+              let textColor = 'var(--text-primary)';
+              let badgeBg = 'var(--bg-surface)';
+              let badgeText = 'var(--text-secondary)';
+              let statusIcon = null;
+
               if (isSubmitted) {
-                if (opt === currentQuestion.correct_answer) btnVariant = 'success';
-                else if (isSelected && !userAnswers[currentQuestion.id]?.isCorrect) btnVariant = 'danger';
+                if (isCorrectOpt) {
+                  bgColor = 'var(--accent-success-light)';
+                  borderColor = 'var(--accent-success)';
+                  textColor = 'var(--accent-success)';
+                  badgeBg = 'var(--accent-success)';
+                  badgeText = 'var(--text-inverse)';
+                  statusIcon = '✅';
+                } else if (isWrongSelection) {
+                  bgColor = 'var(--accent-danger-light)';
+                  borderColor = 'var(--accent-danger)';
+                  textColor = 'var(--accent-danger)';
+                  badgeBg = 'var(--accent-danger)';
+                  badgeText = 'var(--text-inverse)';
+                  statusIcon = '❌';
+                } else {
+                  bgColor = 'var(--bg-surface-alt)';
+                  borderColor = 'var(--border-default)';
+                  textColor = 'var(--text-muted)';
+                }
               } else if (isSelected) {
-                btnVariant = 'primary';
+                bgColor = 'var(--accent-primary-light)';
+                borderColor = 'var(--accent-primary)';
+                textColor = 'var(--accent-primary)';
+                badgeBg = 'var(--accent-primary)';
+                badgeText = 'var(--text-inverse)';
               }
 
               return (
-                <Button
+                <button
                   key={idx}
-                  variant={btnVariant}
-                  fullWidth
+                  type="button"
                   disabled={isSubmitted}
                   onClick={() => setSelectedOption(opt)}
-                  style={{ justifyContent: 'flex-start', textAlign: 'left', padding: '0.75rem 1rem' }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    padding: '0.85rem 1.15rem',
+                    borderRadius: 'var(--radius-md)',
+                    border: `1.5px solid ${borderColor}`,
+                    backgroundColor: bgColor,
+                    color: textColor,
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '0.95rem',
+                    fontWeight: isSelected || (isSubmitted && isCorrectOpt) ? 700 : 500,
+                    cursor: isSubmitted ? 'default' : 'pointer',
+                    transition: 'all var(--transition-fast)',
+                    boxShadow: isSelected ? 'var(--shadow-sm)' : 'none',
+                    textAlign: 'left',
+                  }}
+                  className="quiz-option-btn"
                 >
-                  <span style={{ fontWeight: 700, marginRight: '0.5rem' }}>
-                    {String.fromCharCode(65 + idx)}.
-                  </span>
-                  {opt}
-                </Button>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '26px',
+                        height: '26px',
+                        borderRadius: 'var(--radius-full)',
+                        backgroundColor: badgeBg,
+                        color: badgeText,
+                        fontSize: '0.8rem',
+                        fontWeight: 700,
+                        lineHeight: 1,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {String.fromCharCode(65 + idx)}
+                    </span>
+                    <span>{opt}</span>
+                  </div>
+                  {statusIcon && <span style={{ fontSize: '1rem' }}>{statusIcon}</span>}
+                </button>
               );
             })}
           </div>
@@ -181,23 +246,27 @@ export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
           <div
             style={{
               padding: '1rem',
-              backgroundColor: 'var(--bg-surface-alt)',
               borderRadius: 'var(--radius-sm)',
-              borderLeft: `4px solid ${
-                userAnswers[currentQuestion.id]?.isCorrect ? 'var(--accent-success)' : 'var(--accent-danger)'
+              backgroundColor: userAnswers[currentQuestion.id]?.isCorrect
+                ? 'var(--accent-success-light)'
+                : 'var(--accent-danger-light)',
+              border: `1px solid ${
+                userAnswers[currentQuestion.id]?.isCorrect
+                  ? 'var(--accent-success)'
+                  : 'var(--accent-danger)'
               }`,
               fontSize: '0.9rem',
-              marginTop: '0.5rem',
+              color: 'var(--text-primary)',
             }}
+            className="animate-fade-in"
           >
-            <div>
-              <strong>Correct Answer:</strong>{' '}
-              <span style={{ color: 'var(--accent-success)', fontWeight: 700 }}>
-                {currentQuestion.correct_answer}
-              </span>
+            <div style={{ fontWeight: 700, marginBottom: '0.25rem' }}>
+              {userAnswers[currentQuestion.id]?.isCorrect
+                ? '🎉 Correct!'
+                : `❌ Incorrect. Correct Answer: "${currentQuestion.correct_answer}"`}
             </div>
             {currentQuestion.explanation && (
-              <div style={{ color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
+              <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
                 {currentQuestion.explanation}
               </div>
             )}

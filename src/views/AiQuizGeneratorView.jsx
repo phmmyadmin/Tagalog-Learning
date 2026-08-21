@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
+import { FilterChip } from '../components/ui/FilterChip';
 import { generateAiQuiz } from '../utils/aiQuizGenerator';
 import { getAiConfig } from '../utils/aiConfigStore';
 
@@ -12,8 +13,8 @@ export default function AiQuizGeneratorView({
   onStartQuiz,
   onOpenSettings,
 }) {
-  const [mode, setMode] = useState('custom_prompt'); // default to custom prompt
-  const [selectedLesson, setSelectedLesson] = useState('Lesson_02');
+  const [mode, setMode] = useState('custom_prompt');
+  const [selectedLessons, setSelectedLessons] = useState([]);
   const [customPrompt, setCustomPrompt] = useState('');
   const [questionCount, setQuestionCount] = useState(10);
   const [difficulty, setDifficulty] = useState('beginner');
@@ -24,6 +25,12 @@ export default function AiQuizGeneratorView({
   const config = getAiConfig();
   const hasKey = Boolean(config.apiKey || config.proxyUrl);
 
+  const toggleLesson = (les) => {
+    setSelectedLessons((prev) =>
+      prev.includes(les) ? prev.filter((l) => l !== les) : [...prev, les]
+    );
+  };
+
   const presetPrompts = [
     { icon: '🍽️', label: 'Restaurant & food', prompt: 'Food, dining & ordering at a Filipino restaurant' },
     { icon: '🗺️', label: 'Directions & transport', prompt: 'Directions, transport & navigating the city' },
@@ -33,6 +40,8 @@ export default function AiQuizGeneratorView({
     { icon: '🏥', label: 'Health & emergency', prompt: 'Health, body parts, feeling sick, visiting a doctor' },
     { icon: '📅', label: 'Time & dates', prompt: 'Days of the week, months, telling time, making appointments' },
   ];
+
+  const difficultyIcons = { beginner: '🌱', intermediate: '⚡', advanced: '🔥' };
 
   const handleGenerate = async () => {
     if (!hasKey) {
@@ -46,7 +55,7 @@ export default function AiQuizGeneratorView({
     try {
       const generatedQuiz = await generateAiQuiz({
         mode,
-        selectedLesson,
+        selectedLesson: selectedLessons.length > 0 ? selectedLessons : 'all',
         customPrompt,
         questionCount,
         difficulty,
@@ -55,9 +64,7 @@ export default function AiQuizGeneratorView({
       });
 
       setIsGenerating(false);
-      if (onStartQuiz) {
-        onStartQuiz(generatedQuiz);
-      }
+      if (onStartQuiz) onStartQuiz(generatedQuiz);
     } catch (err) {
       setIsGenerating(false);
       setErrorMsg(err.message || 'Failed to generate quiz with Gemini AI.');
@@ -88,7 +95,7 @@ export default function AiQuizGeneratorView({
             <Badge variant="primary">Gemini 3.6 Flash</Badge>
           </div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: '0.35rem 0 0 0' }}>
-            Describe qué tipo de quiz quieres y la IA lo genera al instante. También puedes usar modos predefinidos.
+            Describe what type of quiz you want and AI generates it instantly. You can also use predefined modes below.
           </p>
         </div>
 
@@ -99,19 +106,19 @@ export default function AiQuizGeneratorView({
         )}
       </Card>
 
-      {/* Custom Prompt Area — ALWAYS VISIBLE AND PROMINENT */}
+      {/* Custom Prompt Area — ALWAYS VISIBLE */}
       <Card style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', border: '1px solid var(--accent-primary)' }}>
         <div>
           <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
-            ✍️ ¿Qué quieres practicar?
+            ✍️ What do you want to practice?
           </h3>
           <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', margin: '0.2rem 0 0 0' }}>
-            Escribe libremente lo que quieras como quiz, o selecciona un preset rápido.
+            Type anything you want to practice, or select a quick preset topic below.
           </p>
         </div>
 
         <textarea
-          placeholder="Ejemplo: Quiero un quiz sobre pedir comida en un restaurante filipino, incluyendo frases de cortesía y vocabulario de bebidas..."
+          placeholder="e.g. A quiz about ordering food at a Filipino restaurant, including polite expressions (Po/Opo) and drink vocabulary..."
           value={customPrompt}
           onChange={(e) => {
             setCustomPrompt(e.target.value);
@@ -143,19 +150,16 @@ export default function AiQuizGeneratorView({
           </span>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginTop: '0.4rem' }}>
             {presetPrompts.map((preset) => (
-              <Button
+              <FilterChip
                 key={preset.label}
-                type="button"
-                variant={customPrompt === preset.prompt ? 'primary' : 'secondary'}
-                size="sm"
+                label={preset.label}
+                icon={<span>{preset.icon}</span>}
+                active={customPrompt === preset.prompt}
                 onClick={() => {
                   setCustomPrompt(preset.prompt);
                   setMode('custom_prompt');
                 }}
-                icon={<span>{preset.icon}</span>}
-              >
-                {preset.label}
-              </Button>
+              />
             ))}
           </div>
         </div>
@@ -163,7 +167,6 @@ export default function AiQuizGeneratorView({
 
       {/* Mode Selector Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.85rem' }}>
-        {/* Mode 1: Custom Prompt */}
         <Card
           onClick={() => setMode('custom_prompt')}
           style={{
@@ -176,9 +179,7 @@ export default function AiQuizGeneratorView({
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
             <span style={{ fontSize: '1.35rem' }}>✍️</span>
-            <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
-              Custom Prompt
-            </h3>
+            <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>Custom Prompt</h3>
             {mode === 'custom_prompt' && <Badge variant="primary">Active</Badge>}
           </div>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
@@ -186,7 +187,6 @@ export default function AiQuizGeneratorView({
           </p>
         </Card>
 
-        {/* Mode 2: Adaptive SRS */}
         <Card
           onClick={() => setMode('adaptive_srs')}
           style={{
@@ -199,9 +199,7 @@ export default function AiQuizGeneratorView({
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
             <span style={{ fontSize: '1.35rem' }}>🎯</span>
-            <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
-              SRS Weak-Spots
-            </h3>
+            <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>SRS Weak-Spots</h3>
             {mode === 'adaptive_srs' && <Badge variant="primary">Active</Badge>}
           </div>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
@@ -209,7 +207,6 @@ export default function AiQuizGeneratorView({
           </p>
         </Card>
 
-        {/* Mode 3: By Lesson */}
         <Card
           onClick={() => setMode('lesson')}
           style={{
@@ -222,13 +219,11 @@ export default function AiQuizGeneratorView({
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
             <span style={{ fontSize: '1.35rem' }}>📖</span>
-            <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>
-              Lesson Review
-            </h3>
+            <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 700 }}>Lesson Review</h3>
             {mode === 'lesson' && <Badge variant="primary">Active</Badge>}
           </div>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
-            100% focused on one specific lesson.
+            Focus on specific lessons (multi-select).
           </p>
         </Card>
       </div>
@@ -239,75 +234,64 @@ export default function AiQuizGeneratorView({
           ⚙️ Quiz Options
         </h3>
 
-        {/* Lesson Selector (only if lesson mode) */}
+        {/* Lesson Multi-Select (only if lesson mode) */}
         {mode === 'lesson' && (
           <div>
-            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
-              Select Lesson:
+            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
+              Select Lessons (multi-select):
             </label>
-            <select
-              value={selectedLesson}
-              onChange={(e) => setSelectedLesson(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '0.6rem',
-                borderRadius: 'var(--radius-sm)',
-                border: '1px solid var(--border-default)',
-                backgroundColor: 'var(--bg-surface-alt)',
-                color: 'var(--text-primary)',
-                fontSize: '0.9rem',
-                fontFamily: 'var(--font-body)',
-              }}
-            >
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
               {lessons.filter((l) => l !== 'all').map((les) => (
-                <option key={les} value={les}>
-                  {les.replace('_', ' ')}
-                </option>
+                <FilterChip
+                  key={les}
+                  label={les.replace('_', ' ')}
+                  active={selectedLessons.includes(les)}
+                  onClick={() => toggleLesson(les)}
+                  icon={<span>📖</span>}
+                />
               ))}
-            </select>
+            </div>
+            {selectedLessons.length > 0 && (
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
+                {selectedLessons.length} lesson{selectedLessons.length > 1 ? 's' : ''} selected
+              </div>
+            )}
           </div>
         )}
 
-        {/* Global Options Grid: Questions Count + Difficulty */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-          <div>
-            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
-              Number of Questions:
-            </label>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              {[5, 10, 15, 20].map((num) => (
-                <Button
-                  key={num}
-                  type="button"
-                  variant={questionCount === num ? 'primary' : 'secondary'}
-                  size="sm"
-                  onClick={() => setQuestionCount(num)}
-                  style={{ flex: 1 }}
-                >
-                  {num}
-                </Button>
-              ))}
-            </div>
+        {/* Number of Questions */}
+        <div>
+          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
+            Number of Questions:
+          </label>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+            {[5, 10, 15, 20].map((num) => (
+              <FilterChip
+                key={num}
+                label={`${num}`}
+                active={questionCount === num}
+                onClick={() => setQuestionCount(num)}
+                count={num === 10 ? '⭐' : null}
+              />
+            ))}
           </div>
+        </div>
 
-          <div>
-            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
-              Difficulty Level:
-            </label>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              {['beginner', 'intermediate', 'advanced'].map((lvl) => (
-                <Button
-                  key={lvl}
-                  type="button"
-                  variant={difficulty === lvl ? 'primary' : 'secondary'}
-                  size="sm"
-                  onClick={() => setDifficulty(lvl)}
-                  style={{ flex: 1, textTransform: 'capitalize' }}
-                >
-                  {lvl}
-                </Button>
-              ))}
-            </div>
+        {/* Difficulty Level */}
+        <div>
+          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
+            Difficulty Level:
+          </label>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+            {['beginner', 'intermediate', 'advanced'].map((lvl) => (
+              <FilterChip
+                key={lvl}
+                label={lvl.charAt(0).toUpperCase() + lvl.slice(1)}
+                active={difficulty === lvl}
+                onClick={() => setDifficulty(lvl)}
+                icon={<span>{difficultyIcons[lvl]}</span>}
+              />
+            ))}
           </div>
         </div>
 
