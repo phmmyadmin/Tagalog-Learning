@@ -25,6 +25,7 @@ export const getLocalProgressState = () => {
     srsReviewLog: safeParseJSON('tagalog_srs_review_log_v2', []),
     srsGamification: safeParseJSON('tagalog_srs_gamification_v2', {}),
     srsSettings: safeParseJSON('tagalog_srs_settings_v2', {}),
+    savedQuizzes: safeParseJSON('tagalog_saved_quizzes_v1', []),
   };
 };
 
@@ -43,10 +44,12 @@ export const applyStateToLocal = (state) => {
     if (state.srsReviewLog) localStorage.setItem('tagalog_srs_review_log_v2', JSON.stringify(state.srsReviewLog));
     if (state.srsGamification) localStorage.setItem('tagalog_srs_gamification_v2', JSON.stringify(state.srsGamification));
     if (state.srsSettings) localStorage.setItem('tagalog_srs_settings_v2', JSON.stringify(state.srsSettings));
+    if (state.savedQuizzes) localStorage.setItem('tagalog_saved_quizzes_v1', JSON.stringify(state.savedQuizzes));
 
     window.dispatchEvent(new Event('tagalog_cloud_sync_completed'));
     window.dispatchEvent(new Event('tagalog_srs_updated'));
     window.dispatchEvent(new Event('tagalog_gamification_updated'));
+    window.dispatchEvent(new Event('tagalog_saved_quizzes_updated'));
   } catch (e) {
     console.error('Failed to apply cloud state to localStorage:', e);
   }
@@ -83,15 +86,26 @@ export const pushProgressToCloud = async (userId) => {
     srs_review_log_v2: localState.srsReviewLog,
     srs_gamification_v2: localState.srsGamification,
     srs_settings_v2: localState.srsSettings,
+    saved_quizzes: localState.savedQuizzes,
     updated_at: new Date().toISOString(),
   };
 
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from('user_progress')
     .upsert(payload, { onConflict: 'user_id' });
 
+  // Fallback if saved_quizzes column does not exist in Supabase table schema yet
+  if (error && (error.code === '42703' || (error.message && error.message.includes('saved_quizzes')))) {
+    delete payload.saved_quizzes;
+    const fallback = await supabase
+      .from('user_progress')
+      .upsert(payload, { onConflict: 'user_id' });
+    error = fallback.error;
+    data = fallback.data;
+  }
+
   if (error) {
-    console.error('Supabase cloud push error:', error);
+    console.error('Supabase cloud push error:', error.message || error.code || JSON.stringify(error));
     if (error.code === '42501') {
       throw new Error('RLS Permission denied. Ensure you ran supabase_schema.sql script in Supabase SQL Editor.');
     }
@@ -113,7 +127,7 @@ export const autoPushIfLoggedIn = async () => {
       await pushProgressToCloud(authData.user.id);
     }
   } catch (e) {
-    console.warn('Auto cloud push skipped:', e.message);
+    console.warn('Auto cloud push skipped:', e.message || e);
   }
 };
 
@@ -137,14 +151,15 @@ export const pullProgressFromCloud = async (userId) => {
     return null;
   }
 
+  // Use maybeSingle() instead of single() to avoid HTTP 400/406 error when user row does not exist yet
   const { data, error } = await supabase
     .from('user_progress')
     .select('*')
     .eq('user_id', targetUserId)
-    .single();
+    .maybeSingle();
 
-  if (error && error.code !== 'PGRST116') {
-    console.error('Supabase cloud pull error:', error);
+  if (error) {
+    console.error('Supabase cloud pull error:', error.message || error.code || JSON.stringify(error));
     isInitialPullComplete = true;
     throw error;
   }
@@ -161,12 +176,13 @@ export const pullProgressFromCloud = async (userId) => {
     const cloudSrsLog = data.srs_review_log_v2 || [];
     const cloudSrsGamification = data.srs_gamification_v2 || {};
     const cloudSrsSettings = data.srs_settings_v2 || {};
+    const cloudSavedQuizzes = data.saved_quizzes || [];
 
     const mergedMastered = Array.from(new Set([...cloudMastered, ...localState.masteredItems]));
     const mergedDates = Array.from(new Set([...cloudDates, ...localState.studyDates]));
     const mergedActivities = { ...cloudActivities, ...localState.activityResults };
     const mergedQuizzes = { ...cloudQuizzes, ...localState.quizHistory };
-    
+
     const mistakeMap = new Map();
     [...cloudMistakes, ...localState.mistakesBank].forEach((item) => {
       const key = item.id || item.question || JSON.stringify(item);
@@ -209,6 +225,14 @@ export const pullProgressFromCloud = async (userId) => {
 
     const mergedSrsSettings = { ...cloudSrsSettings, ...localState.srsSettings };
 
+    // Merge Saved Quizzes (deduplicate by quiz id)
+    const savedQuizzesMap = new Map();
+    [...cloudSavedQuizzes, ...localState.savedQuizzes].forEach((quiz) => {
+      const qId = quiz.quiz_metadata?.id || quiz.id;
+      if (qId) savedQuizzesMap.set(qId, quiz);
+    });
+    const mergedSavedQuizzes = Array.from(savedQuizzesMap.values());
+
     const mergedState = {
       masteredItems: mergedMastered,
       studyDates: mergedDates,
@@ -219,6 +243,7 @@ export const pullProgressFromCloud = async (userId) => {
       srsReviewLog: mergedSrsLog,
       srsGamification: mergedGamification,
       srsSettings: mergedSrsSettings,
+      savedQuizzes: mergedSavedQuizzes,
     };
 
     applyStateToLocal(mergedState);
