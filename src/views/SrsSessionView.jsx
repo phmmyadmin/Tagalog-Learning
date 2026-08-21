@@ -37,7 +37,7 @@ export default function SrsSessionView({
   // Filter key to initialize queue ONCE when filters change (not when card states mutate)
   const filterKey = `${vocabularyList.length}_${searchQuery}_${selectedLesson}_${selectedPos}_${filterMastered}`;
 
-  const initQueue = () => {
+  const initQueue = (includeUpcoming = false) => {
     const baseList = vocabularyList.filter((item) => {
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
@@ -62,7 +62,7 @@ export default function SrsSessionView({
       return true;
     });
 
-    const { queue } = buildStudyQueue(baseList);
+    const { queue } = buildStudyQueue(baseList, null, new Date(), { includeUpcoming });
     setSessionQueue(queue);
     setCurrentIndex(0);
     setHistoryStack([]);
@@ -80,7 +80,7 @@ export default function SrsSessionView({
   };
 
   useEffect(() => {
-    initQueue();
+    initQueue(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterKey]);
 
@@ -186,18 +186,21 @@ export default function SrsSessionView({
 
   if (!currentCard || isCompleted) {
     return (
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' }}>
         <EmptyState
           icon="🎉"
           title="All caught up for today!"
-          description="No due SRS flashcards right now. You can adjust your daily limits in Settings or explore vocabulary."
+          description="No due SRS flashcards right now. You can adjust your daily limits in Settings or practice upcoming cards ahead of time."
           actionLabel="🔄 Re-study Queue"
-          onAction={initQueue}
+          onAction={() => initQueue(false)}
         />
+        <Button variant="secondary" size="md" onClick={() => initQueue(true)} icon={<span>⚡</span>}>
+          Cram / Practice Upcoming Cards
+        </Button>
         {isCompleted && (
           <SrsSessionSummary
             sessionStats={sessionStats}
-            onRestart={initQueue}
+            onRestart={() => initQueue(false)}
             onClose={() => setIsCompleted(false)}
           />
         )}
