@@ -260,7 +260,11 @@ export function App() {
         </div>
 
         <div style={{ display: activeTab === 'quizzes' ? 'block' : 'none', width: '100%' }}>
-          <QuizzesView />
+          <QuizzesView
+            vocabularyList={tagalogData.vocabulary}
+            theoryList={tagalogData.theory}
+            lessons={availableLessons}
+          />
         </div>
       </main>
 
