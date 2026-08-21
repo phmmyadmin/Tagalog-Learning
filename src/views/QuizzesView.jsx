@@ -3,6 +3,7 @@ import QuizRunner from '../components/QuizRunner';
 import AiQuizGeneratorView from './AiQuizGeneratorView';
 import SrsSettingsPanel from '../components/SrsSettingsPanel';
 import { availableQuizzes } from '../data/quizzes';
+import { getSavedQuizzes, deleteSavedQuiz } from '../utils/savedQuizzesManager';
 import { getMistakes, clearAllMistakes } from '../utils/mistakesManager';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
@@ -14,17 +15,26 @@ export default function QuizzesView({
   theoryList = [],
   lessons = [],
 }) {
-  const [subMode, setSubMode] = useState('ai_generator'); // 'ai_generator' | 'static' | 'history'
+  const [subMode, setSubMode] = useState('ai_generator'); // 'ai_generator' | 'library' | 'history'
   const [activeQuiz, setActiveQuiz] = useState(null);
   const [mistakes, setMistakes] = useState(getMistakes());
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [userSavedQuizzes, setUserSavedQuizzes] = useState(getSavedQuizzes());
 
   useEffect(() => {
     const handleMistakesUpdate = () => {
       setMistakes(getMistakes());
     };
+    const handleSavedQuizzesUpdate = () => {
+      setUserSavedQuizzes(getSavedQuizzes());
+    };
+
     window.addEventListener('tagalog_mistakes_updated', handleMistakesUpdate);
-    return () => window.removeEventListener('tagalog_mistakes_updated', handleMistakesUpdate);
+    window.addEventListener('tagalog_saved_quizzes_updated', handleSavedQuizzesUpdate);
+    return () => {
+      window.removeEventListener('tagalog_mistakes_updated', handleMistakesUpdate);
+      window.removeEventListener('tagalog_saved_quizzes_updated', handleSavedQuizzesUpdate);
+    };
   }, []);
 
   const [history, setHistory] = useState(() => {
@@ -81,11 +91,20 @@ export default function QuizzesView({
     );
   }
 
+  // Combine built-in presets and user-generated saved quizzes (avoid duplicates)
+  const allLibraryQuizzes = [...userSavedQuizzes];
+  availableQuizzes.forEach((preset) => {
+    const presetId = preset.quiz_metadata?.id || preset.id;
+    if (!allLibraryQuizzes.some((q) => (q.quiz_metadata?.id || q.id) === presetId)) {
+      allLibraryQuizzes.push(preset);
+    }
+  });
+
   // Flatten all history attempts into a chronological list
   const allHistoryAttempts = [];
   Object.keys(history).forEach((quizId) => {
     const attempts = history[quizId] || [];
-    const matchedQuiz = availableQuizzes.find((q) => (q.quiz_metadata?.id || q.id) === quizId);
+    const matchedQuiz = allLibraryQuizzes.find((q) => (q.quiz_metadata?.id || q.id) === quizId);
     const quizTitle = matchedQuiz?.quiz_metadata?.title || matchedQuiz?.title || quizId;
 
     attempts.forEach((att) => {
@@ -105,10 +124,10 @@ export default function QuizzesView({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h1 style={{ fontSize: '1.75rem', color: 'var(--text-primary)', margin: 0 }}>
-            🏆 Quizzes & Exam Preparation
+            🏆 Quizzes & Practice Suite
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-            Generate unlimited Gemini AI quizzes or take structured curriculum exams.
+            Generate custom Gemini AI quizzes or re-take saved quizzes from your library.
           </p>
         </div>
 
@@ -123,12 +142,12 @@ export default function QuizzesView({
             AI Generator
           </Button>
           <Button
-            variant={subMode === 'static' ? 'primary' : 'ghost'}
+            variant={subMode === 'library' ? 'primary' : 'ghost'}
             size="sm"
-            onClick={() => setSubMode('static')}
+            onClick={() => setSubMode('library')}
             icon={<span>📚</span>}
           >
-            Curriculum Quizzes
+            Quiz Library ({allLibraryQuizzes.length})
           </Button>
           <Button
             variant={subMode === 'history' ? 'primary' : 'ghost'}
@@ -141,7 +160,7 @@ export default function QuizzesView({
         </div>
       </div>
 
-      {/* Mistakes Bank Alert (Visible across modes if mistakes exist) */}
+      {/* Mistakes Bank Alert */}
       {mistakes.length > 0 && (
         <Card variant="alt" style={{ border: '1px solid var(--accent-danger)', backgroundColor: 'var(--accent-danger-light)', padding: '1.25rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
@@ -176,62 +195,101 @@ export default function QuizzesView({
         />
       )}
 
-      {/* SubMode 2: Static Curriculum Quizzes */}
-      {subMode === 'static' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-          {availableQuizzes.map((quiz) => {
-            const meta = quiz.quiz_metadata || {};
-            const quizId = meta.id || quiz.id;
-            const quizTitle = meta.title || quiz.title || 'Tagalog Quiz';
-            const quizTopic = meta.topic || quiz.category || 'General';
-            const numQuestions = quiz.questions?.length || meta.total_questions || 0;
+      {/* SubMode 2: Quiz Library (Saved AI & Preset Quizzes) */}
+      {subMode === 'library' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', margin: 0, fontWeight: 700 }}>
+              📚 Saved Quizzes & Presets
+            </h2>
+            <Button variant="primary" size="sm" onClick={() => setSubMode('ai_generator')} icon={<span>✨</span>}>
+              Generate New Quiz
+            </Button>
+          </div>
 
-            const quizHistory = history[quizId] || [];
-            const lastAttempt = quizHistory[0];
+          {allLibraryQuizzes.length > 0 ? (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+              {allLibraryQuizzes.map((quiz) => {
+                const meta = quiz.quiz_metadata || {};
+                const quizId = meta.id || quiz.id;
+                const quizTitle = meta.title || quiz.title || 'Tagalog Quiz';
+                const quizTopic = meta.topic || quiz.category || 'General Practice';
+                const numQuestions = quiz.questions?.length || meta.total_questions || 0;
+                const isUserSaved = userSavedQuizzes.some((q) => (q.quiz_metadata?.id || q.id) === quizId);
 
-            return (
-              <Card
-                key={quizId}
-                variant="interactive"
-                onClick={() => setActiveQuiz(quiz)}
-                style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem' }}
-              >
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                    <Badge variant="primary">{quizTopic}</Badge>
-                    {lastAttempt && (
-                      <Badge variant={lastAttempt.percent >= 80 ? 'success' : 'amber'}>
-                        Best: {lastAttempt.percent}%
-                      </Badge>
-                    )}
-                  </div>
+                const quizHistory = history[quizId] || [];
+                const lastAttempt = quizHistory[0];
 
-                  <h3 style={{ fontSize: '1.15rem', color: 'var(--text-primary)', margin: '0 0 0.35rem 0' }}>
-                    {quizTitle}
-                  </h3>
-                  <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                    Comprehensive exam covering {quizTopic.toLowerCase()} syntax and vocabulary.
-                  </p>
-                </div>
+                return (
+                  <Card
+                    key={quizId}
+                    variant="interactive"
+                    onClick={() => setActiveQuiz(quiz)}
+                    style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem', padding: '1.25rem' }}
+                  >
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.35rem' }}>
+                        <Badge variant="primary">{quizTopic}</Badge>
+                        {lastAttempt ? (
+                          <Badge variant={lastAttempt.percent >= 80 ? 'success' : 'amber'}>
+                            Best: {lastAttempt.percent}%
+                          </Badge>
+                        ) : isUserSaved ? (
+                          <Badge variant="secondary">Saved AI Quiz</Badge>
+                        ) : null}
+                      </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--border-default)' }}>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                    {numQuestions} Questions
-                  </span>
-                  <Button variant="primary" size="sm" onClick={(e) => { e.stopPropagation(); setActiveQuiz(quiz); }}>
-                    Start Quiz →
-                  </Button>
-                </div>
-              </Card>
-            );
-          })}
+                      <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)', margin: '0 0 0.35rem 0', fontWeight: 700 }}>
+                        {quizTitle}
+                      </h3>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: 0 }}>
+                        {numQuestions} questions · {meta.created_at ? new Date(meta.created_at).toLocaleDateString() : 'Preset Quiz'}
+                      </p>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--border-default)' }}>
+                      {isUserSaved ? (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteSavedQuiz(quizId);
+                          }}
+                          style={{ color: 'var(--accent-danger)', padding: '0.2rem 0.5rem' }}
+                          title="Delete saved quiz"
+                        >
+                          🗑️ Delete
+                        </Button>
+                      ) : (
+                        <span style={{ fontSize: '0.775rem', color: 'var(--text-muted)' }}>Preset</span>
+                      )}
+
+                      <Button variant="primary" size="sm" onClick={(e) => { e.stopPropagation(); setActiveQuiz(quiz); }}>
+                        Take Quiz →
+                      </Button>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+          ) : (
+            <Card variant="alt" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+              <p style={{ margin: 0, fontSize: '0.95rem' }}>
+                No saved quizzes yet. Use the <strong>AI Generator</strong> to create custom quizzes, and they will automatically be saved here so you can re-take them anytime!
+              </p>
+              <Button variant="primary" size="md" onClick={() => setSubMode('ai_generator')} style={{ marginTop: '1rem' }}>
+                ✨ Generate Your First AI Quiz
+              </Button>
+            </Card>
+          )}
         </div>
       )}
 
       {/* SubMode 3: Attempt History */}
       {subMode === 'history' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <h2 style={{ fontSize: '1.3rem', color: 'var(--text-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <h2 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', margin: 0, fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span>📜</span> Attempt History
           </h2>
 
@@ -271,7 +329,7 @@ export default function QuizzesView({
             </Card>
           ) : (
             <Card variant="alt" style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
-              <p style={{ margin: 0 }}>No quiz attempts recorded yet. Generate an AI quiz or select a curriculum quiz to start!</p>
+              <p style={{ margin: 0 }}>No quiz attempts recorded yet. Generate an AI quiz or select a saved quiz to start!</p>
             </Card>
           )}
         </div>

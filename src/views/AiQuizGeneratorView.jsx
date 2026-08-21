@@ -6,6 +6,8 @@ import { FilterChip } from '../components/ui/FilterChip';
 import { generateAiQuiz } from '../utils/aiQuizGenerator';
 import { getAiConfig } from '../utils/aiConfigStore';
 
+import { saveQuizToStorage } from '../utils/savedQuizzesManager';
+
 export default function AiQuizGeneratorView({
   vocabularyList = [],
   theoryList = [],
@@ -62,6 +64,9 @@ export default function AiQuizGeneratorView({
         vocabularyList,
         theoryList,
       });
+
+      // Save generated quiz to local storage library
+      saveQuizToStorage(generatedQuiz);
 
       setIsGenerating(false);
       if (onStartQuiz) onStartQuiz(generatedQuiz);
