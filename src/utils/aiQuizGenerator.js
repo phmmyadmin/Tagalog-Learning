@@ -56,11 +56,14 @@ export async function generateAiQuiz(options = {}) {
     contextMistakes = mistakes.slice(0, 10);
     contextTheory = theoryList.slice(0, 5);
   } else if (mode === 'lesson' && selectedLesson !== 'all') {
+    const rawList = Array.isArray(selectedLesson) ? selectedLesson : [selectedLesson];
+    const lessonList = rawList.map((l) => String(l || ''));
+
     contextVocab = vocabularyList.filter(
-      (item) => item.lesson === selectedLesson || item.lesson === selectedLesson.replace(' ', '_')
+      (item) => item.lesson && lessonList.some((les) => String(item.lesson) === les || String(item.lesson) === les.replace(' ', '_'))
     );
     contextTheory = theoryList.filter(
-      (item) => item.lesson === selectedLesson || item.lesson === selectedLesson.replace(' ', '_')
+      (item) => item.lesson && lessonList.some((les) => String(item.lesson) === les || String(item.lesson) === les.replace(' ', '_'))
     );
   } else {
     // General / Custom prompt

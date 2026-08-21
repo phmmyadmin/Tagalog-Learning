@@ -246,15 +246,17 @@ export default function AiQuizGeneratorView({
               Select Lessons (multi-select):
             </label>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
-              {lessons.filter((l) => l !== 'all').map((les) => (
-                <FilterChip
-                  key={les}
-                  label={les.replace('_', ' ')}
-                  active={selectedLessons.includes(les)}
-                  onClick={() => toggleLesson(les)}
-                  icon={<span>📖</span>}
-                />
-              ))}
+              {(Array.isArray(lessons) ? lessons : [])
+                .filter((l) => typeof l === 'string' && l !== 'all')
+                .map((les) => (
+                  <FilterChip
+                    key={les}
+                    label={String(les || '').replace('_', ' ')}
+                    active={selectedLessons.includes(les)}
+                    onClick={() => toggleLesson(les)}
+                    icon={<span>📖</span>}
+                  />
+                ))}
             </div>
             {selectedLessons.length > 0 && (
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
