@@ -125,7 +125,7 @@ REQUIRED JSON SCHEMA:
 }`;
 
   // 4. API Request Construction
-  const modelName = config.model || 'gemini-2.5-flash';
+  const modelName = config.model || 'gemini-3.6-flash';
   let endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${config.apiKey}`;
 
   if (config.proxyUrl && config.proxyUrl.trim().length > 0) {
