@@ -232,39 +232,6 @@ export default function QuizzesView({
                             </Badge>
                           )}
                         </div>
-
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            deleteSavedQuiz(quizId);
-                          }}
-                          title="Delete quiz"
-                          style={{
-                            background: 'none',
-                            border: 'none',
-                            color: 'var(--text-muted)',
-                            fontSize: '1.05rem',
-                            cursor: 'pointer',
-                            padding: '0.3rem 0.45rem',
-                            borderRadius: 'var(--radius-sm)',
-                            transition: 'all var(--transition-fast)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            lineHeight: 1,
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.color = 'var(--accent-danger)';
-                            e.currentTarget.style.backgroundColor = 'var(--accent-danger-light)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.color = 'var(--text-muted)';
-                            e.currentTarget.style.backgroundColor = 'transparent';
-                          }}
-                        >
-                          🗑️
-                        </button>
                       </div>
 
                       <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)', margin: '0 0 0.35rem 0', fontWeight: 700 }}>
@@ -275,7 +242,28 @@ export default function QuizzesView({
                       </p>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--border-default)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--border-default)' }}>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteSavedQuiz(quizId);
+                        }}
+                        icon={<span>🗑️</span>}
+                        style={{
+                          backgroundColor: 'var(--accent-danger-light)',
+                          color: 'var(--accent-danger)',
+                          borderColor: 'transparent',
+                          padding: '0.35rem 0.65rem',
+                          fontSize: '0.8rem',
+                          fontWeight: 600,
+                        }}
+                        title="Delete quiz"
+                      >
+                        Delete
+                      </Button>
+
                       <Button variant="primary" size="sm" onClick={(e) => { e.stopPropagation(); setActiveQuiz(quiz); }}>
                         Take Quiz →
                       </Button>
