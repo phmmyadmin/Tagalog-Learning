@@ -17,7 +17,11 @@ CREATE TABLE IF NOT EXISTS public.user_progress (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- Ensure column exists for existing tables
+-- Ensure all columns exist for users migrating from older schema versions
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_cards_v2 JSONB DEFAULT '{}'::jsonb;
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_review_log_v2 JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_gamification_v2 JSONB DEFAULT '{}'::jsonb;
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_settings_v2 JSONB DEFAULT '{}'::jsonb;
 ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS saved_quizzes JSONB DEFAULT '[]'::jsonb;
 
 -- 2. Enable Row Level Security (RLS)
