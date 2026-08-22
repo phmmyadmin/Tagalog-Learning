@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import tagalogData from './data/tagalogData.json';
+import { getMergedLessonData } from './utils/userLessonsManager';
 import { Header } from './components/Header';
 import { Drawer } from './components/Drawer';
 import { DashboardView } from './views/DashboardView';
@@ -7,12 +7,14 @@ import TheoryView from './views/TheoryView';
 import VocabularyView from './views/VocabularyView';
 import ActivitiesView from './views/ActivitiesView';
 import QuizzesView from './views/QuizzesView';
+import LessonIngestionView from './views/LessonIngestionView';
 import PptxViewer from './components/PptxViewer';
+import SrsSettingsPanel from './components/SrsSettingsPanel';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { recordStudyActivity, calculateStreak } from './utils/streakManager';
 import { autoPushIfLoggedIn, pullProgressFromCloud, pushProgressToCloud } from './utils/cloudSyncManager';
 
-const VALID_TABS = ['dashboard', 'theory', 'vocabulary', 'activities', 'quizzes'];
+const VALID_TABS = ['dashboard', 'theory', 'vocabulary', 'activities', 'quizzes', 'ingest'];
 
 const getTabFromHash = () => {
   if (typeof window === 'undefined') return 'dashboard';
@@ -24,9 +26,13 @@ export function App() {
   const [activeTab, setActiveTabState] = useState(() => getTabFromHash());
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCloudSyncOpen, setIsCloudSyncOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLesson, setSelectedLesson] = useState('all');
   const [filterMastered, setFilterMastered] = useState('all');
+
+  // Dynamic merged lesson data (built-in + user-uploaded lessons)
+  const [lessonData, setLessonData] = useState(() => getMergedLessonData());
 
   const setActiveTab = (tab) => {
     if (VALID_TABS.includes(tab)) {
@@ -78,14 +84,21 @@ export function App() {
         const saved = localStorage.getItem('tagalog_mastered_items');
         if (saved) setMasteredItems(JSON.parse(saved));
       } catch {}
+      setLessonData(getMergedLessonData());
       refreshStreak();
+    };
+
+    const handleUserLessonsUpdated = () => {
+      setLessonData(getMergedLessonData());
     };
 
     window.addEventListener('tagalog_streak_updated', refreshStreak);
     window.addEventListener('tagalog_cloud_sync_completed', handleCloudSyncCompleted);
+    window.addEventListener('tagalog_user_lessons_updated', handleUserLessonsUpdated);
     return () => {
       window.removeEventListener('tagalog_streak_updated', refreshStreak);
       window.removeEventListener('tagalog_cloud_sync_completed', handleCloudSyncCompleted);
+      window.removeEventListener('tagalog_user_lessons_updated', handleUserLessonsUpdated);
     };
   }, []);
 
@@ -122,13 +135,13 @@ export function App() {
     });
   };
 
-  const totalTheory = tagalogData.theory.length;
-  const totalVocab = tagalogData.vocabulary.length;
-  const totalActivities = tagalogData.activities.length;
+  const totalTheory = lessonData.theory.length;
+  const totalVocab = lessonData.vocabulary.length;
+  const totalActivities = lessonData.activities.length;
   const totalItems = totalTheory + totalVocab;
 
-  const theoryMastered = tagalogData.theory.filter((t) => masteredItems.includes(t.id)).length;
-  const vocabMastered = tagalogData.vocabulary.filter((v) => masteredItems.includes(v.id)).length;
+  const theoryMastered = lessonData.theory.filter((t) => masteredItems.includes(t.id)).length;
+  const vocabMastered = lessonData.vocabulary.filter((v) => masteredItems.includes(v.id)).length;
   const totalMastered = theoryMastered + vocabMastered;
 
   const handleOpenSlideViewer = (lessonKey = 'Lesson_02', slide = 1, slideEnd = 1, conceptLabel = null) => {
@@ -165,20 +178,16 @@ export function App() {
     return { activitiesDone, mistakesCount, quizzesCompleted };
   };
 
-  const availableLessons = (
-    tagalogData.metadata?.lessons_covered ||
-    [...new Set(tagalogData.theory.map((t) => t.lesson).filter(Boolean))]
-  ).sort();
-
+  const availableLessons = lessonData.lessons;
   const dynamicStats = getDynamicStats();
 
   const handleMarkLessonMastered = (lessonKey) => {
     recordStudyActivity();
     const normLesson = lessonKey.includes('Lesson_') ? lessonKey : lessonKey.replace('Lesson ', 'Lesson_');
-    const theoryIds = tagalogData.theory
+    const theoryIds = lessonData.theory
       .filter((t) => t.lesson === normLesson || t.lesson === normLesson.replace('_', ' '))
       .map((t) => t.id);
-    const vocabIds = tagalogData.vocabulary
+    const vocabIds = lessonData.vocabulary
       .filter((v) => v.lesson === normLesson || v.lesson === normLesson.replace('_', ' '))
       .map((v) => v.id);
 
@@ -249,7 +258,7 @@ export function App() {
 
         <div style={{ display: activeTab === 'theory' ? 'block' : 'none', width: '100%' }}>
           <TheoryView
-            theoryList={tagalogData.theory}
+            theoryList={lessonData.theory}
             searchQuery={searchQuery}
             selectedCategory="all"
             selectedLesson={selectedLesson}
@@ -262,7 +271,7 @@ export function App() {
 
         <div style={{ display: activeTab === 'vocabulary' ? 'block' : 'none', width: '100%' }}>
           <VocabularyView
-            vocabularyList={tagalogData.vocabulary}
+            vocabularyList={lessonData.vocabulary}
             searchQuery={searchQuery}
             selectedLesson={selectedLesson}
             filterMastered={filterMastered}
@@ -274,7 +283,7 @@ export function App() {
 
         <div style={{ display: activeTab === 'activities' ? 'block' : 'none', width: '100%' }}>
           <ActivitiesView
-            activitiesList={tagalogData.activities}
+            activitiesList={lessonData.activities}
             searchQuery={searchQuery}
             selectedLesson={selectedLesson}
             onOpenLesson={handleOpenSlideViewer}
@@ -283,11 +292,23 @@ export function App() {
 
         <div style={{ display: activeTab === 'quizzes' ? 'block' : 'none', width: '100%' }}>
           <QuizzesView
-            vocabularyList={tagalogData.vocabulary}
-            theoryList={tagalogData.theory}
+            vocabularyList={lessonData.vocabulary}
+            theoryList={lessonData.theory}
             lessons={availableLessons}
             masteredItems={masteredItems}
             onMarkLessonMastered={handleMarkLessonMastered}
+          />
+        </div>
+
+        <div style={{ display: activeTab === 'ingest' ? 'block' : 'none', width: '100%' }}>
+          <LessonIngestionView
+            onOpenTheory={() => setActiveTab('theory')}
+            onOpenVocabulary={() => setActiveTab('vocabulary')}
+            onOpenActivities={() => setActiveTab('activities')}
+            onStartQuiz={(quiz) => {
+              setActiveTab('quizzes');
+            }}
+            onOpenSettings={() => setIsSettingsOpen(true)}
           />
         </div>
       </main>
@@ -306,6 +327,12 @@ export function App() {
       <CloudSyncModal
         isOpen={isCloudSyncOpen}
         onClose={() => setIsCloudSyncOpen(false)}
+      />
+
+      {/* Settings Modal */}
+      <SrsSettingsPanel
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
       />
     </div>
   );

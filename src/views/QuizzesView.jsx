@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import QuizRunner from '../components/QuizRunner';
 import AiQuizGeneratorView from './AiQuizGeneratorView';
 import SrsSettingsPanel from '../components/SrsSettingsPanel';
-import { lessonQuizzes } from '../data/quizzes';
+import { getMergedLessonQuizzes } from '../utils/userLessonsManager';
 import { getSavedQuizzes, deleteSavedQuiz } from '../utils/savedQuizzesManager';
 import { getMistakes, clearAllMistakes } from '../utils/mistakesManager';
 import { Card } from '../components/ui/Card';
@@ -22,6 +22,7 @@ export default function QuizzesView({
   const [mistakes, setMistakes] = useState(getMistakes());
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [savedQuizzes, setSavedQuizzes] = useState(getSavedQuizzes());
+  const [lessonQuizzesList, setLessonQuizzesList] = useState(() => getMergedLessonQuizzes());
   const [celebrationMsg, setCelebrationMsg] = useState(null);
 
   useEffect(() => {
@@ -31,12 +32,17 @@ export default function QuizzesView({
     const handleSavedQuizzesUpdate = () => {
       setSavedQuizzes(getSavedQuizzes());
     };
+    const handleUserLessonsUpdate = () => {
+      setLessonQuizzesList(getMergedLessonQuizzes());
+    };
 
     window.addEventListener('tagalog_mistakes_updated', handleMistakesUpdate);
     window.addEventListener('tagalog_saved_quizzes_updated', handleSavedQuizzesUpdate);
+    window.addEventListener('tagalog_user_lessons_updated', handleUserLessonsUpdate);
     return () => {
       window.removeEventListener('tagalog_mistakes_updated', handleMistakesUpdate);
       window.removeEventListener('tagalog_saved_quizzes_updated', handleSavedQuizzesUpdate);
+      window.removeEventListener('tagalog_user_lessons_updated', handleUserLessonsUpdate);
     };
   }, []);
 
@@ -108,7 +114,7 @@ export default function QuizzesView({
   const allHistoryAttempts = [];
   Object.keys(history).forEach((quizId) => {
     const attempts = history[quizId] || [];
-    const matchedQuiz = [...lessonQuizzes, ...savedQuizzes].find((q) => (q.quiz_metadata?.id || q.id) === quizId);
+    const matchedQuiz = [...lessonQuizzesList, ...savedQuizzes].find((q) => (q.quiz_metadata?.id || q.id) === quizId);
     const quizTitle = matchedQuiz?.quiz_metadata?.title || matchedQuiz?.title || quizId;
 
     attempts.forEach((att) => {
@@ -143,7 +149,7 @@ export default function QuizzesView({
             onClick={() => setSubMode('lesson_exams')}
             icon={<span>🎓</span>}
           >
-            Lesson Exams ({lessonQuizzes.length})
+            Lesson Exams ({lessonQuizzesList.length})
           </Button>
           <Button
             variant={subMode === 'ai_generator' ? 'primary' : 'ghost'}
@@ -223,7 +229,7 @@ export default function QuizzesView({
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-            {lessonQuizzes.map((quiz) => {
+            {lessonQuizzesList.map((quiz) => {
               const meta = quiz.quiz_metadata || {};
               const quizId = meta.id || quiz.id;
               const lessonKey = meta.lesson || 'Lesson_02';

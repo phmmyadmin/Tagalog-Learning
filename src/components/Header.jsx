@@ -22,6 +22,7 @@ export const Header = ({
     { id: 'vocabulary', label: 'Vocab', icon: '🎴' },
     { id: 'activities', label: 'Practice', icon: '✍️' },
     { id: 'quizzes', label: 'Quizzes', icon: '🏆' },
+    { id: 'ingest', label: 'Import PPTX', icon: '📤' },
   ];
 
   const handleNavClick = (e, tabId) => {

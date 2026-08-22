@@ -26,6 +26,7 @@ export const getLocalProgressState = () => {
     srsGamification: safeParseJSON('tagalog_srs_gamification_v2', {}),
     srsSettings: safeParseJSON('tagalog_srs_settings_v2', {}),
     savedQuizzes: safeParseJSON('tagalog_saved_quizzes_v1', []),
+    userLessons: safeParseJSON('tagalog_user_lessons_v1', []),
   };
 };
 
@@ -45,11 +46,13 @@ export const applyStateToLocal = (state) => {
     if (state.srsGamification) localStorage.setItem('tagalog_srs_gamification_v2', JSON.stringify(state.srsGamification));
     if (state.srsSettings) localStorage.setItem('tagalog_srs_settings_v2', JSON.stringify(state.srsSettings));
     if (state.savedQuizzes) localStorage.setItem('tagalog_saved_quizzes_v1', JSON.stringify(state.savedQuizzes));
+    if (state.userLessons) localStorage.setItem('tagalog_user_lessons_v1', JSON.stringify(state.userLessons));
 
     window.dispatchEvent(new Event('tagalog_cloud_sync_completed'));
     window.dispatchEvent(new Event('tagalog_srs_updated'));
     window.dispatchEvent(new Event('tagalog_gamification_updated'));
     window.dispatchEvent(new Event('tagalog_saved_quizzes_updated'));
+    window.dispatchEvent(new Event('tagalog_user_lessons_updated'));
   } catch (e) {
     console.error('Failed to apply cloud state to localStorage:', e);
   }
@@ -87,6 +90,7 @@ export const pushProgressToCloud = async (userId) => {
     srs_gamification_v2: localState.srsGamification,
     srs_settings_v2: localState.srsSettings,
     saved_quizzes: localState.savedQuizzes,
+    user_lessons: localState.userLessons,
     updated_at: new Date().toISOString(),
   };
 
@@ -190,6 +194,7 @@ export const pullProgressFromCloud = async (userId) => {
     const cloudSrsGamification = data.srs_gamification_v2 || {};
     const cloudSrsSettings = data.srs_settings_v2 || {};
     const cloudSavedQuizzes = data.saved_quizzes || [];
+    const cloudUserLessons = data.user_lessons || [];
 
     const mergedMastered = Array.from(new Set([...cloudMastered, ...localState.masteredItems]));
     const mergedDates = Array.from(new Set([...cloudDates, ...localState.studyDates]));
@@ -246,6 +251,14 @@ export const pullProgressFromCloud = async (userId) => {
     });
     const mergedSavedQuizzes = Array.from(savedQuizzesMap.values());
 
+    // Merge User Lessons (deduplicate by id or lessonKey)
+    const userLessonsMap = new Map();
+    [...cloudUserLessons, ...localState.userLessons].forEach((lesson) => {
+      const key = lesson.id || lesson.lessonKey;
+      if (key) userLessonsMap.set(key, lesson);
+    });
+    const mergedUserLessons = Array.from(userLessonsMap.values());
+
     const mergedState = {
       masteredItems: mergedMastered,
       studyDates: mergedDates,
@@ -257,6 +270,7 @@ export const pullProgressFromCloud = async (userId) => {
       srsGamification: mergedGamification,
       srsSettings: mergedSrsSettings,
       savedQuizzes: mergedSavedQuizzes,
+      userLessons: mergedUserLessons,
     };
 
     applyStateToLocal(mergedState);

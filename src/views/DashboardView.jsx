@@ -90,6 +90,15 @@ export const DashboardView = ({
             >
               <span>📖</span> Explore Theory & Grammar
             </a>
+
+            <a
+              href="#ingest"
+              onClick={(e) => handleNavClick(e, 'ingest')}
+              className="btn-secondary"
+              style={{ width: '100%', textDecoration: 'none', justifyContent: 'center', borderColor: 'var(--accent-primary)', color: 'var(--accent-primary)' }}
+            >
+              <span>📤</span> Ingest PPTX Lesson
+            </a>
           </div>
         </Card>
       </div>
