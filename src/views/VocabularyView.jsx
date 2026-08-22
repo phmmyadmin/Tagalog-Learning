@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import VocabularyCard from '../components/VocabularyCard';
 import SrsSessionView from './SrsSessionView';
 import SrsStatsView from './SrsStatsView';
-import SrsSettingsPanel from '../components/SrsSettingsPanel';
+import { SettingsModal } from '../components/SettingsModal';
 import { FilterChip } from '../components/ui/FilterChip';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
@@ -307,10 +307,11 @@ export default function VocabularyView({
         <SrsStatsView vocabularyList={vocabularyList} />
       )}
 
-      {/* SRS Settings Panel Modal */}
-      <SrsSettingsPanel
+      {/* Settings Modal */}
+      <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
+        initialTab="srs"
       />
     </div>
   );

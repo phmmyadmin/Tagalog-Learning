@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import QuizRunner from '../components/QuizRunner';
 import AiQuizGeneratorView from './AiQuizGeneratorView';
-import SrsSettingsPanel from '../components/SrsSettingsPanel';
+import { SettingsModal } from '../components/SettingsModal';
 import { getMergedLessonQuizzes } from '../utils/userLessonsManager';
 import { getSavedQuizzes, deleteSavedQuiz } from '../utils/savedQuizzesManager';
 import { getMistakes, clearAllMistakes } from '../utils/mistakesManager';
@@ -459,9 +459,10 @@ export default function QuizzesView({
       )}
 
       {/* Settings Modal */}
-      <SrsSettingsPanel
+      <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
+        initialTab="ai"
       />
     </div>
   );
