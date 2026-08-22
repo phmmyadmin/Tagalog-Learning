@@ -5,12 +5,14 @@ import SrsStatsView from './SrsStatsView';
 import SrsSettingsPanel from '../components/SrsSettingsPanel';
 import { FilterChip } from '../components/ui/FilterChip';
 import { Button } from '../components/ui/Button';
+import { Input } from '../components/ui/Input';
 import { EmptyState } from '../components/ui/EmptyState';
 import { migrateLegacyMasteredItems } from '../utils/srsStore';
 
 export default function VocabularyView({
   vocabularyList = [],
   searchQuery = '',
+  onSearchChange,
   selectedLesson = 'all',
   filterMastered = 'all',
   masteredIds = [],
@@ -21,9 +23,47 @@ export default function VocabularyView({
   const [selectedPos, setSelectedPos] = useState('all');
   const [activeLessonFilter, setActiveLessonFilter] = useState(selectedLesson);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [localSearch, setLocalSearch] = useState(searchQuery);
 
-  const posList = ['all', 'noun', 'verb', 'adjective', 'pronoun', 'adverb'];
-  const lessons = ['all', ...new Set(vocabularyList.map((item) => item.lesson).filter(Boolean))].sort();
+  // Sync external searchQuery prop with local state
+  useEffect(() => {
+    setLocalSearch(searchQuery);
+  }, [searchQuery]);
+
+  const handleSearchChange = (val) => {
+    setLocalSearch(val);
+    if (onSearchChange) {
+      onSearchChange(val);
+    }
+  };
+
+  const handleClearSearch = () => {
+    setLocalSearch('');
+    if (onSearchChange) {
+      onSearchChange('');
+    }
+  };
+
+  const handleResetFilters = () => {
+    handleClearSearch();
+    setSelectedPos('all');
+    setActiveLessonFilter('all');
+  };
+
+  const posList = ['all', 'noun', 'verb', 'adjective', 'pronoun', 'particle', 'adverb', 'prefix'];
+  
+  // Extract all distinct lesson keys from vocabulary
+  const rawLessons = new Set();
+  vocabularyList.forEach((item) => {
+    if (item.lesson) {
+      String(item.lesson)
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .forEach((l) => rawLessons.add(l.includes('Lesson_') ? l : `Lesson_${l.replace('Lesson ', '')}`));
+    }
+  });
+  const lessons = ['all', ...Array.from(rawLessons)].sort();
 
   // Run legacy mastered items migration on initial render
   useEffect(() => {
@@ -32,12 +72,34 @@ export default function VocabularyView({
     }
   }, [vocabularyList, masteredIds]);
 
+  const matchesLessonFilter = (itemLesson, filter) => {
+    if (!filter || filter === 'all') return true;
+    if (!itemLesson) return false;
+    const parts = String(itemLesson)
+      .split(',')
+      .map((s) => s.trim().replace('Lesson ', 'Lesson_'));
+    const normFilter = filter.replace('Lesson ', 'Lesson_');
+    return parts.some((p) => p === normFilter || p === normFilter.replace('Lesson_', ''));
+  };
+
   const filteredVocab = vocabularyList.filter((item) => {
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      const matchWord = item.word?.toLowerCase().includes(q);
-      const matchMeaning = item.meaning?.toLowerCase().includes(q);
-      if (!matchWord && !matchMeaning) return false;
+    const q = localSearch.trim().toLowerCase();
+    if (q) {
+      const matchWord = (item.word || '').toLowerCase().includes(q);
+      const matchMeaning = (item.meaning || '').toLowerCase().includes(q);
+      const matchPos = (item.partOfSpeech || '').toLowerCase().includes(q);
+      const matchLesson = (item.lesson || '').toLowerCase().includes(q);
+      const matchExample = (
+        item.example ||
+        item.example_tagalog ||
+        item.example_english ||
+        item.usage ||
+        ''
+      ).toLowerCase().includes(q);
+
+      if (!matchWord && !matchMeaning && !matchPos && !matchLesson && !matchExample) {
+        return false;
+      }
     }
 
     if (selectedPos !== 'all') {
@@ -46,12 +108,12 @@ export default function VocabularyView({
     }
 
     // Internal Lesson filter chip
-    if (activeLessonFilter !== 'all' && item.lesson !== activeLessonFilter && item.lesson !== activeLessonFilter.replace(' ', '_')) {
+    if (!matchesLessonFilter(item.lesson, activeLessonFilter)) {
       return false;
     }
 
     // External Lesson filter from drawer
-    if (selectedLesson !== 'all' && item.lesson !== selectedLesson && item.lesson !== selectedLesson.replace(' ', '_')) {
+    if (!matchesLessonFilter(item.lesson, selectedLesson)) {
       return false;
     }
 
@@ -114,33 +176,83 @@ export default function VocabularyView({
         </div>
       </div>
 
-      {/* Lesson Filter Chips + POS Filter Chips (Dictionary Mode) */}
+      {/* Dictionary Search & Filter Bar */}
       {mode === 'dictionary' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          {/* Lesson Chips */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', backgroundColor: 'var(--bg-surface)', padding: '1.25rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)' }}>
+          {/* Search Input with Clear Button */}
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: '240px', position: 'relative' }}>
+              <Input
+                placeholder="Search Tagalog word, English meaning, examples, or lesson..."
+                value={localSearch}
+                onChange={(e) => handleSearchChange(e.target.value)}
+                icon="🔍"
+              />
+              {localSearch && (
+                <button
+                  type="button"
+                  onClick={handleClearSearch}
+                  aria-label="Clear search"
+                  style={{
+                    position: 'absolute',
+                    right: '0.75rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'var(--text-muted)',
+                    fontSize: '1rem',
+                    padding: '0.25rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+            
+            <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
+              Showing {filteredVocab.length} of {vocabularyList.length} words
+            </div>
+          </div>
+
+          {/* Lesson Filter Chips */}
           {lessons.length > 1 && (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-              {lessons.map((les) => (
-                <FilterChip
-                  key={les}
-                  label={les === 'all' ? 'All Lessons' : les.replace('_', ' ')}
-                  active={activeLessonFilter === les}
-                  onClick={() => setActiveLessonFilter(les)}
-                />
-              ))}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Filter by Lesson
+              </span>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+                {lessons.map((les) => (
+                  <FilterChip
+                    key={les}
+                    label={les === 'all' ? 'All Lessons' : les.replace('_', ' ')}
+                    active={activeLessonFilter === les}
+                    onClick={() => setActiveLessonFilter(les)}
+                  />
+                ))}
+              </div>
             </div>
           )}
 
           {/* POS Chips */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-            {posList.map((pos) => (
-              <FilterChip
-                key={pos}
-                label={pos === 'all' ? 'All POS' : pos.charAt(0).toUpperCase() + pos.slice(1) + 's'}
-                active={selectedPos === pos}
-                onClick={() => setSelectedPos(pos)}
-              />
-            ))}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Part of Speech
+            </span>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+              {posList.map((pos) => (
+                <FilterChip
+                  key={pos}
+                  label={pos === 'all' ? 'All POS' : pos.charAt(0).toUpperCase() + pos.slice(1) + 's'}
+                  active={selectedPos === pos}
+                  onClick={() => setSelectedPos(pos)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -161,18 +273,26 @@ export default function VocabularyView({
             ))}
           </div>
         ) : (
-          <EmptyState
-            icon="🎴"
-            title="No vocabulary matches found"
-            description="Try clearing your search term or selecting 'All POS' to see all words."
-          />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+            <EmptyState
+              icon="🔍"
+              title="No vocabulary matches found"
+              description={
+                localSearch
+                  ? `No words matched "${localSearch}" with the current filters.`
+                  : "No words found for the selected lesson or part of speech."
+              }
+              actionLabel="Clear Search & Filters"
+              onAction={handleResetFilters}
+            />
+          </div>
         )
       )}
 
       {mode === 'flashcards' && (
         <SrsSessionView
           vocabularyList={filteredVocab}
-          searchQuery={searchQuery}
+          searchQuery={localSearch}
           selectedLesson={selectedLesson}
           selectedPos={selectedPos}
           filterMastered={filterMastered}
