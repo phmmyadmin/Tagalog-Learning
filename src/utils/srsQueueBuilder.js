@@ -80,14 +80,21 @@ export function buildStudyQueue(vocabularyList = [], customSettings = null, now 
     ...selectedNewCards,
   ];
 
-  // Cram Mode / Include Upcoming cards if requested when regular due queue is empty
-  if (options.includeUpcoming && finalQueue.length === 0) {
+  // Cram Mode / Include All Available & Upcoming cards if requested
+  if (options.includeUpcoming) {
     upcomingQueue.sort((a, b) => {
       const timeA = a.srs.due ? new Date(a.srs.due).getTime() : 0;
       const timeB = b.srs.due ? new Date(b.srs.due).getTime() : 0;
       return timeA - timeB;
     });
-    finalQueue = upcomingQueue;
+    // In Cram mode, bypass daily limit to allow studying all unreviewed new cards + upcoming reviews
+    finalQueue = [
+      ...learningQueue,
+      ...relearningQueue,
+      ...dueReviewQueue,
+      ...newQueue,
+      ...upcomingQueue,
+    ];
   }
 
   return {

@@ -190,13 +190,20 @@ export default function SrsSessionView({
         <EmptyState
           icon="🎉"
           title="All caught up for today!"
-          description="No due SRS flashcards right now. You can adjust your daily limits in Settings or practice upcoming cards ahead of time."
-          actionLabel="🔄 Re-study Queue"
+          description="You've completed today's scheduled SRS review queue. You can adjust your daily card limits in Settings (⚙️) or study all available and upcoming words now."
+          actionLabel="🔄 Re-check Due Queue"
           onAction={() => initQueue(false)}
         />
-        <Button variant="secondary" size="md" onClick={() => initQueue(true)} icon={<span>⚡</span>}>
-          Cram / Practice Upcoming Cards
-        </Button>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <Button variant="primary" size="md" onClick={() => initQueue(true)} icon={<span>⚡</span>}>
+            Study All Available Cards Now
+          </Button>
+          {onOpenSettings && (
+            <Button variant="secondary" size="md" onClick={onOpenSettings} icon={<span>⚙️</span>}>
+              Adjust Daily Limits
+            </Button>
+          )}
+        </div>
         {isCompleted && (
           <SrsSessionSummary
             sessionStats={sessionStats}
