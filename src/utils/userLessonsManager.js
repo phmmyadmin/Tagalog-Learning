@@ -31,19 +31,37 @@ export function getUserLessons() {
     return defaultLessons;
   }
 
-  // Ensure default lessons are present if not already contained
-  const lessonKeys = new Set(saved.map((l) => l.lessonKey || l.id));
+  // Ensure default lessons are present and up to date with enriched vocabulary
+  let hasUpdates = false;
+  const updatedLessons = saved.map((les) => {
+    const defaultMatch = defaultLessons.find((dl) => dl.lessonKey === les.lessonKey || dl.id === les.id);
+    if (defaultMatch) {
+      if (!les.vocabulary || les.vocabulary.length < defaultMatch.vocabulary.length) {
+        hasUpdates = true;
+        return {
+          ...les,
+          vocabulary: defaultMatch.vocabulary,
+          theory: defaultMatch.theory,
+          activities: defaultMatch.activities,
+          quiz: defaultMatch.quiz || les.quiz,
+        };
+      }
+    }
+    return les;
+  });
+
+  const lessonKeys = new Set(updatedLessons.map((l) => l.lessonKey || l.id));
   const missingDefaults = defaultLessons.filter((dl) => !lessonKeys.has(dl.lessonKey) && !lessonKeys.has(dl.id));
   
-  if (missingDefaults.length > 0) {
-    const unified = [...saved, ...missingDefaults];
+  if (missingDefaults.length > 0 || hasUpdates) {
+    const unified = [...updatedLessons, ...missingDefaults];
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(unified));
     } catch (e) {}
     return unified;
   }
 
-  return saved;
+  return updatedLessons;
 }
 
 /**

@@ -656,6 +656,104 @@ The following table contains all vocabulary terms extracted from the lessons, ca
 | **tamad** | Lazy | Adjective | Lesson_04 | Tamad ang lalaki. |
 | **tayo** | We (inclusive) | Pronoun | Lesson_03 | Tayo'y magkaibigan. |
 | **tubig** | Water | Noun | Lesson_02, 04 | Mainit ang tubig. |
+| **aalis** | Is/are leaving | Verb | Lesson_06, 07 | Kailan kayo aalis? |
+| **alin** | Which | Pronoun / Interrogative | Lesson_06 | Alin ba ang iyong gusto? |
+| **alin-alin** | Which (plural) | Pronoun | Lesson_06 | Alin-alin ang mga aklat mo? |
+| **ano** | What | Pronoun / Interrogative | Lesson_06 | Ano ito? |
+| **anu-ano** | What (plural) | Pronoun | Lesson_06 | Anu-ano ang mga pangalan ninyo? |
+| **bakal** | Iron (metal) | Noun | Lesson_06 | Alin ang mas mabigat: bakal o tingga? |
+| **bakit** | Why | Adverb / Interrogative | Lesson_06 | Bakit siya galit? |
+| **dumating** | Arrived | Verb | Lesson_06 | Kailan kayo dumating sa Pilipinas? |
+| **gaano** | How (extent / degree) | Adverb / Interrogative | Lesson_06 | Gaano kalaki ang bahay mo? |
+| **galit** | Angry | Adjective | Lesson_06 | Bakit siya galit? |
+| **gusto** | To like / Want | Pseudo-verb / Verb | Lesson_06, 07 | Anong gusto mo? |
+| **ilan** | How many | Pronoun / Interrogative | Lesson_06 | Ilan ang anak ninyo? |
+| **ilan-ilan** | How many each / in groups | Pronoun | Lesson_06 | Ilan-ilan ang mga anak nila? |
+| **kailan** | When | Adverb / Interrogative | Lesson_06 | Kailan tayo aalis? |
+| **kanino** | Whose / To whom | Pronoun / Possessive | Lesson_06 | Kanino ang bahay na iyan? |
+| **kani-kanino** | Whose (plural items/owners) | Pronoun | Lesson_06 | Kani-kanino ang mga bahay na iyan? |
+| **kilala** | Known / Acquainted | Adjective / Verb | Lesson_06 | Kilala mo ba siya? |
+| **kinita** | Earned / Earnings | Noun / Verb | Lesson_06 | Magkano ang kinita mo? |
+| **magkano** | How much (price) | Word / Interrogative | Lesson_06, 07 | Magkano ang aklat? |
+| **magka-magkano** | How much each | Word | Lesson_06 | Magka-magkano ang mga aklat? |
+| **mahaba** | Long (physical length) | Adjective | Lesson_06 | Mahaba ang tulay. |
+| **malaman** | To know (a fact/information) | Verb | Lesson_06 | Paano mo malalaman? |
+| **matagal** | Long (time duration) | Adjective / Adverb | Lesson_06 | Gaano katagal? |
+| **nakatira** | Residing / Living | Verb / Adjective | Lesson_06 | Saan kayo nakatira? |
+| **nasaan** | Where is/are (specific location) | Adverb / Interrogative | Lesson_06 | Nasaan ang susi? |
+| **paano** | How (manner / method) | Adverb / Interrogative | Lesson_06 | Paano ka natutong magluto? |
+| **pamasahe** | Fare (transportation cost) | Noun | Lesson_06 | Magkano ang pamasahe? |
+| **pangalan** | Name | Noun | Lesson_06 | Ano ang pangalan mo? |
+| **pelikula** | Movie / Film | Noun | Lesson_06 | Manood ng pelikula. |
+| **saan** | Where (direction / location) | Adverb / Interrogative | Lesson_06 | Saan kayo pupunta? |
+| **saan-saan** | Where (plural locations) | Adverb | Lesson_06 | Saan-saan kayo nakatira? |
+| **sasama** | Will come along / join | Verb | Lesson_06 | Sasama ka ba? |
+| **sino** | Who | Pronoun / Interrogative | Lesson_06 | Sino ba kayo? |
+| **sinu-sino** | Who (plural) | Pronoun | Lesson_06 | Sinu-sino ang inyong mga anak? |
+| **susi** | Key | Noun | Lesson_06 | Nasaan ang susi? |
+| **tama** | Correct / Right | Adjective | Lesson_06 | Tama ba ito? |
+| **tao** | Person / Human | Noun | Lesson_06 | Sinong tao 'yan? |
+| **tinapay** | Bread | Noun | Lesson_06 | Sino ang kumain ng tinapay? |
+| **tingga** | Lead (heavy metal) | Noun | Lesson_06 | Mabigat ang tingga. |
+| **uuwi** | Going home (future tense) | Verb | Lesson_06 | Uuwi ka na ba? |
+| **ayaw** | Does not want / Dislike | Pseudo-verb | Lesson_07 | Ayaw bang umalis ng babae? |
+| **ba** | Question marker | Particle | Lesson_07 | Mabait ba ang guro? |
+| **dapat** | Should / Must / Ought to | Pseudo-verb | Lesson_07 | Dapat ba siyang magsalita? |
+| **daw / raw** | Reportedly / They say | Particle | Lesson_07 | Malinis daw ba ang bata? |
+| **din / rin** | Also / Too | Particle | Lesson_07 | Maganda rin ba ang damit? |
+| **ibig** | Desires / Wishes / Likes | Pseudo-verb | Lesson_07 | Ibig bang umalis ng lalaki? |
+| **kaibigan** | Friend | Noun | Lesson_07 | Ang kaibigan ko ay si Herbert. |
+| **kapilya** | Chapel | Noun | Lesson_07 | Pupunta sa kapilya. |
+| **kasama** | Companion / Accompanying | Noun | Lesson_07 | Sino ang kasama mo? |
+| **kasi** | Because | Conjunction / Particle | Lesson_07 | Kasi pagod na ako. |
+| **kaya** | I wonder / Perhaps / So | Particle | Lesson_07 | Sino kaya siya? |
+| **lamang / lang** | Only / Just | Particle | Lesson_07 | Isa lang ang aklat. |
+| **maaari** | May / Can (permission) | Pseudo-verb | Lesson_07 | Maaari ba akong umalis? |
+| **magsalita** | To speak / Talk | Verb | Lesson_07 | Sila ay magsasalita sa radyo. |
+| **magtiwala** | To trust | Verb | Lesson_07 | Magtiwala sa kaibigan. |
+| **man** | Even / Even if | Particle | Lesson_07 | Kahit ano man. |
+| **muna** | First / Beforehand | Particle | Lesson_07 | Kumain ka muna. |
+| **na** | Already / Now | Particle | Lesson_07 | Aalis na ba sila? |
+| **naman** | In contrast / On the other hand | Particle | Lesson_07 | Ikaw naman ang magsalita. |
+| **nga** | Indeed / Really / Please | Particle | Lesson_07 | Oo nga, totoo iyan. |
+| **pa** | Still / Yet / More | Particle | Lesson_07 | Marumi pa ba siya? |
+| **pala** | So it turns out / By the way | Particle | Lesson_07 | Ikaw pala ang dumating! |
+| **po / opo** | Respect particle / Yes (polite) | Particle | Lesson_07 | Opo, guro ako. |
+| **puwede** | Can / Possible | Pseudo-verb | Lesson_07 | Puwede ba akong pumasok? |
+| **radyo** | Radio | Noun | Lesson_07 | Magsalita sa radyo. |
+| **sana** | Hopefully / I wish | Particle | Lesson_07 | Sana maganda ang panahon. |
+| **tuloy** | Consequently / As a result | Particle | Lesson_07 | Nahuli tuloy kami. |
+| **bughaw** | Blue | Adjective | Lesson_08 | Pinakabughaw na langit. |
+| **galing / magaling** | Skill / Good / Excellent | Adjective / Noun | Lesson_08 | Magkasinggaling sina Rizal at Bonifacio. |
+| **gaya** | Like / Similar to | Preposition | Lesson_08 | Si Maria ay maganda gaya ni Elena. |
+| **higit / higit na** | More / Exceedingly | Adverb | Lesson_08 | Higit na marunong si Peter kaysa kay John. |
+| **hindi kasing-** | Not as... as (inferiority) | Phrase / Prefix | Lesson_08 | Hindi kasinrunong si John ni Peter. |
+| **ilog** | River | Noun | Lesson_08 | Pinakamalinaw na ilog. |
+| **indayog** | Rhythm | Noun | Lesson_08 | Maganda ang indayog ng awit. |
+| **istilo** | Style | Noun | Lesson_08 | Makabago ang istilo. |
+| **kasing-** | As... as (equality prefix) | Prefix | Lesson_08 | Kasingganda ni Maria si Elena. |
+| **kasin-** | As... as (before d, l, r, s, t) | Prefix | Lesson_08 | Kasindumi ng sapatos. |
+| **kasim-** | As... as (before b, p) | Prefix | Lesson_08 | Kasimbait ng ina. |
+| **katulad / tulad** | Similar to / Like | Preposition / Adjective | Lesson_08 | Katulad ng kapatid niya. |
+| **kaysa / kaysa kay / kaysa sa** | Than (comparison) | Preposition | Lesson_08 | Mas masipag ang matanda kaysa sa bata. |
+| **kesa** | Than (colloquial kaysa) | Preposition | Lesson_08 | Mas mabilis kesa sa kotse. |
+| **kulot** | Curly | Adjective | Lesson_08 | Kasingkulot ng buhok mo. |
+| **labis** | Excessive / Too much | Adjective / Adverb | Lesson_08 | Labis ang ganda. |
+| **lakas / malakas** | Strength / Strong | Adjective / Noun | Lesson_08 | Pinakamalakas na lalaki. |
+| **lalo / lalong** | Even more / Greater degree | Adverb | Lesson_08 | Lalong masipag si tatay. |
+| **mabaho** | Foul-smelling / Stinky | Adjective | Lesson_08 | Magkasimbaho ang basura. |
+| **mabigat** | Heavy | Adjective | Lesson_08 | Mabigat ang bakal. |
+| **magkasing-** | Both equally... (prefix) | Prefix | Lesson_08 | Sina Maria at Elena ay magkasingganda. |
+| **makabago** | Modern / Innovative | Adjective | Lesson_08 | Makabago ang istilo. |
+| **malawak** | Broad / Vast | Adjective | Lesson_08 | Malawak ang dagat. |
+| **mas** | More (comparative marker) | Particle / Adverb | Lesson_08 | Mas masipag si Helen. |
+| **napaka-** | Very (intensive prefix) | Prefix | Lesson_08 | Napakaganda ng bulaklak. |
+| **pareho** | Same / Both equal | Adjective / Adverb | Lesson_08 | Maganda pareho ni Elena. |
+| **pinaka-** | Most / -est (superlative prefix) | Prefix | Lesson_08 | Pinakamalaking bahay. |
+| **sing-** | As... as (short form prefix) | Prefix | Lesson_08 | Singtangkad mo siya. |
+| **tono / boses** | Tone / Voice | Noun | Lesson_08 | Malawak ang tono ng boses. |
+| **tugtugin** | Music piece / Tune | Noun | Lesson_08 | Maganda ang tugtugin. |
+| **yelo** | Ice | Noun | Lesson_08 | Pinakamalamig na yelo. |
 
 ---
 
