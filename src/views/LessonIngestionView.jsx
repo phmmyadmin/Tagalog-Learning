@@ -469,18 +469,18 @@ export default function LessonIngestionView({
         </Card>
       )}
 
-      {/* Previously Ingested Lessons Section */}
+      {/* Unified Masterclass Lessons Section */}
       <Card style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
           <h3 style={{ fontSize: '1.15rem', color: 'var(--text-primary)', margin: 0 }}>
-            🗃️ Ingested Custom Lessons ({userLessons.length})
+            🗃️ Active Masterclass Lessons ({userLessons.length})
           </h3>
-          <Badge variant="neutral">{userLessons.length} Custom / Dynamic</Badge>
+          <Badge variant="neutral">{userLessons.length} Total Lessons</Badge>
         </div>
 
         {userLessons.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--text-secondary)', fontSize: '0.925rem' }}>
-            No custom lessons ingested yet. Upload a PowerPoint file above to expand your Tagalog Masterclass!
+            No lessons loaded. Upload a PowerPoint file above or refresh to load default lessons!
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
