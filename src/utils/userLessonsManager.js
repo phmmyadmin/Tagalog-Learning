@@ -1,11 +1,10 @@
 /**
  * User Lessons Manager
  * Handles local persistence, dynamic schema merging, and event notifications
- * for user-ingested PowerPoint/custom lessons.
+ * for all Tagalog lessons (both seeded L02-L08 and user-ingested PPTX modules).
  */
 
-import staticData from '../data/tagalogData.json';
-import { lessonQuizzes as staticLessonQuizzes } from '../data/quizzes';
+import { defaultLessons } from '../data/defaultLessons';
 import { autoPushIfLoggedIn } from './cloudSyncManager';
 
 const STORAGE_KEY = 'tagalog_user_lessons_v1';
@@ -20,15 +19,35 @@ const safeParseJSON = (key, fallback) => {
 };
 
 /**
- * Gets all user-uploaded lessons from localStorage.
+ * Gets all lessons from localStorage, auto-seeding with default lessons (L02-L08) if uninitialized.
  * @returns {Array<Object>}
  */
 export function getUserLessons() {
-  return safeParseJSON(STORAGE_KEY, []);
+  const saved = safeParseJSON(STORAGE_KEY, null);
+  if (saved === null || (Array.isArray(saved) && saved.length === 0)) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultLessons));
+    } catch (e) {}
+    return defaultLessons;
+  }
+
+  // Ensure default lessons are present if not already contained
+  const lessonKeys = new Set(saved.map((l) => l.lessonKey || l.id));
+  const missingDefaults = defaultLessons.filter((dl) => !lessonKeys.has(dl.lessonKey) && !lessonKeys.has(dl.id));
+  
+  if (missingDefaults.length > 0) {
+    const unified = [...saved, ...missingDefaults];
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(unified));
+    } catch (e) {}
+    return unified;
+  }
+
+  return saved;
 }
 
 /**
- * Saves or updates a user lesson.
+ * Saves or updates a lesson.
  * @param {Object} lesson
  */
 export function saveUserLesson(lesson) {
@@ -56,7 +75,7 @@ export function saveUserLesson(lesson) {
 }
 
 /**
- * Deletes a user lesson by its ID or lessonKey.
+ * Deletes a lesson by its ID or lessonKey.
  * @param {string} idOrKey
  */
 export function deleteUserLesson(idOrKey) {
@@ -76,82 +95,49 @@ export function deleteUserLesson(idOrKey) {
 }
 
 /**
- * Returns merged data combining built-in static data with all user-uploaded lessons.
- * Deduplicates by unique IDs.
+ * Returns merged data directly from the unified lesson collection.
  */
 export function getMergedLessonData() {
-  const userLessons = getUserLessons();
+  const lessons = getUserLessons();
 
-  const extraTheory = [];
-  const extraVocab = [];
-  const extraActivities = [];
-  const extraLessons = [];
+  const theory = [];
+  const vocabulary = [];
+  const activities = [];
+  const lessonKeys = [];
 
-  userLessons.forEach((ul) => {
-    if (ul.lessonKey) extraLessons.push(ul.lessonKey);
-    if (Array.isArray(ul.theory)) extraTheory.push(...ul.theory);
-    if (Array.isArray(ul.vocabulary)) extraVocab.push(...ul.vocabulary);
-    if (Array.isArray(ul.activities)) extraActivities.push(...ul.activities);
+  lessons.forEach((les) => {
+    if (les.lessonKey) lessonKeys.push(les.lessonKey);
+    if (Array.isArray(les.theory)) theory.push(...les.theory);
+    if (Array.isArray(les.vocabulary)) vocabulary.push(...les.vocabulary);
+    if (Array.isArray(les.activities)) activities.push(...les.activities);
   });
 
-  // Merge Theory
-  const theoryMap = new Map();
-  (staticData.theory || []).forEach((t) => theoryMap.set(t.id, t));
-  extraTheory.forEach((t) => theoryMap.set(t.id, t));
-  const mergedTheory = Array.from(theoryMap.values());
-
-  // Merge Vocabulary
-  const vocabMap = new Map();
-  (staticData.vocabulary || []).forEach((v) => vocabMap.set(v.id, v));
-  extraVocab.forEach((v) => vocabMap.set(v.id, v));
-  const mergedVocab = Array.from(vocabMap.values());
-
-  // Merge Activities
-  const actMap = new Map();
-  (staticData.activities || []).forEach((a) => actMap.set(a.id, a));
-  extraActivities.forEach((a) => actMap.set(a.id, a));
-  const mergedActivities = Array.from(actMap.values());
-
-  // Merge Lessons list
-  const builtInLessons = staticData.metadata?.lessons_covered || [
-    ...new Set(staticData.theory.map((t) => t.lesson).filter(Boolean)),
-  ];
-  const allLessons = Array.from(new Set([...builtInLessons, ...extraLessons])).sort();
+  const sortedLessons = Array.from(new Set(lessonKeys)).sort();
 
   return {
     metadata: {
-      ...staticData.metadata,
-      lessons_covered: allLessons,
-      total_grammar_topics: mergedTheory.length,
-      total_vocab_terms: mergedVocab.length,
-      total_exercises: mergedActivities.length,
+      title: 'Tagalog Master Knowledge Base',
+      lessons_covered: sortedLessons,
+      total_grammar_topics: theory.length,
+      total_vocab_terms: vocabulary.length,
+      total_exercises: activities.length,
     },
-    theory: mergedTheory,
-    vocabulary: mergedVocab,
-    activities: mergedActivities,
-    lessons: allLessons,
-    userLessons,
+    theory,
+    vocabulary,
+    activities,
+    lessons: sortedLessons,
+    userLessons: lessons,
   };
 }
 
 /**
- * Returns merged lesson mastery exams combining static built-in quizzes and user-uploaded quizzes.
+ * Returns all lesson mastery exams directly from the unified lesson collection.
  */
 export function getMergedLessonQuizzes() {
-  const userLessons = getUserLessons();
-  const userQuizzes = userLessons
-    .map((ul) => ul.quiz)
-    .filter((q) => q && q.questions && q.questions.length > 0);
+  const lessons = getUserLessons();
+  const quizzes = lessons
+    .map((les) => les.quiz)
+    .filter((q) => q && Array.isArray(q.questions) && q.questions.length > 0);
 
-  const quizMap = new Map();
-  staticLessonQuizzes.forEach((q) => {
-    const qId = q.quiz_metadata?.id || q.id;
-    if (qId) quizMap.set(qId, q);
-  });
-  userQuizzes.forEach((q) => {
-    const qId = q.quiz_metadata?.id || q.id;
-    if (qId) quizMap.set(qId, q);
-  });
-
-  return Array.from(quizMap.values());
+  return quizzes;
 }
