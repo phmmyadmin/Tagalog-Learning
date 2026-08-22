@@ -7,11 +7,37 @@ import { ProgressBar } from './ui/ProgressBar';
 import { saveMistake, removeMistake } from '../utils/mistakesManager';
 
 /**
+ * Fisher-Yates array shuffle helper.
+ */
+function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+/**
  * QuizRunner Component - Step-by-step quiz runner with immediate answer evaluation and score report.
  */
 export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
   const quizTitle = quiz.quiz_metadata?.title || quiz.title || 'Tagalog Quiz';
   const quizId = quiz.quiz_metadata?.id || quiz.id || 'quiz_default';
+
+  // Shuffle multiple choice options on quiz initialization
+  const [shuffledQuestions] = useState(() => {
+    const raw = quiz.questions || [];
+    return raw.map((q) => {
+      if (q.type === 'multiple_choice' && Array.isArray(q.options) && q.options.length > 0) {
+        return {
+          ...q,
+          options: shuffleArray(q.options),
+        };
+      }
+      return q;
+    });
+  });
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
@@ -20,8 +46,7 @@ export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
 
-  const questions = quiz.questions || [];
-  const currentQuestion = questions[currentIndex];
+  const currentQuestion = shuffledQuestions[currentIndex];
 
   const normalize = (text) => {
     return (text || '')
@@ -67,7 +92,7 @@ export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
   };
 
   const handleNextQuestion = () => {
-    if (currentIndex < questions.length - 1) {
+    if (currentIndex < shuffledQuestions.length - 1) {
       setCurrentIndex((prev) => prev + 1);
       setSelectedOption('');
       setTextInput('');
@@ -79,7 +104,7 @@ export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
       onCompleteQuiz({
         quizId: quizId,
         score: totalCorrect,
-        total: questions.length,
+        total: shuffledQuestions.length,
         userAnswers,
       });
     }
@@ -99,8 +124,8 @@ export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
 
       <ProgressBar
         value={currentIndex + 1}
-        max={questions.length}
-        label={`Question ${currentIndex + 1} of ${questions.length}`}
+        max={shuffledQuestions.length}
+        label={`Question ${currentIndex + 1} of ${shuffledQuestions.length}`}
         color="var(--accent-info)"
       />
 
@@ -236,7 +261,7 @@ export default function QuizRunner({ quiz, onCompleteQuiz, onCancel }) {
             </Button>
           ) : (
             <Button variant="primary" onClick={handleNextQuestion}>
-              {currentIndex < questions.length - 1 ? 'Next Question →' : 'Finish Quiz 🏆'}
+              {currentIndex < shuffledQuestions.length - 1 ? 'Next Question →' : 'Finish Quiz 🏆'}
             </Button>
           )}
         </div>
