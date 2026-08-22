@@ -142,16 +142,17 @@ export const Header = ({
           <Button
             variant="secondary"
             size="sm"
-            onClick={onOpenCloudSync}
-            ariaLabel="Open Multi-Device Cloud Sync"
+            onClick={onOpenSettings || onOpenCloudSync}
+            ariaLabel="Open Settings and Cloud Sync"
             style={{
-              fontSize: '0.8rem',
-              padding: '0.45rem 0.65rem',
+              fontSize: '0.825rem',
+              padding: '0.45rem 0.75rem',
               whiteSpace: 'nowrap',
               gap: '0.35rem',
+              fontWeight: 600,
             }}
           >
-            ☁️ Sync
+            ⚙️ Settings
           </Button>
         </div>
       </div>

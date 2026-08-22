@@ -9,8 +9,7 @@ import ActivitiesView from './views/ActivitiesView';
 import QuizzesView from './views/QuizzesView';
 import LessonIngestionView from './views/LessonIngestionView';
 import PptxViewer from './components/PptxViewer';
-import SrsSettingsPanel from './components/SrsSettingsPanel';
-import { CloudSyncModal } from './components/CloudSyncModal';
+import { SettingsModal } from './components/SettingsModal';
 import { recordStudyActivity, calculateStreak } from './utils/streakManager';
 import { autoPushIfLoggedIn, pullProgressFromCloud, pushProgressToCloud } from './utils/cloudSyncManager';
 
@@ -215,7 +214,7 @@ export function App() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
         onOpenDrawer={() => setIsDrawerOpen(true)}
-        onOpenCloudSync={() => setIsCloudSyncOpen(true)}
+        onOpenSettings={() => setIsSettingsOpen(true)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         masteredCount={totalMastered}
@@ -324,14 +323,8 @@ export function App() {
         />
       )}
 
-      {/* Multi-Device Cloud Sync Modal */}
-      <CloudSyncModal
-        isOpen={isCloudSyncOpen}
-        onClose={() => setIsCloudSyncOpen(false)}
-      />
-
-      {/* Settings Modal */}
-      <SrsSettingsPanel
+      {/* Unified Settings & Cloud Sync Modal */}
+      <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
       />
