@@ -10,7 +10,7 @@ import { getMistakes } from './mistakesManager';
 /**
  * Calls Gemini API with exponential backoff and automatic model fallback on 503/429 high demand errors.
  */
-async function callGeminiApiWithRetry(systemPrompt, config) {
+export async function callGeminiApiWithRetry(systemPrompt, config) {
   const modelsToTry = [
     config.model || 'gemini-3.6-flash',
     'gemini-2.0-flash',

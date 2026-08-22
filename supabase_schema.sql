@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS public.user_progress (
   srs_gamification_v2 JSONB DEFAULT '{}'::jsonb,
   srs_settings_v2 JSONB DEFAULT '{}'::jsonb,
   saved_quizzes JSONB DEFAULT '[]'::jsonb,
+  user_lessons JSONB DEFAULT '[]'::jsonb,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -28,6 +29,7 @@ ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_review_log_v2 JSON
 ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_gamification_v2 JSONB DEFAULT '{}'::jsonb;
 ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS srs_settings_v2 JSONB DEFAULT '{}'::jsonb;
 ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS saved_quizzes JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE public.user_progress ADD COLUMN IF NOT EXISTS user_lessons JSONB DEFAULT '[]'::jsonb;
 
 -- 2. Enable Row Level Security (RLS)
 ALTER TABLE public.user_progress ENABLE ROW LEVEL SECURITY;
