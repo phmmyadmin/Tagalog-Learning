@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/parse_knowledge.js && node scripts/extract_slides.js && vite build",
+    "build": "node scripts/extract_slides.js && vite build",
     "preview": "vite preview",
-    "build:data": "node scripts/parse_knowledge.js",
     "build:slides": "node scripts/extract_slides.js"
   },
   "dependencies": {
