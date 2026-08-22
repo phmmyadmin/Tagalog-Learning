@@ -273,6 +273,7 @@ export function App() {
           <VocabularyView
             vocabularyList={lessonData.vocabulary}
             searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
             selectedLesson={selectedLesson}
             filterMastered={filterMastered}
             masteredIds={masteredItems}
