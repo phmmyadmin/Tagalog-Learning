@@ -18,6 +18,12 @@
       "slideEnd": 5,
       "label": "Pluralization of Adjectives & Nouns"
     },
+    "THEORY-08": {
+      "lesson": "Lesson_02",
+      "slide": 15,
+      "slideEnd": 15,
+      "label": "Basic Verb Tenses"
+    },
     "THEORY-04": {
       "lesson": "Lesson_03",
       "slide": 4,
@@ -41,12 +47,6 @@
       "slide": 3,
       "slideEnd": 16,
       "label": "Possessive Words & Pronouns"
-    },
-    "THEORY-08": {
-      "lesson": "Lesson_02",
-      "slide": 15,
-      "slideEnd": 15,
-      "label": "Basic Verb Tenses"
     },
     "THEORY-09": {
       "lesson": "Lesson_06",

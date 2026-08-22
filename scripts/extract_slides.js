@@ -10,7 +10,6 @@ const projectRoot = path.resolve(__dirname, '..');
 const PPTX_DIR = path.join(projectRoot, 'pptx_sources');
 const OUTPUT_DATA_DIR = path.join(projectRoot, 'src', 'data', 'slides');
 const OUTPUT_MEDIA_DIR = path.join(projectRoot, 'public', 'slides');
-const TAGALOG_DATA_PATH = path.join(projectRoot, 'src', 'data', 'tagalogData.json');
 const OVERRIDES_PATH = path.join(projectRoot, 'src', 'data', 'slideMapOverrides.json');
 const SLIDE_MAP_PATH = path.join(projectRoot, 'src', 'data', 'slideMap.json');
 
@@ -154,13 +153,18 @@ function generateSlideMap(allManifests) {
     }
   }
 
-  let tagalogData = { theory: [], vocabulary: [], activities: [] };
-  if (fs.existsSync(TAGALOG_DATA_PATH)) {
-    try {
-      tagalogData = JSON.parse(fs.readFileSync(TAGALOG_DATA_PATH, 'utf8'));
-    } catch (e) {
-      console.warn('Could not parse tagalogData.json.');
+  let allTheory = [];
+  try {
+    const defaultLessonsFile = fs.readFileSync(path.join(projectRoot, 'src', 'data', 'defaultLessons.js'), 'utf8');
+    const jsonMatch = defaultLessonsFile.match(/export const defaultLessons = (\[[\s\S]*?\]);\s*$/);
+    if (jsonMatch) {
+      const defaultLessons = JSON.parse(jsonMatch[1]);
+      defaultLessons.forEach((l) => {
+        if (Array.isArray(l.theory)) allTheory.push(...l.theory);
+      });
     }
+  } catch (e) {
+    console.warn('Could not read defaultLessons.js for slide mapping:', e.message);
   }
 
   const slideMap = {
@@ -174,7 +178,7 @@ function generateSlideMap(allManifests) {
   };
 
   // Map Theory Topics
-  for (const topic of tagalogData.theory || []) {
+  for (const topic of allTheory) {
     // If override exists, use it
     if (overrides.theory && overrides.theory[topic.id]) {
       slideMap.theory[topic.id] = overrides.theory[topic.id];
