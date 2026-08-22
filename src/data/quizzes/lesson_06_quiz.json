@@ -3,90 +3,95 @@
     "id": "LESSON_06_QUIZ",
     "lesson": "Lesson_06",
     "title": "Lesson 6 Mastery Exam",
-    "topic": "Numbers, Time, Days & Money",
+    "topic": "Question Words (Interrogatives) & Plural Questions",
     "total_questions": 8,
-    "created_at": "2026-08-21T20:00:00Z"
+    "created_at": "2026-08-22T13:00:00Z"
   },
   "questions": [
     {
       "id": "L06-Q01",
       "type": "multiple_choice",
-      "topic": "Cardinal Numbers",
+      "topic": "Interrogative Pronoun Sino",
       "lesson": "Lesson_06",
-      "prompt": "What is the Tagalog word for the number 5?",
-      "options": ["lima", "apat", "anim", "pito"],
-      "correct_answer": "lima",
-      "explanation": "'Lima' is 5 in native Tagalog counting (isa, dalawa, tatlo, apat, lima)."
+      "prompt": "Which question word asks 'Who' when inquiring about a person?",
+      "options": ["Sino", "Ano", "Alin", "Kanino"],
+      "correct_answer": "Sino",
+      "explanation": "'Sino' asks 'Who' (e.g. Sino ba kayo? = Who are you?)."
     },
     {
       "id": "L06-Q02",
       "type": "multiple_choice",
-      "topic": "Cardinal Numbers",
+      "topic": "Interrogative Nasaan vs Saan",
       "lesson": "Lesson_06",
-      "prompt": "What is the Tagalog word for 10?",
-      "options": ["sampu", "walo", "siyam", "dalawampu"],
-      "correct_answer": "sampu",
-      "explanation": "'Sampu' is 10 in Tagalog."
+      "prompt": "Which question word specifically asks 'Where is/are [specific object or person]?'",
+      "options": ["Nasaan", "Saan", "Kailan", "Paano"],
+      "correct_answer": "Nasaan",
+      "explanation": "'Nasaan' asks for the location of a specific item or person (e.g. Nasaan ang susi?). 'Saan' asks for general location or direction (e.g. Saan ka nakatira?)."
     },
     {
       "id": "L06-Q03",
-      "type": "fill_in_blank",
-      "topic": "Telling Time",
+      "type": "multiple_choice",
+      "topic": "Interrogative Ilan vs Magkano",
       "lesson": "Lesson_06",
-      "prompt": "How do you say '1:00 o'clock' using Spanish-derived time expressions in Tagalog? ______",
-      "correct_answer": "a la una",
-      "accepted_answers": ["a la una", "A la una", "ala una"],
-      "explanation": "'A la una' means 1 o'clock (singular 'a la', all other hours use 'alas')."
+      "prompt": "Which question word asks for quantity or countable number of items ('How many?')?",
+      "options": ["Ilan", "Magkano", "Gaano", "Alin"],
+      "correct_answer": "Ilan",
+      "explanation": "'Ilan' asks 'How many?' (countable items). 'Magkano' asks for price/cost."
     },
     {
       "id": "L06-Q04",
       "type": "multiple_choice",
-      "topic": "Telling Time",
+      "topic": "Interrogative Possession Kanino",
       "lesson": "Lesson_06",
-      "prompt": "How do you say '3:00 o'clock'?",
-      "options": ["alas tres", "a la tres", "alas treses", "ikatlo"],
-      "correct_answer": "alas tres",
-      "explanation": "Hours 2 to 12 use the prefix 'alas' + Spanish hour: 'alas tres' (3:00)."
+      "prompt": "Which question word asks 'Whose' or 'To whom'?",
+      "options": ["Kanino", "Sino", "Ano", "Saan"],
+      "correct_answer": "Kanino",
+      "explanation": "'Kanino' asks 'Whose' or 'To whom' (e.g. Kanino ang bahay na iyan?)."
     },
     {
       "id": "L06-Q05",
-      "type": "multiple_choice",
-      "topic": "Days of the Week",
+      "type": "fill_in_blank",
+      "topic": "Pluralization of Sino",
       "lesson": "Lesson_06",
-      "prompt": "What day of the week is 'Linggo'?",
-      "options": ["Sunday", "Monday", "Saturday", "Friday"],
-      "correct_answer": "Sunday",
-      "explanation": "'Linggo' means Sunday (and also 'week')."
+      "prompt": "What is the plural form of the question word 'sino' when asking who multiple people are? ______",
+      "correct_answer": "sinu-sino",
+      "accepted_answers": ["sinu-sino", "Sinu-sino", "sinusino"],
+      "explanation": "2-syllable question words duplicate with 'o' shifting to 'u' in the first part: sino -> sinu-sino."
     },
     {
       "id": "L06-Q06",
       "type": "fill_in_blank",
-      "topic": "Days of the Week",
+      "topic": "Pluralization of Ano",
       "lesson": "Lesson_06",
-      "prompt": "What is the Tagalog word for 'Monday'? ______",
-      "correct_answer": "Lunes",
-      "accepted_answers": ["Lunes", "lunes"],
-      "explanation": "'Lunes' is Monday in Tagalog."
+      "prompt": "What is the plural form of 'ano' when asking for multiple items or names? ______",
+      "correct_answer": "anu-ano",
+      "accepted_answers": ["anu-ano", "Anu-ano", "anuano"],
+      "explanation": "Ano duplicates with vowel shift: ano -> anu-ano."
     },
     {
       "id": "L06-Q07",
       "type": "multiple_choice",
-      "topic": "Asking Prices",
+      "topic": "Question Word Pluralization Exceptions",
       "lesson": "Lesson_06",
-      "prompt": "How do you ask 'How much is this?' in Tagalog?",
-      "options": ["Magkano ito?", "Ilan ito?", "Ano ito?", "Saan ito?"],
-      "correct_answer": "Magkano ito?",
-      "explanation": "'Magkano' asks for price/cost, so 'Magkano ito?' means 'How much is this?'"
+      "prompt": "Which two question words are NEVER duplicated because their nature cannot be pluralized?",
+      "options": [
+        "Nasaan & Bakit",
+        "Sino & Ano",
+        "Saan & Kailan",
+        "Ilan & Magkano"
+      ],
+      "correct_answer": "Nasaan & Bakit",
+      "explanation": "'Nasaan' (specific location) and 'Bakit' (reason) are never duplicated in Tagalog."
     },
     {
       "id": "L06-Q08",
       "type": "multiple_choice",
-      "topic": "Counting Items",
+      "topic": "Contracted Everyday Questions",
       "lesson": "Lesson_06",
-      "prompt": "Which question word asks for quantity / number of items ('How many?')?",
-      "options": ["Ilan", "Magkano", "Sino", "Alin"],
-      "correct_answer": "Ilan",
-      "explanation": "'Ilan' asks 'How many?' (countable items), while 'Magkano' asks 'How much?' (price)."
+      "prompt": "How does 'Kanino ito?' contract in natural spoken Tagalog?",
+      "options": ["Kanino 'to?", "Kaning ito?", "Sino 'to?", "Kanino 'yan?"],
+      "correct_answer": "Kanino 'to?",
+      "explanation": "In spoken Tagalog, demonstratives shorten (ito -> 'to, iyan -> 'yan): 'Kanino 'to?' (Whose is this?)."
     }
   ]
 }

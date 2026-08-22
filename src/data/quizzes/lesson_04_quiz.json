@@ -3,90 +3,95 @@
     "id": "LESSON_04_QUIZ",
     "lesson": "Lesson_04",
     "title": "Lesson 4 Mastery Exam",
-    "topic": "Verb Foci & Conjugations (-um- vs mag-)",
+    "topic": "Demonstrative Pronouns & Connectives / Ligatures (-ng, -g, na)",
     "total_questions": 8,
-    "created_at": "2026-08-21T20:00:00Z"
+    "created_at": "2026-08-22T13:00:00Z"
   },
   "questions": [
     {
       "id": "L04-Q01",
       "type": "multiple_choice",
-      "topic": "Completed Aspect (-um-)",
+      "topic": "Demonstrative Distance",
       "lesson": "Lesson_04",
-      "prompt": "What is the completed (past) form of the -um- verb root 'kain' (eat)?",
-      "options": ["kumain", "kumakain", "kakain", "magkain"],
-      "correct_answer": "kumain",
-      "explanation": "In completed aspect, '-um-' infix is inserted after the first consonant: k-um-ain = kumain."
+      "prompt": "Which demonstrative pronoun means 'this' (object close to the speaker)?",
+      "options": ["ito", "iyan", "iyon", "dito"],
+      "correct_answer": "ito",
+      "explanation": "'Ito' means 'this' (near speaker)."
     },
     {
       "id": "L04-Q02",
       "type": "multiple_choice",
-      "topic": "Incompleted Aspect (-um-)",
+      "topic": "Demonstrative Distance",
       "lesson": "Lesson_04",
-      "prompt": "What is the incompleted (present / habit) form of the verb root 'kain'?",
-      "options": ["kumakain", "kumain", "kakain", "nagkain"],
-      "correct_answer": "kumakain",
-      "explanation": "Incompleted aspect duplicates the first syllable of the root and inserts '-um-': k-um-a-kain."
+      "prompt": "Which demonstrative pronoun means 'that' (object near the listener)?",
+      "options": ["iyan", "ito", "iyon", "doon"],
+      "correct_answer": "iyan",
+      "explanation": "'Iyan' means 'that' (near listener)."
     },
     {
       "id": "L04-Q03",
       "type": "multiple_choice",
-      "topic": "Contemplated Aspect (-um-)",
+      "topic": "Demonstrative Distance",
       "lesson": "Lesson_04",
-      "prompt": "What is the contemplated (future) form of the root 'kain'?",
-      "options": ["kakain", "kumain", "kumakain", "magkain"],
-      "correct_answer": "kakain",
-      "explanation": "Contemplated aspect duplicates the first syllable of the root without '-um-': ka-kain."
+      "prompt": "Which demonstrative pronoun means 'that over there' (far from both speaker and listener)?",
+      "options": ["iyon", "ito", "iyan", "diyan"],
+      "correct_answer": "iyon",
+      "explanation": "'Iyon' means 'that over there' (far from both)."
     },
     {
       "id": "L04-Q04",
       "type": "multiple_choice",
-      "topic": "Mag- Verbs Completed Aspect",
+      "topic": "Ligatures after Vowels",
       "lesson": "Lesson_04",
-      "prompt": "For mag- verbs, what prefix replaces 'mag-' in the completed (past) aspect?",
-      "options": ["nag-", "mag-", "nagma-", "um-"],
-      "correct_answer": "nag-",
-      "explanation": "'mag-' verbs change the initial 'm' to 'n' for completed aspect: magluto -> nagluto."
+      "prompt": "When a word ends in a vowel (e.g. 'malaki'), which ligature is attached directly to the end of the word before a noun?",
+      "options": ["-ng", "na", "-g", "nang"],
+      "correct_answer": "-ng",
+      "explanation": "If a modifying word ends in a vowel, '-ng' is attached directly: malaki + -ng = malaking bahay."
     },
     {
       "id": "L04-Q05",
-      "type": "fill_in_blank",
-      "topic": "Mag- Verbs Incompleted Aspect",
+      "type": "multiple_choice",
+      "topic": "Ligatures after Consonants",
       "lesson": "Lesson_04",
-      "prompt": "What is the incompleted (present) form of 'mag-aral' (to study)? ______",
-      "correct_answer": "nagaaral",
-      "accepted_answers": ["nagaaral", "nag-aaral", "Nag-aaral", "Nagaaral"],
-      "explanation": "Incompleted aspect of mag- verbs: nag- + duplicate first syllable of root + root = nag-a-aral."
+      "prompt": "When a word ends in a consonant OTHER than 'n' (e.g. 'tahimik'), which standalone ligature is placed between the words?",
+      "options": ["na", "-ng", "-g", "nang"],
+      "correct_answer": "na",
+      "explanation": "If a modifying word ends in a consonant other than 'n', 'na' is placed as a separate word: tahimik na bata."
     },
     {
       "id": "L04-Q06",
       "type": "fill_in_blank",
-      "topic": "Completed Aspect (-um-)",
+      "topic": "Ligature for letter N",
       "lesson": "Lesson_04",
-      "prompt": "What is the past (completed) tense of 'lakad' (walk) using -um-? ______",
-      "correct_answer": "lumakad",
-      "accepted_answers": ["lumakad", "Lumakad"],
-      "explanation": "Infix '-um-' placed after first consonant 'l': l-um-akad."
+      "prompt": "When connecting 'mayaman' + 'lalaki', the consonant 'n' changes to '-g'. What is the correct linked form? ______ lalaki",
+      "correct_answer": "mayamang",
+      "accepted_answers": ["mayamang", "Mayamang"],
+      "explanation": "When a word ends in consonant 'n', '-g' is added: mayaman + -g = mayamang lalaki."
     },
     {
       "id": "L04-Q07",
       "type": "multiple_choice",
-      "topic": "Mag- Verbs Contemplated Aspect",
+      "topic": "Demonstrative Modifiers",
       "lesson": "Lesson_04",
-      "prompt": "What is the contemplated (future) tense of 'maglinis' (clean)?",
-      "options": ["maglillinis", "maglillinis", "maglillinis", "maglillinis", "maglilinis"],
-      "correct_answer": "maglilinis",
-      "explanation": "Future tense of mag- verbs keeps 'mag-' and duplicates the first syllable of root: mag-li-linis."
+      "prompt": "How do you say 'this table' using the demonstrative 'ito' and ligature '-ng'?",
+      "options": ["itong mesa", "ito na mesa", "ito mesa", "mga itong mesa"],
+      "correct_answer": "itong mesa",
+      "explanation": "Demonstrative + ligature '-ng': ito + -ng = itong mesa (or mesang ito)."
     },
     {
       "id": "L04-Q08",
       "type": "multiple_choice",
-      "topic": "Actor Focus Concept",
+      "topic": "Ligature Exceptions",
       "lesson": "Lesson_04",
-      "prompt": "In Actor Focus (AF) sentences, which entity is the topic marked by 'ang'?",
-      "options": ["The actor / doer of the action", "The object acted upon", "The location", "The instrument used"],
-      "correct_answer": "The actor / doer of the action",
-      "explanation": "In Actor Focus, the verb focuses on the performer of the action, who is marked with 'ang' or 'si'."
+      "prompt": "In helping verb + main verb constructions (e.g. 'ayaw' + 'kumain'), which ligature rule applies?",
+      "options": [
+        "NO ligature is used between helping verb and main verb (ayaw kumain)",
+        "Must always use '-ng'",
+        "Must always use 'na'",
+        "Must duplicate the verb"
+      ],
+      "correct_answer": "NO ligature is used between helping verb and main verb (ayaw kumain)",
+      "explanation": "Helping verbs followed by main verbs require NO ligature: 'ayaw kumain' (does not want to eat)."
     }
   ]
 }

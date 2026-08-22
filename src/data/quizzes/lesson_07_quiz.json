@@ -3,90 +3,105 @@
     "id": "LESSON_07_QUIZ",
     "lesson": "Lesson_07",
     "title": "Lesson 7 Mastery Exam",
-    "topic": "Pseudo-Verbs & Modals (Gusto, Ayaw, Kailangan)",
+    "topic": "The Question Marker BA & Enclitic Particles",
     "total_questions": 8,
-    "created_at": "2026-08-21T20:00:00Z"
+    "created_at": "2026-08-22T13:00:00Z"
   },
   "questions": [
     {
       "id": "L07-Q01",
       "type": "multiple_choice",
-      "topic": "Pseudo-verb Gusto",
+      "topic": "Question Particle BA",
       "lesson": "Lesson_07",
-      "prompt": "Which pseudo-verb expresses 'want' or 'like'?",
-      "options": ["gusto", "ayaw", "kailangan", "bawal"],
-      "correct_answer": "gusto",
-      "explanation": "'Gusto' means 'want' or 'like' (e.g. Gusto ko ng tubig)."
+      "prompt": "What is the main function of the particle 'ba' in Tagalog?",
+      "options": [
+        "It acts as a spoken question mark to turn statements into explicit questions",
+        "It indicates past tense",
+        "It marks the subject of the sentence",
+        "It connects adjectives to nouns"
+      ],
+      "correct_answer": "It acts as a spoken question mark to turn statements into explicit questions",
+      "explanation": "The particle 'ba' explicitly turns a statement into a question (e.g. Aalis ka. -> Aalis ka ba?)."
     },
     {
       "id": "L07-Q02",
       "type": "multiple_choice",
-      "topic": "Pseudo-verb Ayaw",
+      "topic": "BA Placement with Monosyllabic Pronouns",
       "lesson": "Lesson_07",
-      "prompt": "Which pseudo-verb expresses dislike or refusal ('don't want' / 'dislike')?",
-      "options": ["ayaw", "gusto", "maaari", "pwede"],
-      "correct_answer": "ayaw",
-      "explanation": "'Ayaw' expresses negative desire or refusal (don't want / dislike)."
+      "prompt": "When combining 'ba' with monosyllabic pronouns like 'ka', 'ko', or 'mo', where is 'ba' placed?",
+      "options": [
+        "AFTER the monosyllabic pronoun (e.g. Aalis ka ba?)",
+        "BEFORE the monosyllabic pronoun (e.g. Aalis ba ka?)",
+        "At the very end of the sentence only",
+        "At the beginning of the sentence"
+      ],
+      "correct_answer": "AFTER the monosyllabic pronoun (e.g. Aalis ka ba?)",
+      "explanation": "Monosyllabic pronouns (ka, ko, mo) come BEFORE 'ba': 'Aalis ka ba?' (NOT 'ba ka')."
     },
     {
       "id": "L07-Q03",
       "type": "multiple_choice",
-      "topic": "Pseudo-verb Kailangan",
+      "topic": "Enclitic Particles Na vs Pa",
       "lesson": "Lesson_07",
-      "prompt": "Which pseudo-verb expresses necessity ('need' / 'must')?",
-      "options": ["kailangan", "gusto", "maaari", "bawal"],
-      "correct_answer": "kailangan",
-      "explanation": "'Kailangan' means 'need' or 'must'."
+      "prompt": "Which particle means 'already' or 'now' (expressing finality aspect)?",
+      "options": ["na", "pa", "din", "daw"],
+      "correct_answer": "na",
+      "explanation": "'Na' means 'already' or 'now' (e.g. Uuwi ka na ba? = Are you going home already?)."
     },
     {
       "id": "L07-Q04",
       "type": "multiple_choice",
-      "topic": "Prohibition Modal Bawal",
+      "topic": "Enclitic Particles Na vs Pa",
       "lesson": "Lesson_07",
-      "prompt": "Which modal word means 'forbidden' or 'prohibited'?",
-      "options": ["bawal", "pwede", "maaari", "dapat"],
-      "correct_answer": "bawal",
-      "explanation": "'Bawal' means 'forbidden', 'prohibited', or 'not allowed'."
+      "prompt": "Which particle means 'still', 'yet', or 'more' (expressing continuation aspect)?",
+      "options": ["pa", "na", "rin", "raw"],
+      "correct_answer": "pa",
+      "explanation": "'Pa' means 'still' or 'yet' (e.g. Marumi pa ba siya? = Is he/she still dirty?)."
     },
     {
       "id": "L07-Q05",
       "type": "fill_in_blank",
-      "topic": "Pronoun Case with Gusto",
+      "topic": "Din vs Rin Sound Shift",
       "lesson": "Lesson_07",
-      "prompt": "When expressing 'I want water', which 1st person pronoun case is used after gusto ('Gusto ___ ng tubig')? ______",
-      "correct_answer": "ko",
-      "accepted_answers": ["ko", "Ko"],
-      "explanation": "Pseudo-verbs like gusto, ayaw, kailangan take genitive pronouns (ko, mo, niya, natin, namin, ninyo, nila)."
+      "prompt": "Which form of 'also / too' is used after a word ending in a VOWEL ('Ako ___')? ______",
+      "correct_answer": "rin",
+      "accepted_answers": ["rin", "Rin"],
+      "explanation": "'Rin' is used after vowels ('Ako rin'). 'Din' is used after consonants ('Ikaw din')."
     },
     {
       "id": "L07-Q06",
-      "type": "multiple_choice",
-      "topic": "Permission Modals",
+      "type": "fill_in_blank",
+      "topic": "Daw vs Raw Sound Shift",
       "lesson": "Lesson_07",
-      "prompt": "Which two words mean 'can' / 'may' / 'is allowed'?",
-      "options": ["maaari / pwede", "gusto / ayaw", "bawal / dapat", "kailangan / ayaw"],
-      "correct_answer": "maaari / pwede",
-      "explanation": "'Maaari' (formal) and 'pwede' (colloquial) mean 'can', 'may', or 'is permitted'."
+      "prompt": "Which form of reported speech ('they say / reportedly') is used after a CONSONANT ('Malinis ___')? ______",
+      "correct_answer": "daw",
+      "accepted_answers": ["daw", "Daw"],
+      "explanation": "'Daw' is used after consonants ('Malinis daw'). 'Raw' is used after vowels ('Ako raw')."
     },
     {
       "id": "L07-Q07",
-      "type": "fill_in_blank",
-      "topic": "Linker with Verbs after Gusto",
+      "type": "multiple_choice",
+      "topic": "Emphasis Particle Nga",
       "lesson": "Lesson_07",
-      "prompt": "In 'Gusto kong kumain', what suffix linker attached to 'ko' connects to the infinitive verb 'kumain'? ______",
-      "correct_answer": "ng",
-      "accepted_answers": ["ng", "-ng"],
-      "explanation": "The linker '-ng' attaches to words ending in vowels ('ko' + '-ng' = 'kong') before infinitive verbs."
+      "prompt": "Which particle expresses emphasis or confirmation ('indeed / really')?",
+      "options": ["nga", "na", "pa", "ba"],
+      "correct_answer": "nga",
+      "explanation": "'Nga' is the emphasis particle meaning 'indeed' or 'really' (e.g. Mabait nga siya)."
     },
     {
       "id": "L07-Q08",
       "type": "multiple_choice",
-      "topic": "Obligation Modal Dapat",
+      "topic": "BA Placement with Interrogative Words",
       "lesson": "Lesson_07",
-      "prompt": "Which word expresses 'should' or 'ought to'?",
-      "options": ["dapat", "bawal", "ayaw", "gusto"],
-      "correct_answer": "dapat",
-      "explanation": "'Dapat' means 'should' or 'ought to'."
+      "prompt": "Where is 'ba' placed in sentences containing question words (e.g. 'Sino', 'Ano')?",
+      "options": [
+        "Immediately after the question word (e.g. Sino ba ang kasama mo?)",
+        "At the end of the sentence",
+        "Before the question word",
+        "Between the subject and verb"
+      ],
+      "correct_answer": "Immediately after the question word (e.g. Sino ba ang kasama mo?)",
+      "explanation": "In interrogative sentences, 'ba' immediately follows the question word (e.g. Sino ba, Ano ba)."
     }
   ]
 }

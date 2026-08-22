@@ -3,95 +3,95 @@
     "id": "LESSON_08_QUIZ",
     "lesson": "Lesson_08",
     "title": "Lesson 8 Mastery Exam",
-    "topic": "Linkers (Na/-ng) & Conjunctions",
+    "topic": "Comparisons (Equality & Inequality), Intensives & Superlatives",
     "total_questions": 8,
-    "created_at": "2026-08-21T20:00:00Z"
+    "created_at": "2026-08-22T13:00:00Z"
   },
   "questions": [
     {
       "id": "L08-Q01",
       "type": "multiple_choice",
-      "topic": "Linker for Vowels",
+      "topic": "Comparative Superiority",
       "lesson": "Lesson_08",
-      "prompt": "When a modifying word ends in a vowel (e.g. 'maganda'), which linker form is attached directly to the end of the word?",
-      "options": ["-ng", "na", "-g", "nang"],
-      "correct_answer": "-ng",
-      "explanation": "If the preceding word ends in a vowel, '-ng' is attached directly: maganda + -ng = magandang."
+      "prompt": "Which modifier is placed before an adjective to express 'more' (comparative degree, e.g. 'more handsome')?",
+      "options": ["mas", "pinaka", "napaka", "kasing"],
+      "correct_answer": "mas",
+      "explanation": "'Mas' expresses comparative degree ('more' / '-er', e.g. Mas gwapo = more handsome)."
     },
     {
       "id": "L08-Q02",
       "type": "multiple_choice",
-      "topic": "Linker for Consonants",
+      "topic": "Kaysa kay vs Kaysa sa",
       "lesson": "Lesson_08",
-      "prompt": "When a modifying word ends in a consonant except 'n' (e.g. 'mabait'), which standalone linker is used?",
-      "options": ["na", "-ng", "-g", "nang"],
-      "correct_answer": "na",
-      "explanation": "If the preceding word ends in a consonant (other than n), 'na' is placed as a separate word: mabait na bata."
+      "prompt": "In comparative sentences, when comparing against a person's proper name (e.g. 'than John'), which preposition is used?",
+      "options": ["kaysa kay John", "kaysa sa John", "gaya ng John", "ni John"],
+      "correct_answer": "kaysa kay John",
+      "explanation": "'Kaysa kay' is used before a person's proper name. 'Kaysa sa' is used before common nouns or places."
     },
     {
       "id": "L08-Q03",
       "type": "multiple_choice",
-      "topic": "Linker for letter N",
+      "topic": "Equality Comparison Kasing-",
       "lesson": "Lesson_08",
-      "prompt": "When a word ends in the letter 'n' (e.g. 'hangin'), how is the linker applied?",
-      "options": ["The 'n' is replaced by '-ng'", "Add 'na'", "Add '-ng' without replacing", "No linker is used"],
-      "correct_answer": "The 'n' is replaced by '-ng'",
-      "explanation": "If a word ends in 'n', the 'n' drops and is replaced by '-ng': hangin + -ng = hanging malamig."
+      "prompt": "Which prefix attaches to an adjective root to express equality ('as [adjective] as')?",
+      "options": ["kasing-", "pinaka-", "napaka-", "mas"],
+      "correct_answer": "kasing-",
+      "explanation": "'Kasing-' expresses equal quality ('as X as', e.g. kasingganda = as beautiful as)."
     },
     {
       "id": "L08-Q04",
-      "type": "multiple_choice",
-      "topic": "Conjunction Pero",
+      "type": "fill_in_blank",
+      "topic": "Sound Shift before B and P",
       "lesson": "Lesson_08",
-      "prompt": "Which conjunction means 'but'?",
-      "options": ["pero", "dahil", "kasi", "at"],
-      "correct_answer": "pero",
-      "explanation": "'Pero' (or 'ngunit') means 'but'."
+      "prompt": "Before root words starting with 'b' or 'p' (e.g. 'bait'), 'kasing-' shifts to 'kasim-'. What is the correct form for 'as kind as'? ______",
+      "correct_answer": "kasimbait",
+      "accepted_answers": ["kasimbait", "Kasimbait"],
+      "explanation": "Sound shift: kasing- + bait -> kasimbait (the 'n' shifts to 'm' before 'b' or 'p')."
     },
     {
       "id": "L08-Q05",
       "type": "multiple_choice",
-      "topic": "Causal Conjunctions",
+      "topic": "Equality with Plural Subjects",
       "lesson": "Lesson_08",
-      "prompt": "Which conjunction means 'because'?",
-      "options": ["dahil", "pero", "kapag", "at"],
-      "correct_answer": "dahil",
-      "explanation": "'Dahil' (or 'kasi') means 'because'."
+      "prompt": "When two subjects are compared side-by-side (e.g. 'Sina Maria at Elena ay ___'), which prefix is used for equal beauty?",
+      "options": ["magkasingganda", "kasingganda", "mas maganda", "pinakamaganda"],
+      "correct_answer": "magkasingganda",
+      "explanation": "'Magkasing-' is used when subjects are listed together (e.g. Sina Maria at Elena ay magkasingganda)."
     },
     {
       "id": "L08-Q06",
-      "type": "fill_in_blank",
-      "topic": "Conditional Conjunction",
+      "type": "multiple_choice",
+      "topic": "Intensive Prefix Napaka-",
       "lesson": "Lesson_08",
-      "prompt": "Which conjunction means 'if' or 'whenever'? ______",
-      "correct_answer": "kapag",
-      "accepted_answers": ["kapag", "kung", "Kapag", "Kung"],
-      "explanation": "'Kapag' or 'kung' means 'if' or 'whenever'."
+      "prompt": "Which prefix expresses 'very' or 'extremely' when attached to an adjective root (e.g. 'extremely beautiful')?",
+      "options": ["napaka-", "pinaka-", "kasing-", "mas"],
+      "correct_answer": "napaka-",
+      "explanation": "'Napaka-' means 'very / extremely' (e.g. napakaganda = extremely beautiful)."
     },
     {
       "id": "L08-Q07",
       "type": "fill_in_blank",
-      "topic": "Additive Conjunction",
+      "topic": "Superlative Prefix Pinaka-",
       "lesson": "Lesson_08",
-      "prompt": "What is the Tagalog conjunction for 'and'? ______",
-      "correct_answer": "at",
-      "accepted_answers": ["at", "At"],
-      "explanation": "'At' is the conjunction for 'and'."
+      "prompt": "Which prefix forms the superlative degree ('the most' / '-est', e.g. 'most delicious' -> '___masarap')? ______",
+      "correct_answer": "pinaka",
+      "accepted_answers": ["pinaka", "pinaka-", "Pinaka"],
+      "explanation": "'Pinaka-' forms the superlative degree (e.g. pinakamasarap = most delicious)."
     },
     {
       "id": "L08-Q08",
       "type": "multiple_choice",
-      "topic": "Linker Function",
+      "topic": "Intensive Duplication with Ligatures",
       "lesson": "Lesson_08",
-      "prompt": "What is the primary function of linkers (na/-ng) in Tagalog?",
+      "prompt": "How can an adjective be duplicated with a ligature to express 'very [adjective]' (e.g. 'very beautiful')?",
       "options": [
-        "To connect modifiers (adjectives/nouns) to the words they modify",
-        "To mark the subject of a sentence",
-        "To indicate verb tense",
-        "To express questions"
+        "magandang-maganda",
+        "maganda maganda",
+        "mga maganda",
+        "magandang"
       ],
-      "correct_answer": "To connect modifiers (adjectives/nouns) to the words they modify",
-      "explanation": "Linkers (na/-ng) join adjectives to nouns or adverbs to verbs to form coherent noun phrases or clauses."
+      "correct_answer": "magandang-maganda",
+      "explanation": "Duplicating the adjective with a ligature (-ng, -g, na) expresses intensive degree: maganda + -ng + maganda = magandang-maganda."
     }
   ]
 }

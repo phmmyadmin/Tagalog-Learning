@@ -3,90 +3,95 @@
     "id": "LESSON_03_QUIZ",
     "lesson": "Lesson_03",
     "title": "Lesson 3 Mastery Exam",
-    "topic": "Personal, Demonstrative & Possessive Pronouns",
+    "topic": "Nominative Personal Pronouns & Politeness",
     "total_questions": 8,
-    "created_at": "2026-08-21T20:00:00Z"
+    "created_at": "2026-08-22T13:00:00Z"
   },
   "questions": [
     {
       "id": "L03-Q01",
       "type": "multiple_choice",
-      "topic": "Nominative Personal Pronouns",
+      "topic": "Exclusive vs Inclusive We",
       "lesson": "Lesson_03",
-      "prompt": "Which pronoun means 'we' EXCLUDING the person being spoken to?",
+      "prompt": "Which 1st person plural pronoun means 'we' EXCLUDING the listener (he/she and I, but NOT you)?",
       "options": ["kami", "tayo", "kayo", "sila"],
       "correct_answer": "kami",
-      "explanation": "'Kami' is the 1st person plural exclusive pronoun (we excluding you)."
+      "explanation": "'Kami' is the 1st person plural exclusive pronoun (excludes the person spoken to)."
     },
     {
       "id": "L03-Q02",
       "type": "multiple_choice",
-      "topic": "Nominative Personal Pronouns",
+      "topic": "Exclusive vs Inclusive We",
       "lesson": "Lesson_03",
-      "prompt": "Which pronoun means 'we' INCLUDING the person being spoken to?",
+      "prompt": "Which 1st person plural pronoun means 'we' INCLUDING the listener (you, he/she, and I)?",
       "options": ["tayo", "kami", "kayo", "sila"],
       "correct_answer": "tayo",
-      "explanation": "'Tayo' is the 1st person plural inclusive pronoun (we including you)."
+      "explanation": "'Tayo' is the 1st person plural inclusive pronoun (includes the person spoken to)."
     },
     {
       "id": "L03-Q03",
       "type": "multiple_choice",
-      "topic": "Demonstrative Pronouns",
+      "topic": "Ikaw vs Ka Usage",
       "lesson": "Lesson_03",
-      "prompt": "Which demonstrative pronoun means 'this' (object near the speaker)?",
-      "options": ["ito", "iyan", "iyon", "dito"],
-      "correct_answer": "ito",
-      "explanation": "'Ito' means 'this' (near speaker)."
+      "prompt": "Where is the 2nd person singular pronoun 'Ikaw' placed in a sentence?",
+      "options": [
+        "At the beginning of the sentence (before 'ay' or predicate)",
+        "Immediately after the predicate in inverted order",
+        "Only at the end of a question",
+        "Interchangeably anywhere with 'ka'"
+      ],
+      "correct_answer": "At the beginning of the sentence (before 'ay' or predicate)",
+      "explanation": "'Ikaw' is used at the beginning of sentences (e.g. Ikaw ay maganda). 'Ka' is used after the predicate (e.g. Maganda ka)."
     },
     {
       "id": "L03-Q04",
-      "type": "multiple_choice",
-      "topic": "Demonstrative Pronouns",
+      "type": "fill_in_blank",
+      "topic": "Ikaw vs Ka Usage",
       "lesson": "Lesson_03",
-      "prompt": "Which demonstrative pronoun means 'that' (object near the listener)?",
-      "options": ["iyan", "ito", "iyon", "doon"],
-      "correct_answer": "iyan",
-      "explanation": "'Iyan' means 'that' (near listener)."
+      "prompt": "In the inverted sentence 'Maganda ___' (You are beautiful), which 2nd person pronoun MUST be used after the predicate? ______",
+      "correct_answer": "ka",
+      "accepted_answers": ["ka", "Ka"],
+      "explanation": "'Ka' must follow the predicate in inverted order ('Maganda ka', NEVER 'Maganda ikaw')."
     },
     {
       "id": "L03-Q05",
       "type": "multiple_choice",
-      "topic": "Demonstrative Pronouns",
+      "topic": "Gender-Neutral Pronoun",
       "lesson": "Lesson_03",
-      "prompt": "Which demonstrative pronoun means 'that over there' (far from both speaker and listener)?",
-      "options": ["iyon", "ito", "iyan", "diyan"],
-      "correct_answer": "iyon",
-      "explanation": "'Iyon' means 'that over there' (far from both)."
+      "prompt": "What is the 3rd person singular nominative pronoun 'siya' used for in Tagalog?",
+      "options": ["Both 'he' and 'she' (gender-neutral)", "Only 'he'", "Only 'she'", "Only non-human objects"],
+      "correct_answer": "Both 'he' and 'she' (gender-neutral)",
+      "explanation": "'Siya' is gender-neutral and means both 'he' and 'she'."
     },
     {
       "id": "L03-Q06",
-      "type": "fill_in_blank",
-      "topic": "Possessive Pronouns",
+      "type": "multiple_choice",
+      "topic": "Polite Address with Elders",
       "lesson": "Lesson_03",
-      "prompt": "Complete with the possessive pronoun: 'Akin ang librong ito' means 'This book is ______'.",
-      "correct_answer": "mine",
-      "accepted_answers": ["mine", "my"],
-      "explanation": "'Akin' is the possessive pronoun meaning 'mine' or 'my'."
+      "prompt": "To address an elder or respected person politely, which plural pronoun is combined with 'po'?",
+      "options": ["kayo", "kami", "tayo", "ako"],
+      "correct_answer": "kayo",
+      "explanation": "Respectful communication uses plural pronouns 'kayo' or 'sila' with 'po' (e.g. Kayo po ba ay guro?)."
     },
     {
       "id": "L03-Q07",
       "type": "fill_in_blank",
-      "topic": "Personal Pronouns",
+      "topic": "Pronoun Contractions",
       "lesson": "Lesson_03",
-      "prompt": "What is the Tagalog pronoun for 'he' or 'she' (gender-neutral 3rd person singular)? ______",
-      "correct_answer": "siya",
-      "accepted_answers": ["siya", "Siya"],
-      "explanation": "'Siya' is the gender-neutral 3rd person singular pronoun in Tagalog."
+      "prompt": "How does 'Sila ay' contract when 'ay' attaches to 'sila'? ______",
+      "correct_answer": "Sila'y",
+      "accepted_answers": ["Sila'y", "sila'y", "Silay", "silay"],
+      "explanation": "'Sila ay' contracts to 'Sila'y' because 'sila' ends in a vowel."
     },
     {
       "id": "L03-Q08",
       "type": "multiple_choice",
-      "topic": "2nd Person Plural Pronoun",
+      "topic": "3rd Person Plural Pronoun",
       "lesson": "Lesson_03",
-      "prompt": "Which pronoun means 'you all' / 'you (plural)'?",
-      "options": ["kayo", "sila", "kami", "tayo"],
-      "correct_answer": "kayo",
-      "explanation": "'Kayo' is the 2nd person plural pronoun (you all)."
+      "prompt": "Which pronoun means 'they' (3rd person plural)?",
+      "options": ["sila", "kayo", "kami", "tayo"],
+      "correct_answer": "sila",
+      "explanation": "'Sila' is the 3rd person plural pronoun meaning 'they'."
     }
   ]
 }
