@@ -73,11 +73,12 @@ Extract all content into a single JSON object with EXACTLY these four sections:
    - "formula": (Optional) "e.g. [Subject] + ay + [Predicate]"
    - "examples": Array of objects [{"tagalog": "...", "english": "..."}] or strings
 
-3. "vocabulary": Array of new words introduced in this lesson:
+3. "vocabulary": Array of ALL key words and linguistic elements introduced in this lesson (MANDATORY - MUST NOT BE EMPTY, aim for 10-30 terms):
+   - Include nouns, adjectives, verbs, question words (sino, ano, saan...), enclitic particles (ba, na, pa, din/rin...), pseudo-verbs (gusto, ayaw...), prefixes/suffixes (kasing-, napaka-, pinaka-).
    - "id": "VOCAB-${normLessonKey}-001"
    - "word": "Tagalog word"
    - "meaning": "English definition"
-   - "partOfSpeech": "noun | verb | adjective | pronoun | particle | adverb | preposition"
+   - "partOfSpeech": "noun | verb | adjective | pronoun | particle | adverb | preposition | prefix"
    - "lesson": "${normLessonKey}"
    - "example": "Tagalog sentence - English translation"
 
@@ -128,7 +129,28 @@ Return ONLY a valid JSON object matching the schema. Do not wrap in extra markdo
       topic: t.topic || `Grammar Topic ${idx + 1}`
     }));
 
-    const vocabulary = (Array.isArray(result.vocabulary) ? result.vocabulary : []).map((v, idx) => ({
+    let rawVocab = Array.isArray(result.vocabulary) ? result.vocabulary : [];
+
+    // Fallback: If vocabulary array is empty, extract terms from theory tables and rules
+    if (rawVocab.length === 0 && theory.length > 0) {
+      theory.forEach((t) => {
+        if (Array.isArray(t.table)) {
+          t.table.forEach((row) => {
+            const word = row.pronoun || row.term || row.word;
+            if (word) {
+              rawVocab.push({
+                word,
+                meaning: row.meaning || row.translation || 'Grammatical form',
+                partOfSpeech: row.type || 'particle',
+                example: row.usage || row.example || ''
+              });
+            }
+          });
+        }
+      });
+    }
+
+    const vocabulary = rawVocab.map((v, idx) => ({
       ...v,
       id: v.id || `VOCAB-${finalLessonKey}-${String(idx + 1).padStart(3, '0')}`,
       lesson: finalLessonKey,

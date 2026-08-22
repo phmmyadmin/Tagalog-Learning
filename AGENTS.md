@@ -41,9 +41,14 @@ flowchart LR
 
 ---
 
-## 📚 Grammar Theory Structuring Directive
-- Whenever adding or ingesting new grammar theory topics (pronouns, articles, possessives, tenses, demonstratives), **MANDATORILY provide structured `"table"` arrays or `"pairs"` arrays** within `tagalog_knowledge_base.md`.
-- This enables `TheoryCard.jsx` to automatically render styled responsive HTML tables with interactive TTS pronunciation buttons (`🔊`).
+## 📚 Curriculum Structuring & Ingestion Directives
+- **Theory Tables**: Whenever adding or ingesting new grammar theory topics (pronouns, articles, possessives, tenses, demonstratives, enclitics, question words, comparatives), **MANDATORILY provide structured `"table"` arrays or `"pairs"` arrays** within `tagalog_knowledge_base.md`. This enables `TheoryCard.jsx` to render responsive tables with TTS pronunciation buttons (`🔊`).
+- **Vocabulary Completeness**: **NEVER leave a lesson with 0 vocabulary items**. Ingest ALL terms introduced in slides, including question words (*sino, ano, alin, saan, etc.*), enclitic particles (*ba, na, pa, din, daw, nga, etc.*), pseudo-verbs (*gusto, ayaw, puwede, etc.*), comparative/superlative prefixes (*kasing-, napaka-, pinaka-*), nouns, and verbs into the Section 2 Dictionary. Every lesson must have at least $\ge 10$ vocabulary terms.
+- **Mandatory 4-Pillar Validation Gate**: Every lesson MUST have:
+  1. 📖 **Theory**: $\ge 1$ structured topic with tables/rules.
+  2. 🎴 **Vocabulary**: $\ge 10$ vocabulary cards.
+  3. ✍️ **Activities**: $\ge 4$ practice exercises.
+  4. 🎓 **Mastery Exam**: Exactly 8 multiple choice questions (`lesson_XX_quiz.json`).
 
 ---
 

@@ -24,7 +24,7 @@ Trigger this skill whenever the user asks to ingest a new PPTX lesson, whether i
 
 ### Stage 2: Knowledge Base Integration & Structured Table Generation
 1. **Theory Structuring Rule**:
-   - Whenever structuring grammar theory entries (e.g., Pronouns, Articles, Possessives, Conjugations, Demonstratives), **MANDATORILY include a `"table"` or `"pairs"` JSON array** in the topic object within `tagalog_knowledge_base.md`.
+   - Whenever structuring grammar theory entries (e.g., Pronouns, Articles, Possessives, Conjugations, Demonstratives, Enclitics, Question Words, Comparatives), **MANDATORILY include a `"table"` or `"pairs"` JSON array** in the topic object within `tagalog_knowledge_base.md`.
    - **Table Schema Example**:
      ```json
      "table": [
@@ -46,7 +46,18 @@ Trigger this skill whenever the user asks to ingest a new PPTX lesson, whether i
      ```
    - This ensures `TheoryCard.jsx` automatically renders clean, responsive HTML tables with interactive TTS pronunciation buttons (`🔊`).
 
-2. **Mandatory Lesson Mastery Quiz Generation**:
+2. **Mandatory Vocabulary Completeness Directive**:
+   - **CRITICAL**: Every ingested lesson MUST produce a comprehensive list of vocabulary terms in **SECTION 2: CONSOLIDATED VOCABULARY DICTIONARY** in `tagalog_knowledge_base.md`.
+   - **What counts as vocabulary?**
+     - Core nouns, adjectives, and verbs introduced in the slides.
+     - Question words (e.g., *sino, ano, alin, saan, nasaan, kailan, bakit, paano, gaano, ilan, magkano, kanino*).
+     - Plural interrogative forms (e.g., *sinu-sino, anu-ano, saan-saan, kani-kanino*).
+     - Enclitic particles and question markers (e.g., *ba, na, pa, din/rin, daw/raw, nga, naman, lamang/lang, man, sana, kasi, kaya, muna, tuloy, pala, po/opo*).
+     - Pseudo-verbs & modals (e.g., *gusto, ayaw, ibig, puwede, maaari, dapat*).
+     - Comparative, intensive, and superlative prefixes/markers (e.g., *kasing-, magkasing-, kasin-, kasim-, sing-, pareho, katulad, gaya, mas, kaysa, kesa, napaka-, pinaka-, labis, higit, lalo*).
+   - **NEVER leave a lesson with 0 vocabulary items**. Every lesson must have at least **10+ vocabulary terms**.
+
+3. **Mandatory Lesson Mastery Quiz Generation**:
    - For every newly ingested lesson (e.g. `<Lesson_XX>`), **MANDATORILY create a dedicated quiz JSON file** at `src/data/quizzes/lesson_<xx>_quiz.json`.
    - **Quiz JSON Schema**:
      ```json
@@ -75,9 +86,17 @@ Trigger this skill whenever the user asks to ingest a new PPTX lesson, whether i
      ```
    - Register the new quiz in `src/data/quizzes/index.js` under `lessonQuizzes` array.
 
-3. Create a tracking issue in GitHub Project V2 `@phmmyadmin's tasks` (`PVT_kwHOAkgXus4BfhjX`):
+4. **Mandatory 4-Pillar Validation Gate**:
+   - Before building and committing, verify programmatically or visually that all 4 pillars exist for the lesson:
+     - 📖 **Theory**: $\ge 1$ structured topic (with `"table"` or `"pairs"`).
+     - 🎴 **Vocabulary**: $\ge 10$ terms in Section 2 dictionary.
+     - ✍️ **Activities**: $\ge 4$ exercises in Section 3 exercise bank.
+     - 🎓 **Mastery Exam**: Exactly 8 multiple choice questions in `src/data/quizzes/lesson_<xx>_quiz.json`.
+   - If any pillar is missing or incomplete, halt and fulfill the requirement before proceeding.
+
+5. Create a tracking issue in GitHub Project V2 `@phmmyadmin's tasks` (`PVT_kwHOAkgXus4BfhjX`):
    - Title: `[Ingestion] Ingestar nueva lección <Lesson_XX> desde PPTX`
-4. Update task status to `In Progress` (`47fc9ee4`).
+6. Update task status to `In Progress` (`47fc9ee4`).
 
 ### Stage 3: Branch, Pipeline Execution & PR Creation
 1. Checkout a clean feature branch: `git checkout -b feature/ingest-<lesson_xx_lowercase>`
@@ -90,7 +109,7 @@ Trigger this skill whenever the user asks to ingest a new PPTX lesson, whether i
 3. Commit all changes:
    ```bash
    git add pptx_sources/ md_sources/ tagalog_knowledge_base.md src/data/ public/slides/
-   git commit -m "feat(ingest): ingest new lesson <Lesson_XX> from PPTX with structured theory tables"
+   git commit -m "feat(ingest): ingest new lesson <Lesson_XX> from PPTX with structured theory tables and full vocabulary"
    ```
 4. Push branch to origin:
    ```bash
