@@ -515,18 +515,37 @@ export default function LessonIngestionView({
                       variant="outline"
                       size="sm"
                       onClick={() => onStartQuiz(les.quiz)}
+                      icon={<span style={{ fontSize: '0.85rem' }}>🎓</span>}
+                      style={{
+                        backgroundColor: 'var(--bg-surface)',
+                        borderColor: 'var(--border-default)',
+                        color: 'var(--text-primary)',
+                        padding: '0.35rem 0.75rem',
+                        fontSize: '0.825rem',
+                        fontWeight: 600,
+                      }}
                     >
-                      🎓 Exam
+                      Exam
                     </Button>
                   )}
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => handleDelete(les.id || les.lessonKey)}
-                    style={{ color: 'var(--accent-danger, #DC2626)' }}
+                    icon={<span style={{ fontSize: '0.85rem' }}>🗑️</span>}
+                    style={{
+                      backgroundColor: 'var(--accent-danger-light, #FEE2E2)',
+                      color: 'var(--accent-danger, #DC2626)',
+                      borderColor: 'transparent',
+                      padding: '0.35rem 0.75rem',
+                      fontSize: '0.825rem',
+                      fontWeight: 600,
+                      borderRadius: 'var(--radius-sm, 6px)',
+                    }}
                     aria-label={`Delete ${les.title}`}
+                    title={`Delete ${les.title}`}
                   >
-                    🗑️ Delete
+                    Delete
                   </Button>
                 </div>
               </div>
