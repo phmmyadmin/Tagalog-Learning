@@ -36,15 +36,29 @@ export const defaultLessons = [
   'Lesson_08',
 ].map((lessonKey) => {
   const normKey = lessonKey.includes('Lesson_') ? lessonKey : lessonKey.replace('Lesson ', 'Lesson_');
-  const theory = (tagalogData.theory || []).filter(
-    (t) => t.lesson === normKey || t.lesson === normKey.replace('_', ' ')
-  );
-  const vocabulary = (tagalogData.vocabulary || []).filter(
-    (v) => v.lesson === normKey || v.lesson === normKey.replace('_', ' ')
-  );
-  const activities = (tagalogData.activities || []).filter(
-    (a) => a.lesson === normKey || a.lesson === normKey.replace('_', ' ')
-  );
+  const theory = (tagalogData.theory || []).filter((t) => {
+    if (!t.lesson) return false;
+    const cleanLessons = String(t.lesson)
+      .split(',')
+      .map((s) => s.trim().replace('Lesson ', 'Lesson_'));
+    return cleanLessons.some((l) => l === normKey || l === normKey.replace('Lesson_', ''));
+  });
+
+  const vocabulary = (tagalogData.vocabulary || []).filter((v) => {
+    if (!v.lesson) return false;
+    const cleanLessons = String(v.lesson)
+      .split(',')
+      .map((s) => s.trim().replace('Lesson ', 'Lesson_'));
+    return cleanLessons.some((l) => l === normKey || l === normKey.replace('Lesson_', ''));
+  });
+
+  const activities = (tagalogData.activities || []).filter((a) => {
+    if (!a.lesson) return false;
+    const cleanLessons = String(a.lesson)
+      .split(',')
+      .map((s) => s.trim().replace('Lesson ', 'Lesson_'));
+    return cleanLessons.some((l) => l === normKey || l === normKey.replace('Lesson_', ''));
+  });
   const quiz =
     lessonQuizzes.find(
       (q) =>

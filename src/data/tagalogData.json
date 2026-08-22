@@ -1623,6 +1623,790 @@
       "partOfSpeech": "Noun",
       "lesson": "Lesson_02, 04",
       "example": "Mainit ang tubig."
+    },
+    {
+      "id": "VOCAB-107",
+      "word": "aalis",
+      "meaning": "Is/are leaving",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_06, 07",
+      "example": "Kailan kayo aalis?"
+    },
+    {
+      "id": "VOCAB-108",
+      "word": "alin",
+      "meaning": "Which",
+      "partOfSpeech": "Pronoun / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Alin ba ang iyong gusto?"
+    },
+    {
+      "id": "VOCAB-109",
+      "word": "alin-alin",
+      "meaning": "Which (plural)",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_06",
+      "example": "Alin-alin ang mga aklat mo?"
+    },
+    {
+      "id": "VOCAB-110",
+      "word": "ano",
+      "meaning": "What",
+      "partOfSpeech": "Pronoun / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Ano ito?"
+    },
+    {
+      "id": "VOCAB-111",
+      "word": "anu-ano",
+      "meaning": "What (plural)",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_06",
+      "example": "Anu-ano ang mga pangalan ninyo?"
+    },
+    {
+      "id": "VOCAB-112",
+      "word": "bakal",
+      "meaning": "Iron (metal)",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_06",
+      "example": "Alin ang mas mabigat: bakal o tingga?"
+    },
+    {
+      "id": "VOCAB-113",
+      "word": "bakit",
+      "meaning": "Why",
+      "partOfSpeech": "Adverb / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Bakit siya galit?"
+    },
+    {
+      "id": "VOCAB-114",
+      "word": "dumating",
+      "meaning": "Arrived",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_06",
+      "example": "Kailan kayo dumating sa Pilipinas?"
+    },
+    {
+      "id": "VOCAB-115",
+      "word": "gaano",
+      "meaning": "How (extent / degree)",
+      "partOfSpeech": "Adverb / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Gaano kalaki ang bahay mo?"
+    },
+    {
+      "id": "VOCAB-116",
+      "word": "galit",
+      "meaning": "Angry",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_06",
+      "example": "Bakit siya galit?"
+    },
+    {
+      "id": "VOCAB-117",
+      "word": "gusto",
+      "meaning": "To like / Want",
+      "partOfSpeech": "Pseudo-verb / Verb",
+      "lesson": "Lesson_06, 07",
+      "example": "Anong gusto mo?"
+    },
+    {
+      "id": "VOCAB-118",
+      "word": "ilan",
+      "meaning": "How many",
+      "partOfSpeech": "Pronoun / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Ilan ang anak ninyo?"
+    },
+    {
+      "id": "VOCAB-119",
+      "word": "ilan-ilan",
+      "meaning": "How many each / in groups",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_06",
+      "example": "Ilan-ilan ang mga anak nila?"
+    },
+    {
+      "id": "VOCAB-120",
+      "word": "kailan",
+      "meaning": "When",
+      "partOfSpeech": "Adverb / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Kailan tayo aalis?"
+    },
+    {
+      "id": "VOCAB-121",
+      "word": "kanino",
+      "meaning": "Whose / To whom",
+      "partOfSpeech": "Pronoun / Possessive",
+      "lesson": "Lesson_06",
+      "example": "Kanino ang bahay na iyan?"
+    },
+    {
+      "id": "VOCAB-122",
+      "word": "kani-kanino",
+      "meaning": "Whose (plural items/owners)",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_06",
+      "example": "Kani-kanino ang mga bahay na iyan?"
+    },
+    {
+      "id": "VOCAB-123",
+      "word": "kilala",
+      "meaning": "Known / Acquainted",
+      "partOfSpeech": "Adjective / Verb",
+      "lesson": "Lesson_06",
+      "example": "Kilala mo ba siya?"
+    },
+    {
+      "id": "VOCAB-124",
+      "word": "kinita",
+      "meaning": "Earned / Earnings",
+      "partOfSpeech": "Noun / Verb",
+      "lesson": "Lesson_06",
+      "example": "Magkano ang kinita mo?"
+    },
+    {
+      "id": "VOCAB-125",
+      "word": "magkano",
+      "meaning": "How much (price)",
+      "partOfSpeech": "Word / Interrogative",
+      "lesson": "Lesson_06, 07",
+      "example": "Magkano ang aklat?"
+    },
+    {
+      "id": "VOCAB-126",
+      "word": "magka-magkano",
+      "meaning": "How much each",
+      "partOfSpeech": "Word",
+      "lesson": "Lesson_06",
+      "example": "Magka-magkano ang mga aklat?"
+    },
+    {
+      "id": "VOCAB-127",
+      "word": "mahaba",
+      "meaning": "Long (physical length)",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_06",
+      "example": "Mahaba ang tulay."
+    },
+    {
+      "id": "VOCAB-128",
+      "word": "malaman",
+      "meaning": "To know (a fact/information)",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_06",
+      "example": "Paano mo malalaman?"
+    },
+    {
+      "id": "VOCAB-129",
+      "word": "matagal",
+      "meaning": "Long (time duration)",
+      "partOfSpeech": "Adjective / Adverb",
+      "lesson": "Lesson_06",
+      "example": "Gaano katagal?"
+    },
+    {
+      "id": "VOCAB-130",
+      "word": "nakatira",
+      "meaning": "Residing / Living",
+      "partOfSpeech": "Verb / Adjective",
+      "lesson": "Lesson_06",
+      "example": "Saan kayo nakatira?"
+    },
+    {
+      "id": "VOCAB-131",
+      "word": "nasaan",
+      "meaning": "Where is/are (specific location)",
+      "partOfSpeech": "Adverb / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Nasaan ang susi?"
+    },
+    {
+      "id": "VOCAB-132",
+      "word": "paano",
+      "meaning": "How (manner / method)",
+      "partOfSpeech": "Adverb / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Paano ka natutong magluto?"
+    },
+    {
+      "id": "VOCAB-133",
+      "word": "pamasahe",
+      "meaning": "Fare (transportation cost)",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_06",
+      "example": "Magkano ang pamasahe?"
+    },
+    {
+      "id": "VOCAB-134",
+      "word": "pangalan",
+      "meaning": "Name",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_06",
+      "example": "Ano ang pangalan mo?"
+    },
+    {
+      "id": "VOCAB-135",
+      "word": "pelikula",
+      "meaning": "Movie / Film",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_06",
+      "example": "Manood ng pelikula."
+    },
+    {
+      "id": "VOCAB-136",
+      "word": "saan",
+      "meaning": "Where (direction / location)",
+      "partOfSpeech": "Adverb / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Saan kayo pupunta?"
+    },
+    {
+      "id": "VOCAB-137",
+      "word": "saan-saan",
+      "meaning": "Where (plural locations)",
+      "partOfSpeech": "Adverb",
+      "lesson": "Lesson_06",
+      "example": "Saan-saan kayo nakatira?"
+    },
+    {
+      "id": "VOCAB-138",
+      "word": "sasama",
+      "meaning": "Will come along / join",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_06",
+      "example": "Sasama ka ba?"
+    },
+    {
+      "id": "VOCAB-139",
+      "word": "sino",
+      "meaning": "Who",
+      "partOfSpeech": "Pronoun / Interrogative",
+      "lesson": "Lesson_06",
+      "example": "Sino ba kayo?"
+    },
+    {
+      "id": "VOCAB-140",
+      "word": "sinu-sino",
+      "meaning": "Who (plural)",
+      "partOfSpeech": "Pronoun",
+      "lesson": "Lesson_06",
+      "example": "Sinu-sino ang inyong mga anak?"
+    },
+    {
+      "id": "VOCAB-141",
+      "word": "susi",
+      "meaning": "Key",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_06",
+      "example": "Nasaan ang susi?"
+    },
+    {
+      "id": "VOCAB-142",
+      "word": "tama",
+      "meaning": "Correct / Right",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_06",
+      "example": "Tama ba ito?"
+    },
+    {
+      "id": "VOCAB-143",
+      "word": "tao",
+      "meaning": "Person / Human",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_06",
+      "example": "Sinong tao 'yan?"
+    },
+    {
+      "id": "VOCAB-144",
+      "word": "tinapay",
+      "meaning": "Bread",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_06",
+      "example": "Sino ang kumain ng tinapay?"
+    },
+    {
+      "id": "VOCAB-145",
+      "word": "tingga",
+      "meaning": "Lead (heavy metal)",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_06",
+      "example": "Mabigat ang tingga."
+    },
+    {
+      "id": "VOCAB-146",
+      "word": "uuwi",
+      "meaning": "Going home (future tense)",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_06",
+      "example": "Uuwi ka na ba?"
+    },
+    {
+      "id": "VOCAB-147",
+      "word": "ayaw",
+      "meaning": "Does not want / Dislike",
+      "partOfSpeech": "Pseudo-verb",
+      "lesson": "Lesson_07",
+      "example": "Ayaw bang umalis ng babae?"
+    },
+    {
+      "id": "VOCAB-148",
+      "word": "ba",
+      "meaning": "Question marker",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Mabait ba ang guro?"
+    },
+    {
+      "id": "VOCAB-149",
+      "word": "dapat",
+      "meaning": "Should / Must / Ought to",
+      "partOfSpeech": "Pseudo-verb",
+      "lesson": "Lesson_07",
+      "example": "Dapat ba siyang magsalita?"
+    },
+    {
+      "id": "VOCAB-150",
+      "word": "daw / raw",
+      "meaning": "Reportedly / They say",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Malinis daw ba ang bata?"
+    },
+    {
+      "id": "VOCAB-151",
+      "word": "din / rin",
+      "meaning": "Also / Too",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Maganda rin ba ang damit?"
+    },
+    {
+      "id": "VOCAB-152",
+      "word": "ibig",
+      "meaning": "Desires / Wishes / Likes",
+      "partOfSpeech": "Pseudo-verb",
+      "lesson": "Lesson_07",
+      "example": "Ibig bang umalis ng lalaki?"
+    },
+    {
+      "id": "VOCAB-153",
+      "word": "kaibigan",
+      "meaning": "Friend",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_07",
+      "example": "Ang kaibigan ko ay si Herbert."
+    },
+    {
+      "id": "VOCAB-154",
+      "word": "kapilya",
+      "meaning": "Chapel",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_07",
+      "example": "Pupunta sa kapilya."
+    },
+    {
+      "id": "VOCAB-155",
+      "word": "kasama",
+      "meaning": "Companion / Accompanying",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_07",
+      "example": "Sino ang kasama mo?"
+    },
+    {
+      "id": "VOCAB-156",
+      "word": "kasi",
+      "meaning": "Because",
+      "partOfSpeech": "Conjunction / Particle",
+      "lesson": "Lesson_07",
+      "example": "Kasi pagod na ako."
+    },
+    {
+      "id": "VOCAB-157",
+      "word": "kaya",
+      "meaning": "I wonder / Perhaps / So",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Sino kaya siya?"
+    },
+    {
+      "id": "VOCAB-158",
+      "word": "lamang / lang",
+      "meaning": "Only / Just",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Isa lang ang aklat."
+    },
+    {
+      "id": "VOCAB-159",
+      "word": "maaari",
+      "meaning": "May / Can (permission)",
+      "partOfSpeech": "Pseudo-verb",
+      "lesson": "Lesson_07",
+      "example": "Maaari ba akong umalis?"
+    },
+    {
+      "id": "VOCAB-160",
+      "word": "magsalita",
+      "meaning": "To speak / Talk",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_07",
+      "example": "Sila ay magsasalita sa radyo."
+    },
+    {
+      "id": "VOCAB-161",
+      "word": "magtiwala",
+      "meaning": "To trust",
+      "partOfSpeech": "Verb",
+      "lesson": "Lesson_07",
+      "example": "Magtiwala sa kaibigan."
+    },
+    {
+      "id": "VOCAB-162",
+      "word": "man",
+      "meaning": "Even / Even if",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Kahit ano man."
+    },
+    {
+      "id": "VOCAB-163",
+      "word": "muna",
+      "meaning": "First / Beforehand",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Kumain ka muna."
+    },
+    {
+      "id": "VOCAB-164",
+      "word": "na",
+      "meaning": "Already / Now",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Aalis na ba sila?"
+    },
+    {
+      "id": "VOCAB-165",
+      "word": "naman",
+      "meaning": "In contrast / On the other hand",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Ikaw naman ang magsalita."
+    },
+    {
+      "id": "VOCAB-166",
+      "word": "nga",
+      "meaning": "Indeed / Really / Please",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Oo nga, totoo iyan."
+    },
+    {
+      "id": "VOCAB-167",
+      "word": "pa",
+      "meaning": "Still / Yet / More",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Marumi pa ba siya?"
+    },
+    {
+      "id": "VOCAB-168",
+      "word": "pala",
+      "meaning": "So it turns out / By the way",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Ikaw pala ang dumating!"
+    },
+    {
+      "id": "VOCAB-169",
+      "word": "po / opo",
+      "meaning": "Respect particle / Yes (polite)",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Opo, guro ako."
+    },
+    {
+      "id": "VOCAB-170",
+      "word": "puwede",
+      "meaning": "Can / Possible",
+      "partOfSpeech": "Pseudo-verb",
+      "lesson": "Lesson_07",
+      "example": "Puwede ba akong pumasok?"
+    },
+    {
+      "id": "VOCAB-171",
+      "word": "radyo",
+      "meaning": "Radio",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_07",
+      "example": "Magsalita sa radyo."
+    },
+    {
+      "id": "VOCAB-172",
+      "word": "sana",
+      "meaning": "Hopefully / I wish",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Sana maganda ang panahon."
+    },
+    {
+      "id": "VOCAB-173",
+      "word": "tuloy",
+      "meaning": "Consequently / As a result",
+      "partOfSpeech": "Particle",
+      "lesson": "Lesson_07",
+      "example": "Nahuli tuloy kami."
+    },
+    {
+      "id": "VOCAB-174",
+      "word": "bughaw",
+      "meaning": "Blue",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_08",
+      "example": "Pinakabughaw na langit."
+    },
+    {
+      "id": "VOCAB-175",
+      "word": "galing / magaling",
+      "meaning": "Skill / Good / Excellent",
+      "partOfSpeech": "Adjective / Noun",
+      "lesson": "Lesson_08",
+      "example": "Magkasinggaling sina Rizal at Bonifacio."
+    },
+    {
+      "id": "VOCAB-176",
+      "word": "gaya",
+      "meaning": "Like / Similar to",
+      "partOfSpeech": "Preposition",
+      "lesson": "Lesson_08",
+      "example": "Si Maria ay maganda gaya ni Elena."
+    },
+    {
+      "id": "VOCAB-177",
+      "word": "higit / higit na",
+      "meaning": "More / Exceedingly",
+      "partOfSpeech": "Adverb",
+      "lesson": "Lesson_08",
+      "example": "Higit na marunong si Peter kaysa kay John."
+    },
+    {
+      "id": "VOCAB-178",
+      "word": "hindi kasing-",
+      "meaning": "Not as... as (inferiority)",
+      "partOfSpeech": "Phrase / Prefix",
+      "lesson": "Lesson_08",
+      "example": "Hindi kasinrunong si John ni Peter."
+    },
+    {
+      "id": "VOCAB-179",
+      "word": "ilog",
+      "meaning": "River",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_08",
+      "example": "Pinakamalinaw na ilog."
+    },
+    {
+      "id": "VOCAB-180",
+      "word": "indayog",
+      "meaning": "Rhythm",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_08",
+      "example": "Maganda ang indayog ng awit."
+    },
+    {
+      "id": "VOCAB-181",
+      "word": "istilo",
+      "meaning": "Style",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_08",
+      "example": "Makabago ang istilo."
+    },
+    {
+      "id": "VOCAB-182",
+      "word": "kasing-",
+      "meaning": "As... as (equality prefix)",
+      "partOfSpeech": "Prefix",
+      "lesson": "Lesson_08",
+      "example": "Kasingganda ni Maria si Elena."
+    },
+    {
+      "id": "VOCAB-183",
+      "word": "kasin-",
+      "meaning": "As... as (before d, l, r, s, t)",
+      "partOfSpeech": "Prefix",
+      "lesson": "Lesson_08",
+      "example": "Kasindumi ng sapatos."
+    },
+    {
+      "id": "VOCAB-184",
+      "word": "kasim-",
+      "meaning": "As... as (before b, p)",
+      "partOfSpeech": "Prefix",
+      "lesson": "Lesson_08",
+      "example": "Kasimbait ng ina."
+    },
+    {
+      "id": "VOCAB-185",
+      "word": "katulad / tulad",
+      "meaning": "Similar to / Like",
+      "partOfSpeech": "Preposition / Adjective",
+      "lesson": "Lesson_08",
+      "example": "Katulad ng kapatid niya."
+    },
+    {
+      "id": "VOCAB-186",
+      "word": "kaysa / kaysa kay / kaysa sa",
+      "meaning": "Than (comparison)",
+      "partOfSpeech": "Preposition",
+      "lesson": "Lesson_08",
+      "example": "Mas masipag ang matanda kaysa sa bata."
+    },
+    {
+      "id": "VOCAB-187",
+      "word": "kesa",
+      "meaning": "Than (colloquial kaysa)",
+      "partOfSpeech": "Preposition",
+      "lesson": "Lesson_08",
+      "example": "Mas mabilis kesa sa kotse."
+    },
+    {
+      "id": "VOCAB-188",
+      "word": "kulot",
+      "meaning": "Curly",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_08",
+      "example": "Kasingkulot ng buhok mo."
+    },
+    {
+      "id": "VOCAB-189",
+      "word": "labis",
+      "meaning": "Excessive / Too much",
+      "partOfSpeech": "Adjective / Adverb",
+      "lesson": "Lesson_08",
+      "example": "Labis ang ganda."
+    },
+    {
+      "id": "VOCAB-190",
+      "word": "lakas / malakas",
+      "meaning": "Strength / Strong",
+      "partOfSpeech": "Adjective / Noun",
+      "lesson": "Lesson_08",
+      "example": "Pinakamalakas na lalaki."
+    },
+    {
+      "id": "VOCAB-191",
+      "word": "lalo / lalong",
+      "meaning": "Even more / Greater degree",
+      "partOfSpeech": "Adverb",
+      "lesson": "Lesson_08",
+      "example": "Lalong masipag si tatay."
+    },
+    {
+      "id": "VOCAB-192",
+      "word": "mabaho",
+      "meaning": "Foul-smelling / Stinky",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_08",
+      "example": "Magkasimbaho ang basura."
+    },
+    {
+      "id": "VOCAB-193",
+      "word": "mabigat",
+      "meaning": "Heavy",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_08",
+      "example": "Mabigat ang bakal."
+    },
+    {
+      "id": "VOCAB-194",
+      "word": "magkasing-",
+      "meaning": "Both equally... (prefix)",
+      "partOfSpeech": "Prefix",
+      "lesson": "Lesson_08",
+      "example": "Sina Maria at Elena ay magkasingganda."
+    },
+    {
+      "id": "VOCAB-195",
+      "word": "makabago",
+      "meaning": "Modern / Innovative",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_08",
+      "example": "Makabago ang istilo."
+    },
+    {
+      "id": "VOCAB-196",
+      "word": "malawak",
+      "meaning": "Broad / Vast",
+      "partOfSpeech": "Adjective",
+      "lesson": "Lesson_08",
+      "example": "Malawak ang dagat."
+    },
+    {
+      "id": "VOCAB-197",
+      "word": "mas",
+      "meaning": "More (comparative marker)",
+      "partOfSpeech": "Particle / Adverb",
+      "lesson": "Lesson_08",
+      "example": "Mas masipag si Helen."
+    },
+    {
+      "id": "VOCAB-198",
+      "word": "napaka-",
+      "meaning": "Very (intensive prefix)",
+      "partOfSpeech": "Prefix",
+      "lesson": "Lesson_08",
+      "example": "Napakaganda ng bulaklak."
+    },
+    {
+      "id": "VOCAB-199",
+      "word": "pareho",
+      "meaning": "Same / Both equal",
+      "partOfSpeech": "Adjective / Adverb",
+      "lesson": "Lesson_08",
+      "example": "Maganda pareho ni Elena."
+    },
+    {
+      "id": "VOCAB-200",
+      "word": "pinaka-",
+      "meaning": "Most / -est (superlative prefix)",
+      "partOfSpeech": "Prefix",
+      "lesson": "Lesson_08",
+      "example": "Pinakamalaking bahay."
+    },
+    {
+      "id": "VOCAB-201",
+      "word": "sing-",
+      "meaning": "As... as (short form prefix)",
+      "partOfSpeech": "Prefix",
+      "lesson": "Lesson_08",
+      "example": "Singtangkad mo siya."
+    },
+    {
+      "id": "VOCAB-202",
+      "word": "tono / boses",
+      "meaning": "Tone / Voice",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_08",
+      "example": "Malawak ang tono ng boses."
+    },
+    {
+      "id": "VOCAB-203",
+      "word": "tugtugin",
+      "meaning": "Music piece / Tune",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_08",
+      "example": "Maganda ang tugtugin."
+    },
+    {
+      "id": "VOCAB-204",
+      "word": "yelo",
+      "meaning": "Ice",
+      "partOfSpeech": "Noun",
+      "lesson": "Lesson_08",
+      "example": "Pinakamalamig na yelo."
     }
   ],
   "activities": [
