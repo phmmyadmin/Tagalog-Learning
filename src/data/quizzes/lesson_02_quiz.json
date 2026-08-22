@@ -5,7 +5,7 @@
     "title": "Lesson 2 Mastery Exam",
     "topic": "Articles, Word Order & Pluralization",
     "total_questions": 8,
-    "created_at": "2026-08-21T20:00:00Z"
+    "created_at": "2026-08-22T13:00:00Z"
   },
   "questions": [
     {
@@ -13,30 +13,30 @@
       "type": "multiple_choice",
       "topic": "Proper Noun Articles",
       "lesson": "Lesson_02",
-      "prompt": "Which article marker is used before a singular proper name of a person (e.g. '___ Maria')?",
+      "prompt": "Which article marker is used before a singular proper name of a person (e.g. '___ Liza ay babae')?",
       "options": ["Si", "Sina", "Ang", "Ang mga"],
       "correct_answer": "Si",
-      "explanation": "'Si' is used before a singular proper noun of a person (e.g. Si Maria ay maganda)."
+      "explanation": "'Si' is the singular proper noun marker placed before a person's name (e.g. Si Liza ay babae)."
     },
     {
       "id": "L02-Q02",
       "type": "multiple_choice",
-      "topic": "Proper Noun Articles",
+      "topic": "Plural Proper Noun Articles",
       "lesson": "Lesson_02",
-      "prompt": "Which article marker is used before two or more proper names of people (e.g. '___ Juan at Pedro')?",
+      "prompt": "Which article marker is used before two or more proper names of people (e.g. '___ Simon at Tom')?",
       "options": ["Sina", "Si", "Ang mga", "Ang"],
       "correct_answer": "Sina",
-      "explanation": "'Sina' is the plural proper noun marker used before multiple names."
+      "explanation": "'Sina' is the plural proper noun marker used for multiple named people (e.g. Sina Simon at Tom ay mababait)."
     },
     {
       "id": "L02-Q03",
       "type": "multiple_choice",
       "topic": "Common Noun Articles",
       "lesson": "Lesson_02",
-      "prompt": "Which article is used before a singular common noun (e.g. 'the house')?",
+      "prompt": "Which article is used before a singular common noun or place name (e.g. 'the child')?",
       "options": ["Ang", "Ang mga", "Si", "Sina"],
       "correct_answer": "Ang",
-      "explanation": "'Ang' is the singular common noun article marker in Tagalog."
+      "explanation": "'Ang' is the singular article for common nouns and place names (e.g. Ang bata ay mabait)."
     },
     {
       "id": "L02-Q04",
@@ -46,47 +46,52 @@
       "prompt": "How do you form the plural of a common noun like 'bata' (child)?",
       "options": ["Ang mga bata", "Ang batamga", "Sina bata", "Si mga bata"],
       "correct_answer": "Ang mga bata",
-      "explanation": "'Ang mga' is placed before a common noun to make it plural."
+      "explanation": "'Ang mga' (pronounced 'manga') is placed before common nouns to make them plural."
     },
     {
       "id": "L02-Q05",
       "type": "fill_in_blank",
-      "topic": "Inverted Word Order",
+      "topic": "Inverted Word Order (No AY)",
       "lesson": "Lesson_02",
-      "prompt": "Translate 'The house is big' into predicate-first (inverted) word order without 'ay': ______",
+      "prompt": "In inverted (natural spoken) word order without 'ay', how do you say 'The house is big'? ______",
       "correct_answer": "Malaki ang bahay.",
       "accepted_answers": ["Malaki ang bahay", "Malaki ang bahay."],
-      "explanation": "In Tagalog inverted word order, the predicate (adjective) comes first, followed by 'ang' and the subject."
+      "explanation": "Inverted word order puts the predicate first and removes 'ay': 'Malaki ang bahay.'"
     },
     {
       "id": "L02-Q06",
       "type": "multiple_choice",
       "topic": "Pluralization of Adjectives",
       "lesson": "Lesson_02",
-      "prompt": "What is the plural form of the adjective 'mabait' (kind)?",
-      "options": ["mababait", "mabait mga", "mamabait", "mabaitin"],
-      "correct_answer": "mababait",
-      "explanation": "Tagalog adjectives form their plural by duplicating the first syllable of the root word (bait -> mababait)."
+      "prompt": "How do Tagalog adjectives form their plural form (e.g. 'mabait' -> 'mababait')?",
+      "options": [
+        "By duplicating the first syllable of the root word",
+        "By adding the prefix 'mga-'",
+        "By adding the suffix '-in'",
+        "By doubling the entire adjective"
+      ],
+      "correct_answer": "By duplicating the first syllable of the root word",
+      "explanation": "Adjectives duplicate the first syllable of the root: bait -> ma-ba-bait, ganda -> ma-ga-ganda."
     },
     {
       "id": "L02-Q07",
       "type": "fill_in_blank",
-      "topic": "Plural Adjectives",
+      "topic": "Plural Adjective Forms",
       "lesson": "Lesson_02",
-      "prompt": "What is the plural form of the adjective 'maganda' (beautiful/pretty)? ______",
+      "prompt": "What is the plural form of the adjective 'maganda' (beautiful)? ______",
       "correct_answer": "magaganda",
       "accepted_answers": ["magaganda", "Magaganda"],
-      "explanation": "Root: ganda. First syllable of root 'ga' is duplicated: ma-ga-ganda."
+      "explanation": "Root: ganda. Duplicating first syllable 'ga' yields 'magaganda'."
     },
     {
       "id": "L02-Q08",
       "type": "multiple_choice",
-      "topic": "Sentence Structure with Ay",
+      "topic": "Contraction of AY",
       "lesson": "Lesson_02",
-      "prompt": "In standard traditional word order (Subject + ay + Predicate), how do you say 'The dog is big'?",
-      "options": ["Ang aso ay malaki.", "Malaki ang aso.", "Si aso ay malaki.", "Ang mga aso ay malaki."],
-      "correct_answer": "Ang aso ay malaki.",
-      "explanation": "Traditional word order puts subject + 'ay' + predicate: 'Ang aso ay malaki.'"
+      "prompt": "How does 'Ako ay si John' contract when the word before 'ay' ends in a vowel?",
+      "options": ["Ako'y si John.", "Ako ay John.", "Ako si John.", "Ako'y ay John."],
+      "correct_answer": "Ako'y si John.",
+      "explanation": "The particle 'ay' shortens to ''y' when attached to words ending in vowels: 'Ako'y si John.'"
     }
   ]
 }

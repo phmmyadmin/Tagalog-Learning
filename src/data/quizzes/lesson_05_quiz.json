@@ -3,90 +3,100 @@
     "id": "LESSON_05_QUIZ",
     "lesson": "Lesson_05",
     "title": "Lesson 5 Mastery Exam",
-    "topic": "Adjectives, Intensifiers & Comparisons",
+    "topic": "Possessive Noun Markers & Possessive Pronouns",
     "total_questions": 8,
-    "created_at": "2026-08-21T20:00:00Z"
+    "created_at": "2026-08-22T13:00:00Z"
   },
   "questions": [
     {
       "id": "L05-Q01",
       "type": "multiple_choice",
-      "topic": "Comparative Degree",
+      "topic": "Possessive Proper Noun Marker",
       "lesson": "Lesson_05",
-      "prompt": "Which modifier is placed before an adjective to express 'more' (comparative degree)?",
-      "options": ["mas", "pinaka", "napaka", "sobra"],
-      "correct_answer": "mas",
-      "explanation": "'Mas' means 'more' (e.g. Mas malaki = bigger / more big)."
+      "prompt": "Which possessive marker indicates singular proper noun ownership (e.g. 'Maria's house')?",
+      "options": ["ni Maria", "ng Maria", "si Maria", "sa Maria"],
+      "correct_answer": "ni Maria",
+      "explanation": "'Ni' is the singular proper noun possessive marker (e.g. ang bahay ni Maria = Maria's house)."
     },
     {
       "id": "L05-Q02",
       "type": "multiple_choice",
-      "topic": "Superlative Degree",
+      "topic": "Possessive Common Noun Marker",
       "lesson": "Lesson_05",
-      "prompt": "Which prefix is used to form the superlative degree ('the most' / '-est')?",
-      "options": ["pinaka-", "napaka-", "mas", "kasing-"],
-      "correct_answer": "pinaka-",
-      "explanation": "'Pinaka-' forms the superlative degree (e.g. Pinakamaganda = most beautiful)."
+      "prompt": "Which possessive marker indicates common noun ownership (e.g. 'the child's toy')?",
+      "options": ["ng", "ni", "ang", "sa"],
+      "correct_answer": "ng",
+      "explanation": "'Ng' is the common noun possessive marker (e.g. ang laruan ng bata = the child's toy)."
     },
     {
       "id": "L05-Q03",
       "type": "multiple_choice",
-      "topic": "Intensifier Prefix",
+      "topic": "Possessive Word Order Rule",
       "lesson": "Lesson_05",
-      "prompt": "Which prefix expresses 'very' or 'extremely' when attached to an adjective root (e.g. '___ganda')?",
-      "options": ["napaka-", "pinaka-", "mas", "maga-"],
-      "correct_answer": "napaka-",
-      "explanation": "'Napaka-' means 'very / extremely' (e.g. Napakaganda = extremely beautiful)."
+      "prompt": "In Tagalog possessive phrases, which element comes FIRST in sentence order?",
+      "options": [
+        "The possessed object (e.g. ang bahay ni Maria)",
+        "The owner of the object (e.g. ni Maria ang bahay)",
+        "The possessive adjective",
+        "The verb"
+      ],
+      "correct_answer": "The possessed object (e.g. ang bahay ni Maria)",
+      "explanation": "In Tagalog possessive constructions, the possessed object ALWAYS precedes the owner: 'ang bahay ni Maria' (the house of Maria)."
     },
     {
       "id": "L05-Q04",
-      "type": "fill_in_blank",
-      "topic": "Equality Comparison",
+      "type": "multiple_choice",
+      "topic": "Pre-Noun vs Post-Noun 1st Person",
       "lesson": "Lesson_05",
-      "prompt": "Which prefix expresses equality ('as ... as') when attached to a root word? ______",
-      "correct_answer": "kasing",
-      "accepted_answers": ["kasing", "kasing-", "sing"],
-      "explanation": "'Kasing-' or 'sing-' expresses equal quality ('as X as')."
+      "prompt": "Which pair represents the 1st person singular 'my / mine' in Pre-Noun (with ligature) vs Post-Noun form?",
+      "options": [
+        "Akin (Pre-noun) / Ko (Post-noun)",
+        "Iyo (Pre-noun) / Mo (Post-noun)",
+        "Kanya (Pre-noun) / Niya (Post-noun)",
+        "Atin (Pre-noun) / Natin (Post-noun)"
+      ],
+      "correct_answer": "Akin (Pre-noun) / Ko (Post-noun)",
+      "explanation": "'Akin' is used pre-noun (e.g. aking bahay), while 'ko' is used post-noun (e.g. bahay ko)."
     },
     {
       "id": "L05-Q05",
-      "type": "multiple_choice",
-      "topic": "Adjective Prefix",
+      "type": "fill_in_blank",
+      "topic": "Post-Noun Possessive Pronoun",
       "lesson": "Lesson_05",
-      "prompt": "Most standard Tagalog descriptive adjectives begin with which common prefix?",
-      "options": ["ma-", "pa-", "ka-", "nag-"],
-      "correct_answer": "ma-",
-      "explanation": "The prefix 'ma-' is attached to roots to form adjectives (ma-ganda, ma-laki, ma-sarap)."
+      "prompt": "Translate 'your book' using the post-noun possessive pronoun: 'libro ___'. ______",
+      "correct_answer": "mo",
+      "accepted_answers": ["mo", "Mo"],
+      "explanation": "'Mo' is the 2nd person singular post-noun possessive pronoun ('libro mo' = your book)."
     },
     {
       "id": "L05-Q06",
-      "type": "fill_in_blank",
-      "topic": "Superlative Form",
+      "type": "multiple_choice",
+      "topic": "3rd Person Post-Noun Possessive",
       "lesson": "Lesson_05",
-      "prompt": "Translate 'most delicious' using the root 'sarap': ______",
-      "correct_answer": "pinakamasarap",
-      "accepted_answers": ["pinakamasarap", "Pinakamasarap"],
-      "explanation": "Pinaka- + masarap = pinakamasarap (most delicious)."
+      "prompt": "Which post-noun possessive pronoun means 'his' / 'her' / 'hers' (e.g. 'ang bahay ___')?",
+      "options": ["niya", "ko", "mo", "nila"],
+      "correct_answer": "niya",
+      "explanation": "'Niya' is the 3rd person singular post-noun possessive pronoun ('his/her')."
     },
     {
       "id": "L05-Q07",
       "type": "multiple_choice",
-      "topic": "Comparative Preposition",
+      "topic": "Demonstrative Possessives",
       "lesson": "Lesson_05",
-      "prompt": "In comparative sentences like 'Mas malaki ang bahay ___ sa kubo', which word introduces 'than'?",
-      "options": ["kaysa", "dahil", "kasi", "para"],
-      "correct_answer": "kaysa",
-      "explanation": "'Kaysa' or 'kaysa sa' means 'than' in comparative statements."
+      "prompt": "Which demonstrative possessive word means 'of this person / object' (near speaker)?",
+      "options": ["nito", "niyan", "niyon", "ito"],
+      "correct_answer": "nito",
+      "explanation": "'Nito' means 'of this' (near speaker, e.g. ang bahay nito)."
     },
     {
       "id": "L05-Q08",
-      "type": "multiple_choice",
-      "topic": "Antonyms",
+      "type": "fill_in_blank",
+      "topic": "Plural Proper Noun Possessive Marker",
       "lesson": "Lesson_05",
-      "prompt": "What is the opposite of 'mabilis' (fast)?",
-      "options": ["mabagal", "maliit", "mababa", "matagal"],
-      "correct_answer": "mabagal",
-      "explanation": "'Mabagal' means 'slow', which is the antonym of 'mabilis'."
+      "prompt": "Which possessive marker is used before multiple proper names of people ('___ Maria at Pedro')? ______",
+      "correct_answer": "nina",
+      "accepted_answers": ["nina", "Nina"],
+      "explanation": "'Nina' is the plural proper noun possessive marker (e.g. ang bahay nina Maria at Pedro)."
     }
   ]
 }
