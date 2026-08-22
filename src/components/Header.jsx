@@ -10,6 +10,7 @@ export const Header = ({
   activeTab = 'dashboard',
   onTabChange,
   onOpenDrawer,
+  onOpenSettings,
   onOpenCloudSync,
   searchQuery = '',
   onSearchChange,

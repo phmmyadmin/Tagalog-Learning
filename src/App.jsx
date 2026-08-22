@@ -24,7 +24,6 @@ const getTabFromHash = () => {
 export function App() {
   const [activeTab, setActiveTabState] = useState(() => getTabFromHash());
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isCloudSyncOpen, setIsCloudSyncOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLesson, setSelectedLesson] = useState('all');
