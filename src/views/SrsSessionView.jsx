@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SrsFlashcard from '../components/SrsFlashcard';
 import SrsSessionSummary from '../components/SrsSessionSummary';
 import { EmptyState } from '../components/ui/EmptyState';
@@ -23,6 +23,7 @@ export default function SrsSessionView({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [historyStack, setHistoryStack] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
+  const isRatingInProgressRef = useRef(false);
   const [sessionStats, setSessionStats] = useState({
     totalReviewed: 0,
     againCount: 0,
@@ -36,6 +37,16 @@ export default function SrsSessionView({
 
   // Filter key to initialize queue ONCE when filters change (not when card states mutate)
   const filterKey = `${vocabularyList.length}_${searchQuery}_${selectedLesson}_${selectedPos}_${filterMastered}`;
+
+  const matchesLesson = (itemLesson, filter) => {
+    if (!filter || filter === 'all') return true;
+    if (!itemLesson) return false;
+    const parts = String(itemLesson)
+      .split(',')
+      .map((s) => s.trim().replace('Lesson ', 'Lesson_'));
+    const normFilter = filter.replace('Lesson ', 'Lesson_');
+    return parts.some((p) => p === normFilter || p === normFilter.replace('Lesson_', ''));
+  };
 
   const initQueue = (includeUpcoming = false) => {
     const baseList = vocabularyList.filter((item) => {
@@ -51,7 +62,7 @@ export default function SrsSessionView({
         if (!p.includes(selectedPos)) return false;
       }
 
-      if (selectedLesson !== 'all' && item.lesson !== selectedLesson && item.lesson !== selectedLesson.replace(' ', '_')) {
+      if (!matchesLesson(item.lesson, selectedLesson)) {
         return false;
       }
 
@@ -67,6 +78,7 @@ export default function SrsSessionView({
     setCurrentIndex(0);
     setHistoryStack([]);
     setIsCompleted(false);
+    isRatingInProgressRef.current = false;
     setSessionStats({
       totalReviewed: 0,
       againCount: 0,
@@ -87,7 +99,8 @@ export default function SrsSessionView({
   const currentCard = sessionQueue[currentIndex];
 
   const handleRateCard = (ratingName, timeMs = 0) => {
-    if (!currentCard) return;
+    if (!currentCard || isRatingInProgressRef.current) return;
+    isRatingInProgressRef.current = true;
 
     const ratingMap = { again: RATING.AGAIN, hard: RATING.HARD, good: RATING.GOOD, easy: RATING.EASY };
     const ratingGrade = ratingMap[ratingName] || RATING.GOOD;
@@ -162,6 +175,11 @@ export default function SrsSessionView({
     } else {
       setIsCompleted(true);
     }
+
+    // Release rating lock smoothly
+    setTimeout(() => {
+      isRatingInProgressRef.current = false;
+    }, 150);
   };
 
   const handleUndoCard = () => {

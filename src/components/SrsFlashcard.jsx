@@ -19,16 +19,23 @@ export default function SrsFlashcard({
   onSpeak,
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
   const startTimeRef = useRef(Date.now());
 
   useEffect(() => {
     setIsFlipped(false);
+    setIsSubmitting(false);
+    isSubmittingRef.current = false;
     startTimeRef.current = Date.now();
-  }, [currentCard?.id]);
+  }, [currentCard?.id, currentIndex]);
 
   const intervals = previewNextIntervals(currentCard?.srs);
 
   const handleRate = (ratingName) => {
+    if (isSubmittingRef.current || isSubmitting) return;
+    isSubmittingRef.current = true;
+    setIsSubmitting(true);
     const timeMs = Date.now() - startTimeRef.current;
     onRateCard(ratingName, timeMs);
   };
@@ -36,25 +43,26 @@ export default function SrsFlashcard({
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (['INPUT', 'TEXTAREA'].includes(e.target?.tagName)) return;
+      if (e.repeat) return; // Prevent key repeat when holding keys down
 
       if (e.code === 'Space') {
         e.preventDefault();
         setIsFlipped((prev) => !prev);
       } else if (e.key === 'Backspace' || e.key === 'z' || e.key === 'Z') {
-        if (canUndo && onUndoCard) {
+        if (canUndo && onUndoCard && !isSubmittingRef.current) {
           e.preventDefault();
           onUndoCard();
         }
-      } else if (isFlipped) {
-        if (e.key === '1') handleRate('again');
-        if (e.key === '2') handleRate('hard');
-        if (e.key === '3') handleRate('good');
-        if (e.key === '4') handleRate('easy');
+      } else if (isFlipped && !isSubmittingRef.current) {
+        if (e.key === '1') { e.preventDefault(); handleRate('again'); }
+        if (e.key === '2') { e.preventDefault(); handleRate('hard'); }
+        if (e.key === '3') { e.preventDefault(); handleRate('good'); }
+        if (e.key === '4') { e.preventDefault(); handleRate('easy'); }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isFlipped, onRateCard, onUndoCard, canUndo]);
+  }, [isFlipped, isSubmitting, onRateCard, onUndoCard, canUndo]);
 
   if (!currentCard) return null;
 
@@ -186,6 +194,7 @@ export default function SrsFlashcard({
           <button
             type="button"
             onClick={() => handleRate('again')}
+            disabled={isSubmitting}
             className="srs-rate-btn srs-rate-again"
             style={{
               display: 'flex',
@@ -197,7 +206,9 @@ export default function SrsFlashcard({
               backgroundColor: 'var(--accent-danger-light)',
               color: 'var(--accent-danger)',
               border: '1.5px solid rgba(220, 38, 38, 0.3)',
-              cursor: 'pointer',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+              opacity: isSubmitting ? 0.6 : 1,
+              transition: 'all 0.15s ease',
             }}
           >
             <span style={{ fontSize: '0.9rem' }}>1. Again</span>
@@ -218,6 +229,7 @@ export default function SrsFlashcard({
           <button
             type="button"
             onClick={() => handleRate('hard')}
+            disabled={isSubmitting}
             className="srs-rate-btn srs-rate-hard"
             style={{
               display: 'flex',
@@ -229,7 +241,9 @@ export default function SrsFlashcard({
               backgroundColor: 'var(--accent-warning-light)',
               color: 'var(--accent-warning)',
               border: '1.5px solid rgba(217, 119, 6, 0.3)',
-              cursor: 'pointer',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+              opacity: isSubmitting ? 0.6 : 1,
+              transition: 'all 0.15s ease',
             }}
           >
             <span style={{ fontSize: '0.9rem' }}>2. Hard</span>
@@ -250,6 +264,7 @@ export default function SrsFlashcard({
           <button
             type="button"
             onClick={() => handleRate('good')}
+            disabled={isSubmitting}
             className="srs-rate-btn srs-rate-good"
             style={{
               display: 'flex',
@@ -261,7 +276,9 @@ export default function SrsFlashcard({
               backgroundColor: 'var(--accent-primary-light)',
               color: 'var(--accent-primary)',
               border: '1.5px solid rgba(37, 99, 235, 0.3)',
-              cursor: 'pointer',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+              opacity: isSubmitting ? 0.6 : 1,
+              transition: 'all 0.15s ease',
             }}
           >
             <span style={{ fontSize: '0.9rem' }}>3. Good</span>
@@ -282,6 +299,7 @@ export default function SrsFlashcard({
           <button
             type="button"
             onClick={() => handleRate('easy')}
+            disabled={isSubmitting}
             className="srs-rate-btn srs-rate-easy"
             style={{
               display: 'flex',
@@ -292,8 +310,10 @@ export default function SrsFlashcard({
               padding: '0.65rem 0.4rem',
               backgroundColor: 'var(--accent-success-light)',
               color: 'var(--accent-success)',
-              border: '1.5px solid rgba(22, 163, 74, 0.3)',
-              cursor: 'pointer',
+              border: '1.5px solid rgba(220, 38, 38, 0.3)',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+              opacity: isSubmitting ? 0.6 : 1,
+              transition: 'all 0.15s ease',
             }}
           >
             <span style={{ fontSize: '0.9rem' }}>4. Easy ⭐</span>
