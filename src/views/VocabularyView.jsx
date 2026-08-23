@@ -291,9 +291,9 @@ export default function VocabularyView({
 
       {mode === 'flashcards' && (
         <SrsSessionView
-          vocabularyList={filteredVocab}
+          vocabularyList={vocabularyList}
           searchQuery={localSearch}
-          selectedLesson={selectedLesson}
+          selectedLesson={activeLessonFilter !== 'all' ? activeLessonFilter : selectedLesson}
           selectedPos={selectedPos}
           filterMastered={filterMastered}
           masteredIds={masteredIds}
