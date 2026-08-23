@@ -4,8 +4,8 @@
  * for all Tagalog lessons (both seeded L02-L08 and user-ingested PPTX modules).
  */
 
-import { defaultLessons } from '../data/defaultLessons';
-import { autoPushIfLoggedIn } from './cloudSyncManager';
+import { defaultLessons } from '../data/defaultLessons.js';
+import { autoPushIfLoggedIn } from './cloudSyncManager.js';
 
 const STORAGE_KEY = 'tagalog_user_lessons_v1';
 
@@ -113,23 +113,57 @@ export function deleteUserLesson(idOrKey) {
 }
 
 /**
- * Returns merged data directly from the unified lesson collection.
+ * Returns merged data directly from the unified lesson collection with deduplication.
  */
 export function getMergedLessonData() {
   const lessons = getUserLessons();
 
-  const theory = [];
-  const vocabulary = [];
-  const activities = [];
+  const theoryMap = new Map();
+  const vocabMap = new Map();
+  const activitiesMap = new Map();
   const lessonKeys = [];
 
   lessons.forEach((les) => {
     if (les.lessonKey) lessonKeys.push(les.lessonKey);
-    if (Array.isArray(les.theory)) theory.push(...les.theory);
-    if (Array.isArray(les.vocabulary)) vocabulary.push(...les.vocabulary);
-    if (Array.isArray(les.activities)) activities.push(...les.activities);
+
+    if (Array.isArray(les.theory)) {
+      les.theory.forEach((t) => {
+        const key = t.id || t.topic;
+        if (!theoryMap.has(key)) {
+          theoryMap.set(key, t);
+        }
+      });
+    }
+
+    if (Array.isArray(les.vocabulary)) {
+      les.vocabulary.forEach((v) => {
+        const key = v.id || v.word?.trim().toLowerCase();
+        if (!vocabMap.has(key)) {
+          vocabMap.set(key, { ...v });
+        } else {
+          // Merge lesson tags if this term spans multiple lessons
+          const existing = vocabMap.get(key);
+          const existingLessons = String(existing.lesson || '').split(',').map((s) => s.trim());
+          const newLessons = String(v.lesson || les.lessonKey || '').split(',').map((s) => s.trim());
+          const mergedLessons = Array.from(new Set([...existingLessons, ...newLessons])).filter(Boolean).join(', ');
+          existing.lesson = mergedLessons;
+        }
+      });
+    }
+
+    if (Array.isArray(les.activities)) {
+      les.activities.forEach((a) => {
+        const key = a.id || `${a.sentence}_${a.target}`;
+        if (!activitiesMap.has(key)) {
+          activitiesMap.set(key, a);
+        }
+      });
+    }
   });
 
+  const theory = Array.from(theoryMap.values());
+  const vocabulary = Array.from(vocabMap.values());
+  const activities = Array.from(activitiesMap.values());
   const sortedLessons = Array.from(new Set(lessonKeys)).sort();
 
   return {
