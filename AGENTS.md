@@ -28,16 +28,30 @@ flowchart LR
 - Move task item status to **In Progress** (`47fc9ee4`).
 - Create a dedicated Git feature branch (`git checkout -b feature/<name>`).
 - Write clean, accessible code adhering to the **Warm Light Mode** design system.
-- Verify production build locally (`npm run build`).
+- **Mandatory TDD for Integration Logic**: When implementing or refactoring AI pipelines, PPTX ingestion, FSRS algorithms, and Supabase data sync, write or update integration tests in `src/__tests__/`.
+- Verify test suite and production build locally:
+  ```bash
+  npm test        # All integration tests MUST pass 100%
+  npm run build   # Production build MUST complete with 0 errors
+  ```
 - Commit and push branch to GitHub remote.
 - Open a Pull Request using GitHub MCP `create_pull_request`.
 
 ### Phase 4: Review, Refactoring & Merge (`feature-reviewer`)
-- Perform a deep code review (cleanliness, edge cases, WCAG 2.1 AA accessibility).
-- Refactor and apply improvements directly if needed, re-test build, and commit.
+- Perform a deep code review (cleanliness, edge cases, WCAG 2.1 AA accessibility, test coverage).
+- Re-run test suite (`npm test`) and build verification (`npm run build`).
 - **Merge the Pull Request on GitHub** using `merge_pull_request` MCP tool.
 - Switch to `main` branch, pull latest merged code (`git pull origin main`), and delete local feature branch.
 - Move task item status to **Done** (`98236657`) in GitHub Project V2.
+
+---
+
+## 🧪 Mandatory TDD & Integration Testing Directive
+- **Full AI Call & Ingestion Coverage**: Every AI-driven feature (Gemini prompt structuring, quiz generation, PPTX slide processing) must have comprehensive integration tests covering:
+  - Valid JSON extraction, schema compliance, and markdown codeblock stripping.
+  - Automatic error recovery, retries, and vocabulary fallback from theory tables.
+- **FSRS-5 & SRS Queue Coverage**: All spaced repetition scheduling, interval calculations, Cram mode bypass, and rating double-click prevention must be covered by integration tests.
+- **Data Deduplication & Cloud Sync**: All data mergers and Supabase synchronizations must verify $\le 204$ unique master terms without duplicates.
 
 ---
 

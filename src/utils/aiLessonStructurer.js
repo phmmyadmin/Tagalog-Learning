@@ -136,13 +136,25 @@ Return ONLY a valid JSON object matching the schema. Do not wrap in extra markdo
       theory.forEach((t) => {
         if (Array.isArray(t.table)) {
           t.table.forEach((row) => {
-            const word = row.pronoun || row.term || row.word;
+            const word = row.tagalog || row.filipino || row.term || row.word || row.pronoun;
             if (word) {
               rawVocab.push({
                 word,
-                meaning: row.meaning || row.translation || 'Grammatical form',
-                partOfSpeech: row.type || 'particle',
+                meaning: row.english || row.meaning || row.translation || 'Grammatical term',
+                partOfSpeech: row.type || row.partOfSpeech || 'vocabulary',
                 example: row.usage || row.example || ''
+              });
+            }
+          });
+        }
+        if (Array.isArray(t.rules)) {
+          t.rules.forEach((r) => {
+            if (r.pattern && !rawVocab.some((v) => v.word === r.pattern)) {
+              rawVocab.push({
+                word: r.pattern,
+                meaning: r.description || r.meaning || 'Rule pattern',
+                partOfSpeech: 'grammar_pattern',
+                example: ''
               });
             }
           });
