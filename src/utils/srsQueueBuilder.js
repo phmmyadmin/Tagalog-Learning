@@ -97,8 +97,26 @@ export function buildStudyQueue(vocabularyList = [], customSettings = null, now 
     ];
   }
 
+  const directionSetting = settings.cardDirection || 'random';
+
+  const processedQueue = finalQueue.map((card) => {
+    let direction = 'forward';
+    if (directionSetting === 'reverse') {
+      direction = 'reverse';
+    } else if (directionSetting === 'random') {
+      // 50% random chance of forward or reverse
+      direction = Math.random() < 0.5 ? 'forward' : 'reverse';
+    } else {
+      direction = 'forward';
+    }
+    return {
+      ...card,
+      cardDirection: direction,
+    };
+  });
+
   return {
-    queue: finalQueue,
+    queue: processedQueue,
     counts: {
       learning: learningQueue.length + relearningQueue.length,
       review: dueReviewQueue.length,
