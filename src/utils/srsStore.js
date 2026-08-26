@@ -15,6 +15,7 @@ export const DEFAULT_SETTINGS = {
   requestedRetention: 0.90,
   interleaveNew: true,
   enableTimer: true,
+  cardDirection: 'random', // 'random' | 'forward' | 'reverse'
 };
 
 /**

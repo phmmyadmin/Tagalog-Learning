@@ -75,6 +75,8 @@ export default function SrsFlashcard({
     return 'default';
   };
 
+  const isReverse = currentCard.cardDirection === 'reverse';
+
   return (
     <div style={{ maxWidth: '580px', margin: '0 auto', width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       {/* Session Progress Header + Undo Button */}
@@ -108,13 +110,13 @@ export default function SrsFlashcard({
         variant="default"
         onClick={() => setIsFlipped(!isFlipped)}
         style={{
-          minHeight: '320px',
+          minHeight: '340px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           padding: '2rem',
           cursor: 'pointer',
-          border: '2px solid var(--accent-primary)',
+          border: isReverse ? '2px solid var(--accent-secondary, #D97706)' : '2px solid var(--accent-primary)',
           backgroundColor: isFlipped ? 'var(--bg-surface-alt)' : 'var(--bg-surface)',
           textAlign: 'center',
           boxShadow: 'var(--shadow-md)',
@@ -124,17 +126,30 @@ export default function SrsFlashcard({
         {!isFlipped ? (
           /* FRONT SIDE */
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, gap: '1rem' }}>
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+              <Badge variant={isReverse ? 'warning' : 'primary'}>
+                {isReverse ? '🇬🇧 English ➔ 🇵🇭 Tagalog' : '🇵🇭 Tagalog ➔ 🇬🇧 English'}
+              </Badge>
               <Badge variant={getStateBadgeVariant(cardStateStr)}>
                 {cardStateStr.toUpperCase()}
               </Badge>
-              <Badge variant="primary">{currentCard.partOfSpeech || 'Vocabulary'}</Badge>
+              <Badge variant="default">{currentCard.partOfSpeech || 'Vocabulary'}</Badge>
               {isMastered && <Badge variant="success">✅ Mastered</Badge>}
             </div>
-            <h2 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
-              {currentCard.word}
+
+            {/* Front Prompt Text */}
+            <h2 style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
+              {isReverse ? currentCard.meaning : currentCard.word}
             </h2>
-            {currentCard.word && (
+
+            {/* Sub-prompt if reverse */}
+            {isReverse && (
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: 0 }}>
+                ¿Cómo se dice en Tagalo? / What is the Tagalog word?
+              </p>
+            )}
+
+            {!isReverse && currentCard.word && (
               <Button
                 variant="ghost"
                 size="sm"
@@ -147,26 +162,48 @@ export default function SrsFlashcard({
                 🔊 Listen
               </Button>
             )}
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '1rem' }}>
+
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.75rem' }}>
               Click or press <kbd style={{ padding: '0.1rem 0.4rem', borderRadius: '4px', border: '1px solid var(--border-default)', fontFamily: 'var(--font-mono)' }}>Space</kbd> to reveal answer
             </span>
           </div>
         ) : (
           /* BACK SIDE */
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, gap: '0.85rem' }}>
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-              <Badge variant="success">Answer</Badge>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+              <Badge variant="success">
+                {isReverse ? '🇵🇭 Tagalog Answer' : '🇬🇧 English Answer'}
+              </Badge>
               <Badge variant={getStateBadgeVariant(cardStateStr)}>
                 {cardStateStr.toUpperCase()}
               </Badge>
               {isMastered && <Badge variant="success">✅ Mastered</Badge>}
             </div>
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>
-              {currentCard.meaning}
+
+            {/* Back Answer Text */}
+            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
+              {isReverse ? currentCard.word : currentCard.meaning}
             </h2>
-            <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
-              <strong>{currentCard.word}</strong> ({currentCard.partOfSpeech})
-            </p>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', margin: 0 }}>
+                <strong>{isReverse ? currentCard.meaning : currentCard.word}</strong> ({currentCard.partOfSpeech})
+              </p>
+              {currentCard.word && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSpeak(currentCard.word);
+                  }}
+                  ariaLabel={`Listen to pronunciation of ${currentCard.word}`}
+                  style={{ padding: '0.2rem 0.5rem', fontSize: '0.8rem' }}
+                >
+                  🔊 Listen
+                </Button>
+              )}
+            </div>
 
             {currentCard.example && (
               <div
@@ -176,8 +213,9 @@ export default function SrsFlashcard({
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--border-default)',
                   fontSize: '0.875rem',
-                  maxWidth: '420px',
+                  maxWidth: '440px',
                   color: 'var(--text-primary)',
+                  marginTop: '0.25rem',
                 }}
               >
                 {typeof currentCard.example === 'string' ? currentCard.example : currentCard.example.tagalog}

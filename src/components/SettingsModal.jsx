@@ -417,6 +417,34 @@ export const SettingsModal = ({ isOpen, onClose, initialTab = 'sync' }) => {
               </span>
             </div>
 
+            {/* Card Testing Direction */}
+            <div>
+              <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
+                🔀 Card Testing Direction
+              </label>
+              <select
+                value={srsSettings.cardDirection || 'random'}
+                onChange={(e) => setSrsSettings({ ...srsSettings, cardDirection: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.55rem 0.75rem',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid var(--border-default)',
+                  backgroundColor: 'var(--bg-surface)',
+                  color: 'var(--text-primary)',
+                  fontSize: '0.875rem',
+                  cursor: 'pointer',
+                }}
+              >
+                <option value="random">🔀 Random (50/50 Tagalog ⇄ English)</option>
+                <option value="forward">🇵🇭 Standard (Tagalog ➔ English)</option>
+                <option value="reverse">🇬🇧 Reverse (English ➔ Tagalog)</option>
+              </select>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem', display: 'block' }}>
+                Randomly displays either Tagalog or English on the front of the flashcard to train active recall in both directions.
+              </span>
+            </div>
+
             {/* Timer Toggle */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.5rem 0' }}>
               <div>
