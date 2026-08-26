@@ -207,18 +207,18 @@ export default function SrsSessionView({
       <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' }}>
         <EmptyState
           icon="🎉"
-          title="All caught up for today!"
-          description="You've completed today's scheduled SRS review queue. You can adjust your daily card limits in Settings (⚙️) or study all available and upcoming words now."
-          actionLabel="🔄 Re-check Due Queue"
+          title="¡Al día por hoy!"
+          description="Has completado todos los repasos y tarjetas nuevas programadas para hoy. Puedes ajustar tus límites diarios en Configuración (⚙️) o estudiar todas las palabras disponibles ahora."
+          actionLabel="🔄 Comprobar tarjetas pendientes"
           onAction={() => initQueue(false)}
         />
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
           <Button variant="primary" size="md" onClick={() => initQueue(true)} icon={<span>⚡</span>}>
-            Study All Available Cards Now
+            Estudiar todas las tarjetas ahora (Modo Cram)
           </Button>
           {onOpenSettings && (
             <Button variant="secondary" size="md" onClick={onOpenSettings} icon={<span>⚙️</span>}>
-              Adjust Daily Limits
+              Ajustar límites diarios
             </Button>
           )}
         </div>
@@ -238,11 +238,11 @@ export default function SrsSessionView({
       {/* Session Action Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
         <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-          Queue: <strong>{sessionQueue.length - currentIndex} cards left</strong>
+          Cola: <strong>Quedan {sessionQueue.length - currentIndex} tarjetas</strong>
         </div>
         {onOpenSettings && (
           <Button variant="ghost" size="sm" onClick={onOpenSettings} icon={<span>⚙️</span>}>
-            Settings
+            Configuración
           </Button>
         )}
       </div>
