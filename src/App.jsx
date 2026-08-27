@@ -143,7 +143,15 @@ export function App() {
   const totalMastered = theoryMastered + vocabMastered;
 
   const handleOpenSlideViewer = (lessonKey = 'Lesson_02', slide = 1, slideEnd = 1, conceptLabel = null) => {
-    const formatted = lessonKey.includes('Lesson_') ? lessonKey : lessonKey.replace('Lesson ', 'Lesson_');
+    const rawKey = String(lessonKey || 'Lesson_02').split(',')[0].trim();
+    let formatted = rawKey.replace(/\s+/g, '_');
+    if (/^lesson_\d$/i.test(formatted)) {
+      formatted = formatted.replace(/^lesson_(\d)$/i, 'Lesson_0$1');
+    } else if (/^\d+$/.test(formatted)) {
+      formatted = `Lesson_${formatted.padStart(2, '0')}`;
+    } else if (!formatted.startsWith('Lesson_') && !formatted.toLowerCase().startsWith('lesson')) {
+      formatted = `Lesson_${formatted}`;
+    }
     setPptxModal({ isOpen: true, lesson: formatted, initialSlide: slide, conceptLabel });
   };
 

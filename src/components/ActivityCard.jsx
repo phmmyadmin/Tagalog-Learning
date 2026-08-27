@@ -17,17 +17,31 @@ export default function ActivityCard({ activity, savedResult, onSaveResult, onCo
   const [showSolution, setShowSolution] = useState(false);
   const inputRef = useRef(null);
 
+  const rawLesson = String(activity?.lesson || '').trim();
+  const lessonParts = rawLesson.split(',').map((s) => s.trim()).filter(Boolean);
+  const primaryLessonRaw = lessonParts[0] || 'Lesson_02';
+
+  let normalizedLessonKey = primaryLessonRaw.replace(/\s+/g, '_');
+  if (/^lesson_\d$/i.test(normalizedLessonKey)) {
+    normalizedLessonKey = normalizedLessonKey.replace(/^lesson_(\d)$/i, 'Lesson_0$1');
+  } else if (/^\d+$/.test(normalizedLessonKey)) {
+    normalizedLessonKey = `Lesson_${normalizedLessonKey.padStart(2, '0')}`;
+  } else if (!normalizedLessonKey.startsWith('Lesson_') && !normalizedLessonKey.toLowerCase().startsWith('lesson')) {
+    normalizedLessonKey = `Lesson_${normalizedLessonKey}`;
+  }
+
   const actSlide = activity
     ? slideMap.activities?._keyword_overrides?.[activity.id]?.slide ||
-      slideMap.activities?._default_slides?.[activity.lesson] ||
+      slideMap.activities?._default_slides?.[normalizedLessonKey] ||
+      slideMap.activities?._default_slides?.[primaryLessonRaw] ||
       1
     : 1;
 
   const handleLessonLinkClick = (e) => {
     if (!e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
       e.preventDefault();
-      if (onOpenLesson && activity.lesson) {
-        onOpenLesson(activity.lesson, actSlide, actSlide, activity.id);
+      if (onOpenLesson && primaryLessonRaw) {
+        onOpenLesson(normalizedLessonKey, actSlide, actSlide, activity.id);
       }
     }
   };
