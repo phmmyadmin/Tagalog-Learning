@@ -27,7 +27,7 @@ export default function SrsAiConversationCard({
   const isReverse = card?.cardDirection === 'reverse';
   const promptText = isReverse ? card.meaning : card.word;
   const targetAnswer = isReverse ? card.word : card.meaning;
-  const promptLabel = isReverse ? '¿Cómo se dice en Tagalo?' : '¿Qué significa esta palabra?';
+  const promptLabel = isReverse ? 'How do you say this in Tagalog?' : 'What is the meaning of this word?';
 
   // Initialize card timer & auto-play prompt audio if in forward mode
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function SrsAiConversationCard({
       return;
     }
 
-    const lang = isReverse ? 'tl-PH' : 'es-ES';
+    const lang = isReverse ? 'tl-PH' : 'en-US';
     const recognizer = createSpeechRecognizer({
       lang,
       onStart: () => setIsListening(true),
@@ -104,7 +104,7 @@ export default function SrsAiConversationCard({
         setIsListening(false);
       }
     } else {
-      alert('Tu navegador no soporta reconocimiento de voz nativo. Por favor escribe tu respuesta en el campo de texto.');
+      alert('Your browser does not support native speech recognition. Please type your answer in the text field.');
     }
   };
 
@@ -173,8 +173,8 @@ export default function SrsAiConversationCard({
         {/* Header Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Badge variant="primary">🎙️ Tutor IA</Badge>
-            <Badge variant="neutral">{isReverse ? '🔄 Inglés ➔ Tagalo' : '🇵🇭 Tagalo ➔ Significado'}</Badge>
+            <Badge variant="primary">🎙️ AI Tutor</Badge>
+            <Badge variant="neutral">{isReverse ? '🔄 English ➔ Tagalog' : '🇵🇭 Tagalog ➔ Meaning'}</Badge>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -210,7 +210,7 @@ export default function SrsAiConversationCard({
                 size="sm"
                 onClick={handlePlayPrompt}
                 style={{ fontSize: '1.25rem', padding: '0.4rem' }}
-                title="Escuchar pronunciación con Gemini Neural Audio"
+                title="Listen to pronunciation with Gemini Neural Audio"
               >
                 🔊
               </Button>
@@ -232,7 +232,7 @@ export default function SrsAiConversationCard({
                 type="text"
                 value={userText}
                 onChange={(e) => setUserText(e.target.value)}
-                placeholder={isListening ? 'Escuchando tu voz...' : 'Escribe o habla tu respuesta aquí...'}
+                placeholder={isListening ? 'Listening to your voice...' : 'Type or speak your answer here...'}
                 disabled={isEvaluating}
                 style={{
                   width: '100%',
@@ -267,7 +267,7 @@ export default function SrsAiConversationCard({
                   justifyContent: 'center',
                   transition: 'all 0.2s ease'
                 }}
-                title={isListening ? 'Detener micrófono' : 'Hablar por micrófono'}
+                title={isListening ? 'Stop microphone' : 'Speak using microphone'}
               >
                 {isListening ? '🛑' : '🎙️'}
               </button>
@@ -281,7 +281,7 @@ export default function SrsAiConversationCard({
                 disabled={isEvaluating}
                 style={{ width: '100%', padding: '0.9rem', fontSize: '1rem', fontWeight: 700 }}
               >
-                {isEvaluating ? '🤖 Evaluando respuesta con IA...' : 'Responder 🚀 (Enter)'}
+                {isEvaluating ? '🤖 Evaluating answer with AI...' : 'Submit Answer 🚀 (Enter)'}
               </Button>
             </div>
           </form>
@@ -308,7 +308,7 @@ export default function SrsAiConversationCard({
                 </Badge>
               </div>
               <p style={{ margin: 0, fontSize: '0.95rem', color: 'var(--text-primary)', lineHeight: 1.5 }}>
-                {evaluationResult.feedbackSpanish}
+                {evaluationResult.feedbackEnglish || evaluationResult.feedbackSpanish}
               </p>
             </div>
 
@@ -326,7 +326,7 @@ export default function SrsAiConversationCard({
             >
               <div>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 700, textTransform: 'uppercase' }}>
-                  Respuesta Correcta:
+                  Correct Answer:
                 </span>
                 <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '0.2rem' }}>
                   {card.word} <span style={{ fontSize: '0.95rem', fontWeight: 400, color: 'var(--text-secondary)' }}>— {card.meaning}</span>
@@ -342,7 +342,7 @@ export default function SrsAiConversationCard({
                 size="sm"
                 onClick={handlePlayAnswer}
                 style={{ padding: '0.4rem 0.75rem', fontSize: '1.1rem' }}
-                title="Escuchar pronunciación correcta"
+                title="Listen to correct pronunciation"
               >
                 🔊
               </Button>
@@ -356,7 +356,7 @@ export default function SrsAiConversationCard({
                 onClick={() => onRate(evaluationResult.suggestedRating)}
                 style={{ padding: '0.9rem', fontWeight: 700, fontSize: '1.05rem' }}
               >
-                Continuar con {evaluationResult.ratingLabel} ➔ (Espacio)
+                Continue with {evaluationResult.ratingLabel} ➔ (Space)
               </Button>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
@@ -371,7 +371,7 @@ export default function SrsAiConversationCard({
                     color: evaluationResult.suggestedRating === 1 ? '#ffffff' : 'var(--accent-danger)'
                   }}
                 >
-                  1. De nuevo
+                  1. Again
                 </Button>
                 <Button
                   variant={evaluationResult.suggestedRating === 2 ? 'primary' : 'outline'}
@@ -384,7 +384,7 @@ export default function SrsAiConversationCard({
                     color: evaluationResult.suggestedRating === 2 ? '#ffffff' : 'var(--accent-warning)'
                   }}
                 >
-                  2. Difícil
+                  2. Hard
                 </Button>
                 <Button
                   variant={evaluationResult.suggestedRating === 3 ? 'primary' : 'outline'}
@@ -397,7 +397,7 @@ export default function SrsAiConversationCard({
                     color: evaluationResult.suggestedRating === 3 ? '#ffffff' : 'var(--accent-primary)'
                   }}
                 >
-                  3. Bien
+                  3. Good
                 </Button>
                 <Button
                   variant={evaluationResult.suggestedRating === 4 ? 'primary' : 'outline'}
@@ -410,7 +410,7 @@ export default function SrsAiConversationCard({
                     color: evaluationResult.suggestedRating === 4 ? '#ffffff' : 'var(--accent-success)'
                   }}
                 >
-                  4. Fácil ⭐
+                  4. Easy ⭐
                 </Button>
               </div>
             </div>

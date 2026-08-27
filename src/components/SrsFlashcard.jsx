@@ -76,10 +76,10 @@ export default function SrsFlashcard({
   };
 
   const getStateLabel = (state) => {
-    if (state === 'new') return 'NUEVA';
-    if (state === 'learning') return 'APRENDIENDO';
-    if (state === 'relearning') return 'REAPRENDIENDO';
-    if (state === 'review') return 'REPASO';
+    if (state === 'new') return 'NEW';
+    if (state === 'learning') return 'LEARNING';
+    if (state === 'relearning') return 'RELEARNING';
+    if (state === 'review') return 'REVIEW';
     return state.toUpperCase();
   };
 
@@ -93,7 +93,7 @@ export default function SrsFlashcard({
           <ProgressBar
             value={currentIndex + 1}
             max={totalDue}
-            label={`Tarjeta ${currentIndex + 1} de ${totalDue}`}
+            label={`Card ${currentIndex + 1} of ${totalDue}`}
             color="var(--accent-primary)"
           />
         </div>
@@ -105,10 +105,10 @@ export default function SrsFlashcard({
               e.stopPropagation();
               if (onUndoCard) onUndoCard();
             }}
-            ariaLabel="Deshacer / Volver a la tarjeta anterior"
+            ariaLabel="Undo / Return to previous card"
             icon={<span>↩️</span>}
           >
-            Deshacer
+            Undo
           </Button>
         )}
       </div>
@@ -136,13 +136,13 @@ export default function SrsFlashcard({
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, gap: '1rem' }}>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
               <Badge variant={isReverse ? 'warning' : 'primary'}>
-                {isReverse ? '🔄 Significado ➔ Tagalo' : '🇵🇭 Tagalo ➔ Significado'}
+                {isReverse ? '🔄 Meaning ➔ Tagalog' : '🇵🇭 Tagalog ➔ Meaning'}
               </Badge>
               <Badge variant={getStateBadgeVariant(cardStateStr)}>
                 {getStateLabel(cardStateStr)}
               </Badge>
-              <Badge variant="default">{currentCard.partOfSpeech || 'Vocabulario'}</Badge>
-              {isMastered && <Badge variant="success">✅ Dominada</Badge>}
+              <Badge variant="default">{currentCard.partOfSpeech || 'Vocabulary'}</Badge>
+              {isMastered && <Badge variant="success">✅ Mastered</Badge>}
             </div>
 
             {/* Front Prompt Text */}
@@ -158,14 +158,14 @@ export default function SrsFlashcard({
                   e.stopPropagation();
                   onSpeak(currentCard.word);
                 }}
-                ariaLabel={`Escuchar ${currentCard.word}`}
+                ariaLabel={`Listen to ${currentCard.word}`}
               >
-                🔊 Escuchar
+                🔊 Listen
               </Button>
             )}
 
             <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.75rem' }}>
-              Haz clic o pulsa <kbd style={{ padding: '0.1rem 0.4rem', borderRadius: '4px', border: '1px solid var(--border-default)', fontFamily: 'var(--font-mono)' }}>Space</kbd> para ver la respuesta
+              Click card or press <kbd style={{ padding: '0.1rem 0.4rem', borderRadius: '4px', border: '1px solid var(--border-default)', fontFamily: 'var(--font-mono)' }}>Space</kbd> to reveal answer
             </span>
           </div>
         ) : (
@@ -173,12 +173,12 @@ export default function SrsFlashcard({
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, gap: '0.85rem' }}>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
               <Badge variant="success">
-                {isReverse ? '🇵🇭 Respuesta en Tagalo' : '💡 Significado'}
+                {isReverse ? '🇵🇭 Tagalog Answer' : '💡 Meaning'}
               </Badge>
               <Badge variant={getStateBadgeVariant(cardStateStr)}>
                 {getStateLabel(cardStateStr)}
               </Badge>
-              {isMastered && <Badge variant="success">✅ Dominada</Badge>}
+              {isMastered && <Badge variant="success">✅ Mastered</Badge>}
             </div>
 
             {/* Back Answer Text */}
@@ -198,10 +198,10 @@ export default function SrsFlashcard({
                     e.stopPropagation();
                     onSpeak(currentCard.word);
                   }}
-                  ariaLabel={`Escuchar pronunciación de ${currentCard.word}`}
+                  ariaLabel={`Listen to pronunciation of ${currentCard.word}`}
                   style={{ padding: '0.2rem 0.5rem', fontSize: '0.8rem' }}
                 >
-                  🔊 Escuchar
+                  🔊 Listen
                 </Button>
               )}
             </div>
@@ -250,7 +250,7 @@ export default function SrsFlashcard({
               transition: 'all 0.15s ease',
             }}
           >
-            <span style={{ fontSize: '0.9rem' }}>1. De nuevo</span>
+            <span style={{ fontSize: '0.9rem' }}>1. Again</span>
             <span
               style={{
                 fontSize: '0.75rem',
@@ -285,7 +285,7 @@ export default function SrsFlashcard({
               transition: 'all 0.15s ease',
             }}
           >
-            <span style={{ fontSize: '0.9rem' }}>2. Difícil</span>
+            <span style={{ fontSize: '0.9rem' }}>2. Hard</span>
             <span
               style={{
                 fontSize: '0.75rem',
@@ -320,7 +320,7 @@ export default function SrsFlashcard({
               transition: 'all 0.15s ease',
             }}
           >
-            <span style={{ fontSize: '0.9rem' }}>3. Bien</span>
+            <span style={{ fontSize: '0.9rem' }}>3. Good</span>
             <span
               style={{
                 fontSize: '0.75rem',
@@ -355,7 +355,7 @@ export default function SrsFlashcard({
               transition: 'all 0.15s ease',
             }}
           >
-            <span style={{ fontSize: '0.9rem' }}>4. Fácil ⭐</span>
+            <span style={{ fontSize: '0.9rem' }}>4. Easy ⭐</span>
             <span
               style={{
                 fontSize: '0.75rem',
@@ -372,7 +372,7 @@ export default function SrsFlashcard({
       ) : (
         <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', alignItems: 'center' }}>
           <Button variant="secondary" onClick={() => setIsFlipped(true)}>
-            Ver respuesta (Space)
+            Show Answer (Space)
           </Button>
         </div>
       )}

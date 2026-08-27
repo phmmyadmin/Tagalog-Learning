@@ -88,7 +88,7 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
 
       expect(result.isCorrect).toBe(true);
       expect(result.suggestedRating).toBe(4);
-      expect(result.ratingLabel).toBe('Fácil ⭐');
+      expect(result.ratingLabel).toBe('Easy ⭐');
       expect(result.responseTimeSeconds).toBe(2.1);
     });
 
@@ -102,7 +102,7 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
 
       expect(result.isCorrect).toBe(true);
       expect(result.suggestedRating).toBe(3);
-      expect(result.ratingLabel).toBe('Bien');
+      expect(result.ratingLabel).toBe('Good');
       expect(result.responseTimeSeconds).toBe(5.2);
     });
 
@@ -116,7 +116,7 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
 
       expect(result.isCorrect).toBe(true);
       expect(result.suggestedRating).toBe(2);
-      expect(result.ratingLabel).toBe('Difícil');
+      expect(result.ratingLabel).toBe('Hard');
       expect(result.responseTimeSeconds).toBe(11.4);
     });
 
@@ -130,7 +130,7 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
 
       expect(result.isCorrect).toBe(false);
       expect(result.suggestedRating).toBe(1);
-      expect(result.ratingLabel).toBe('De nuevo');
+      expect(result.ratingLabel).toBe('Again');
     });
 
     it('evaluates reverse cards (English -> Tagalog response)', () => {
@@ -143,6 +143,7 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
 
       expect(result.isCorrect).toBe(true);
       expect(result.suggestedRating).toBe(4);
+      expect(result.ratingLabel).toBe('Easy ⭐');
     });
 
     it('evaluates answers via Gemini 2.5 Flash API with detailed pedagogical feedback', async () => {
@@ -155,9 +156,9 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
                   text: JSON.stringify({
                     isCorrect: true,
                     suggestedRating: 4,
-                    ratingLabel: 'Fácil ⭐',
+                    ratingLabel: 'Easy ⭐',
                     feedbackTagalog: 'Napakagaling! Napakabilis ng sagot.',
-                    feedbackSpanish: '¡Excelente! Respuesta exacta en 2.4s.',
+                    feedbackEnglish: 'Excellent! Exact answer in 2.4s.',
                     explanation: 'Bahay is the general Tagalog term for house or home.'
                   })
                 }
@@ -183,6 +184,7 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
       expect(result.isCorrect).toBe(true);
       expect(result.suggestedRating).toBe(4);
       expect(result.feedbackTagalog).toContain('Napakagaling');
+      expect(result.feedbackEnglish).toContain('Excellent');
       expect(result.explanation).toContain('Bahay');
     });
   });

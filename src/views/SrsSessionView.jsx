@@ -243,18 +243,18 @@ export default function SrsSessionView({
       <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' }}>
         <EmptyState
           icon="🎉"
-          title="¡Al día por hoy!"
-          description="Has completado todos los repasos y tarjetas nuevas programadas para hoy. Puedes ajustar tus límites diarios en Configuración (⚙️) o estudiar todas las palabras disponibles ahora."
-          actionLabel="🔄 Comprobar tarjetas pendientes"
+          title="All caught up for today!"
+          description="You have completed all scheduled reviews and new cards for today. You can adjust your daily limits in Settings (⚙️) or review all available words right now."
+          actionLabel="🔄 Check Due Cards"
           onAction={() => initQueue(false)}
         />
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
           <Button variant="primary" size="md" onClick={() => initQueue(true)} icon={<span>⚡</span>}>
-            Estudiar todas las tarjetas ahora (Modo Cram)
+            Study all cards now (Cram Mode)
           </Button>
           {onOpenSettings && (
             <Button variant="secondary" size="md" onClick={onOpenSettings} icon={<span>⚙️</span>}>
-              Ajustar límites diarios
+              Adjust daily limits
             </Button>
           )}
         </div>
@@ -273,7 +273,7 @@ export default function SrsSessionView({
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
       {/* Session Action Header with Mode Switcher & Direction Switcher */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
-        {/* Study Mode Selector (Clásico vs IA Conversacional) */}
+        {/* Study Mode Selector (Classic vs AI Conversational) */}
         <div
           style={{
             display: 'flex',
@@ -285,7 +285,7 @@ export default function SrsSessionView({
             border: '1px solid var(--border-default)',
           }}
           role="group"
-          aria-label="Seleccionar modo de estudio"
+          aria-label="Select study mode"
         >
           <button
             type="button"
@@ -305,7 +305,7 @@ export default function SrsSessionView({
               transition: 'all 0.15s ease',
             }}
           >
-            🎴 Clásico
+            🎴 Classic
           </button>
           <button
             type="button"
@@ -324,9 +324,9 @@ export default function SrsSessionView({
               gap: '0.3rem',
               transition: 'all 0.15s ease',
             }}
-            title="Modo interactivo con evaluación por voz/texto y tiempo de respuesta"
+            title="Interactive mode with voice/text evaluation and response time scoring"
           >
-            🎙️ Tutor IA
+            🎙️ AI Tutor
           </button>
         </div>
 
@@ -342,7 +342,7 @@ export default function SrsSessionView({
             border: '1px solid var(--border-default)',
           }}
           role="group"
-          aria-label="Seleccionar dirección de tarjeta"
+          aria-label="Select card prompt direction"
         >
           <button
             type="button"
@@ -361,9 +361,9 @@ export default function SrsSessionView({
               gap: '0.3rem',
               transition: 'all 0.15s ease',
             }}
-            title="Mostrar palabra en Tagalo en el anverso"
+            title="Show Tagalog word on front"
           >
-            🇵🇭 Tagalo
+            🇵🇭 Tagalog
           </button>
           <button
             type="button"
@@ -382,9 +382,9 @@ export default function SrsSessionView({
               gap: '0.3rem',
               transition: 'all 0.15s ease',
             }}
-            title="Mostrar significado (Inglés/Español) en el anverso para recordar la palabra en Tagalo"
+            title="Show meaning on front to recall Tagalog word"
           >
-            🔄 Significado
+            🔄 Meaning
           </button>
           <button
             type="button"
@@ -403,7 +403,7 @@ export default function SrsSessionView({
               gap: '0.3rem',
               transition: 'all 0.15s ease',
             }}
-            title="Mezclar aleatoriamente el anverso (50% Tagalo / 50% Significado)"
+            title="Randomly mix front side (50% Tagalog / 50% Meaning)"
           >
             🔀 Random
           </button>
@@ -411,11 +411,11 @@ export default function SrsSessionView({
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-            Restantes: <strong>{sessionQueue.length - currentIndex}</strong>
+            Remaining: <strong>{sessionQueue.length - currentIndex}</strong>
           </div>
           {onOpenSettings && (
             <Button variant="ghost" size="sm" onClick={onOpenSettings} icon={<span>⚙️</span>}>
-              Ajustes
+              Settings
             </Button>
           )}
         </div>
