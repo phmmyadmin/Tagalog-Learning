@@ -5,7 +5,7 @@ import { EmptyState } from '../components/ui/EmptyState';
 import { Button } from '../components/ui/Button';
 import { buildStudyQueue } from '../utils/srsQueueBuilder';
 import { scheduleReview, RATING } from '../utils/fsrsEngine';
-import { updateCardState, addReviewLogEntry } from '../utils/srsStore';
+import { updateCardState, addReviewLogEntry, getSrsSettings, saveSrsSettings } from '../utils/srsStore';
 import { addXpForReview, checkAchievements } from '../utils/gamification';
 
 export default function SrsSessionView({
@@ -23,6 +23,7 @@ export default function SrsSessionView({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [historyStack, setHistoryStack] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [cardDirection, setCardDirection] = useState(() => getSrsSettings().cardDirection || 'random');
   const isRatingInProgressRef = useRef(false);
   const [sessionStats, setSessionStats] = useState({
     totalReviewed: 0,
@@ -37,6 +38,39 @@ export default function SrsSessionView({
 
   // Filter key to initialize queue ONCE when filters change (not when card states mutate)
   const filterKey = `${vocabularyList.length}_${searchQuery}_${selectedLesson}_${selectedPos}_${filterMastered}`;
+
+  // Sync direction setting if changed externally
+  useEffect(() => {
+    const handleSrsUpdate = () => {
+      const current = getSrsSettings().cardDirection || 'random';
+      setCardDirection(current);
+    };
+    window.addEventListener('tagalog_srs_updated', handleSrsUpdate);
+    return () => window.removeEventListener('tagalog_srs_updated', handleSrsUpdate);
+  }, []);
+
+  const handleDirectionChange = (newDirection) => {
+    setCardDirection(newDirection);
+    const settings = getSrsSettings();
+    saveSrsSettings({ ...settings, cardDirection: newDirection });
+    // Dynamically update active queue cards without resetting current index/progress
+    setSessionQueue((prevQueue) =>
+      prevQueue.map((card) => {
+        let dir = 'forward';
+        if (newDirection === 'reverse') {
+          dir = 'reverse';
+        } else if (newDirection === 'random') {
+          dir = Math.random() < 0.5 ? 'forward' : 'reverse';
+        } else {
+          dir = 'forward';
+        }
+        return {
+          ...card,
+          cardDirection: dir,
+        };
+      })
+    );
+  };
 
   const matchesLesson = (itemLesson, filter) => {
     if (!filter || filter === 'all') return true;
@@ -235,11 +269,91 @@ export default function SrsSessionView({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
-      {/* Session Action Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+      {/* Session Action Header with Instant Direction Switcher */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
         <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
           Cola: <strong>Quedan {sessionQueue.length - currentIndex} tarjetas</strong>
         </div>
+
+        {/* Instant Direction Selector */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.25rem',
+            backgroundColor: 'var(--bg-surface)',
+            padding: '0.25rem',
+            borderRadius: 'var(--radius-sm)',
+            border: '1px solid var(--border-default)',
+          }}
+          role="group"
+          aria-label="Seleccionar modo de tarjeta"
+        >
+          <button
+            type="button"
+            onClick={() => handleDirectionChange('forward')}
+            style={{
+              padding: '0.35rem 0.65rem',
+              fontSize: '0.8rem',
+              fontWeight: cardDirection === 'forward' ? 700 : 500,
+              backgroundColor: cardDirection === 'forward' ? 'var(--accent-primary)' : 'transparent',
+              color: cardDirection === 'forward' ? '#FFFFFF' : 'var(--text-secondary)',
+              border: 'none',
+              borderRadius: 'var(--radius-sm)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              transition: 'all 0.15s ease',
+            }}
+            title="Mostrar palabra en Tagalo en el anverso"
+          >
+            🇵🇭 Tagalo
+          </button>
+          <button
+            type="button"
+            onClick={() => handleDirectionChange('reverse')}
+            style={{
+              padding: '0.35rem 0.65rem',
+              fontSize: '0.8rem',
+              fontWeight: cardDirection === 'reverse' ? 700 : 500,
+              backgroundColor: cardDirection === 'reverse' ? 'var(--accent-primary)' : 'transparent',
+              color: cardDirection === 'reverse' ? '#FFFFFF' : 'var(--text-secondary)',
+              border: 'none',
+              borderRadius: 'var(--radius-sm)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              transition: 'all 0.15s ease',
+            }}
+            title="Mostrar significado (Inglés/Español) en el anverso para recordar la palabra en Tagalo"
+          >
+            🔄 Significado
+          </button>
+          <button
+            type="button"
+            onClick={() => handleDirectionChange('random')}
+            style={{
+              padding: '0.35rem 0.65rem',
+              fontSize: '0.8rem',
+              fontWeight: cardDirection === 'random' ? 700 : 500,
+              backgroundColor: cardDirection === 'random' ? 'var(--accent-primary)' : 'transparent',
+              color: cardDirection === 'random' ? '#FFFFFF' : 'var(--text-secondary)',
+              border: 'none',
+              borderRadius: 'var(--radius-sm)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              transition: 'all 0.15s ease',
+            }}
+            title="Mezclar aleatoriamente el anverso (50% Tagalo / 50% Significado)"
+          >
+            🔀 Random
+          </button>
+        </div>
+
         {onOpenSettings && (
           <Button variant="ghost" size="sm" onClick={onOpenSettings} icon={<span>⚙️</span>}>
             Configuración
