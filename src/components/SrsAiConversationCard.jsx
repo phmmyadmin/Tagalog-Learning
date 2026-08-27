@@ -47,7 +47,7 @@ export default function SrsAiConversationCard({
       }
     } catch {}
 
-    const lang = isReverse ? 'tl-PH' : 'en-US';
+    const lang = isReverse ? 'fil-PH' : 'en-US';
     const recognizer = createSpeechRecognizer({
       lang,
       silenceTimeoutMs: 650,
@@ -56,14 +56,14 @@ export default function SrsAiConversationCard({
       onResult: ({ transcript }) => {
         setUserText(transcript);
       },
-      onFinal: (finalText) => {
+      onFinal: (finalText, alternatives) => {
         if (finalText && !isSubmittingRef.current && !evaluationResult) {
-          triggerSubmit(finalText);
+          triggerSubmit(finalText, alternatives);
         }
       },
-      onSilence: (finalText) => {
+      onSilence: (finalText, alternatives) => {
         if (finalText && !isSubmittingRef.current && !evaluationResult) {
-          triggerSubmit(finalText);
+          triggerSubmit(finalText, alternatives);
         }
       },
       onError: (err) => {
@@ -161,7 +161,7 @@ export default function SrsAiConversationCard({
     }
   };
 
-  const triggerSubmit = async (textToSubmit) => {
+  const triggerSubmit = async (textToSubmit, speechAlternatives = []) => {
     const answer = String(textToSubmit || userText || '').trim();
     if (isSubmittingRef.current || isEvaluating || evaluationResult) return;
     isSubmittingRef.current = true;
@@ -180,6 +180,7 @@ export default function SrsAiConversationCard({
         card,
         cardDirection: isReverse ? 'reverse' : 'forward',
         userAnswer: answer,
+        speechAlternatives,
         responseTimeMs
       });
       setEvaluationResult(result);
