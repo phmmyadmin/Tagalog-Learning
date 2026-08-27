@@ -15,7 +15,7 @@ export function createSpeechRecognizer({
   onError,
   onStart,
   onEnd,
-  silenceTimeoutMs = 650,
+  silenceTimeoutMs = 450,
   onSilence,
 } = {}) {
   if (!isSpeechRecognitionSupported()) {
@@ -31,6 +31,8 @@ export function createSpeechRecognizer({
   recognition.maxAlternatives = 5;
 
   let silenceTimer = null;
+  let lastCapturedText = '';
+  let lastCapturedAlternatives = [];
 
   const resetSilenceTimer = (currentTranscript, currentAlternatives) => {
     if (silenceTimer) clearTimeout(silenceTimer);
@@ -44,6 +46,10 @@ export function createSpeechRecognizer({
   if (onStart) recognition.onstart = onStart;
   recognition.onend = () => {
     if (silenceTimer) clearTimeout(silenceTimer);
+    // If recognition ends while having captured speech, flush immediately
+    if (lastCapturedText && onFinal) {
+      onFinal(lastCapturedText, lastCapturedAlternatives);
+    }
     if (onEnd) onEnd();
   };
 
@@ -69,6 +75,9 @@ export function createSpeechRecognizer({
 
     const currentText = (finalTranscript || interimTranscript).trim();
     const alternatives = Array.from(alternativesSet).filter(Boolean);
+
+    lastCapturedText = currentText;
+    lastCapturedAlternatives = alternatives;
 
     if (onResult) {
       onResult({

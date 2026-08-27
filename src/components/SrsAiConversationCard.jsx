@@ -28,6 +28,8 @@ export default function SrsAiConversationCard({
   const restartListeningTimeoutRef = useRef(null);
   const recognizerRef = useRef(null);
   const isSubmittingRef = useRef(false);
+  const lastUserTextRef = useRef('');
+  const lastUserTextTimeRef = useRef(Date.now());
 
   // Direction: 'reverse' means prompt is English -> student responds in Tagalog
   const isReverse = card?.cardDirection === 'reverse';
@@ -51,7 +53,7 @@ export default function SrsAiConversationCard({
     const lang = isReverse ? 'fil-PH' : 'en-US';
     const recognizer = createSpeechRecognizer({
       lang,
-      silenceTimeoutMs: 650,
+      silenceTimeoutMs: 450,
       onStart: () => setIsListening(true),
       onEnd: () => {
         setIsListening(false);
@@ -67,6 +69,8 @@ export default function SrsAiConversationCard({
       },
       onResult: ({ transcript }) => {
         setUserText(transcript);
+        lastUserTextRef.current = transcript;
+        lastUserTextTimeRef.current = Date.now();
       },
       onFinal: (finalText, alternatives) => {
         if (finalText && !isSubmittingRef.current && !evaluationResult) {
@@ -79,7 +83,6 @@ export default function SrsAiConversationCard({
         }
       },
       onError: (err) => {
-        console.warn('Speech recognition status:', err);
         setIsListening(false);
         if (!isSubmittingRef.current && !evaluationResult) {
           if (restartListeningTimeoutRef.current) clearTimeout(restartListeningTimeoutRef.current);
@@ -98,7 +101,6 @@ export default function SrsAiConversationCard({
         recognizer.start();
         setIsListening(true);
       } catch (e) {
-        console.warn('Could not auto-start recognizer:', e);
         setIsListening(false);
       }
     }
@@ -107,19 +109,23 @@ export default function SrsAiConversationCard({
   const handleInputChange = (e) => {
     const val = e.target.value;
     setUserText(val);
+    lastUserTextRef.current = val;
+    lastUserTextTimeRef.current = Date.now();
 
     if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
     if (val.trim().length > 0 && !isSubmittingRef.current && !evaluationResult) {
-      // Auto-submit 700ms after user pauses typing (Zero Enter needed)
+      // Auto-submit 600ms after user pauses typing (Zero Enter needed)
       typingDebounceRef.current = setTimeout(() => {
         triggerSubmit(val.trim());
-      }, 700);
+      }, 600);
     }
   };
 
   // Card Mount / Reset Lifecycle
   useEffect(() => {
     setUserText('');
+    lastUserTextRef.current = '';
+    lastUserTextTimeRef.current = Date.now();
     setEvaluationResult(null);
     setIsEvaluating(false);
     setIsListening(false);
@@ -156,6 +162,23 @@ export default function SrsAiConversationCard({
       }
     };
   }, [card?.id]);
+
+  // Watchdog: If recognized text hasn't changed for 500ms, auto-submit immediately
+  useEffect(() => {
+    const watchdogInterval = setInterval(() => {
+      if (
+        userText &&
+        userText.trim().length > 0 &&
+        !isSubmittingRef.current &&
+        !evaluationResult &&
+        !isEvaluating &&
+        Date.now() - lastUserTextTimeRef.current > 500
+      ) {
+        triggerSubmit(userText);
+      }
+    }, 150);
+    return () => clearInterval(watchdogInterval);
+  }, [userText, evaluationResult, isEvaluating]);
 
   const handlePlayPrompt = () => {
     if (!isReverse) {
@@ -202,23 +225,23 @@ export default function SrsAiConversationCard({
       });
       setEvaluationResult(result);
 
-      // Play correct audio pronunciation immediately
+      // Play correct audio pronunciation immediately by voice
       if (card.word) {
         playTagalogAudio(card.word);
       }
 
-      // Start hands-free auto-advance countdown
-      let remaining = 2.2;
-      setAutoAdvanceSeconds(2.2);
+      // Hands-free auto-advance countdown: 3.5s for incorrect (more reading time), 2.2s for correct
+      let countdown = result.isCorrect ? 2.2 : 3.5;
+      setAutoAdvanceSeconds(countdown);
       if (autoAdvanceTimerRef.current) clearInterval(autoAdvanceTimerRef.current);
 
       autoAdvanceTimerRef.current = setInterval(() => {
-        remaining -= 0.1;
-        if (remaining <= 0) {
+        countdown -= 0.1;
+        if (countdown <= 0) {
           clearInterval(autoAdvanceTimerRef.current);
           onRate(result.suggestedRating, responseTimeMs);
         } else {
-          setAutoAdvanceSeconds(parseFloat(remaining.toFixed(1)));
+          setAutoAdvanceSeconds(parseFloat(countdown.toFixed(1)));
         }
       }, 100);
     } catch (err) {
@@ -284,7 +307,7 @@ export default function SrsAiConversationCard({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          minHeight: '340px',
+          minHeight: '350px',
           boxShadow: 'var(--shadow-md)',
           border: isReverse ? '2px solid var(--accent-secondary, #D97706)' : '2px solid var(--accent-primary)',
           backgroundColor: evaluationResult ? 'var(--bg-surface-alt)' : 'var(--bg-surface)',
@@ -318,35 +341,37 @@ export default function SrsAiConversationCard({
           </div>
         </div>
 
-        {/* Prompt Section */}
-        <div style={{ textAlign: 'center', padding: '0.75rem 0' }}>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            {promptLabel}
-          </span>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', marginTop: '0.35rem' }}>
-            <h2 style={{ fontSize: '2.1rem', color: 'var(--text-primary)', margin: 0, fontWeight: 800 }}>
-              {promptText}
-            </h2>
-            {!isReverse && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handlePlayPrompt}
-                style={{ fontSize: '1.2rem', padding: '0.3rem' }}
-                title="Listen to pronunciation with Gemini Neural Audio"
-              >
-                🔊
-              </Button>
+        {/* Prompt Section (When not yet evaluated) */}
+        {!evaluationResult ? (
+          <div style={{ textAlign: 'center', padding: '1rem 0' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              {promptLabel}
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', marginTop: '0.4rem' }}>
+              <h2 style={{ fontSize: '2.3rem', color: 'var(--text-primary)', margin: 0, fontWeight: 800 }}>
+                {promptText}
+              </h2>
+              {!isReverse && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handlePlayPrompt}
+                  style={{ fontSize: '1.3rem', padding: '0.3rem' }}
+                  title="Listen to pronunciation"
+                >
+                  🔊
+                </Button>
+              )}
+            </div>
+            {card.partOfSpeech && (
+              <p style={{ margin: '0.3rem 0 0 0', fontSize: '0.85rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>
+                ({card.partOfSpeech})
+              </p>
             )}
           </div>
-          {card.partOfSpeech && (
-            <p style={{ margin: '0.3rem 0 0 0', fontSize: '0.85rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>
-              ({card.partOfSpeech})
-            </p>
-          )}
-        </div>
+        ) : null}
 
-        {/* Interactive Answer Input or Evaluation Result */}
+        {/* Interactive Answer Input or Prominent Evaluation Feedback */}
         {!evaluationResult ? (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
             <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -354,7 +379,7 @@ export default function SrsAiConversationCard({
                 type="text"
                 value={userText}
                 onChange={handleInputChange}
-                placeholder={isListening ? '🎙️ Speak your answer now...' : 'Type or speak your answer...'}
+                placeholder={isListening ? '🎙️ Listening... speak your answer now' : 'Type or speak your answer...'}
                 disabled={isEvaluating}
                 style={{
                   width: '100%',
@@ -398,7 +423,7 @@ export default function SrsAiConversationCard({
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                {isListening ? '⚡ Auto-submits when you stop speaking' : '⚡ Auto-submits on pause (No Enter needed)'}
+                {isListening ? '⚡ Auto-submits instantly when you speak' : '⚡ Auto-submits on pause (No Enter needed)'}
               </span>
               <Button
                 type="submit"
@@ -412,66 +437,80 @@ export default function SrsAiConversationCard({
             </div>
           </form>
         ) : (
-          /* Evaluation & Feedback Section with Auto-Advance Progress */
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }} className="animate-fade-in">
+          /* Prominent, Large Visual Feedback Section */
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '0.5rem 0' }} className="animate-fade-in">
+            {/* Main Result Card */}
             <div
               style={{
-                padding: '0.85rem 1rem',
-                borderRadius: 'var(--radius-md)',
+                textAlign: 'center',
+                padding: '1.25rem 1.5rem',
+                borderRadius: 'var(--radius-lg)',
                 backgroundColor: evaluationResult.isCorrect ? 'rgba(34, 197, 94, 0.08)' : 'rgba(239, 68, 68, 0.08)',
-                border: `1px solid ${evaluationResult.isCorrect ? 'var(--accent-success)' : 'var(--accent-danger)'}`,
+                border: `2px solid ${evaluationResult.isCorrect ? 'var(--accent-success, #16A34A)' : 'var(--accent-danger, #DC2626)'}`,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.35rem'
+                alignItems: 'center',
+                gap: '0.65rem'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <strong style={{ fontSize: '0.95rem', color: evaluationResult.isCorrect ? 'var(--accent-success)' : 'var(--accent-danger)' }}>
-                  {evaluationResult.isCorrect ? '✅ ' + evaluationResult.feedbackTagalog : '❌ ' + evaluationResult.feedbackTagalog}
-                </strong>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                <span
+                  style={{
+                    fontSize: '0.9rem',
+                    fontWeight: 800,
+                    color: evaluationResult.isCorrect ? 'var(--accent-success)' : 'var(--accent-danger)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em'
+                  }}
+                >
+                  {evaluationResult.isCorrect ? '✅ Correct!' : '❌ Incorrect — Correct Answer:'}
+                </span>
                 <Badge variant={evaluationResult.suggestedRating >= 3 ? 'success' : 'warning'}>
                   {evaluationResult.ratingLabel} ({evaluationResult.responseTimeSeconds}s)
                 </Badge>
               </div>
-              <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: 1.4 }}>
+
+              {/* Large Central Tagalog Word Display */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', margin: '0.2rem 0' }}>
+                <h1
+                  style={{
+                    fontSize: evaluationResult.isCorrect ? '2.2rem' : '2.6rem',
+                    fontWeight: 800,
+                    color: 'var(--text-primary)',
+                    margin: 0,
+                    lineHeight: 1.1
+                  }}
+                >
+                  {card.word}
+                </h1>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handlePlayAnswer}
+                  style={{ fontSize: '1.4rem', padding: '0.35rem' }}
+                  title="Listen to pronunciation (auto-played)"
+                >
+                  🔊
+                </Button>
+              </div>
+
+              {/* Meaning & Details */}
+              <div style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+                {card.meaning}
+              </div>
+
+              {/* Feedback Sentence */}
+              <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: 1.4 }}>
                 {evaluationResult.feedbackEnglish || evaluationResult.feedbackSpanish}
               </p>
-            </div>
 
-            {/* Target Card */}
-            <div
-              style={{
-                padding: '0.75rem 1rem',
-                backgroundColor: 'var(--bg-surface)',
-                borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--border-default)',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}
-            >
-              <div>
-                <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 700, textTransform: 'uppercase' }}>
-                  Target:
-                </span>
-                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                  {card.word} <span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'var(--text-secondary)' }}>— {card.meaning}</span>
-                </div>
-                {card.example && (
-                  <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.8rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>
+              {card.example && (
+                <div style={{ marginTop: '0.35rem', padding: '0.35rem 0.75rem', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)' }}>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>
                     "{typeof card.example === 'string' ? card.example : card.example.tagalog}"
-                  </p>
-                )}
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handlePlayAnswer}
-                style={{ padding: '0.3rem 0.5rem', fontSize: '1.1rem' }}
-                title="Listen to correct pronunciation"
-              >
-                🔊
-              </Button>
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Hands-Free Auto-Advance Status Banner */}
@@ -482,9 +521,9 @@ export default function SrsAiConversationCard({
                 alignItems: 'center',
                 backgroundColor: 'rgba(234, 88, 12, 0.08)',
                 border: '1px solid rgba(234, 88, 12, 0.2)',
-                padding: '0.4rem 0.75rem',
+                padding: '0.45rem 0.85rem',
                 borderRadius: 'var(--radius-sm)',
-                fontSize: '0.8rem',
+                fontSize: '0.85rem',
                 color: 'var(--text-primary)'
               }}
             >
@@ -495,7 +534,7 @@ export default function SrsAiConversationCard({
                 variant="ghost"
                 size="sm"
                 onClick={togglePauseAutoAdvance}
-                style={{ fontSize: '0.75rem', padding: '0.15rem 0.45rem' }}
+                style={{ fontSize: '0.75rem', padding: '0.15rem 0.55rem', fontWeight: 600 }}
               >
                 {isAutoAdvancePaused ? 'Resume ➔' : 'Pause ⏸️'}
               </Button>
@@ -504,7 +543,7 @@ export default function SrsAiConversationCard({
         )}
       </Card>
 
-      {/* Identical FSRS Rating Buttons as SrsFlashcard.jsx (Always visible on feedback) */}
+      {/* Identical FSRS Rating Buttons as SrsFlashcard.jsx (Always active on feedback) */}
       {evaluationResult && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.65rem' }}>
           {/* AGAIN */}

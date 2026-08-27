@@ -71,11 +71,10 @@ export async function callGeminiApiWithRetry(systemPrompt, config) {
 
         const errText = await response.text();
 
-        // 429 Too Many Requests -> set cooldown and fallback
+        // 429 Too Many Requests -> set 60s cooldown and abort immediately to use local fallback
         if (response.status === 429) {
-          setGeminiRateLimited(20);
-          lastError = new Error(`Gemini AI rate limit exceeded (429).`);
-          break; // Try next model or fallback
+          setGeminiRateLimited(60);
+          throw new Error('Gemini AI rate limit exceeded (429). Using intelligent local fallback.');
         }
 
         // 503 Service Unavailable -> retry
