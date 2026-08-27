@@ -230,12 +230,13 @@ export async function synthesizeGeminiAudio(text, options = {}) {
 }
 
 /**
- * Plays Tagalog audio with seamless fallback.
- * Uses Gemini Neural Audio if configured, otherwise falls back to browser TTS.
+ * Plays audio with seamless fallback between Gemini Neural Audio and browser Web Speech.
  */
 export async function playTagalogAudio(text, options = {}) {
   const cleanText = String(text || '').trim();
   if (!cleanText) return;
+
+  const lang = options.lang || 'fil-PH';
 
   try {
     const audioUri = await synthesizeGeminiAudio(cleanText, options);
@@ -250,10 +251,41 @@ export async function playTagalogAudio(text, options = {}) {
 
   // Fallback to browser Web Speech API
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = 'tl-PH';
-    utterance.rate = 0.9;
-    window.speechSynthesis.speak(utterance);
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.lang = lang === 'en-US' ? 'en-US' : 'tl-PH';
+      utterance.rate = options.rate || 0.95;
+
+      const voices = window.speechSynthesis.getVoices();
+      if (voices && voices.length > 0) {
+        const matchingVoice = voices.find(v => v.lang.startsWith(utterance.lang.slice(0, 2)));
+        if (matchingVoice) {
+          utterance.voice = matchingVoice;
+        }
+      }
+
+      window.speechSynthesis.speak(utterance);
+    } catch (e) {
+      console.warn('Web Speech API error:', e);
+    }
+  }
+}
+
+/**
+ * Automatically speaks the target answer upon student response in AI Tutor mode.
+ * In Reverse mode: speaks the Tagalog word with authentic Filipino voice.
+ * In Forward mode: speaks the Tagalog word followed by English meaning.
+ */
+export async function playCardAnswerAudio(card, isReverse = false) {
+  if (!card) return;
+
+  if (isReverse) {
+    // English -> Tagalog: speak target Tagalog word
+    await playTagalogAudio(card.word, { lang: 'fil-PH' });
+  } else {
+    // Tagalog -> English: speak Tagalog word first, then meaning or both
+    const phrase = `${card.word}. ${card.meaning}`;
+    await playTagalogAudio(phrase, { lang: 'en-US' });
   }
 }

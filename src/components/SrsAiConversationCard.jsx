@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
-import { playTagalogAudio } from '../utils/aiAudioService';
+import { playTagalogAudio, playCardAnswerAudio } from '../utils/aiAudioService';
 import { evaluateConversationalAnswer } from '../utils/aiConversationalEvaluator';
 import { createSpeechRecognizer, isSpeechRecognitionSupported } from '../utils/speechRecognition';
 import { previewNextIntervals, RATING } from '../utils/fsrsEngine';
@@ -187,7 +187,7 @@ export default function SrsAiConversationCard({
   };
 
   const handlePlayAnswer = () => {
-    playTagalogAudio(card.word);
+    playCardAnswerAudio(card, isReverse);
   };
 
   const toggleMic = () => {
@@ -225,10 +225,8 @@ export default function SrsAiConversationCard({
       });
       setEvaluationResult(result);
 
-      // Play correct audio pronunciation immediately by voice
-      if (card.word) {
-        playTagalogAudio(card.word);
-      }
+      // Play correct audio pronunciation immediately by voice upon answering
+      playCardAnswerAudio(card, isReverse);
 
       // Hands-free auto-advance countdown: 3.5s for incorrect (more reading time), 2.2s for correct
       let countdown = result.isCorrect ? 2.2 : 3.5;
