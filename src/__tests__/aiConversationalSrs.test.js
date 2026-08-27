@@ -222,7 +222,7 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
       expect(typeof isSupported).toBe('boolean');
     });
 
-    it('handles silence timer resets correctly when recognizer is instantiated', () => {
+    it('handles silence timer resets correctly when recognizer is instantiated', async () => {
       // Mock window.SpeechRecognition
       class MockSpeechRecognition {
         constructor() {
@@ -243,14 +243,44 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
       };
 
       const onSilence = vi.fn();
-      const recognizer = import('../utils/speechRecognition').then(({ createSpeechRecognizer }) => {
-        const rec = createSpeechRecognizer({
-          lang: 'tl-PH',
-          silenceTimeoutMs: 50,
-          onSilence
-        });
-        expect(rec).toBeDefined();
+      const { createSpeechRecognizer } = await import('../utils/speechRecognition');
+      const rec = createSpeechRecognizer({
+        lang: 'tl-PH',
+        silenceTimeoutMs: 50,
+        onSilence
       });
+      expect(rec).toBeDefined();
+    });
+
+    it('synthesizes and plays card answer audio appropriately for reverse and forward directions', async () => {
+      const { playCardAnswerAudio } = await import('../utils/aiAudioService');
+      
+      const card = { word: 'Aral', meaning: 'Study' };
+
+      const playMock = vi.fn().mockResolvedValue(undefined);
+      window.Audio = vi.fn().mockImplementation(() => ({
+        play: playMock
+      }));
+
+      const speakMock = vi.fn();
+      window.speechSynthesis = {
+        speak: speakMock,
+        cancel: vi.fn(),
+        getVoices: () => []
+      };
+
+      global.SpeechSynthesisUtterance = function(text) {
+        this.text = text;
+        this.lang = 'tl-PH';
+      };
+
+      // Test reverse mode (English -> Tagalog: speaks Tagalog word)
+      await playCardAnswerAudio(card, true);
+      expect(speakMock).toHaveBeenCalled();
+
+      // Test forward mode (Tagalog -> English: speaks Tagalog word + meaning)
+      await playCardAnswerAudio(card, false);
+      expect(speakMock).toHaveBeenCalledTimes(2);
     });
   });
 });
