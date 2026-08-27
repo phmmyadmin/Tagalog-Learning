@@ -301,4 +301,47 @@ describe('AI Gemini API Integration Tests', () => {
     const uniqueWords = new Set(words);
     expect(words.length).toBe(uniqueWords.size);
   });
+
+  it('handles 404 model deprecation by gracefully falling back to next available model', async () => {
+    let callCount = 0;
+    global.fetch = vi.fn().mockImplementation(async (url) => {
+      callCount++;
+      if (url.includes('gemini-3.6-flash')) {
+        return {
+          ok: false,
+          status: 404,
+          text: async () => JSON.stringify({ error: { code: 404, message: 'Model not found' } })
+        };
+      }
+      return {
+        ok: true,
+        json: async () => ({
+          candidates: [
+            {
+              content: {
+                parts: [{ text: JSON.stringify({ questions: [] }) }]
+              }
+            }
+          ]
+        })
+      };
+    });
+
+    const { callGeminiApiWithRetry } = await import('../utils/aiQuizGenerator');
+    const result = await callGeminiApiWithRetry('test prompt', { apiKey: 'test-key', model: 'gemini-3.6-flash' });
+    expect(result).toBeDefined();
+    expect(callCount).toBeGreaterThanOrEqual(2);
+  });
+
+  it('activates rate limit cooldown when receiving 429 Too Many Requests', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 429,
+      text: async () => JSON.stringify({ error: { code: 429, message: 'Resource exhausted' } })
+    });
+
+    const { callGeminiApiWithRetry, isGeminiRateLimited } = await import('../utils/aiQuizGenerator');
+    await expect(callGeminiApiWithRetry('test prompt', { apiKey: 'test-key' })).rejects.toThrow();
+    expect(isGeminiRateLimited()).toBe(true);
+  });
 });
