@@ -25,8 +25,8 @@ export default function SrsAiConversationCard({
   const timerRef = useRef(null);
   const autoAdvanceTimerRef = useRef(null);
   const typingDebounceRef = useRef(null);
+  const restartListeningTimeoutRef = useRef(null);
   const recognizerRef = useRef(null);
-  const inputRef = useRef(null);
   const isSubmittingRef = useRef(false);
 
   // Direction: 'reverse' means prompt is English -> student responds in Tagalog
@@ -37,9 +37,10 @@ export default function SrsAiConversationCard({
 
   const intervals = previewNextIntervals(card?.srs);
 
-  // Start speech recognition helper
+  // Start continuous speech recognition helper
   const startListening = () => {
     if (!isSpeechRecognitionSupported()) return;
+    if (isSubmittingRef.current || evaluationResult) return;
 
     try {
       if (recognizerRef.current) {
@@ -52,7 +53,18 @@ export default function SrsAiConversationCard({
       lang,
       silenceTimeoutMs: 650,
       onStart: () => setIsListening(true),
-      onEnd: () => setIsListening(false),
+      onEnd: () => {
+        setIsListening(false);
+        // Persistently restart listening while waiting for student's voice response
+        if (!isSubmittingRef.current && !evaluationResult) {
+          if (restartListeningTimeoutRef.current) clearTimeout(restartListeningTimeoutRef.current);
+          restartListeningTimeoutRef.current = setTimeout(() => {
+            if (!isSubmittingRef.current && !evaluationResult) {
+              startListening();
+            }
+          }, 200);
+        }
+      },
       onResult: ({ transcript }) => {
         setUserText(transcript);
       },
@@ -67,8 +79,16 @@ export default function SrsAiConversationCard({
         }
       },
       onError: (err) => {
-        console.warn('Speech recognition error:', err);
+        console.warn('Speech recognition status:', err);
         setIsListening(false);
+        if (!isSubmittingRef.current && !evaluationResult) {
+          if (restartListeningTimeoutRef.current) clearTimeout(restartListeningTimeoutRef.current);
+          restartListeningTimeoutRef.current = setTimeout(() => {
+            if (!isSubmittingRef.current && !evaluationResult) {
+              startListening();
+            }
+          }, 300);
+        }
       }
     });
 
@@ -107,6 +127,7 @@ export default function SrsAiConversationCard({
     setAutoAdvanceSeconds(2.2);
     isSubmittingRef.current = false;
     if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
+    if (restartListeningTimeoutRef.current) clearTimeout(restartListeningTimeoutRef.current);
 
     const start = Date.now();
     setStartTime(start);
@@ -117,12 +138,7 @@ export default function SrsAiConversationCard({
       setElapsedSeconds(parseFloat(((Date.now() - start) / 1000).toFixed(1)));
     }, 100);
 
-    // Auto-focus input
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-
-    // Auto-start microphone for hands-free answering
+    // Auto-start microphone for hands-free voice answering (Do not auto-focus keyboard!)
     const micTimer = setTimeout(() => {
       startListening();
     }, 200);
@@ -130,6 +146,7 @@ export default function SrsAiConversationCard({
     return () => {
       clearTimeout(micTimer);
       if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
+      if (restartListeningTimeoutRef.current) clearTimeout(restartListeningTimeoutRef.current);
       if (timerRef.current) clearInterval(timerRef.current);
       if (autoAdvanceTimerRef.current) clearInterval(autoAdvanceTimerRef.current);
       if (recognizerRef.current) {
@@ -334,7 +351,6 @@ export default function SrsAiConversationCard({
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
             <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
               <input
-                ref={inputRef}
                 type="text"
                 value={userText}
                 onChange={handleInputChange}
