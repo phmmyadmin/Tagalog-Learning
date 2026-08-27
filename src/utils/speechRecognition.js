@@ -13,7 +13,9 @@ export function createSpeechRecognizer({
   onResult,
   onError,
   onStart,
-  onEnd
+  onEnd,
+  silenceTimeoutMs = 1100,
+  onSilence,
 } = {}) {
   if (!isSpeechRecognitionSupported()) {
     return null;
@@ -27,8 +29,22 @@ export function createSpeechRecognizer({
   recognition.interimResults = true;
   recognition.maxAlternatives = 1;
 
+  let silenceTimer = null;
+
+  const resetSilenceTimer = (currentTranscript) => {
+    if (silenceTimer) clearTimeout(silenceTimer);
+    if (silenceTimeoutMs > 0 && currentTranscript && onSilence) {
+      silenceTimer = setTimeout(() => {
+        onSilence(currentTranscript);
+      }, silenceTimeoutMs);
+    }
+  };
+
   if (onStart) recognition.onstart = onStart;
-  if (onEnd) recognition.onend = onEnd;
+  recognition.onend = () => {
+    if (silenceTimer) clearTimeout(silenceTimer);
+    if (onEnd) onEnd();
+  };
 
   recognition.onresult = (event) => {
     let interimTranscript = '';
@@ -42,16 +58,23 @@ export function createSpeechRecognizer({
       }
     }
 
+    const currentText = (finalTranscript || interimTranscript).trim();
+
     if (onResult) {
       onResult({
         final: finalTranscript.trim(),
         interim: interimTranscript.trim(),
-        transcript: (finalTranscript || interimTranscript).trim()
+        transcript: currentText
       });
+    }
+
+    if (currentText) {
+      resetSilenceTimer(currentText);
     }
   };
 
   recognition.onerror = (event) => {
+    if (silenceTimer) clearTimeout(silenceTimer);
     if (onError) {
       onError(event.error);
     }

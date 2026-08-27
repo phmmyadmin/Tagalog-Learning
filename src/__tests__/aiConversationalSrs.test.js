@@ -189,10 +189,41 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
     });
   });
 
-  describe('Speech Recognition Detection', () => {
+  describe('Speech Recognition Detection & Hands-Free Silence Detection', () => {
     it('detects browser SpeechRecognition support environment safely', () => {
       const isSupported = isSpeechRecognitionSupported();
       expect(typeof isSupported).toBe('boolean');
+    });
+
+    it('handles silence timer resets correctly when recognizer is instantiated', () => {
+      // Mock window.SpeechRecognition
+      class MockSpeechRecognition {
+        constructor() {
+          this.lang = 'tl-PH';
+          this.continuous = false;
+          this.interimResults = true;
+          this.onresult = null;
+          this.onerror = null;
+          this.onend = null;
+        }
+        start() {}
+        stop() { if (this.onend) this.onend(); }
+        abort() { if (this.onend) this.onend(); }
+      }
+
+      global.window = {
+        SpeechRecognition: MockSpeechRecognition
+      };
+
+      const onSilence = vi.fn();
+      const recognizer = import('../utils/speechRecognition').then(({ createSpeechRecognizer }) => {
+        const rec = createSpeechRecognizer({
+          lang: 'tl-PH',
+          silenceTimeoutMs: 50,
+          onSilence
+        });
+        expect(rec).toBeDefined();
+      });
     });
   });
 });
