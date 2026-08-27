@@ -65,7 +65,7 @@ export function getUserLessons() {
 }
 
 /**
- * Saves or updates a lesson.
+ * Saves or updates a lesson with internal vocabulary deduplication.
  * @param {Object} lesson
  */
 export function saveUserLesson(lesson) {
@@ -75,12 +75,38 @@ export function saveUserLesson(lesson) {
     (l) => l.id === lesson.id || l.lessonKey === lesson.lessonKey
   );
 
+  // Deduplicate vocabulary within this lesson
+  let cleanedVocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
+  const uniqueVocabMap = new Map();
+  cleanedVocab.forEach((v) => {
+    const w = (v.word || '').trim();
+    if (w) {
+      const k = w.toLowerCase();
+      if (!uniqueVocabMap.has(k)) {
+        uniqueVocabMap.set(k, { ...v, word: w });
+      } else {
+        const existing = uniqueVocabMap.get(k);
+        if (!existing.example && v.example) existing.example = v.example;
+        if ((!existing.meaning || existing.meaning.length < 5) && v.meaning) existing.meaning = v.meaning;
+      }
+    }
+  });
+
+  const processedLesson = {
+    ...lesson,
+    vocabulary: Array.from(uniqueVocabMap.values()).map((v, idx) => ({
+      ...v,
+      id: v.id || `VOCAB-${lesson.lessonKey}-${String(idx + 1).padStart(3, '0')}`,
+      lesson: lesson.lessonKey
+    }))
+  };
+
   let updated;
   if (index >= 0) {
     updated = [...current];
-    updated[index] = { ...updated[index], ...lesson, updatedAt: new Date().toISOString() };
+    updated[index] = { ...updated[index], ...processedLesson, updatedAt: new Date().toISOString() };
   } else {
-    updated = [lesson, ...current];
+    updated = [processedLesson, ...current];
   }
 
   try {
@@ -113,7 +139,7 @@ export function deleteUserLesson(idOrKey) {
 }
 
 /**
- * Returns merged data directly from the unified lesson collection with deduplication.
+ * Returns merged data directly from the unified lesson collection with strict word-level deduplication.
  */
 export function getMergedLessonData() {
   const lessons = getUserLessons();
@@ -137,23 +163,32 @@ export function getMergedLessonData() {
 
     if (Array.isArray(les.vocabulary)) {
       les.vocabulary.forEach((v) => {
-        const key = v.id || v.word?.trim().toLowerCase();
+        const wordStr = (v.word || '').trim();
+        if (!wordStr) return;
+        const key = wordStr.toLowerCase();
         if (!vocabMap.has(key)) {
-          vocabMap.set(key, { ...v });
+          vocabMap.set(key, { ...v, word: wordStr });
         } else {
-          // Merge lesson tags if this term spans multiple lessons
+          // Merge lesson tags without duplicates (e.g. "Lesson_02, Lesson_09")
           const existing = vocabMap.get(key);
-          const existingLessons = String(existing.lesson || '').split(',').map((s) => s.trim());
-          const newLessons = String(v.lesson || les.lessonKey || '').split(',').map((s) => s.trim());
-          const mergedLessons = Array.from(new Set([...existingLessons, ...newLessons])).filter(Boolean).join(', ');
+          const existingLessons = String(existing.lesson || '').split(',').map((s) => s.trim()).filter(Boolean);
+          const newLessons = String(v.lesson || les.lessonKey || '').split(',').map((s) => s.trim()).filter(Boolean);
+          const mergedLessons = Array.from(new Set([...existingLessons, ...newLessons])).join(', ');
           existing.lesson = mergedLessons;
+
+          if (!existing.example && v.example) {
+            existing.example = v.example;
+          }
+          if ((!existing.meaning || existing.meaning.length < 5) && v.meaning) {
+            existing.meaning = v.meaning;
+          }
         }
       });
     }
 
     if (Array.isArray(les.activities)) {
       les.activities.forEach((a) => {
-        const key = a.id || `${a.sentence}_${a.target}`;
+        const key = a.id || `${a.sentence || a.prompt}_${a.target || a.correctAnswer}`;
         if (!activitiesMap.has(key)) {
           activitiesMap.set(key, a);
         }

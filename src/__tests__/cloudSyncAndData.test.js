@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { getMergedLessonData, getMergedLessonQuizzes } from '../utils/userLessonsManager';
+import { getMergedLessonData, getMergedLessonQuizzes, saveUserLesson } from '../utils/userLessonsManager';
 import { recordStudyActivity, calculateStreak, getLocalDateString } from '../utils/streakManager';
 import { saveMistake, getMistakes, clearAllMistakes } from '../utils/mistakesManager';
 
@@ -87,5 +87,48 @@ describe('Data Layer, Deduplication & Cloud Sync Integration Tests', () => {
 
     clearAllMistakes();
     expect(getMistakes()).toHaveLength(0);
+  });
+
+  it('deduplicates overlapping vocabulary when saving a new user lesson', () => {
+    const initialData = getMergedLessonData();
+    const initialCount = initialData.vocabulary.length; // 204
+
+    // Save a custom user lesson containing:
+    // - 1 existing word ('Bahay', already in L02) with a new ID
+    // - 1 duplicated word within this lesson ('Salamat', 'salamat')
+    // - 2 completely new words ('BagongSalitaA', 'BagongSalitaB')
+    saveUserLesson({
+      id: 'USER_LESSON_09',
+      lessonKey: 'Lesson_09',
+      title: 'Lesson 9: Advanced Concepts',
+      vocabulary: [
+        { id: 'VOCAB-L09-01', word: 'Bahay', meaning: 'House / Home', partOfSpeech: 'noun', lesson: 'Lesson_09' },
+        { id: 'VOCAB-L09-02', word: 'Salamat', meaning: 'Thank you', partOfSpeech: 'expression', lesson: 'Lesson_09' },
+        { id: 'VOCAB-L09-03', word: 'salamat', meaning: 'Thanks (duplicate)', partOfSpeech: 'expression', lesson: 'Lesson_09' },
+        { id: 'VOCAB-L09-04', word: 'BagongSalitaA', meaning: 'New Word A', partOfSpeech: 'noun', lesson: 'Lesson_09' },
+        { id: 'VOCAB-L09-05', word: 'BagongSalitaB', meaning: 'New Word B', partOfSpeech: 'verb', lesson: 'Lesson_09' }
+      ],
+      theory: [],
+      activities: []
+    });
+
+    const updatedData = getMergedLessonData();
+
+    // Verify 'Bahay' has merged lesson tags
+    const bahay = updatedData.vocabulary.find(v => v.word.toLowerCase() === 'bahay');
+    expect(bahay).toBeDefined();
+    expect(bahay.lesson).toContain('Lesson_02');
+    expect(bahay.lesson).toContain('Lesson_09');
+
+    // Verify 'Bahay' appears only once in the entire dictionary
+    const allBahay = updatedData.vocabulary.filter(v => v.word.toLowerCase() === 'bahay');
+    expect(allBahay).toHaveLength(1);
+
+    // Verify 'Salamat' appears only once in the entire dictionary
+    const allSalamat = updatedData.vocabulary.filter(v => v.word.toLowerCase() === 'salamat');
+    expect(allSalamat).toHaveLength(1);
+
+    // Total count should increase by exactly 3 (Salamat + BagongSalitaA + BagongSalitaB)
+    expect(updatedData.vocabulary.length).toBe(initialCount + 3);
   });
 });
