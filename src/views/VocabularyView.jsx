@@ -8,6 +8,7 @@ import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { EmptyState } from '../components/ui/EmptyState';
 import { migrateLegacyMasteredItems } from '../utils/srsStore';
+import { playTagalogAudio } from '../utils/aiAudioService';
 
 export default function VocabularyView({
   vocabularyList = [],
@@ -126,12 +127,7 @@ export default function VocabularyView({
   });
 
   const handleSpeak = (text) => {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'tl-PH';
-    utterance.rate = 0.9;
-    window.speechSynthesis.speak(utterance);
+    playTagalogAudio(text);
   };
 
   return (
