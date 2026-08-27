@@ -18,16 +18,31 @@ export default function VocabularyCard({ vocabItem, isMastered = false, onToggle
     return 'default';
   };
 
+  const rawLesson = String(vocabItem.lesson || '').trim();
+  const lessonParts = rawLesson.split(',').map((s) => s.trim()).filter(Boolean);
+  const primaryLessonRaw = lessonParts[0] || 'Lesson_02';
+
+  let normalizedLessonKey = primaryLessonRaw.replace(/\s+/g, '_');
+  if (/^lesson_\d$/i.test(normalizedLessonKey)) {
+    normalizedLessonKey = normalizedLessonKey.replace(/^lesson_(\d)$/i, 'Lesson_0$1');
+  } else if (/^\d+$/.test(normalizedLessonKey)) {
+    normalizedLessonKey = `Lesson_${normalizedLessonKey.padStart(2, '0')}`;
+  } else if (!normalizedLessonKey.startsWith('Lesson_') && !normalizedLessonKey.toLowerCase().startsWith('lesson')) {
+    normalizedLessonKey = `Lesson_${normalizedLessonKey}`;
+  }
+
   const vocabSlide =
     slideMap.vocabulary?._keyword_overrides?.[vocabItem.id]?.slide ||
-    slideMap.vocabulary?._default_slides?.[vocabItem.lesson] ||
+    slideMap.vocabulary?._keyword_overrides?.[vocabItem.word?.trim().toLowerCase()]?.slide ||
+    slideMap.vocabulary?._default_slides?.[normalizedLessonKey] ||
+    slideMap.vocabulary?._default_slides?.[primaryLessonRaw] ||
     1;
 
   const handleLessonLinkClick = (e) => {
     if (!e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
       e.preventDefault();
-      if (onOpenLesson && vocabItem.lesson) {
-        onOpenLesson(vocabItem.lesson, vocabSlide, vocabSlide, vocabItem.word);
+      if (onOpenLesson && primaryLessonRaw) {
+        onOpenLesson(normalizedLessonKey, vocabSlide, vocabSlide, vocabItem.word);
       }
     }
   };
@@ -77,9 +92,9 @@ export default function VocabularyCard({ vocabItem, isMastered = false, onToggle
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            {vocabItem.lesson && (
+            {primaryLessonRaw && (
               <a
-                href={`#slides-${vocabItem.lesson}-slide-${vocabSlide}`}
+                href={`#slides-${normalizedLessonKey}-slide-${vocabSlide}`}
                 onClick={handleLessonLinkClick}
                 style={{
                   fontSize: '0.8rem',
@@ -90,6 +105,7 @@ export default function VocabularyCard({ vocabItem, isMastered = false, onToggle
                   borderRadius: 'var(--radius-sm)',
                   backgroundColor: 'var(--bg-surface-alt)',
                 }}
+                title={`Open ${normalizedLessonKey.replace('_', ' ')} slide ${vocabSlide}`}
               >
                 🖼️ Slide {vocabSlide}
               </a>

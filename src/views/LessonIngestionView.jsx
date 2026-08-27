@@ -104,6 +104,9 @@ export default function LessonIngestionView({
         customInstructions,
       });
 
+      // Attach parsed slides from PowerPoint archive
+      structured.slides = parsed.slides || [];
+
       // Save to local storage and trigger cloud sync
       saveUserLesson(structured);
 

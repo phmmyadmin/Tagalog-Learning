@@ -12,8 +12,21 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
   const [isExpanded, setIsExpanded] = useState(!isMastered);
   const [speakingText, setSpeakingText] = useState(null);
 
+  const rawLesson = String(topicData.lesson || '').trim();
+  const lessonParts = rawLesson.split(',').map((s) => s.trim()).filter(Boolean);
+  const primaryLessonRaw = lessonParts[0] || 'Lesson_02';
+
+  let normalizedLessonKey = primaryLessonRaw.replace(/\s+/g, '_');
+  if (/^lesson_\d$/i.test(normalizedLessonKey)) {
+    normalizedLessonKey = normalizedLessonKey.replace(/^lesson_(\d)$/i, 'Lesson_0$1');
+  } else if (/^\d+$/.test(normalizedLessonKey)) {
+    normalizedLessonKey = `Lesson_${normalizedLessonKey.padStart(2, '0')}`;
+  } else if (!normalizedLessonKey.startsWith('Lesson_') && !normalizedLessonKey.toLowerCase().startsWith('lesson')) {
+    normalizedLessonKey = `Lesson_${normalizedLessonKey}`;
+  }
+
   const topicMapping = slideMap.theory?.[topicData.id] || {
-    lesson: topicData.lesson,
+    lesson: normalizedLessonKey,
     slide: 1,
     slideEnd: 1,
     label: topicData.topic,
@@ -45,9 +58,9 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
   const handleLessonLinkClick = (e) => {
     if (!e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
       e.preventDefault();
-      if (onOpenLesson && topicData.lesson) {
+      if (onOpenLesson && primaryLessonRaw) {
         onOpenLesson(
-          topicMapping.lesson || topicData.lesson,
+          topicMapping.lesson || normalizedLessonKey,
           topicMapping.slide || 1,
           topicMapping.slideEnd || topicMapping.slide || 1,
           topicMapping.label || topicData.topic

@@ -4,6 +4,8 @@ import { Badge } from './ui/Badge';
 import { Card } from './ui/Card';
 import { ProgressBar } from './ui/ProgressBar';
 
+import { getUserLessons } from '../utils/userLessonsManager';
+
 import lesson02Slides from '../data/slides/Lesson_02.json';
 import lesson03Slides from '../data/slides/Lesson_03.json';
 import lesson04Slides from '../data/slides/Lesson_04.json';
@@ -23,7 +25,76 @@ const slideManifests = {
 };
 
 /**
- * PptxViewer Component - Accessible modal presentation viewer with slide thumbnails, keyboard controls, and warm light theme.
+ * Builds dynamic presentation slides for custom or imported lessons without static JSON.
+ */
+function buildDynamicSlidesForLesson(lesson) {
+  if (!lesson) return [];
+  const slides = [];
+
+  // Slide 1: Title & Overview
+  slides.push({
+    title: lesson.title || lesson.lessonKey?.replace('_', ' ') || 'Lesson Overview',
+    paragraphs: [
+      { text: lesson.summary || 'Tagalog Masterclass Module', isBullet: false },
+      { text: `Theory Topics: ${lesson.theory?.length || 0}`, isBullet: true },
+      { text: `Vocabulary Terms: ${lesson.vocabulary?.length || 0}`, isBullet: true },
+      { text: `Practice Exercises: ${lesson.activities?.length || 0}`, isBullet: true },
+      { text: `Mastery Exam: ${lesson.quiz?.questions?.length || 0} questions`, isBullet: true },
+    ],
+  });
+
+  // Theory Slides
+  if (Array.isArray(lesson.theory)) {
+    lesson.theory.forEach((t, idx) => {
+      const paras = [];
+      if (t.summary) paras.push({ text: t.summary, isBullet: false });
+      if (Array.isArray(t.rules)) {
+        t.rules.forEach((r) => {
+          if (r.pattern) paras.push({ text: `Pattern: ${r.pattern} — ${r.description || ''}`, isBullet: true });
+          if (r.example_tagalog) paras.push({ text: `Example: ${r.example_tagalog} (${r.example_english || ''})`, isBullet: true });
+        });
+      }
+      if (Array.isArray(t.table)) {
+        t.table.forEach((row) => {
+          const word = row.tagalog || row.filipino || row.term || row.word || row.pronoun;
+          const meaning = row.english || row.meaning || row.translation || '';
+          if (word) paras.push({ text: `${word} ➔ ${meaning}`, isBullet: true });
+        });
+      }
+      slides.push({
+        title: `Topic ${idx + 1}: ${t.topic || 'Grammar Rule'}`,
+        paragraphs: paras.length > 0 ? paras : [{ text: 'Grammar structure and usage details.', isBullet: false }],
+      });
+    });
+  }
+
+  // Vocabulary Slide
+  if (Array.isArray(lesson.vocabulary) && lesson.vocabulary.length > 0) {
+    slides.push({
+      title: 'Vocabulary & Key Expressions',
+      paragraphs: lesson.vocabulary.slice(0, 15).map((v) => ({
+        text: `${v.word} (${v.partOfSpeech || 'vocab'}): ${v.meaning || v.translation}${v.example ? ` — "${v.example}"` : ''}`,
+        isBullet: true,
+      })),
+    });
+  }
+
+  // Exercises Slide
+  if (Array.isArray(lesson.activities) && lesson.activities.length > 0) {
+    slides.push({
+      title: 'Practice Exercises & Self-Check',
+      paragraphs: lesson.activities.slice(0, 8).map((a, i) => ({
+        text: `Ex ${i + 1}: ${a.prompt || a.sentence || ''} (Answer: ${a.correctAnswer || a.target || '✓'})`,
+        isBullet: true,
+      })),
+    });
+  }
+
+  return slides;
+}
+
+/**
+ * PptxViewer Component - Accessible modal presentation viewer with slide thumbnails, keyboard controls, dynamic custom lesson slides, and warm light theme.
  */
 export default function PptxViewer({
   lessonKey = 'Lesson_02',
@@ -31,9 +102,48 @@ export default function PptxViewer({
   conceptLabel = null,
   onClose,
 }) {
-  const normalizedKey = (lessonKey || '').replace(' ', '_');
-  const manifest = slideManifests[normalizedKey];
-  const slides = manifest ? manifest.slides : [];
+  const rawKey = String(lessonKey || '').split(',')[0].trim();
+  let normalizedKey = rawKey.replace(/\s+/g, '_');
+  if (/^lesson_\d$/i.test(normalizedKey)) {
+    normalizedKey = normalizedKey.replace(/^lesson_(\d)$/i, 'Lesson_0$1');
+  } else if (/^\d+$/.test(normalizedKey)) {
+    normalizedKey = `Lesson_${normalizedKey.padStart(2, '0')}`;
+  } else if (!normalizedKey.startsWith('Lesson_') && !normalizedKey.toLowerCase().startsWith('lesson')) {
+    normalizedKey = `Lesson_${normalizedKey}`;
+  }
+
+  // 1. Check static manifests (case-insensitive lookup)
+  const manifestKey = Object.keys(slideManifests).find((k) => k.toLowerCase() === normalizedKey.toLowerCase());
+  const staticManifest = manifestKey ? slideManifests[manifestKey] : null;
+
+  // 2. Check dynamic lessons in userLessonsManager
+  let dynamicSlides = [];
+  if (!staticManifest) {
+    const userLessons = getUserLessons();
+    const userLesson = userLessons.find((l) => {
+      const lk = String(l.lessonKey || l.id || '').replace(/\s+/g, '_').toLowerCase();
+      const normLower = normalizedKey.toLowerCase();
+      return lk === normLower || lk.includes(normLower) || normLower.includes(lk);
+    });
+
+    if (userLesson) {
+      if (Array.isArray(userLesson.slides) && userLesson.slides.length > 0) {
+        dynamicSlides = userLesson.slides;
+      } else {
+        dynamicSlides = buildDynamicSlidesForLesson(userLesson);
+      }
+    }
+  }
+
+  const slides = staticManifest ? staticManifest.slides : (dynamicSlides.length > 0 ? dynamicSlides : [
+    {
+      title: normalizedKey.replace('_', ' '),
+      paragraphs: [
+        { text: 'Presentation slide deck for this module.', isBullet: false },
+        { text: 'Use the navigation controls below to explore lessons and grammar rules.', isBullet: true },
+      ],
+    }
+  ]);
 
   const startIdx = Math.max(0, Math.min((initialSlide || 1) - 1, (slides.length || 1) - 1));
   const [currentSlideIndex, setCurrentSlideIndex] = useState(startIdx);
@@ -55,9 +165,7 @@ export default function PptxViewer({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [slides.length, onClose]);
 
-  const currentSlide = slides[currentSlideIndex];
-
-  if (!manifest) return null;
+  const currentSlide = slides[currentSlideIndex] || slides[0];
 
   return (
     <div
