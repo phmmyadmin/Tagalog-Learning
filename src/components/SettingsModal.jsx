@@ -358,14 +358,14 @@ export const SettingsModal = ({ isOpen, onClose, initialTab = 'sync' }) => {
           <form onSubmit={handleSaveSettings} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             {settingsSavedMsg && (
               <div style={{ padding: '0.65rem', backgroundColor: 'var(--accent-success-light)', color: 'var(--accent-success)', borderRadius: 'var(--radius-sm)', fontSize: '0.85rem' }}>
-                ✓ ¡Configuración de repaso espaciado guardada!
+                ✓ Spaced repetition settings saved!
               </div>
             )}
 
             {/* New Cards Per Day */}
             <div>
               <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
-                Tarjetas nuevas por día: <strong>{srsSettings.newCardsPerDay}</strong>
+                New cards per day: <strong>{srsSettings.newCardsPerDay}</strong>
               </label>
               <input
                 type="range"
@@ -376,14 +376,14 @@ export const SettingsModal = ({ isOpen, onClose, initialTab = 'sync' }) => {
                 style={{ width: '100%' }}
               />
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                Controla cuántas palabras no estudiadas se introducen cada día.
+                Controls how many new, unstudied cards are introduced each day.
               </span>
             </div>
 
             {/* Max Reviews Per Day */}
             <div>
               <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
-                Repasos máximos por día: <strong>{srsSettings.maxReviewsPerDay}</strong>
+                Maximum reviews per day: <strong>{srsSettings.maxReviewsPerDay}</strong>
               </label>
               <input
                 type="range"
@@ -395,14 +395,14 @@ export const SettingsModal = ({ isOpen, onClose, initialTab = 'sync' }) => {
                 style={{ width: '100%' }}
               />
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                Limita la carga diaria de repaso para evitar fatiga de estudio.
+                Limits daily review workload to prevent study burnout.
               </span>
             </div>
 
             {/* Target Retention Rate */}
             <div>
               <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
-                Tasa de retención objetivo: <strong>{Math.round((srsSettings.requestedRetention || 0.9) * 100)}%</strong>
+                Target retention rate: <strong>{Math.round((srsSettings.requestedRetention || 0.9) * 100)}%</strong>
               </label>
               <input
                 type="range"
@@ -413,14 +413,14 @@ export const SettingsModal = ({ isOpen, onClose, initialTab = 'sync' }) => {
                 style={{ width: '100%' }}
               />
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                Una mayor retención requiere repasos más frecuentes (el estándar FSRS-5 es 90%).
+                Higher retention requires more frequent reviews (FSRS-5 standard is 90%).
               </span>
             </div>
 
             {/* Card Testing Direction */}
             <div>
               <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
-                🔀 Dirección de Repaso de Tarjetas
+                🔀 Flashcard Practice Direction
               </label>
               <select
                 value={srsSettings.cardDirection || 'random'}
@@ -436,12 +436,12 @@ export const SettingsModal = ({ isOpen, onClose, initialTab = 'sync' }) => {
                   cursor: 'pointer',
                 }}
               >
-                <option value="random">🔀 Aleatorio (50/50 Tagalo ⇄ Significado)</option>
-                <option value="forward">🇵🇭 Estándar (Tagalo ➔ Significado)</option>
-                <option value="reverse">🔄 Inverso (Significado ➔ Tagalo)</option>
+                <option value="random">🔀 Random (50/50 Tagalog ⇄ Meaning)</option>
+                <option value="forward">🇵🇭 Standard (Tagalog ➔ Meaning)</option>
+                <option value="reverse">🔄 Reverse (Meaning ➔ Tagalog)</option>
               </select>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem', display: 'block' }}>
-                Muestra aleatoriamente en el anverso el término en tagalo o su significado para entrenar la memoria activa en ambas direcciones.
+                Randomly presents either the Tagalog term or English meaning on the front to train bidirectional active recall.
               </span>
             </div>
 
@@ -449,10 +449,10 @@ export const SettingsModal = ({ isOpen, onClose, initialTab = 'sync' }) => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.5rem 0' }}>
               <div>
                 <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                  Mostrar cronómetro de respuesta
+                  Show response timer
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  Mide el tiempo de respuesta para calibrar la estabilidad en memoria.
+                  Measures answer latency to calibrate memory stability and recall speed.
                 </div>
               </div>
               <input
@@ -464,7 +464,7 @@ export const SettingsModal = ({ isOpen, onClose, initialTab = 'sync' }) => {
             </div>
 
             <Button variant="primary" type="submit" fullWidth>
-              Guardar Configuración de Repaso
+              Save Spaced Repetition Settings
             </Button>
           </form>
         )}

@@ -31,9 +31,9 @@ export function evaluateAnswerLocally({ card, cardDirection = 'forward', userAns
     return {
       isCorrect: false,
       suggestedRating: 1,
-      ratingLabel: 'De nuevo',
+      ratingLabel: 'Again',
       feedbackTagalog: 'Subukan muli sa susunod.',
-      feedbackSpanish: 'No se detectó respuesta. La respuesta correcta era: ' + target,
+      feedbackEnglish: 'No response detected. The correct answer was: ' + target,
       explanation: `Target: ${target}`,
       responseTimeSeconds: parseFloat(seconds)
     };
@@ -48,9 +48,9 @@ export function evaluateAnswerLocally({ card, cardDirection = 'forward', userAns
       return {
         isCorrect: true,
         suggestedRating: 4,
-        ratingLabel: 'Fácil ⭐',
+        ratingLabel: 'Easy ⭐',
         feedbackTagalog: 'Napakagaling! Mabilis at tumpak.',
-        feedbackSpanish: `¡Excelente! Respuesta exacta en ${seconds}s.`,
+        feedbackEnglish: `Excellent! Exact answer in ${seconds}s.`,
         explanation: `${card.word} = ${card.meaning}`,
         responseTimeSeconds: parseFloat(seconds)
       };
@@ -58,9 +58,9 @@ export function evaluateAnswerLocally({ card, cardDirection = 'forward', userAns
       return {
         isCorrect: true,
         suggestedRating: 3,
-        ratingLabel: 'Bien',
+        ratingLabel: 'Good',
         feedbackTagalog: 'Magaling! Tama ang sagot.',
-        feedbackSpanish: `¡Bien! Respuesta correcta en ${seconds}s.`,
+        feedbackEnglish: `Good! Correct answer in ${seconds}s.`,
         explanation: `${card.word} = ${card.meaning}`,
         responseTimeSeconds: parseFloat(seconds)
       };
@@ -68,9 +68,9 @@ export function evaluateAnswerLocally({ card, cardDirection = 'forward', userAns
       return {
         isCorrect: true,
         suggestedRating: 2,
-        ratingLabel: 'Difícil',
+        ratingLabel: 'Hard',
         feedbackTagalog: 'Tama, ngunit medyo matagal bago maalala.',
-        feedbackSpanish: `Correcto, pero te tomó ${seconds}s recordarlo.`,
+        feedbackEnglish: `Correct, but it took ${seconds}s to recall.`,
         explanation: `${card.word} = ${card.meaning}`,
         responseTimeSeconds: parseFloat(seconds)
       };
@@ -81,9 +81,9 @@ export function evaluateAnswerLocally({ card, cardDirection = 'forward', userAns
     return {
       isCorrect: true,
       suggestedRating: 2,
-      ratingLabel: 'Difícil',
+      ratingLabel: 'Hard',
       feedbackTagalog: 'Malapit na! May kaunting pagkakaiba.',
-      feedbackSpanish: `Casi exacto (${normInput}). Respuesta sugerida: ${target}`,
+      feedbackEnglish: `Almost exact ("${normInput}"). Suggested answer: ${target}`,
       explanation: `${card.word} = ${card.meaning}`,
       responseTimeSeconds: parseFloat(seconds)
     };
@@ -92,9 +92,9 @@ export function evaluateAnswerLocally({ card, cardDirection = 'forward', userAns
   return {
     isCorrect: false,
     suggestedRating: 1,
-    ratingLabel: 'De nuevo',
+    ratingLabel: 'Again',
     feedbackTagalog: `Mali. Ang tamang sagot ay "${target}".`,
-    feedbackSpanish: `Incorrecto. La respuesta era: "${target}". Repasémosla pronto.`,
+    feedbackEnglish: `Incorrect. The correct answer was: "${target}". Let's review it soon.`,
     explanation: `${card.word} = ${card.meaning}`,
     responseTimeSeconds: parseFloat(seconds)
   };
@@ -143,9 +143,9 @@ export async function evaluateConversationalAnswer({
    - 3 (Good): Accurate answer within normal recall time (3.5s - 8.0s) or minor synonym.
    - 2 (Hard): Correct but slow recall (> 8.0s), or answer has minor typo/spelling hesitation.
    - 1 (Again): Incorrect answer, completely wrong word, or no answer.
-3. "ratingLabel": "Fácil ⭐" | "Bien" | "Difícil" | "De nuevo"
+3. "ratingLabel": "Easy ⭐" | "Good" | "Hard" | "Again"
 4. "feedbackTagalog": Short 1-sentence supportive feedback in conversational Tagalog (e.g. "Napakagaling!", "Tama!", "Medyo malapit na...").
-5. "feedbackSpanish": Short 1-2 sentence constructive feedback in Spanish explaining why and noting recall speed.
+5. "feedbackEnglish": Short 1-2 sentence constructive feedback in English explaining why and noting recall speed.
 6. "explanation": Grammatical or vocabulary note clarifying any nuance.
 
 Return ONLY a valid JSON object matching this schema:
@@ -154,7 +154,7 @@ Return ONLY a valid JSON object matching this schema:
   "suggestedRating": number,
   "ratingLabel": string,
   "feedbackTagalog": string,
-  "feedbackSpanish": string,
+  "feedbackEnglish": string,
   "explanation": string
 }`;
 
@@ -166,9 +166,9 @@ Return ONLY a valid JSON object matching this schema:
     return {
       isCorrect: Boolean(result.isCorrect),
       suggestedRating: Math.min(4, Math.max(1, parseInt(result.suggestedRating, 10) || 3)),
-      ratingLabel: result.ratingLabel || (result.suggestedRating === 4 ? 'Fácil ⭐' : result.suggestedRating === 3 ? 'Bien' : result.suggestedRating === 2 ? 'Difícil' : 'De nuevo'),
+      ratingLabel: result.ratingLabel || (result.suggestedRating === 4 ? 'Easy ⭐' : result.suggestedRating === 3 ? 'Good' : result.suggestedRating === 2 ? 'Hard' : 'Again'),
       feedbackTagalog: result.feedbackTagalog || 'Magaling!',
-      feedbackSpanish: result.feedbackSpanish || (result.isCorrect ? '¡Respuesta correcta!' : 'Respuesta incorrecta.'),
+      feedbackEnglish: result.feedbackEnglish || (result.isCorrect ? 'Correct answer!' : 'Incorrect answer.'),
       explanation: result.explanation || `${card.word} = ${card.meaning}`,
       responseTimeSeconds: parseFloat(seconds)
     };
