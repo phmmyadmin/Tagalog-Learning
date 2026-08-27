@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SrsFlashcard from '../components/SrsFlashcard';
+import SrsAiConversationCard from '../components/SrsAiConversationCard';
 import SrsSessionSummary from '../components/SrsSessionSummary';
 import { EmptyState } from '../components/ui/EmptyState';
 import { Button } from '../components/ui/Button';
@@ -23,6 +24,7 @@ export default function SrsSessionView({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [historyStack, setHistoryStack] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [studyMode, setStudyMode] = useState('classic'); // 'classic' | 'conversational'
   const [cardDirection, setCardDirection] = useState(() => getSrsSettings().cardDirection || 'random');
   const isRatingInProgressRef = useRef(false);
   const [sessionStats, setSessionStats] = useState({
@@ -269,10 +271,63 @@ export default function SrsSessionView({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}>
-      {/* Session Action Header with Instant Direction Switcher */}
+      {/* Session Action Header with Mode Switcher & Direction Switcher */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
-        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-          Cola: <strong>Quedan {sessionQueue.length - currentIndex} tarjetas</strong>
+        {/* Study Mode Selector (Clásico vs IA Conversacional) */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.25rem',
+            backgroundColor: 'var(--bg-surface)',
+            padding: '0.25rem',
+            borderRadius: 'var(--radius-sm)',
+            border: '1px solid var(--border-default)',
+          }}
+          role="group"
+          aria-label="Seleccionar modo de estudio"
+        >
+          <button
+            type="button"
+            onClick={() => setStudyMode('classic')}
+            style={{
+              padding: '0.35rem 0.65rem',
+              fontSize: '0.8rem',
+              fontWeight: studyMode === 'classic' ? 700 : 500,
+              backgroundColor: studyMode === 'classic' ? 'var(--accent-primary)' : 'transparent',
+              color: studyMode === 'classic' ? '#FFFFFF' : 'var(--text-secondary)',
+              border: 'none',
+              borderRadius: 'var(--radius-sm)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            🎴 Clásico
+          </button>
+          <button
+            type="button"
+            onClick={() => setStudyMode('conversational')}
+            style={{
+              padding: '0.35rem 0.65rem',
+              fontSize: '0.8rem',
+              fontWeight: studyMode === 'conversational' ? 700 : 500,
+              backgroundColor: studyMode === 'conversational' ? 'var(--accent-primary)' : 'transparent',
+              color: studyMode === 'conversational' ? '#FFFFFF' : 'var(--text-secondary)',
+              border: 'none',
+              borderRadius: 'var(--radius-sm)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+              transition: 'all 0.15s ease',
+            }}
+            title="Modo interactivo con evaluación por voz/texto y tiempo de respuesta"
+          >
+            🎙️ Tutor IA
+          </button>
         </div>
 
         {/* Instant Direction Selector */}
@@ -287,7 +342,7 @@ export default function SrsSessionView({
             border: '1px solid var(--border-default)',
           }}
           role="group"
-          aria-label="Seleccionar modo de tarjeta"
+          aria-label="Seleccionar dirección de tarjeta"
         >
           <button
             type="button"
@@ -354,24 +409,39 @@ export default function SrsSessionView({
           </button>
         </div>
 
-        {onOpenSettings && (
-          <Button variant="ghost" size="sm" onClick={onOpenSettings} icon={<span>⚙️</span>}>
-            Configuración
-          </Button>
-        )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+            Restantes: <strong>{sessionQueue.length - currentIndex}</strong>
+          </div>
+          {onOpenSettings && (
+            <Button variant="ghost" size="sm" onClick={onOpenSettings} icon={<span>⚙️</span>}>
+              Ajustes
+            </Button>
+          )}
+        </div>
       </div>
 
-      {/* SrsFlashcard Component */}
-      <SrsFlashcard
-        currentCard={currentCard}
-        totalDue={sessionQueue.length}
-        currentIndex={currentIndex}
-        isMastered={masteredIds.includes(currentCard.id)}
-        canUndo={historyStack.length > 0}
-        onRateCard={handleRateCard}
-        onUndoCard={handleUndoCard}
-        onSpeak={onSpeak}
-      />
+      {/* Render Active Card Component based on Study Mode */}
+      {studyMode === 'conversational' ? (
+        <SrsAiConversationCard
+          key={currentCard.id}
+          card={currentCard}
+          cardDirection={currentCard.cardDirection || cardDirection}
+          onRate={handleRateCard}
+          onOpenSettings={onOpenSettings}
+        />
+      ) : (
+        <SrsFlashcard
+          currentCard={currentCard}
+          totalDue={sessionQueue.length}
+          currentIndex={currentIndex}
+          isMastered={masteredIds.includes(currentCard.id)}
+          canUndo={historyStack.length > 0}
+          onRateCard={handleRateCard}
+          onUndoCard={handleUndoCard}
+          onSpeak={onSpeak}
+        />
+      )}
     </div>
   );
 }

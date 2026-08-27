@@ -4,6 +4,7 @@ import { Card } from './ui/Card';
 import { Badge } from './ui/Badge';
 import { Button } from './ui/Button';
 import slideMap from '../data/slideMap.json';
+import { playTagalogAudio } from '../utils/aiAudioService';
 
 /**
  * TheoryCard Component - Accessible grammar rule card with warm light styling, collapsible sections, pronoun tables, speech synthesis, and slides deep linking.
@@ -42,17 +43,10 @@ export default function TheoryCard({ topicData, isMastered, onToggleMastered, in
   };
 
   const handleSpeak = (text) => {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'tl-PH';
-    utterance.rate = 0.9;
-
-    utterance.onstart = () => setSpeakingText(text);
-    utterance.onend = () => setSpeakingText(null);
-    utterance.onerror = () => setSpeakingText(null);
-
-    window.speechSynthesis.speak(utterance);
+    setSpeakingText(text);
+    playTagalogAudio(text).finally(() => {
+      setTimeout(() => setSpeakingText(null), 1000);
+    });
   };
 
   const handleLessonLinkClick = (e) => {
