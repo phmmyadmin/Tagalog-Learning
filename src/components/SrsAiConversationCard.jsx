@@ -24,6 +24,7 @@ export default function SrsAiConversationCard({
 
   const timerRef = useRef(null);
   const autoAdvanceTimerRef = useRef(null);
+  const typingDebounceRef = useRef(null);
   const recognizerRef = useRef(null);
   const inputRef = useRef(null);
   const isSubmittingRef = useRef(false);
@@ -49,11 +50,16 @@ export default function SrsAiConversationCard({
     const lang = isReverse ? 'tl-PH' : 'en-US';
     const recognizer = createSpeechRecognizer({
       lang,
-      silenceTimeoutMs: 1100,
+      silenceTimeoutMs: 650,
       onStart: () => setIsListening(true),
       onEnd: () => setIsListening(false),
-      onResult: ({ transcript, final }) => {
+      onResult: ({ transcript }) => {
         setUserText(transcript);
+      },
+      onFinal: (finalText) => {
+        if (finalText && !isSubmittingRef.current && !evaluationResult) {
+          triggerSubmit(finalText);
+        }
       },
       onSilence: (finalText) => {
         if (finalText && !isSubmittingRef.current && !evaluationResult) {
@@ -78,6 +84,19 @@ export default function SrsAiConversationCard({
     }
   };
 
+  const handleInputChange = (e) => {
+    const val = e.target.value;
+    setUserText(val);
+
+    if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
+    if (val.trim().length > 0 && !isSubmittingRef.current && !evaluationResult) {
+      // Auto-submit 700ms after user pauses typing (Zero Enter needed)
+      typingDebounceRef.current = setTimeout(() => {
+        triggerSubmit(val.trim());
+      }, 700);
+    }
+  };
+
   // Card Mount / Reset Lifecycle
   useEffect(() => {
     setUserText('');
@@ -87,6 +106,7 @@ export default function SrsAiConversationCard({
     setIsAutoAdvancePaused(false);
     setAutoAdvanceSeconds(2.2);
     isSubmittingRef.current = false;
+    if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
 
     const start = Date.now();
     setStartTime(start);
@@ -109,6 +129,7 @@ export default function SrsAiConversationCard({
 
     return () => {
       clearTimeout(micTimer);
+      if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
       if (timerRef.current) clearInterval(timerRef.current);
       if (autoAdvanceTimerRef.current) clearInterval(autoAdvanceTimerRef.current);
       if (recognizerRef.current) {
@@ -315,7 +336,7 @@ export default function SrsAiConversationCard({
                 ref={inputRef}
                 type="text"
                 value={userText}
-                onChange={(e) => setUserText(e.target.value)}
+                onChange={handleInputChange}
                 placeholder={isListening ? '🎙️ Speak your answer now...' : 'Type or speak your answer...'}
                 disabled={isEvaluating}
                 style={{
@@ -360,7 +381,7 @@ export default function SrsAiConversationCard({
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                {isListening ? '⚡ Auto-submits when you stop speaking' : 'Speak or press Enter to submit'}
+                {isListening ? '⚡ Auto-submits when you stop speaking' : '⚡ Auto-submits on pause (No Enter needed)'}
               </span>
               <Button
                 type="submit"
