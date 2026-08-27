@@ -216,4 +216,89 @@ describe('AI Gemini API Integration Tests', () => {
     expect(quizResult.questions[0].correctIndex).toBe(0);
     expect(quizResult.questions[0].explanation).toContain('Sino');
   });
+
+  it('exhaustively combines and deduplicates words from vocabulary list, tables, and rules without duplicates', async () => {
+    const mockApiResponse = {
+      candidates: [
+        {
+          content: {
+            parts: [
+              {
+                text: JSON.stringify({
+                  title: 'Lesson 11 — Demonstrative Pronouns',
+                  summary: 'Learn ito, iyan, iyon demonstratives in Tagalog.',
+                  theory: [
+                    {
+                      id: 'THEORY-11-01',
+                      topic: 'Demonstrative Pronouns Table',
+                      table: [
+                        { tagalog: 'Ito', english: 'This (near speaker)' },
+                        { tagalog: 'Iyan', english: 'That (near listener)' },
+                        { tagalog: 'Iyon', english: 'That (far from both)' },
+                        { tagalog: 'Dito', english: 'Here' },
+                        { tagalog: 'Diyan', english: 'There' },
+                        { tagalog: 'Doon', english: 'Over there' }
+                      ],
+                      rules: [
+                        {
+                          name: 'Pre/Post pairs',
+                          pairs: [
+                            { pre: 'nito', meaning: 'of this' },
+                            { post: 'diyan', meaning: 'there (post)' }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  // Intentionally contains 'Ito' and 'Iyan' duplicated, plus additional words
+                  vocabulary: [
+                    { word: 'Ito', meaning: 'This', partOfSpeech: 'pronoun' },
+                    { word: 'ito', meaning: 'This (alternate casing)', partOfSpeech: 'pronoun' },
+                    { word: 'Iyan', meaning: 'That', partOfSpeech: 'pronoun' },
+                    { word: 'Ganda', meaning: 'Beauty', partOfSpeech: 'noun' }
+                  ],
+                  activities: [
+                    { prompt: 'Ano ___?', correctAnswer: 'ito', acceptedAnswers: ['ito'] }
+                  ],
+                  quiz: {
+                    questions: Array.from({ length: 8 }).map((_, i) => ({
+                      id: `Q11-${i}`,
+                      prompt: `Q ${i}`,
+                      options: ['A', 'B', 'C', 'D'],
+                      correct_answer: 'A'
+                    }))
+                  }
+                })
+              }
+            ]
+          }
+        }
+      ]
+    };
+
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => mockApiResponse
+    });
+
+    const structured = await structureLessonWithAi({
+      slideText: 'Demonstrative pronouns lesson text',
+      lessonName: 'Lesson_11'
+    });
+
+    // Check that all words (Ito, Iyan, Iyon, Dito, Diyan, Doon, nito, Ganda) are present
+    const words = structured.vocabulary.map(v => v.word.toLowerCase());
+    expect(words).toContain('ito');
+    expect(words).toContain('iyan');
+    expect(words).toContain('iyon');
+    expect(words).toContain('dito');
+    expect(words).toContain('diyan');
+    expect(words).toContain('doon');
+    expect(words).toContain('nito');
+    expect(words).toContain('ganda');
+
+    // Verify STRICT uniqueness: no word appears more than once
+    const uniqueWords = new Set(words);
+    expect(words.length).toBe(uniqueWords.size);
+  });
 });

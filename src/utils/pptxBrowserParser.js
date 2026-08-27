@@ -72,6 +72,30 @@ export async function parsePptxFile(file) {
       }
     }
 
+    // Extract structured tables inside <a:tbl>
+    const tableMatches = slideXml.match(/<a:tbl\b[\s\S]*?<\/a:tbl>/g) || [];
+    const tables = [];
+    for (const tblXml of tableMatches) {
+      const rowMatches = tblXml.match(/<a:tr\b[\s\S]*?<\/a:tr>/g) || [];
+      const tableRows = [];
+      for (const trXml of rowMatches) {
+        const cellMatches = trXml.match(/<a:tc\b[\s\S]*?<\/a:tc>/g) || [];
+        const cells = cellMatches.map((tcXml) => {
+          const tMatches = tcXml.match(/<a:t\b[^>]*>([\s\S]*?)<\/a:t>/g) || [];
+          return tMatches
+            .map((t) => t.replace(/<[^>]+>/g, '').trim())
+            .filter(Boolean)
+            .join(' ');
+        }).filter((c) => c.length > 0);
+        if (cells.length > 0) {
+          tableRows.push(cells);
+        }
+      }
+      if (tableRows.length > 0) {
+        tables.push(tableRows);
+      }
+    }
+
     let title = '';
     let bodyParagraphs = [];
 
@@ -92,7 +116,8 @@ export async function parsePptxFile(file) {
     const slideObj = {
       slideNumber: idx + 1,
       title: title || `Slide ${idx + 1}`,
-      paragraphs: bodyParagraphs
+      paragraphs: bodyParagraphs,
+      tables
     };
 
     slides.push(slideObj);
@@ -102,6 +127,17 @@ export async function parsePptxFile(file) {
       `=== SLIDE ${idx + 1}: ${slideObj.title} ===`,
       ...bodyParagraphs.map((p) => (p.isBullet ? `• ${p.text}` : p.text))
     ];
+
+    if (tables.length > 0) {
+      slideLines.push('\n[STRUCTURED TABLE DATA]');
+      tables.forEach((t) => {
+        t.forEach((row) => {
+          slideLines.push(`| ${row.join(' | ')} |`);
+        });
+        slideLines.push('');
+      });
+    }
+
     textSections.push(slideLines.join('\n'));
   }
 

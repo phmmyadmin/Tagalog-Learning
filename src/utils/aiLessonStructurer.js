@@ -73,12 +73,14 @@ Extract all content into a single JSON object with EXACTLY these four sections:
    - "formula": (Optional) "e.g. [Subject] + ay + [Predicate]"
    - "examples": Array of objects [{"tagalog": "...", "english": "..."}] or strings
 
-3. "vocabulary": Array of ALL key words and linguistic elements introduced in this lesson (MANDATORY - MUST NOT BE EMPTY, aim for 10-30 terms):
-   - Include nouns, adjectives, verbs, question words (sino, ano, saan...), enclitic particles (ba, na, pa, din/rin...), pseudo-verbs (gusto, ayaw...), prefixes/suffixes (kasing-, napaka-, pinaka-).
+3. "vocabulary": Array of ALL key words, terms, and linguistic elements introduced in this lesson (MANDATORY - MUST BE EXHAUSTIVE, aim for 15-45 terms):
+   - Exhaustively extract ALL nouns, adjectives, verbs (infinitive and conjugated forms), question words (sino, ano, alin, saan, kailan, bakit, paano, ilan, gaano...), enclitic particles (ba, na, pa, din/rin, daw/raw, nga, naman, pala, kaya, tuloy, sana...), pseudo-verbs (gusto, ayaw, puwede, maaari, kailangan, dapat...), pronouns, conjunctions, prefixes/suffixes (kasing-, magka-, napaka-, pinaka-).
+   - Every single term appearing in slide tables, bullet lists, vocabulary sections, and grammar examples MUST be included.
+   - Ensure every word entry is UNIQUE (do not duplicate the same word twice).
    - "id": "VOCAB-${normLessonKey}-001"
    - "word": "Tagalog word"
    - "meaning": "English definition"
-   - "partOfSpeech": "noun | verb | adjective | pronoun | particle | adverb | preposition | prefix"
+   - "partOfSpeech": "noun | verb | adjective | pronoun | particle | adverb | preposition | prefix | conjunction"
    - "lesson": "${normLessonKey}"
    - "example": "Tagalog sentence - English translation"
 
@@ -129,47 +131,93 @@ Return ONLY a valid JSON object matching the schema. Do not wrap in extra markdo
       topic: t.topic || `Grammar Topic ${idx + 1}`
     }));
 
-    let rawVocab = Array.isArray(result.vocabulary) ? result.vocabulary : [];
+    // Comprehensive multi-source vocabulary extraction with word-level deduplication
+    const vocabMap = new Map();
+    const normalizeWord = (w) => (w || '').trim();
+    const getWordKey = (w) => normalizeWord(w).toLowerCase();
 
-    // Fallback: If vocabulary array is empty, extract terms from theory tables and rules
-    if (rawVocab.length === 0 && theory.length > 0) {
-      theory.forEach((t) => {
-        if (Array.isArray(t.table)) {
-          t.table.forEach((row) => {
-            const word = row.tagalog || row.filipino || row.term || row.word || row.pronoun;
-            if (word) {
-              rawVocab.push({
-                word,
-                meaning: row.english || row.meaning || row.translation || 'Grammatical term',
-                partOfSpeech: row.type || row.partOfSpeech || 'vocabulary',
-                example: row.usage || row.example || ''
-              });
-            }
-          });
-        }
-        if (Array.isArray(t.rules)) {
-          t.rules.forEach((r) => {
-            if (r.pattern && !rawVocab.some((v) => v.word === r.pattern)) {
-              rawVocab.push({
-                word: r.pattern,
-                meaning: r.description || r.meaning || 'Rule pattern',
-                partOfSpeech: 'grammar_pattern',
-                example: ''
-              });
-            }
-          });
+    // 1. Ingest AI returned vocabulary list
+    if (Array.isArray(result.vocabulary)) {
+      result.vocabulary.forEach((v) => {
+        const word = normalizeWord(v.word);
+        if (word) {
+          const key = getWordKey(word);
+          if (!vocabMap.has(key)) {
+            vocabMap.set(key, {
+              word,
+              meaning: v.meaning || 'Vocabulary term',
+              partOfSpeech: v.partOfSpeech || 'vocabulary',
+              lesson: finalLessonKey,
+              example: v.example || ''
+            });
+          }
         }
       });
     }
 
-    const vocabulary = rawVocab.map((v, idx) => ({
+    // 2. Extract any additional terms from theory tables
+    theory.forEach((t) => {
+      if (Array.isArray(t.table)) {
+        t.table.forEach((row) => {
+          const word = normalizeWord(row.tagalog || row.filipino || row.term || row.word || row.pronoun || row.pre || row.post);
+          if (word) {
+            const key = getWordKey(word);
+            if (!vocabMap.has(key)) {
+              vocabMap.set(key, {
+                word,
+                meaning: row.english || row.meaning || row.translation || row.description || 'Grammatical term',
+                partOfSpeech: row.type || row.partOfSpeech || (row.pronoun ? 'pronoun' : 'grammar_table'),
+                lesson: finalLessonKey,
+                example: row.usage || row.example || ''
+              });
+            }
+          }
+        });
+      }
+
+      // 3. Extract any terms from theory rules (pairs, patterns)
+      if (Array.isArray(t.rules)) {
+        t.rules.forEach((r) => {
+          if (Array.isArray(r.pairs)) {
+            r.pairs.forEach((pair) => {
+              ['pre', 'post', 'word', 'tagalog'].forEach((field) => {
+                const w = normalizeWord(pair[field]);
+                if (w && !w.includes(' ') && w.length > 1) {
+                  const k = getWordKey(w);
+                  if (!vocabMap.has(k)) {
+                    vocabMap.set(k, {
+                      word: w,
+                      meaning: pair.meaning || r.name || 'Grammar pair term',
+                      partOfSpeech: 'particle',
+                      lesson: finalLessonKey,
+                      example: pair.example || ''
+                    });
+                  }
+                }
+              });
+            });
+          }
+
+          if (r.pattern && !r.pattern.includes(' ') && r.pattern.length > 1) {
+            const k = getWordKey(r.pattern);
+            if (!vocabMap.has(k)) {
+              vocabMap.set(k, {
+                word: r.pattern,
+                meaning: r.description || r.name || 'Grammar pattern',
+                partOfSpeech: 'grammar_pattern',
+                lesson: finalLessonKey,
+                example: ''
+              });
+            }
+          }
+        });
+      }
+    });
+
+    const vocabulary = Array.from(vocabMap.values()).map((v, idx) => ({
       ...v,
-      id: v.id || `VOCAB-${finalLessonKey}-${String(idx + 1).padStart(3, '0')}`,
-      lesson: finalLessonKey,
-      word: v.word || '',
-      meaning: v.meaning || '',
-      partOfSpeech: v.partOfSpeech || 'vocabulary',
-      example: v.example || ''
+      id: `VOCAB-${finalLessonKey}-${String(idx + 1).padStart(3, '0')}`,
+      lesson: finalLessonKey
     }));
 
     const activities = (Array.isArray(result.activities) ? result.activities : []).map((a, idx) => ({

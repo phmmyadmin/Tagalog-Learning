@@ -97,4 +97,53 @@ describe('PPTX Ingestion Pipeline Tests', () => {
     const afterDelete = getUserLessons();
     expect(afterDelete.some(l => l.lessonKey === 'Lesson_09')).toBe(false);
   });
+
+  it('extracts OpenXML table structures (| col1 | col2 |) from PPTX slides', async () => {
+    const zip = new JSZip();
+
+    const slideWithTableXml = `<?xml version="1.0" encoding="UTF-8"?>
+      <p:sld xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+        <p:cSld>
+          <p:spTree>
+            <p:sp>
+              <p:txBody>
+                <a:p><a:r><a:t>Grammar Pronouns Table</a:t></a:r></a:p>
+              </p:txBody>
+            </p:sp>
+            <p:graphicFrame>
+              <a:graphic>
+                <a:graphicData>
+                  <a:tbl>
+                    <a:tr>
+                      <a:tc><a:txBody><a:p><a:r><a:t>Tagalog</a:t></a:r></a:p></a:txBody></a:tc>
+                      <a:tc><a:txBody><a:p><a:r><a:t>English</a:t></a:r></a:p></a:txBody></a:tc>
+                    </a:tr>
+                    <a:tr>
+                      <a:tc><a:txBody><a:p><a:r><a:t>Ako</a:t></a:r></a:p></a:txBody></a:tc>
+                      <a:tc><a:txBody><a:p><a:r><a:t>I / Me</a:t></a:r></a:p></a:txBody></a:tc>
+                    </a:tr>
+                    <a:tr>
+                      <a:tc><a:txBody><a:p><a:r><a:t>Ikaw</a:t></a:r></a:p></a:txBody></a:tc>
+                      <a:tc><a:txBody><a:p><a:r><a:t>You</a:t></a:r></a:p></a:txBody></a:tc>
+                    </a:tr>
+                  </a:tbl>
+                </a:graphicData>
+              </a:graphic>
+            </p:graphicFrame>
+          </p:spTree>
+        </p:cSld>
+      </p:sld>`;
+
+    zip.file('ppt/slides/slide1.xml', slideWithTableXml);
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const mockFile = new File([blob], 'Lesson_Table_Test.pptx', { type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' });
+
+    const parsed = await parsePptxFile(mockFile);
+    expect(parsed.slides[0].tables).toBeDefined();
+    expect(parsed.slides[0].tables).toHaveLength(1);
+    expect(parsed.slides[0].tables[0]).toHaveLength(3); // 3 rows
+    expect(parsed.fullText).toContain('| Tagalog | English |');
+    expect(parsed.fullText).toContain('| Ako | I / Me |');
+    expect(parsed.fullText).toContain('| Ikaw | You |');
+  });
 });
