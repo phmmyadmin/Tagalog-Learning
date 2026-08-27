@@ -9,7 +9,7 @@ export function isSpeechRecognitionSupported() {
 }
 
 export function createSpeechRecognizer({
-  lang = 'tl-PH',
+  lang = 'fil-PH',
   onResult,
   onFinal,
   onError,
@@ -28,15 +28,15 @@ export function createSpeechRecognizer({
   recognition.lang = lang;
   recognition.continuous = false;
   recognition.interimResults = true;
-  recognition.maxAlternatives = 1;
+  recognition.maxAlternatives = 5;
 
   let silenceTimer = null;
 
-  const resetSilenceTimer = (currentTranscript) => {
+  const resetSilenceTimer = (currentTranscript, currentAlternatives) => {
     if (silenceTimer) clearTimeout(silenceTimer);
     if (silenceTimeoutMs > 0 && currentTranscript && onSilence) {
       silenceTimer = setTimeout(() => {
-        onSilence(currentTranscript);
+        onSilence(currentTranscript, currentAlternatives);
       }, silenceTimeoutMs);
     }
   };
@@ -50,33 +50,43 @@ export function createSpeechRecognizer({
   recognition.onresult = (event) => {
     let interimTranscript = '';
     let finalTranscript = '';
+    const alternativesSet = new Set();
 
     for (let i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
-        finalTranscript += event.results[i][0].transcript;
+      const result = event.results[i];
+      for (let j = 0; j < result.length; ++j) {
+        if (result[j]?.transcript) {
+          alternativesSet.add(result[j].transcript.trim());
+        }
+      }
+
+      if (result.isFinal) {
+        finalTranscript += result[0].transcript;
       } else {
-        interimTranscript += event.results[i][0].transcript;
+        interimTranscript += result[0].transcript;
       }
     }
 
     const currentText = (finalTranscript || interimTranscript).trim();
+    const alternatives = Array.from(alternativesSet).filter(Boolean);
 
     if (onResult) {
       onResult({
         final: finalTranscript.trim(),
         interim: interimTranscript.trim(),
-        transcript: currentText
+        transcript: currentText,
+        alternatives
       });
     }
 
     if (finalTranscript.trim() && onFinal) {
       if (silenceTimer) clearTimeout(silenceTimer);
-      onFinal(finalTranscript.trim());
+      onFinal(finalTranscript.trim(), alternatives);
       return;
     }
 
     if (currentText) {
-      resetSilenceTimer(currentText);
+      resetSilenceTimer(currentText, alternatives);
     }
   };
 

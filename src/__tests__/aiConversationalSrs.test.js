@@ -146,6 +146,32 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
       expect(result.ratingLabel).toBe('Easy ⭐');
     });
 
+    it('evaluates answers with phonetic tolerance (e.g. baha for bahay)', () => {
+      const result = evaluateAnswerLocally({
+        card,
+        cardDirection: 'reverse',
+        userAnswer: 'baha', // missing trailing 'y'
+        responseTimeMs: 2000
+      });
+
+      expect(result.isCorrect).toBe(true);
+      expect(result.suggestedRating).toBeGreaterThanOrEqual(3);
+    });
+
+    it('matches when primary transcript had typo but alternative is exact', () => {
+      const result = evaluateAnswerLocally({
+        card,
+        cardDirection: 'reverse',
+        userAnswer: 'bye', // misheard
+        speechAlternatives: ['baha', 'bahay'],
+        responseTimeMs: 2000
+      });
+
+      expect(result.isCorrect).toBe(true);
+      expect(result.suggestedRating).toBe(4);
+      expect(result.ratingLabel).toBe('Easy ⭐');
+    });
+
     it('evaluates answers via Gemini 2.5 Flash API with detailed pedagogical feedback', async () => {
       const mockGeminiResponse = {
         candidates: [
@@ -177,6 +203,7 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
         card,
         cardDirection: 'forward',
         userAnswer: 'House',
+        speechAlternatives: ['house', 'hows'],
         responseTimeMs: 2400,
         configOverrides: { apiKey: 'test-api-key' }
       });
