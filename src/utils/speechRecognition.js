@@ -11,10 +11,11 @@ export function isSpeechRecognitionSupported() {
 export function createSpeechRecognizer({
   lang = 'tl-PH',
   onResult,
+  onFinal,
   onError,
   onStart,
   onEnd,
-  silenceTimeoutMs = 1100,
+  silenceTimeoutMs = 650,
   onSilence,
 } = {}) {
   if (!isSpeechRecognitionSupported()) {
@@ -66,6 +67,12 @@ export function createSpeechRecognizer({
         interim: interimTranscript.trim(),
         transcript: currentText
       });
+    }
+
+    if (finalTranscript.trim() && onFinal) {
+      if (silenceTimer) clearTimeout(silenceTimer);
+      onFinal(finalTranscript.trim());
+      return;
     }
 
     if (currentText) {
