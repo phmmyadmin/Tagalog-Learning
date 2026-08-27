@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { getMergedLessonData, getMergedLessonQuizzes, saveUserLesson } from '../utils/userLessonsManager';
+import { getMergedLessonData, getMergedLessonQuizzes, saveUserLesson, deleteUserLesson } from '../utils/userLessonsManager';
 import { recordStudyActivity, calculateStreak, getLocalDateString } from '../utils/streakManager';
 import { saveMistake, getMistakes, clearAllMistakes } from '../utils/mistakesManager';
 
@@ -130,5 +130,39 @@ describe('Data Layer, Deduplication & Cloud Sync Integration Tests', () => {
 
     // Total count should increase by exactly 3 (Salamat + BagongSalitaA + BagongSalitaB)
     expect(updatedData.vocabulary.length).toBe(initialCount + 3);
+
+    // NOW DELETE THE LESSON AND VERIFY ITS VOCABULARY IS COMPLETELY REMOVED
+    deleteUserLesson('Lesson_09');
+    const afterDeleteData = getMergedLessonData();
+
+    expect(afterDeleteData.lessons).not.toContain('Lesson_09');
+    expect(afterDeleteData.vocabulary.some(v => v.word.toLowerCase() === 'bagongsalitaa')).toBe(false);
+    expect(afterDeleteData.vocabulary.some(v => v.word.toLowerCase() === 'bagongsalitab')).toBe(false);
+    expect(afterDeleteData.vocabulary.some(v => v.word.toLowerCase() === 'salamat')).toBe(false);
+
+    // Verify 'Bahay' is still present (from Lesson 2), but no longer has 'Lesson_09' tag
+    const bahayAfter = afterDeleteData.vocabulary.find(v => v.word.toLowerCase() === 'bahay');
+    expect(bahayAfter).toBeDefined();
+    expect(bahayAfter.lesson).not.toContain('Lesson_09');
+
+    // Total vocabulary count is exactly restored
+    expect(afterDeleteData.vocabulary.length).toBe(initialCount);
+  });
+
+  it('permanently deletes a default lesson without auto-resurrecting it', () => {
+    const initial = getMergedLessonData();
+    expect(initial.lessons).toContain('Lesson_08');
+
+    // Delete Lesson 8
+    deleteUserLesson('Lesson_08');
+
+    // Re-query data multiple times to ensure no auto-resurrection
+    const afterDelete1 = getMergedLessonData();
+    expect(afterDelete1.lessons).not.toContain('Lesson_08');
+    expect(afterDelete1.lessons).toHaveLength(6);
+
+    const afterDelete2 = getMergedLessonData();
+    expect(afterDelete2.lessons).not.toContain('Lesson_08');
+    expect(afterDelete2.lessons).toHaveLength(6);
   });
 });

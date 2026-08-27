@@ -89,6 +89,24 @@ export function updateCardState(cardId, newCardState) {
 }
 
 /**
+ * Removes multiple cards from SRS storage.
+ */
+export function removeCardStatesByIds(cardIds = []) {
+  if (!Array.isArray(cardIds) || cardIds.length === 0) return;
+  const cards = getSrsCardStates();
+  let modified = false;
+  cardIds.forEach((id) => {
+    if (cards[id]) {
+      delete cards[id];
+      modified = true;
+    }
+  });
+  if (modified) {
+    saveSrsCardStates(cards);
+  }
+}
+
+/**
  * Gets all review log entries.
  */
 export function getReviewLog() {

@@ -6,8 +6,10 @@
 
 import { defaultLessons } from '../data/defaultLessons.js';
 import { autoPushIfLoggedIn } from './cloudSyncManager.js';
+import { removeCardStatesByIds } from './srsStore.js';
 
 const STORAGE_KEY = 'tagalog_user_lessons_v1';
+const DELETED_LESSONS_KEY = 'tagalog_deleted_lessons_v1';
 
 const safeParseJSON = (key, fallback) => {
   try {
@@ -18,22 +20,47 @@ const safeParseJSON = (key, fallback) => {
   }
 };
 
+export function getDeletedLessonKeys() {
+  return safeParseJSON(DELETED_LESSONS_KEY, []);
+}
+
+function saveDeletedLessonKeys(list) {
+  try {
+    localStorage.setItem(DELETED_LESSONS_KEY, JSON.stringify(list));
+  } catch (e) {}
+}
+
 /**
  * Gets all lessons from localStorage, auto-seeding with default lessons (L02-L08) if uninitialized.
  * @returns {Array<Object>}
  */
 export function getUserLessons() {
+  const deletedKeysList = getDeletedLessonKeys();
+  const deletedKeys = new Set(deletedKeysList.map((k) => String(k).trim().toLowerCase().replace(/\s+/g, '_')));
+
   const saved = safeParseJSON(STORAGE_KEY, null);
   if (saved === null || (Array.isArray(saved) && saved.length === 0)) {
+    const initial = defaultLessons.filter(
+      (dl) =>
+        !deletedKeys.has(String(dl.lessonKey).toLowerCase().replace(/\s+/g, '_')) &&
+        !deletedKeys.has(String(dl.id).toLowerCase().replace(/\s+/g, '_'))
+    );
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultLessons));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
     } catch (e) {}
-    return defaultLessons;
+    return initial;
   }
 
-  // Ensure default lessons are present and up to date with enriched vocabulary
+  // Filter out any lessons that were explicitly deleted
+  const filteredSaved = saved.filter(
+    (les) =>
+      !deletedKeys.has(String(les.lessonKey).toLowerCase().replace(/\s+/g, '_')) &&
+      !deletedKeys.has(String(les.id).toLowerCase().replace(/\s+/g, '_'))
+  );
+
+  // Ensure default lessons are present and up to date with enriched vocabulary (unless deleted)
   let hasUpdates = false;
-  const updatedLessons = saved.map((les) => {
+  const updatedLessons = filteredSaved.map((les) => {
     const defaultMatch = defaultLessons.find((dl) => dl.lessonKey === les.lessonKey || dl.id === les.id);
     if (defaultMatch) {
       if (!les.vocabulary || les.vocabulary.length < defaultMatch.vocabulary.length) {
@@ -51,9 +78,15 @@ export function getUserLessons() {
   });
 
   const lessonKeys = new Set(updatedLessons.map((l) => l.lessonKey || l.id));
-  const missingDefaults = defaultLessons.filter((dl) => !lessonKeys.has(dl.lessonKey) && !lessonKeys.has(dl.id));
-  
-  if (missingDefaults.length > 0 || hasUpdates) {
+  const missingDefaults = defaultLessons.filter(
+    (dl) =>
+      !lessonKeys.has(dl.lessonKey) &&
+      !lessonKeys.has(dl.id) &&
+      !deletedKeys.has(String(dl.lessonKey).toLowerCase().replace(/\s+/g, '_')) &&
+      !deletedKeys.has(String(dl.id).toLowerCase().replace(/\s+/g, '_'))
+  );
+
+  if (missingDefaults.length > 0 || hasUpdates || filteredSaved.length !== saved.length) {
     const unified = [...updatedLessons, ...missingDefaults];
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(unified));
@@ -70,6 +103,17 @@ export function getUserLessons() {
  */
 export function saveUserLesson(lesson) {
   if (!lesson || !lesson.lessonKey) return;
+
+  // Unmark from deleted list if saving anew
+  const deleted = getDeletedLessonKeys().filter((k) => {
+    const kNorm = String(k).trim().toLowerCase().replace(/\s+/g, '_');
+    return (
+      kNorm !== String(lesson.lessonKey).toLowerCase().replace(/\s+/g, '_') &&
+      kNorm !== String(lesson.id || '').toLowerCase().replace(/\s+/g, '_')
+    );
+  });
+  saveDeletedLessonKeys(deleted);
+
   const current = getUserLessons();
   const index = current.findIndex(
     (l) => l.id === lesson.id || l.lessonKey === lesson.lessonKey
@@ -119,19 +163,54 @@ export function saveUserLesson(lesson) {
 }
 
 /**
- * Deletes a lesson by its ID or lessonKey.
+ * Deletes a lesson by its ID or lessonKey, removing associated cards and tracking deletion.
  * @param {string} idOrKey
  */
 export function deleteUserLesson(idOrKey) {
   if (!idOrKey) return;
+  const norm = (s) => String(s || '').trim().toLowerCase().replace(/\s+/g, '_');
+  const targetNorm = norm(idOrKey);
   const current = getUserLessons();
-  const filtered = current.filter(
-    (l) => l.id !== idOrKey && l.lessonKey !== idOrKey
+
+  const targetLessons = current.filter(
+    (l) =>
+      l.id === idOrKey ||
+      l.lessonKey === idOrKey ||
+      norm(l.id) === targetNorm ||
+      norm(l.lessonKey) === targetNorm
   );
+
+  // Collect vocabulary IDs from target lessons for SRS cleanup
+  const cardIdsToRemove = [];
+  targetLessons.forEach((l) => {
+    if (Array.isArray(l.vocabulary)) {
+      l.vocabulary.forEach((v) => {
+        if (v.id) cardIdsToRemove.push(v.id);
+      });
+    }
+  });
+
+  const filtered = current.filter(
+    (l) =>
+      l.id !== idOrKey &&
+      l.lessonKey !== idOrKey &&
+      norm(l.id) !== targetNorm &&
+      norm(l.lessonKey) !== targetNorm
+  );
+
+  // Save to deleted lessons registry
+  const deleted = Array.from(new Set([...getDeletedLessonKeys(), idOrKey, targetNorm]));
+  saveDeletedLessonKeys(deleted);
+
+  // Clean up SRS card states
+  if (cardIdsToRemove.length > 0) {
+    removeCardStatesByIds(cardIdsToRemove);
+  }
 
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
     window.dispatchEvent(new Event('tagalog_user_lessons_updated'));
+    window.dispatchEvent(new Event('tagalog_srs_updated'));
     autoPushIfLoggedIn();
   } catch (e) {
     console.error('Failed to delete user lesson:', e);
