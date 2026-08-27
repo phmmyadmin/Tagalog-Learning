@@ -5,6 +5,7 @@
  */
 
 import { getAiConfig } from './aiConfigStore';
+import { isGeminiRateLimited, setGeminiRateLimited } from './aiQuizGenerator';
 
 const CACHE_DB_NAME = 'tagalog_audio_cache_v1';
 const CACHE_STORE_NAME = 'audio_blobs';
@@ -140,6 +141,11 @@ export async function synthesizeGeminiAudio(text, options = {}) {
     return `data:${cached.mimeType || 'audio/wav'};base64,${cached.base64Audio}`;
   }
 
+  // If currently rate-limited, skip network call to prevent 429 flood
+  if (isGeminiRateLimited()) {
+    return null;
+  }
+
   const config = getAiConfig();
   const apiKey = options.apiKey || config.apiKey;
 
@@ -147,7 +153,7 @@ export async function synthesizeGeminiAudio(text, options = {}) {
     return null;
   }
 
-  const model = options.model || 'gemini-2.0-flash';
+  const model = options.model || config.model || 'gemini-3.6-flash';
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   const payload = {
@@ -182,6 +188,9 @@ export async function synthesizeGeminiAudio(text, options = {}) {
   });
 
   if (!response.ok) {
+    if (response.status === 429) {
+      setGeminiRateLimited(20);
+    }
     const errorText = await response.text();
     throw new Error(`Gemini Audio API error (${response.status}): ${errorText}`);
   }

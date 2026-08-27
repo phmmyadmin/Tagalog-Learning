@@ -7,13 +7,27 @@ import { getAiConfig } from './aiConfigStore';
 import { getSrsCardStates } from './srsStore';
 import { getMistakes } from './mistakesManager';
 
+let rateLimitCooldownUntil = 0;
+
+export function isGeminiRateLimited() {
+  return Date.now() < rateLimitCooldownUntil;
+}
+
+export function setGeminiRateLimited(cooldownSeconds = 20) {
+  rateLimitCooldownUntil = Date.now() + (cooldownSeconds * 1000);
+}
+
 /**
  * Calls Gemini API with exponential backoff and automatic model fallback on 503/429 high demand errors.
  */
 export async function callGeminiApiWithRetry(systemPrompt, config) {
+  if (isGeminiRateLimited()) {
+    throw new Error('Gemini API rate limited (429). Using intelligent local fallback.');
+  }
+
   const modelsToTry = [
     config.model || 'gemini-3.6-flash',
-    'gemini-2.0-flash',
+    'gemini-2.5-flash',
     'gemini-1.5-flash',
   ];
 
@@ -57,19 +71,30 @@ export async function callGeminiApiWithRetry(systemPrompt, config) {
 
         const errText = await response.text();
 
-        // 503 Service Unavailable / 429 Too Many Requests -> retry or fallback
-        if (response.status === 503 || response.status === 429) {
-          lastError = new Error(`Gemini AI is experiencing high demand (${response.status}). Retrying...`);
+        // 429 Too Many Requests -> set cooldown and fallback
+        if (response.status === 429) {
+          setGeminiRateLimited(20);
+          lastError = new Error(`Gemini AI rate limit exceeded (429).`);
+          break; // Try next model or fallback
+        }
+
+        // 503 Service Unavailable -> retry
+        if (response.status === 503) {
+          lastError = new Error(`Gemini AI is experiencing high demand (503). Retrying...`);
           if (attempt === 1) {
-            await new Promise((r) => setTimeout(r, 1500));
+            await new Promise((r) => setTimeout(r, 1000));
             continue;
           }
+        } else if (response.status === 404) {
+          // Model deprecated / not found -> try next model in loop
+          lastError = new Error(`Model ${currentModel} not found (404).`);
+          break;
         } else {
           throw new Error(`Gemini API Error (${response.status}): ${errText}`);
         }
       } catch (err) {
         lastError = err;
-        if (err.message.includes('400') || err.message.includes('403') || err.message.includes('404')) {
+        if (err.message.includes('400') || err.message.includes('403')) {
           throw err;
         }
       }

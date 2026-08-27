@@ -5,7 +5,7 @@
  */
 
 import { getAiConfig } from './aiConfigStore';
-import { callGeminiApiWithRetry } from './aiQuizGenerator';
+import { callGeminiApiWithRetry, isGeminiRateLimited } from './aiQuizGenerator';
 
 /**
  * Normalizes text for offline exact/partial matching
@@ -172,8 +172,8 @@ export async function evaluateConversationalAnswer({
   const config = { ...getAiConfig(), ...configOverrides };
   const seconds = (responseTimeMs / 1000).toFixed(1);
 
-  // If no API key configured, use intelligent local evaluation
-  if (!config.apiKey && !config.proxyUrl) {
+  // If no API key configured or currently rate limited, use intelligent local evaluation
+  if ((!config.apiKey && !config.proxyUrl) || isGeminiRateLimited()) {
     return evaluateAnswerLocally({ card, cardDirection, userAnswer, speechAlternatives, responseTimeMs });
   }
 
