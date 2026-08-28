@@ -13,10 +13,10 @@ export default function SrsAiConversationCard({
   onRate,
   onOpenSettings,
 }) {
-  const [userText, setUserText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [evaluationResult, setEvaluationResult] = useState(null);
+  const [capturedResponse, setCapturedResponse] = useState('');
   const [startTime, setStartTime] = useState(Date.now());
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [autoAdvanceSeconds, setAutoAdvanceSeconds] = useState(2.2);
@@ -24,7 +24,6 @@ export default function SrsAiConversationCard({
 
   const timerRef = useRef(null);
   const autoAdvanceTimerRef = useRef(null);
-  const typingDebounceRef = useRef(null);
   const restartListeningTimeoutRef = useRef(null);
   const recognizerRef = useRef(null);
   const isSubmittingRef = useRef(false);
@@ -34,7 +33,6 @@ export default function SrsAiConversationCard({
   // Direction: 'reverse' means prompt is English -> student responds in Tagalog
   const isReverse = card?.cardDirection === 'reverse';
   const promptText = isReverse ? card.meaning : card.word;
-  const targetAnswer = isReverse ? card.word : card.meaning;
   const promptLabel = isReverse ? 'How do you say this in Tagalog?' : 'What is the meaning of this word?';
 
   const intervals = previewNextIntervals(card?.srs);
@@ -68,7 +66,6 @@ export default function SrsAiConversationCard({
         }
       },
       onResult: ({ transcript }) => {
-        setUserText(transcript);
         lastUserTextRef.current = transcript;
         lastUserTextTimeRef.current = Date.now();
       },
@@ -106,33 +103,17 @@ export default function SrsAiConversationCard({
     }
   };
 
-  const handleInputChange = (e) => {
-    const val = e.target.value;
-    setUserText(val);
-    lastUserTextRef.current = val;
-    lastUserTextTimeRef.current = Date.now();
-
-    if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
-    if (val.trim().length > 0 && !isSubmittingRef.current && !evaluationResult) {
-      // Auto-submit 600ms after user pauses typing (Zero Enter needed)
-      typingDebounceRef.current = setTimeout(() => {
-        triggerSubmit(val.trim());
-      }, 600);
-    }
-  };
-
   // Card Mount / Reset Lifecycle
   useEffect(() => {
-    setUserText('');
     lastUserTextRef.current = '';
     lastUserTextTimeRef.current = Date.now();
+    setCapturedResponse('');
     setEvaluationResult(null);
     setIsEvaluating(false);
     setIsListening(false);
     setIsAutoAdvancePaused(false);
     setAutoAdvanceSeconds(2.2);
     isSubmittingRef.current = false;
-    if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
     if (restartListeningTimeoutRef.current) clearTimeout(restartListeningTimeoutRef.current);
 
     const start = Date.now();
@@ -144,14 +125,13 @@ export default function SrsAiConversationCard({
       setElapsedSeconds(parseFloat(((Date.now() - start) / 1000).toFixed(1)));
     }, 100);
 
-    // Auto-start microphone for hands-free voice answering (Do not auto-focus keyboard!)
+    // Auto-start microphone for hands-free voice answering
     const micTimer = setTimeout(() => {
       startListening();
     }, 200);
 
     return () => {
       clearTimeout(micTimer);
-      if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
       if (restartListeningTimeoutRef.current) clearTimeout(restartListeningTimeoutRef.current);
       if (timerRef.current) clearInterval(timerRef.current);
       if (autoAdvanceTimerRef.current) clearInterval(autoAdvanceTimerRef.current);
@@ -163,22 +143,23 @@ export default function SrsAiConversationCard({
     };
   }, [card?.id]);
 
-  // Watchdog: If recognized text hasn't changed for 500ms, auto-submit immediately
+  // Watchdog: If recognized text has stopped changing for 500ms, auto-submit immediately
   useEffect(() => {
     const watchdogInterval = setInterval(() => {
+      const text = lastUserTextRef.current;
       if (
-        userText &&
-        userText.trim().length > 0 &&
+        text &&
+        text.trim().length > 0 &&
         !isSubmittingRef.current &&
         !evaluationResult &&
         !isEvaluating &&
         Date.now() - lastUserTextTimeRef.current > 500
       ) {
-        triggerSubmit(userText);
+        triggerSubmit(text);
       }
     }, 150);
     return () => clearInterval(watchdogInterval);
-  }, [userText, evaluationResult, isEvaluating]);
+  }, [evaluationResult, isEvaluating]);
 
   const handlePlayPrompt = () => {
     if (!isReverse) {
@@ -202,9 +183,10 @@ export default function SrsAiConversationCard({
   };
 
   const triggerSubmit = async (textToSubmit, speechAlternatives = []) => {
-    const answer = String(textToSubmit || userText || '').trim();
+    const answer = String(textToSubmit || lastUserTextRef.current || '').trim();
     if (isSubmittingRef.current || isEvaluating || evaluationResult) return;
     isSubmittingRef.current = true;
+    setCapturedResponse(answer);
 
     if (timerRef.current) clearInterval(timerRef.current);
     if (recognizerRef.current) {
@@ -247,11 +229,6 @@ export default function SrsAiConversationCard({
     } finally {
       setIsEvaluating(false);
     }
-  };
-
-  const handleSubmit = (e) => {
-    if (e) e.preventDefault();
-    triggerSubmit(userText);
   };
 
   const handleManualRate = (ratingNum) => {
@@ -369,73 +346,52 @@ export default function SrsAiConversationCard({
           </div>
         ) : null}
 
-        {/* Interactive Answer Input or Prominent Evaluation Feedback */}
+        {/* Clean Voice Listening Section (Zero text input clutter) */}
         {!evaluationResult ? (
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-              <input
-                type="text"
-                value={userText}
-                onChange={handleInputChange}
-                placeholder={isListening ? '🎙️ Listening... speak your answer now' : 'Type or speak your answer...'}
-                disabled={isEvaluating}
-                style={{
-                  width: '100%',
-                  padding: '0.85rem 3.5rem 0.85rem 1.15rem',
-                  fontSize: '1.05rem',
-                  borderRadius: 'var(--radius-md)',
-                  border: isListening ? '2px solid var(--accent-primary)' : '1px solid var(--border-default)',
-                  backgroundColor: isListening ? 'rgba(234, 88, 12, 0.05)' : 'var(--bg-surface-alt)',
-                  color: 'var(--text-primary)',
-                  outline: 'none',
-                  boxShadow: isListening ? '0 0 0 4px rgba(234, 88, 12, 0.15)' : 'none',
-                  transition: 'all 0.2s ease'
-                }}
-              />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '1.5rem 0',
+              gap: '0.75rem'
+            }}
+          >
+            <button
+              type="button"
+              onClick={toggleMic}
+              style={{
+                width: '74px',
+                height: '74px',
+                borderRadius: '50%',
+                background: isListening ? 'var(--accent-primary, #EA580C)' : 'var(--bg-surface-alt)',
+                color: isListening ? '#ffffff' : 'var(--text-secondary)',
+                border: isListening ? 'none' : '2px solid var(--border-default)',
+                fontSize: '2.1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: isListening ? '0 0 0 8px rgba(234, 88, 12, 0.2), 0 0 0 16px rgba(234, 88, 12, 0.1)' : 'var(--shadow-sm)',
+                transition: 'all 0.3s ease',
+                animation: isListening ? 'pulse 1.8s infinite' : 'none'
+              }}
+              title={isListening ? 'Listening live...' : 'Click to start microphone'}
+            >
+              {isListening ? '🎙️' : '🎤'}
+            </button>
 
-              <button
-                type="button"
-                onClick={toggleMic}
-                style={{
-                  position: 'absolute',
-                  right: '0.65rem',
-                  background: isListening ? 'var(--accent-primary)' : 'none',
-                  color: isListening ? '#ffffff' : 'var(--text-secondary)',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '36px',
-                  height: '36px',
-                  cursor: 'pointer',
-                  fontSize: '1.15rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.2s ease',
-                  animation: isListening ? 'pulse 1.5s infinite' : 'none'
-                }}
-                title={isListening ? 'Listening automatically...' : 'Start microphone'}
-              >
-                {isListening ? '🎙️' : '🎤'}
-              </button>
-            </div>
+            <span style={{ fontSize: '0.95rem', fontWeight: 600, color: isListening ? 'var(--accent-primary)' : 'var(--text-secondary)' }}>
+              {isEvaluating ? '🤖 Evaluating answer...' : isListening ? '🎙️ Listening... speak your answer now' : 'Click microphone to speak'}
+            </span>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                {isListening ? '⚡ Auto-submits instantly when you speak' : '⚡ Auto-submits on pause (No Enter needed)'}
-              </span>
-              <Button
-                type="submit"
-                variant="primary"
-                size="sm"
-                disabled={isEvaluating}
-                style={{ fontWeight: 700, padding: '0.4rem 0.85rem' }}
-              >
-                {isEvaluating ? 'Evaluating...' : 'Submit ➔'}
-              </Button>
-            </div>
-          </form>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              ⚡ Auto-evaluates as soon as you finish speaking
+            </span>
+          </div>
         ) : (
-          /* Prominent, Large Visual Feedback Section */
+          /* Prominent, Large Visual Feedback Section with Captured Speech Display */
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '0.5rem 0' }} className="animate-fade-in">
             {/* Main Result Card */}
             <div
@@ -468,6 +424,27 @@ export default function SrsAiConversationCard({
                 </Badge>
               </div>
 
+              {/* What the AI / Recognizer Heard */}
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  backgroundColor: 'var(--bg-surface)',
+                  border: '1px solid var(--border-default)',
+                  padding: '0.35rem 0.85rem',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: '0.9rem',
+                  color: 'var(--text-secondary)',
+                  marginTop: '0.1rem'
+                }}
+              >
+                <span style={{ fontWeight: 600 }}>🗣️ You said:</span>
+                <span style={{ fontWeight: 800, color: 'var(--text-primary)', fontStyle: 'italic' }}>
+                  "{capturedResponse || evaluationResult.userAnswer || '(No speech captured)'}"
+                </span>
+              </div>
+
               {/* Large Central Tagalog Word Display */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', margin: '0.2rem 0' }}>
                 <h1
@@ -486,7 +463,7 @@ export default function SrsAiConversationCard({
                   size="sm"
                   onClick={handlePlayAnswer}
                   style={{ fontSize: '1.4rem', padding: '0.35rem' }}
-                  title="Listen to pronunciation (auto-played)"
+                  title="Listen to pronunciation"
                 >
                   🔊
                 </Button>

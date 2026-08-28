@@ -142,6 +142,7 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
       });
 
       expect(result.isCorrect).toBe(true);
+      expect(result.userAnswer).toBe('Bahay');
       expect(result.suggestedRating).toBe(4);
       expect(result.ratingLabel).toBe('Easy ⭐');
     });

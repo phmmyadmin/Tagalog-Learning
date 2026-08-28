@@ -68,6 +68,7 @@ export function evaluateAnswerLocally({
   if (candidates.length === 0) {
     return {
       isCorrect: false,
+      userAnswer: '',
       suggestedRating: 1,
       ratingLabel: 'Again',
       feedbackTagalog: 'Subukan muli sa susunod.',
@@ -105,6 +106,7 @@ export function evaluateAnswerLocally({
     if (responseTimeMs <= 3500) {
       return {
         isCorrect: true,
+        userAnswer: userAnswer || bestCandidate,
         suggestedRating: 4,
         ratingLabel: 'Easy ⭐',
         feedbackTagalog: 'Napakagaling! Mabilis at tumpak.',
@@ -115,6 +117,7 @@ export function evaluateAnswerLocally({
     } else if (responseTimeMs <= 8000) {
       return {
         isCorrect: true,
+        userAnswer: userAnswer || bestCandidate,
         suggestedRating: 3,
         ratingLabel: 'Good',
         feedbackTagalog: 'Magaling! Tama ang sagot.',
@@ -125,6 +128,7 @@ export function evaluateAnswerLocally({
     } else {
       return {
         isCorrect: true,
+        userAnswer: userAnswer || bestCandidate,
         suggestedRating: 2,
         ratingLabel: 'Hard',
         feedbackTagalog: 'Tama, ngunit medyo matagal bago maalala.',
@@ -138,6 +142,7 @@ export function evaluateAnswerLocally({
   if (isPartial || bestSimilarity >= 0.70) {
     return {
       isCorrect: true,
+      userAnswer: userAnswer || bestCandidate,
       suggestedRating: 3,
       ratingLabel: 'Good',
       feedbackTagalog: 'Malapit na! Magaling ang pagbigkas.',
@@ -149,6 +154,7 @@ export function evaluateAnswerLocally({
 
   return {
     isCorrect: false,
+    userAnswer: userAnswer || bestCandidate,
     suggestedRating: 1,
     ratingLabel: 'Again',
     feedbackTagalog: `Mali. Ang tamang sagot ay "${target}".`,
@@ -226,6 +232,7 @@ Return ONLY a valid JSON object matching this schema:
 
     return {
       isCorrect: Boolean(result.isCorrect),
+      userAnswer: String(userAnswer || '').trim(),
       suggestedRating: Math.min(4, Math.max(1, parseInt(result.suggestedRating, 10) || 3)),
       ratingLabel: result.ratingLabel || (result.suggestedRating === 4 ? 'Easy ⭐' : result.suggestedRating === 3 ? 'Good' : result.suggestedRating === 2 ? 'Hard' : 'Again'),
       feedbackTagalog: result.feedbackTagalog || 'Magaling!',
