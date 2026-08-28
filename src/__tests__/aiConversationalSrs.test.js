@@ -284,4 +284,54 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
       expect(speakMock).toHaveBeenCalledTimes(2);
     });
   });
+
+  describe('Short Words, Homophones & Multi-Target Token Splitting', () => {
+    it('evaluates short English pronoun "I" and homophone "eye" correctly', () => {
+      const card = { word: 'Ako', meaning: 'I / me' };
+
+      // User says "I"
+      const res1 = evaluateAnswerLocally({ card, cardDirection: 'forward', userAnswer: 'I' });
+      expect(res1.isCorrect).toBe(true);
+
+      // User says "eye" (common STT transcription for "I")
+      const res2 = evaluateAnswerLocally({ card, cardDirection: 'forward', userAnswer: 'eye' });
+      expect(res2.isCorrect).toBe(true);
+    });
+
+    it('evaluates short English marker "the" and variant "the (marker)" correctly', () => {
+      const card = { word: 'Ang', meaning: 'the (direct marker)' };
+
+      // User says "the"
+      const res1 = evaluateAnswerLocally({ card, cardDirection: 'forward', userAnswer: 'the' });
+      expect(res1.isCorrect).toBe(true);
+
+      // User says "da"
+      const res2 = evaluateAnswerLocally({ card, cardDirection: 'forward', userAnswer: 'da' });
+      expect(res2.isCorrect).toBe(true);
+    });
+
+    it('evaluates short Tagalog markers "ang", "si", "sa", "ng" with phonetic variants', () => {
+      const cardAng = { word: 'Ang', meaning: 'the' };
+      const resAng = evaluateAnswerLocally({ card: cardAng, cardDirection: 'reverse', userAnswer: 'ung' });
+      expect(resAng.isCorrect).toBe(true);
+
+      const cardSi = { word: 'Si', meaning: 'marker for personal names' };
+      const resSi = evaluateAnswerLocally({ card: cardSi, cardDirection: 'reverse', userAnswer: 'see' });
+      expect(resSi.isCorrect).toBe(true);
+
+      const cardNg = { word: 'Ng', meaning: 'of / by' };
+      const resNg = evaluateAnswerLocally({ card: cardNg, cardDirection: 'reverse', userAnswer: 'nang' });
+      expect(resNg.isCorrect).toBe(true);
+    });
+
+    it('splits slash-separated compound meanings like "he / she" or "my / mine"', () => {
+      const card = { word: 'Siya', meaning: 'he / she' };
+
+      const resHe = evaluateAnswerLocally({ card, cardDirection: 'forward', userAnswer: 'he' });
+      expect(resHe.isCorrect).toBe(true);
+
+      const resShe = evaluateAnswerLocally({ card, cardDirection: 'forward', userAnswer: 'she' });
+      expect(resShe.isCorrect).toBe(true);
+    });
+  });
 });
