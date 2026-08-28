@@ -177,10 +177,11 @@ export async function evaluateConversationalAnswer({
 }) {
   const config = { ...getAiConfig(), ...configOverrides };
   const seconds = (responseTimeMs / 1000).toFixed(1);
+  const localEval = evaluateAnswerLocally({ card, cardDirection, userAnswer, speechAlternatives, responseTimeMs });
 
-  // If no API key configured or currently rate limited, use intelligent local evaluation
-  if ((!config.apiKey && !config.proxyUrl) || isGeminiRateLimited()) {
-    return evaluateAnswerLocally({ card, cardDirection, userAnswer, speechAlternatives, responseTimeMs });
+  // If no API key configured, currently rate limited, or local evaluator has high confidence match, return instantly
+  if ((!config.apiKey && !config.proxyUrl) || isGeminiRateLimited() || localEval.isCorrect) {
+    return localEval;
   }
 
   const promptQuestion =
