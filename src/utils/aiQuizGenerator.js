@@ -93,7 +93,7 @@ export async function callGeminiApiWithRetry(systemPrompt, config) {
         }
       } catch (err) {
         lastError = err;
-        if (err.message.includes('400') || err.message.includes('403')) {
+        if (err.message.includes('400') || err.message.includes('403') || err.message.includes('429')) {
           throw err;
         }
       }
