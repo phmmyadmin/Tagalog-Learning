@@ -334,4 +334,19 @@ describe('AI Conversational Flashcards & Neural Audio Integration Tests', () => 
       expect(resShe.isCorrect).toBe(true);
     });
   });
+
+  describe('SRS Rating Normalization & Session Summary Accuracy', () => {
+    it('normalizes numeric ratings (1, 2, 3, 4) from AI Tutor to corresponding names and FSRS grades', async () => {
+      const { normalizeSrsRating } = await import('../views/SrsSessionView');
+      
+      expect(normalizeSrsRating(1)).toEqual({ ratingGrade: 1, ratingName: 'again' });
+      expect(normalizeSrsRating(2)).toEqual({ ratingGrade: 2, ratingName: 'hard' });
+      expect(normalizeSrsRating(3)).toEqual({ ratingGrade: 3, ratingName: 'good' });
+      expect(normalizeSrsRating(4)).toEqual({ ratingGrade: 4, ratingName: 'easy' });
+
+      // String formats
+      expect(normalizeSrsRating('again')).toEqual({ ratingGrade: 1, ratingName: 'again' });
+      expect(normalizeSrsRating('easy')).toEqual({ ratingGrade: 4, ratingName: 'easy' });
+    });
+  });
 });

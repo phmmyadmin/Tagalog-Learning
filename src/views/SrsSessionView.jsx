@@ -9,6 +9,22 @@ import { scheduleReview, RATING } from '../utils/fsrsEngine';
 import { updateCardState, addReviewLogEntry, getSrsSettings, saveSrsSettings } from '../utils/srsStore';
 import { addXpForReview, checkAchievements } from '../utils/gamification';
 
+export function normalizeSrsRating(ratingParam) {
+  if (ratingParam === RATING.AGAIN || ratingParam === 'again' || ratingParam === '1' || ratingParam === 1 || ratingParam === 'AGAIN') {
+    return { ratingGrade: RATING.AGAIN, ratingName: 'again' };
+  }
+  if (ratingParam === RATING.HARD || ratingParam === 'hard' || ratingParam === '2' || ratingParam === 2 || ratingParam === 'HARD') {
+    return { ratingGrade: RATING.HARD, ratingName: 'hard' };
+  }
+  if (ratingParam === RATING.GOOD || ratingParam === 'good' || ratingParam === '3' || ratingParam === 3 || ratingParam === 'GOOD') {
+    return { ratingGrade: RATING.GOOD, ratingName: 'good' };
+  }
+  if (ratingParam === RATING.EASY || ratingParam === 'easy' || ratingParam === '4' || ratingParam === 4 || ratingParam === 'EASY') {
+    return { ratingGrade: RATING.EASY, ratingName: 'easy' };
+  }
+  return { ratingGrade: RATING.GOOD, ratingName: 'good' };
+}
+
 export default function SrsSessionView({
   vocabularyList = [],
   searchQuery = '',
@@ -134,12 +150,11 @@ export default function SrsSessionView({
 
   const currentCard = sessionQueue[currentIndex];
 
-  const handleRateCard = (ratingName, timeMs = 0) => {
+  const handleRateCard = (ratingInput, timeMs = 0) => {
     if (!currentCard || isRatingInProgressRef.current) return;
     isRatingInProgressRef.current = true;
 
-    const ratingMap = { again: RATING.AGAIN, hard: RATING.HARD, good: RATING.GOOD, easy: RATING.EASY };
-    const ratingGrade = ratingMap[ratingName] || RATING.GOOD;
+    const { ratingGrade, ratingName } = normalizeSrsRating(ratingInput);
 
     const previousSrsState = currentCard.srs;
     const isNew = !previousSrsState || previousSrsState.state === 'new';
