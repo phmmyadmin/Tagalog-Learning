@@ -230,7 +230,36 @@ export async function synthesizeGeminiAudio(text, options = {}) {
 }
 
 /**
- * Plays audio with seamless fallback between Gemini Neural Audio and browser Web Speech.
+ * Speaks text immediately with 0ms latency using browser Web Speech API (device TTS).
+ */
+export function speakInstantBrowserTTS(text, lang = 'fil-PH', rate = 1.0) {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+  const cleanText = String(text || '').trim();
+  if (!cleanText) return;
+
+  try {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = lang === 'en-US' ? 'en-US' : 'tl-PH';
+    utterance.rate = rate;
+
+    const voices = window.speechSynthesis.getVoices();
+    if (voices && voices.length > 0) {
+      const targetCode = utterance.lang.slice(0, 2);
+      const matchingVoice = voices.find(v => v.lang.startsWith(targetCode) || v.lang.includes('fil') || v.lang.includes('tl'));
+      if (matchingVoice) {
+        utterance.voice = matchingVoice;
+      }
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } catch (e) {
+    console.warn('Instant Web Speech API error:', e);
+  }
+}
+
+/**
+ * Plays audio with seamless fallback between cached audio and instant browser Web Speech.
  */
 export async function playTagalogAudio(text, options = {}) {
   const cleanText = String(text || '').trim();
@@ -238,42 +267,24 @@ export async function playTagalogAudio(text, options = {}) {
 
   const lang = options.lang || 'fil-PH';
 
+  // 1. Fast check in local IndexedDB audio cache
   try {
-    const audioUri = await synthesizeGeminiAudio(cleanText, options);
-    if (audioUri) {
+    const cached = await getCachedAudio(cleanText);
+    if (cached && cached.base64Audio) {
+      const audioUri = `data:${cached.mimeType || 'audio/wav'};base64,${cached.base64Audio}`;
       const audio = new Audio(audioUri);
       await audio.play();
       return;
     }
-  } catch (err) {
-    console.warn('Gemini Audio synthesis failed, falling back to Web Speech API:', err.message);
-  }
+  } catch {}
 
-  // Fallback to browser Web Speech API
-  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-    try {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.lang = lang === 'en-US' ? 'en-US' : 'tl-PH';
-      utterance.rate = options.rate || 0.95;
-
-      const voices = window.speechSynthesis.getVoices();
-      if (voices && voices.length > 0) {
-        const matchingVoice = voices.find(v => v.lang.startsWith(utterance.lang.slice(0, 2)));
-        if (matchingVoice) {
-          utterance.voice = matchingVoice;
-        }
-      }
-
-      window.speechSynthesis.speak(utterance);
-    } catch (e) {
-      console.warn('Web Speech API error:', e);
-    }
-  }
+  // 2. Play instantly via native browser speech synthesis (0ms latency, 0 network wait)
+  speakInstantBrowserTTS(cleanText, lang, options.rate || 0.95);
 }
 
 /**
  * Automatically speaks the target answer upon student response in AI Tutor mode.
+ * Speaks with 0ms instantaneous latency so audio never lags behind responses.
  * In Reverse mode: speaks the Tagalog word with authentic Filipino voice.
  * In Forward mode: speaks the Tagalog word followed by English meaning.
  */
@@ -281,11 +292,11 @@ export async function playCardAnswerAudio(card, isReverse = false) {
   if (!card) return;
 
   if (isReverse) {
-    // English -> Tagalog: speak target Tagalog word
-    await playTagalogAudio(card.word, { lang: 'fil-PH' });
+    // English -> Tagalog: speak target Tagalog word instantly
+    speakInstantBrowserTTS(card.word, 'fil-PH', 1.0);
   } else {
-    // Tagalog -> English: speak Tagalog word first, then meaning or both
+    // Tagalog -> English: speak Tagalog word first, then meaning instantly
     const phrase = `${card.word}. ${card.meaning}`;
-    await playTagalogAudio(phrase, { lang: 'en-US' });
+    speakInstantBrowserTTS(phrase, 'en-US', 1.0);
   }
 }
